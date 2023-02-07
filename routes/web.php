@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RecipeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+//食譜部落格
+Route::get('/',[RecipeController::class,'index'])->name('blog.new');//首頁
+
+
+//食譜頁面(選擇性路由
+Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
 
 Route::middleware([
     'auth:sanctum',
