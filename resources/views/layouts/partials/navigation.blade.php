@@ -15,9 +15,9 @@
                                       類別
                                   </a>
                                   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                      <li><a class="dropdown-item" href="#">中式</a></li>
-                                      <li><a class="dropdown-item" href="#">西式</a></li>
-                                      <li><a class="dropdown-item" href="#">日式</a></li>
+                                      <li><a class="dropdown-item" href="{{route('blog.china')}}">中式</a></li>
+                                      <li><a class="dropdown-item" href="{{route('blog.western')}}">西式</a></li>
+                                      <li><a class="dropdown-item" href="{{route('blog.japan')}}">日式</a></li>
                                   </ul>
                               </li>
                           </ul>
@@ -30,21 +30,23 @@
 {{--    </div>--}}
 {{--</form>--}}
 
-{{--                  <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">--}}
-{{--                          @if (Route::has('login'))--}}
-{{--                              <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">--}}
-{{--                                  @auth--}}
-{{--                                      <a href="{{ url('/dashboard') }}" class="tbadge bg-light text-dark ">Dashboard</a>--}}
-{{--                                      <a href="" class="tbadge bg-light text-dark ">我的訂單</a>--}}
-{{--                                  @else--}}
-{{--                                      <a href="{{ route('login') }}" class="badge bg-light text-dark ">Log in</a>--}}
+{{--
+ <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">--}}
 
-{{--                                      @if (Route::has('register'))--}}
-{{--                                          <a href="{{ route('register') }}" class="badge bg-light text-dark">Register</a>--}}
-{{--                                      @endif--}}
-{{--                                  @endauth--}}
+                      <a class="nav-link link-light " aria-current="page"  href="{{route('blog.new')}}">購物車</a>
+{{--                              @if (Route::has('login'))--}}
+{{--                                  <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">--}}
+{{--                                      @auth--}}
+{{--                                          <a href="{{ url('/dashboard') }}" class="tbadge bg-light text-dark ">Dashboard</a>--}}
+{{--                                          <a href="" class="tbadge bg-light text-dark ">會員</a>--}}
+{{--                                      @else--}}
+{{--                                          <a href="{{ route('login') }}" class="badge bg-light text-dark ">Log in</a>--}}
 
-{{--                      @endif--}}
-{{--                  </ul>--}}
-{{--                  </div>--}}
+{{--                                          @if (Route::has('register'))--}}
+{{--                                              <a href="{{ route('register') }}" class="badge bg-light text-dark">Register</a>--}}
+{{--                                          @endif--}}
+{{--                                      @endauth--}}
+{{--                                  </div>--}}
+{{--                          @endif--}}
+
 </nav>

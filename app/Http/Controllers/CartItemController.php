@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class RecipeController extends Controller
+class CartItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,19 +13,7 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        return view('blog.new');
-    }
-    public function china()
-    {
-        return view('blog.china');
-    }
-    public function western()
-    {
-        return view('blog.western');
-    }
-    public function japan()
-    {
-        return view('blog.japan');
+        //
     }
 
     /**
@@ -33,10 +21,6 @@ class RecipeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function recipe()
-    {
-        return view('recipe.recipe');
-    }
     public function create()
     {
         //
