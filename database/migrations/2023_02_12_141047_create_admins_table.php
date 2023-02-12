@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();//編號
-            $table->unsignedBigInteger(' user_id '); //使用者編號
+            $table->unsignedBigInteger('user_id'); //使用者編號
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('position',255);//職位
             $table->timestamps();

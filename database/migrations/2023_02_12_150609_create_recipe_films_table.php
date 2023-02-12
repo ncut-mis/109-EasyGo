@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('recipe_films', function (Blueprint $table) {
             $table->id();//編號
-            $table->unsignedBigInteger('recipe_id '); //食譜編號
-            $table->foreign('recipe_id ')->references('id')->on('recipes');
+            $table->unsignedBigInteger('recipe_id'); //食譜編號
+            $table->foreign('recipe_id')->references('id')->on('recipes');
             $table->string('film',255);//影片
             $table->timestamps();
         });
