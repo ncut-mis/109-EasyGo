@@ -24,8 +24,12 @@ class product extends Model
         //一個商品只有一個種類
         return $this->belongsTo(category::class);
     }
-    public function product_img(){
+    public function product_imgs(){
         //一個產品有多張照片
         return $this->hasMany(product_img::class);
+    }
+    public function items(){
+        //一個產品能被多次選購
+        return $this->hasMany(item::class);
     }
 }
