@@ -19,4 +19,13 @@ class product extends Model
         'price',
         'text',
     ];
+
+    public function category(){
+        //一個商品只有一個種類
+        return $this->belongsTo(category::class);
+    }
+    public function product_img(){
+        //一個產品有多張照片
+        return $this->hasMany(product_img::class);
+    }
 }
