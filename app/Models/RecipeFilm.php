@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class RecipeFilm extends Model
 {
     use HasFactory;
+    protected $fillable = [
+      'film',
+    ];
+
+    //某影片屬於某一食譜
+    public function recipe(){
+        return $this->belongsTo(Recipe::class);
+    }
 }
