@@ -12,4 +12,10 @@ class Admin extends Model
     protected $fillable = [
         'position',
     ];
+
+    //某平台人員屬於user
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
