@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('collects', function (Blueprint $table) {
             $table->id();//編號
-            $table->unsignedBigInteger(' member_id '); //會員編號
+            $table->unsignedBigInteger('member_id'); //會員編號
             $table->foreign('member_id')->references('id')->on('members');
-            $table->unsignedBigInteger('recipe_id '); //食譜編號
-            $table->foreign('recipe_id ')->references('id')->on('recipes');
+            $table->unsignedBigInteger('recipe_id'); //食譜編號
+            $table->foreign('recipe_id')->references('id')->on('recipes');
             $table->timestamps();
         });
     }

@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//測試
+Route::get('/welcome',function (){
+    return view('welcome');
+});
 
 //食譜部落格
 Route::get('/',[RecipeController::class,'index'])->name('blog.new');//首頁
