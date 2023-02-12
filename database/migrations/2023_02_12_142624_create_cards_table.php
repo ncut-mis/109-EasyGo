@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('cards', function (Blueprint $table) {
             $table->id();//編號
-            $table->unsignedBigInteger(' user_id '); //使用者編號
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->string('position',255);//職位
+            $table->unsignedBigInteger(' member_id '); //會員編號
+            $table->foreign('member_id')->references('id')->on('members');
+            $table->integer('number');//卡號
+            $table->integer('check');//檢查碼
+            $table->date('deadline');//到期日
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('cards');
     }
 };

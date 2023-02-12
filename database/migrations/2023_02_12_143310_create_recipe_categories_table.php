@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('recipe_categories', function (Blueprint $table) {
             $table->id();//編號
-            $table->unsignedBigInteger(' user_id '); //使用者編號
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->string('position',255);//職位
+            $table->string('name',255);//種類名稱
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('recipe_categories');
     }
 };
