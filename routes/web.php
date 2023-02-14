@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +32,8 @@ Route::get('japan',[RecipeController::class,'japan'])->name('blog.japan');
 //食譜頁面(選擇性路由
 Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
 
-
+//賣場頁面(選擇性路由
+Route::get('product',[ProductController::class,'product'])->name('product.product');
 
 
 Route::middleware([
