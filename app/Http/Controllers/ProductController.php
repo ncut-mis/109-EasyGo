@@ -13,7 +13,46 @@ class ProductController extends Controller
      */
     public function index()
     {
-       //
+        return view('product.product');
+    }
+    public function cereals()
+    {
+        return view('product.cereals');
+    }
+
+    public function mushrooms()
+    {
+        return view('product.mushrooms');
+    }
+
+    public function fruit()
+    {
+        return view('product.fruit');
+    }
+
+    public function vegetable()
+    {
+        return view('product.vegetable');
+    }
+
+    public function meat()
+    {
+        return view('product.meat');
+    }
+
+    public function fresh()
+    {
+        return view('product.fresh');
+    }
+
+    public function milk()
+    {
+        return view('product.milk');
+    }
+
+    public function seasoning()
+    {
+        return view('product.seasoning');
     }
 
     /**

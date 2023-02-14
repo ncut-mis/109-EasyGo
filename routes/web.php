@@ -32,9 +32,20 @@ Route::get('japan',[RecipeController::class,'japan'])->name('blog.japan');
 //食譜頁面(選擇性路由
 Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
 
+//賣場
+Route::prefix('product')->name('product.')->group(function(){
+    Route::get('/',[ProductController::class,'index'])->name('product');//賣場首頁
+    Route::get('cereals',[ProductController::class,'cereals'])->name('cereals');//穀物
+    Route::get('fruit',[ProductController::class,'fruit'])->name('fruit');//水果
+    Route::get('vegetable',[ProductController::class,'vegetable'])->name('vegetable');//蔬菜
+    Route::get('meat',[ProductController::class,'meat'])->name('meat');//肉類
+    Route::get('fresh',[ProductController::class,'fresh'])->name('fresh');//生鮮
+    Route::get('milk',[ProductController::class,'milk'])->name('milk');//奶類
+    Route::get('seasoning',[ProductController::class,'seasoning'])->name('seasoning');//調味
+    Route::get('mushrooms',[ProductController::class,'mushrooms'])->name('mushrooms');//菇類
+});
 //賣場頁面(選擇性路由
 Route::get('product',[ProductController::class,'product'])->name('product.product');
-
 
 Route::middleware([
     'auth:sanctum',
