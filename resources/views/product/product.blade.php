@@ -1,7 +1,7 @@
 @extends('product.layouts.master')
 @section('title','EasyGo')
 @section('content')
-
+    @include('product.share.header')
     <!--標籤列-->
     <div class="row justify-content-center">
         <div style="width: 83%">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MemberController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +47,14 @@ Route::prefix('product')->name('product.')->group(function(){
 });
 //賣場頁面(選擇性路由
 Route::get('product',[ProductController::class,'product'])->name('product.product');
+
+//會員專區
+Route::get('members',[MemberController::class,'members'])->name('members.members');//個人資料
+Route::get('collects',[MemberController::class,'collects'])->name('members.collects');//我的收藏
+Route::get('recipes',[MemberController::class,'recipes'])->name('members.recipes');//我的食譜
+Route::get('orders',[MemberController::class,'orders'])->name('members.orders');//我的訂單(所有
+Route::get('cancelorders',[MemberController::class,'cancelorders'])->name('members.cancelorders');//我的訂單(取消
+Route::get('finishorders',[MemberController::class,'finishorders'])->name('members.finishorders');//我的訂單(完成
 
 Route::middleware([
     'auth:sanctum',
