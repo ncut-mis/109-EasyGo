@@ -42,5 +42,8 @@ class Recipe extends Model
     public function recipefilm(){
         return $this->hasMany(RecipeFilm::class);
     }
-
+    public function ingredients(){
+        //一份食譜擁有多項食材
+        return $this->hasMany(Ingredient::class);
+    }
 }

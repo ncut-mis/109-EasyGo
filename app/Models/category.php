@@ -22,4 +22,8 @@ class Category extends Model
         //一個大類別有多個小類別
         return $this->hasMany(Category::class);
     }
+    public function ingredients(){
+        //一個商品種類被多項食材選擇
+        return $this->hasMany(Ingredient::class);
+    }
 }
