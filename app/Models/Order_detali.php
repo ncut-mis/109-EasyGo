@@ -5,22 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
+class Order_detali extends Model
 {
     use HasFactory;
     protected $fillable=[
         'id',
-        'member_id',
-        'product',
+        'order_id',
+        'product_id',
         'quantity',
     ];
 
-    public function product(){
-        //一個選購資料只能有一個商品
-        return $this->belongsTo(Product::class);
+    public function order(){
+        //一則訂單明細只屬於一筆訂單
+        return $this->belongsTo(Order::class);
     }
-    public function member(){
-        //一個選購資料只屬於一個會員
-        return $this->belongsTo(Member::class);
+    public function product(){
+        //一則訂單明細只顯示一項商品
+        return $this->belongsTo(Product::class);
     }
 }

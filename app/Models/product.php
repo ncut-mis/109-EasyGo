@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class product extends Model
+class Product extends Model
 {
     use HasFactory;
     protected $fillable=[
@@ -22,14 +22,18 @@ class product extends Model
 
     public function category(){
         //一個商品只有一個種類
-        return $this->belongsTo(category::class);
+        return $this->belongsTo(Category::class);
     }
     public function product_imgs(){
         //一個產品有多張照片
-        return $this->hasMany(product_img::class);
+        return $this->hasMany(Product_img::class);
     }
     public function items(){
         //一個產品能被多次選購
-        return $this->hasMany(item::class);
+        return $this->hasMany(Item::class);
+    }
+    public function order_details(){
+        //一個產品能被多次購買
+        return $this->hasMany(Order_detali::class);
     }
 }

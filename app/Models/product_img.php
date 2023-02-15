@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class product_img extends Model
+class Product_img extends Model
 {
     use HasFactory;
     protected $fillable=[
@@ -16,6 +16,6 @@ class product_img extends Model
 
     public function product(){
         //一張圖片只有一個商品
-        return $this->belongsTo(product::class);
+        return $this->belongsTo(Product::class);
     }
 }
