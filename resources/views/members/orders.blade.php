@@ -12,10 +12,10 @@
                 <a class="nav-link active" aria-current="page" href="{{route('members.orders')}}">所有訂單</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('members.finishorders')}}">已完成訂單</a>
+                <a class="nav-link" href="{{route('members.orders.done')}}">已完成訂單</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('members.cancelorders')}}">已取消訂單</a>
+                <a class="nav-link" href="{{route('members.orders.cancel')}}">已取消訂單</a>
             </li>
 
         </ul>

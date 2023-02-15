@@ -27,13 +27,17 @@ class MemberController extends Controller
     {
         return view('members.orders');
     }
-    public function cancelorders()
+    public function cancel()
     {
-        return view('members.cancelorders');
+        return view('members.orders.cancel');
     }
-    public function finishorders()
+    public function done()
     {
-        return view('members.finishorders');
+        return view('members.orders.done');
+    }
+    public function show()
+    {
+        return view('members.orders.show');
     }
     /**
      * Show the form for creating a new resource.
@@ -66,10 +70,10 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+//    public function show($id)
+//    {
+//        //
+//    }
 
     /**
      * Show the form for editing the specified resource.

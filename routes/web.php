@@ -53,8 +53,10 @@ Route::get('members',[MemberController::class,'members'])->name('members.members
 Route::get('collects',[MemberController::class,'collects'])->name('members.collects');//我的收藏
 Route::get('recipes',[MemberController::class,'recipes'])->name('members.recipes');//我的食譜
 Route::get('orders',[MemberController::class,'orders'])->name('members.orders');//我的訂單(所有
-Route::get('cancelorders',[MemberController::class,'cancelorders'])->name('members.cancelorders');//我的訂單(取消
-Route::get('finishorders',[MemberController::class,'finishorders'])->name('members.finishorders');//我的訂單(完成
+Route::get('cancel',[MemberController::class,'cancel'])->name('members.orders.cancel');//我的訂單(取消
+Route::get('done',[MemberController::class,'done'])->name('members.orders.done');//我的訂單(完成
+Route::get('show',[MemberController::class,'show'])->name('members.orders.show');//訂單詳細資料
+
 
 Route::middleware([
     'auth:sanctum',
