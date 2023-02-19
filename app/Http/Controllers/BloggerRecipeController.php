@@ -4,50 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class MemberController extends Controller
+class BloggerRecipeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('members.members');
-    }
-    public function collects()
-    {
-        return view('members.collects');
-    }
     public function recipes()
     {
-        return view('members.recipes');
+        return view('blogger.recipes');
     }
-    public function orders()
+
+    public function index()
     {
-        return view('members.orders');
+        return view('blogger.recipes');
     }
-    public function cancel()
-    {
-        return view('members.orders.cancel');
-    }
-    public function done()
-    {
-        return view('members.orders.done');
-    }
-    public function show()
-    {
-        return view('members.orders.show');
-    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function members()
-    {
-        return view('members.members');
-    }
     public function create()
     {
         //
@@ -70,10 +48,10 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-//    public function show($id)
-//    {
-//        //
-//    }
+    public function show($id)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.

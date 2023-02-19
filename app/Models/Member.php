@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'id',
         'user_id',
@@ -42,6 +43,16 @@ class Member extends Model
         return $this->belongsToMany(Recipe::class,'collects')
                     ->withPivot('member_id','recipe_id')//pivot屬性代表中介表的模型(此為collects)，可像其它的 Eloquent 模型一樣被使用
                     ->withTimestamps();//自動維護 created_at 和 updated_at 時間戳記
+    }
+
+    private function items(){
+        //一名會員能選購多項產品
+        return $this->hasMany(item::class);
+    }
+    
+    public function orders(){
+        //一名會員傭有多筆訂單
+        return $this->hasMany(order::class);
     }
 
 }

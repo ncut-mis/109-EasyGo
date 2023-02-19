@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class MemberController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,40 +13,56 @@ class MemberController extends Controller
      */
     public function index()
     {
-        return view('members.members');
+        return view('product.product');
     }
-    public function collects()
+    public function cereals()
     {
-        return view('members.collects');
+        return view('product.cereals');
     }
-    public function recipes()
+
+    public function mushrooms()
     {
-        return view('members.recipes');
+        return view('product.mushrooms');
     }
-    public function orders()
+
+    public function fruit()
     {
-        return view('members.orders');
+        return view('product.fruit');
     }
-    public function cancel()
+
+    public function vegetable()
     {
-        return view('members.orders.cancel');
+        return view('product.vegetable');
     }
-    public function done()
+
+    public function meat()
     {
-        return view('members.orders.done');
+        return view('product.meat');
     }
-    public function show()
+
+    public function fresh()
     {
-        return view('members.orders.show');
+        return view('product.fresh');
     }
+
+    public function milk()
+    {
+        return view('product.milk');
+    }
+
+    public function seasoning()
+    {
+        return view('product.seasoning');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function members()
+    public function product()
     {
-        return view('members.members');
+        return view('product.product');
     }
     public function create()
     {
@@ -70,10 +86,10 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-//    public function show($id)
-//    {
-//        //
-//    }
+    public function show($id)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
