@@ -9,7 +9,9 @@ class RecipeFilm extends Model
 {
     use HasFactory;
     protected $fillable = [
-      'film',
+        'id',
+        'recipe_id',
+        'film',
     ];
 
     //某影片屬於某一食譜
