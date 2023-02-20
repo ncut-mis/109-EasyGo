@@ -10,6 +10,14 @@ class Admin extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
+        'user_id',
         'position',
     ];
+
+    //某平台人員屬於user
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

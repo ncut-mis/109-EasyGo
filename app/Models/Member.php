@@ -10,10 +10,18 @@ class Member extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
+        'user_id',
         'nickname',
         'phone',
         'address',
     ];
+
+    //某會員屬於user
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     //一個會員可擁有多個食譜(一對多)
     public function recipes(){

@@ -9,6 +9,8 @@ class RecipeImg extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
+        'recipe_id',
         'picture',
     ];
 

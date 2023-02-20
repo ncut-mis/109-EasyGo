@@ -18,6 +18,18 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    //user包含某會員
+    public function member()
+    {
+        return $this->hasOne(Member::class);
+    }
+
+    //user包含某平台人員
+    public function admin()
+    {
+        return $this->hasOne(Admin::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
