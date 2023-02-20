@@ -36,4 +36,8 @@ class Product extends Model
         //一個產品能被多次購買
         return $this->hasMany(Order_detali::class);
     }
+    public function suggests(){
+        //一個商品能被多項建議食材指定
+        return $this->hasMany(Suggest::class);
+    }
 }

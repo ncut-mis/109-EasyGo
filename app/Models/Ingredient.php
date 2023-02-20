@@ -24,4 +24,8 @@ class Ingredient extends Model
         //一項食材只能指定一個種類的食材
         return $this->belongsTo(Category::class);
     }
+    public function suggest(){
+        //一個食材擁有一個建議食材(一對一)
+        return $this->hasOne(Suggest::class);
+    }
 }
