@@ -17,7 +17,9 @@ class MemberFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'phone'=>$this->faker->phoneNumber(),//電話
+            'address'=>$this->faker->address,//地址
+            'nickname'=>$this->faker->userName,//暱稱
         ];
     }
 }
