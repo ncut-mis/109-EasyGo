@@ -42,6 +42,7 @@ class UserSeeder extends Seeder
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ])->has(Member::factory(1))->create();
 
-        User::factory(20)->has(Member::factory(1))->create();
+        User::factory(20,['type'=>1])->has(Member::factory(1))->create();
+        User::factory(20,['type'=>2])->has(Admin::factory(1))->create();
     }
 }
