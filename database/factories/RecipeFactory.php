@@ -14,10 +14,13 @@ class RecipeFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
     public function definition()
     {
         return [
-            //
+            'member_id'=>rand(1,10),//會員編號
+            'name' => $this->faker->sentence(2),//食譜名稱
+            'text' =>$this->faker->text('200'),//介紹
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\RecipeCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         DB::statement('SET FOREIGN_KEY_CHECKS=0;'); //關閉外鍵檢查
         $this->call(UserSeeder::class);
+        $this->call(RecipeCategorySeeder::class);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;'); //開啟外鍵檢查
     }
 }
