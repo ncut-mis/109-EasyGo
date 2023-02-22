@@ -77,7 +77,7 @@ class CategorySeeder extends Seeder
         Category::factory(['category_id'=>$id,'name'=>'鴻喜菇'])->has(Product::factory(2,['name'=>$faker->city.'鴻喜菇']))->create();
         Category::factory(['category_id'=>$id,'name'=>'香菇'])->has(Product::factory(2,['name'=>$faker->city.'香菇']))->create();
         Category::factory(['category_id'=>$id,'name'=>'金針菇'])->has(Product::factory(2,['name'=>$faker->city.'金針菇']))->create();
-        
+
 
     }
 }
