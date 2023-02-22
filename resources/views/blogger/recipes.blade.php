@@ -76,6 +76,8 @@
 
 
                             </table>
+
+                               
                             <h1 class="fw-bolder mb-1 ">步驟1</h1>
                             <div class="mb-3">
                                 <input type="file" name="image" id="image" accept="image/*" class="form-control">
