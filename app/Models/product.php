@@ -26,7 +26,7 @@ class Product extends Model
     }
     public function product_imgs(){
         //一個產品有多張照片
-        return $this->hasMany(Product_img::class);
+        return $this->hasMany(ProductImg::class);
     }
     public function items(){
         //一個產品能被多次選購

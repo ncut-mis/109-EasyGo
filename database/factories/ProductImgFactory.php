@@ -17,7 +17,7 @@ class ProductImgFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'picture'=>'meat.jpg',
         ];
     }
 }
