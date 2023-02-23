@@ -42,8 +42,8 @@
                                 <span>樣</span>
                             </div>
                         </div>
-                        <!--end全聯--->
-                        
+                        <!--尾全聯--->
+
 {{--                    <div class="card bg-light border-0 h-100">--}}
 {{--                        <!--圖片-->--}}
 {{--                        <img src ="#">--}}
