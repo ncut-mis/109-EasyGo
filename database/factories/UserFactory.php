@@ -24,7 +24,6 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'type'=> rand(1,2),//身分編號
             'name' => $this->faker->name(),//姓名
             'email' => $this->faker->unique()->safeEmail(),//電子郵件
             'email_verified_at' => now(),

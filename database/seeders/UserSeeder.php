@@ -25,24 +25,24 @@ class UserSeeder extends Seeder
         User::truncate();//重制資料表
         Admin::truncate();//重制資料表
         Member::truncate();//重制資料表
-        //平台人員
+        //平台人員(身分編碼為2
         User::factory([
-            'type'=> 1,//身分編號
+            'type'=> 2,//身分編號
             'name' => 'admin',//姓名
             'email' => 'admin@gmail.comm',//電子郵件
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ])->has(Admin::factory(1))->create();
-        //會員
+        //會員(身分編碼為1
         User::factory([
-            'type'=> 2,//身分編號
+            'type'=> 1,//身分編號
             'name' => 'member',//姓名
             'email' => 'member@gmail.comm',//電子郵件
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ])->has(Member::factory(1))->create();
 
-        User::factory(10)->has(Admin::factory(1))->create();
-        User::factory(20)->has(Member::factory(1))->create();
+        User::factory(20,['type'=>1])->has(Member::factory(1))->create();
+        User::factory(20,['type'=>2])->has(Admin::factory(1))->create();
     }
 }
