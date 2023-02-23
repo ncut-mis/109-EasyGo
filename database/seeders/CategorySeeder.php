@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\Product_img;
 use App\Models\ProductImg;
 use Database\Factories\ProductImgFactory;
 use Faker\Factory;
