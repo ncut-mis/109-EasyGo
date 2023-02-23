@@ -19,8 +19,9 @@ class RecipeFactory extends Factory
     {
         return [
             'member_id'=>rand(1,10),//會員編號
-            'name' => $this->faker->sentence(2),//食譜名稱
-            'text' =>$this->faker->text('200'),//介紹
+            'status' =>rand(1,2),//食譜上下架狀態(1為上架、2為下架)
+            'name' => $this->faker->sentence(1),//食譜名稱
+            'text' =>$this->faker->realText(199),//介紹
         ];
     }
 }
