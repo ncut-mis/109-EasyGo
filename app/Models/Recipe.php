@@ -14,6 +14,7 @@ class Recipe extends Model
         'member_id',
         'name',
         'text',
+        'status',
     ];
 
     //某食譜屬於某一會員

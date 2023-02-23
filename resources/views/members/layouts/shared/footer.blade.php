@@ -1,12 +1,4 @@
-<footer class="py-4 bg-light mt-auto">
-    <div class="container-fluid px-4">
-{{--        <div class="d-flex align-items-center justify-content-between small">--}}
-{{--            <div class="text-muted">Copyright &copy; Your Website 2022</div>--}}
-{{--            <div>--}}
-{{--                <a href="#">Privacy Policy</a>--}}
-{{--                &middot;--}}
-{{--                <a href="#">Terms &amp; Conditions</a>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-    </div>
+<!-- Footer-->
+<footer class="py-5 bg-dark ">
+    <div class="container"><p class="m-0 text-center text-white">食譜EasyGo</p></div>
 </footer>
