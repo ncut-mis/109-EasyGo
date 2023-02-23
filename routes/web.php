@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BloggerRecipeController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
@@ -20,6 +21,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/welcome',function (){
     return view('welcome');
 });
+
+Route::get('/',[HomeController::class,'home'])->name('home');//首頁
+Route::get('/sid/{category}',[HomeController::class,'sid'])->name('sid');//按照分類顯示在index上
+Route::get('/search',[RecipeController::class,'search'])->name('search');//搜尋
 
 //食譜部落格
 Route::get('/',[RecipeController::class,'index'])->name('blog.new');//首頁
@@ -71,3 +76,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+//辨別role，跳轉至各個使用者首面(0->user,1->poster,2->staff)
+Route::get('/redirects',[HomeController::class,'index'])->name('index');

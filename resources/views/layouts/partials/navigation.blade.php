@@ -3,12 +3,18 @@
     <div class="container px-lg-5">
         <a class="navbar-brand" href="{{route('blog.new')}}">食譜EasyGo</a>
 
-
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 " action="{{route('search')}}" method="get">
+            <div class="input-group">
+                <input type="text" class="input-text" style="width:550px" placeholder="輸入食譜名稱"  name="search" id="search">
+                <button type="submit" class="btn btn-success">搜尋</button>
+            </div>
+        </form>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('blog.new') }}">首頁&ensp;</a>
+                    <a class="nav-link" href="{{ route('product.product') }}">進入食材網&ensp;</a>
                 </li>
 
 
@@ -28,6 +34,7 @@
                           </ul>
                       </div>
                 <a class="nav-link link-light " aria-current="page"  href="{{route('blogger.recipes')}}">寫食譜</a>
+
                 <li class="nav-item active">
                     <a class="nav-link" href="">購物車&ensp;</a>
                 </li>
