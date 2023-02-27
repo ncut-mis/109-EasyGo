@@ -24,69 +24,59 @@ class CategorySeeder extends Seeder
         $faker=Factory::create();
         //$faker->addProvider(new \FakerRestaurant\Provider\en_US\Restaurant($faker));
 
-        //肉類
-        Category::factory(['name'=>'肉類'])->create();
-        $id=Category::where('name','肉類')->first()->id;
-        Category::factory(['category_id'=>$id,'name'=>'牛肉'])->has(Product::factory(2,['name'=>$faker->country.'牛肉']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'豬肉'])->has(Product::factory(2,['name'=>$faker->country.'豬肉']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'羊肉'])->has(Product::factory(2,['name'=>$faker->country.'羊肉']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'雞肉'])->has(Product::factory(2,['name'=>$faker->country.'雞肉']))->create();
 
-        //蔬菜
-        Category::factory(['name'=>'蔬菜'])->create();
-        $id=Category::where('name','蔬菜')->first()->id;
-        Category::factory(['category_id'=>$id,'name'=>'菠菜'])->has(Product::factory(2,['name'=>$faker->country.'菠菜']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'空心菜'])->has(Product::factory(2,['name'=>$faker->country.'空心菜']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'高麗菜'])->has(Product::factory(2,['name'=>$faker->country.'高麗菜']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'大陸妹'])->has(Product::factory(2,['name'=>$faker->country.'大陸妹']))->create();
+        $types = [
+            '肉類'=>['豬肉','牛肉'],
+            '蔬菜'=>['菠菜','空心菜'],
+            '水果'=>['蘋果','橘子'],
+            '穀物'=>['小麥','糙米'],
+            '海鮮'=>['蝦子','龍蝦'],
+            '奶類'=>['牛奶','優酪乳'],
+            '調味'=>['醬油','鹽'],
+            '菇類'=>['香菇','金針菇']
+        ];
+        foreach ($types as $type=>$info ){
+            Category::factory([
+                'name'=>$type
+            ])->create();
+            foreach ($info as $item){
+                Category::factory([
+                    'name'=>$item,
+                    'category_id'=>Category::where('name',$type)->first()->id
+                ])
+                ->create();
+            }
+        }
 
-        //水果
-        Category::factory(['name'=>'水果'])->create();
-        $id=Category::where('name','水果')->first()->id;
-        Category::factory(['category_id'=>$id,'name'=>'蘋果'])->has(Product::factory(2,['name'=>$faker->country.'蘋果']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'橘子'])->has(Product::factory(2,['name'=>$faker->country.'橘子']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'葡萄'])->has(Product::factory(2,['name'=>$faker->country.'葡萄']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'蓮霧'])->has(Product::factory(2,['name'=>$faker->country.'蓮霧']))->create();
+        $produces = [
+            '牛肉'=>['美牛','和牛'],
+            '豬肉'=>['伊比利豬','台灣豬'],
+            '菠菜'=>['有機菠菜','小農菠菜'],
+            '空心菜'=>['有機空心菜','小農空心菜'],
+            '蘋果'=>['青森蘋果','有機蘋果'],
+            '橘子'=>['砂糖橘','帝王柑'],
+            '小麥'=>['復興米店-小麥','統一生機-小麥胚芽'],
+            '糙米'=>['三好米-一等糙米','皇家穀堡-糙米'],
+            '蝦子'=>['天使紅蝦','泰國蝦'],
+            '龍蝦'=>['華得水產-野生頂級龍蝦','三頓飯-波士頓龍蝦'],
+            '牛奶'=>['全脂牛奶','低脂牛奶'],
+            '優酪乳'=>['AB優酪乳','LP33優酪乳'],
+            '醬油'=>['萬家香-純釀醬油','龜甲萬-甘醇醬油'],
+            '鹽'=>['台鹽-減鈉含碘鹽','統一生機-日曬海鹽'],
+            '香菇'=>['埔里香菇-特級香菇','義昌生技-台灣香菇'],
+            '金針菇'=>['鄰家生鮮-金針菇','勝花園-金針菇']
 
-        //穀物
-        Category::factory(['name'=>'穀物'])->create();
-        $id=Category::where('name','穀物')->first()->id;
-        Category::factory(['category_id'=>$id,'name'=>'小麥'])->has(Product::factory(2,['name'=>$faker->country.'小麥']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'米'])->has(Product::factory(2,['name'=>$faker->country.'米']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'玉米'])->has(Product::factory(2,['name'=>$faker->country.'玉米']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'薏仁'])->has(Product::factory(2,['name'=>$faker->country.'薏仁']))->create();
+        ];
+        foreach ($produces as $produce => $info){
+            $id=Category::where('name',$produce)->first()->id;
+            foreach ($info as $item){
+                Product::factory([
+                    'category_id' => $id,
+                    'name' => $item,
+                ])->create();
+            }
+        }
 
-        //奶類
-        Category::factory(['name'=>'奶類'])->create();
-        $id=Category::where('name','奶類')->first()->id;
-        Category::factory(['category_id'=>$id,'name'=>'全脂牛奶'])->has(Product::factory(2,['name'=>$faker->country.'全脂牛奶']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'低脂牛奶'])->has(Product::factory(2,['name'=>$faker->country.'低脂牛奶']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'優酪乳'])->has(Product::factory(2,['name'=>$faker->country.'優酪乳']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'起司'])->has(Product::factory(2,['name'=>$faker->country.'起司']))->create();
-
-        //調味
-        Category::factory(['name'=>'調味'])->create();
-        $id=Category::where('name','調味')->first()->id;
-        Category::factory(['category_id'=>$id,'name'=>'醬油'])->has(Product::factory(2,['name'=>$faker->country.'醬油']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'醋'])->has(Product::factory(2,['name'=>$faker->city.'醋']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'鹽'])->has(Product::factory(2,['name'=>$faker->city.'鹽']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'胡椒'])->has(Product::factory(2,['name'=>$faker->city.'胡椒']))->create();
-
-        //菇類
-        Category::factory(['name'=>'菇類'])->create();
-        $id=Category::where('name','菇類')->first()->id;
-        Category::factory(['category_id'=>$id,'name'=>'杏包菇'])->has(Product::factory(2,['name'=>$faker->country.'杏包菇']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'鴻喜菇'])->has(Product::factory(2,['name'=>$faker->city.'鴻喜菇']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'香菇'])->has(Product::factory(2,['name'=>$faker->city.'香菇']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'金針菇'])->has(Product::factory(2,['name'=>$faker->city.'金針菇']))->create();
-
-        //海鮮
-        Category::factory(['name'=>'海鮮'])->create();
-        $id=Category::where('name','海鮮')->first()->id;
-        Category::factory(['category_id'=>$id,'name'=>'蝦子'])->has(Product::factory(2,['name'=>$faker->country.'蝦子']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'龍蝦'])->has(Product::factory(2,['name'=>$faker->city.'龍蝦']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'鱸魚'])->has(Product::factory(2,['name'=>$faker->city.'鱸魚']))->create();
-        Category::factory(['category_id'=>$id,'name'=>'虱目魚'])->has(Product::factory(2,['name'=>$faker->city.'虱目魚']))->create();
 
     }
 }
