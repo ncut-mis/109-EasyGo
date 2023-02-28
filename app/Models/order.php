@@ -22,8 +22,8 @@ class Order extends Model
         //一筆訂單屬於一個會員
         return $this->belongsTo(Member::class);
     }
-    public function order_detalis(){
+    public function orderDetali(){
         //一筆訂單有多則訂單明細
-        return $this->hasMany(Order_detali::class);
+        return $this->hasMany(OrderDetali::class);
     }
 }
