@@ -19,9 +19,9 @@ class OrderSeeder extends Seeder
     {
         Order::truncate();//重製資料表
         OrderDetali::truncate();//重製資料表
-        $members=Member::all();//取得會員資料
-        foreach ($members as $member){
-            Order::factory(2,['member_id'=>$member->id])->has(OrderDetali::factory(3))->create();
+        $members = Member::all();//取得會員資料
+        foreach ($members as $member) {
+            Order::factory(2, ['member_id' => $member->id])->has(OrderDetali::factory(3))->create();
         }
     }
 }
