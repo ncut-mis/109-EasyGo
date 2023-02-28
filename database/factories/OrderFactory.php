@@ -17,7 +17,11 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'remit'=>rand(0,1),
+            'status'=>rand(0,6),
+            'receiver'=>$this->faker->name,
+            'address'=>$this->faker->address,
+            'tel'=>$this->faker->phoneNumber,
         ];
     }
 }

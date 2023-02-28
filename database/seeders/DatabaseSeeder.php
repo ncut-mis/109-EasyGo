@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(ProductImgSeeder::class);
+        $this->call(OrderSeeder::class);
         $this->call(RecipeCategorySeeder::class);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;'); //開啟外鍵檢查
     }
