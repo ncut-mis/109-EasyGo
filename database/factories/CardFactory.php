@@ -17,7 +17,9 @@ class CardFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'number' => $this->faker->creditCardNumber,
+            'check' => $this->faker->numberBetween(100, 999),
+            'deadline' => $this->faker->creditCardExpirationDate,
         ];
     }
 }
