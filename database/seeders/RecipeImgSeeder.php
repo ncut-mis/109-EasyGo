@@ -17,6 +17,13 @@ class RecipeImgSeeder extends Seeder
     {
         RecipeImg::truncate();//重制資料表
 
-        RecipeImg::factory(10)->create();
+        RecipeImg::create(['recipe_id' => 1, 'picture' => 'tomato.jpg']);
+        RecipeImg::create(['recipe_id' => 2, 'picture' => 'pasta.jpg']);
+        RecipeImg::create(['recipe_id' => 3, 'picture' => 'fish1.jpg']);
+        RecipeImg::create(['recipe_id' => 3, 'picture' => 'fish2.jpg']);
+        RecipeImg::create(['recipe_id' => 4, 'picture' => 'eggplant.jpg']);
+        RecipeImg::create(['recipe_id' => 5, 'picture' => 'siumai.jpg']);
+        RecipeImg::create(['recipe_id' => 6, 'picture' => 'stew.jpg']);
+        RecipeImg::create(['recipe_id' => 7, 'picture' => 'hamburger.jpg']);
     }
 }

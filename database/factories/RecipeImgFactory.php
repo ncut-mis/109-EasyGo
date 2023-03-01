@@ -17,8 +17,7 @@ class RecipeImgFactory extends Factory
     public function definition()
     {
         return [
-            'recipe_id'=>rand(1,14),//食譜編號
-            'picture'=>rand(01,10).'.jpg',//食譜圖片
+
         ];
     }
 }

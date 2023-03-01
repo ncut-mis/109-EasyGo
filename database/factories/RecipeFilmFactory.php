@@ -17,7 +17,7 @@ class RecipeFilmFactory extends Factory
     public function definition()
     {
         return [
-            //
+
         ];
     }
 }

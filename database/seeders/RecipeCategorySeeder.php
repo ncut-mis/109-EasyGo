@@ -17,34 +17,13 @@ class RecipeCategorySeeder extends Seeder
     public function run()
     {
         RecipeCategory::truncate();//重制資料表
-        Recipe::truncate();//重制資料表
 
-        RecipeCategory::factory([
-            'name' => '中式',//類別名稱
-        ])->has(Recipe::factory(2))->create();
-
-        RecipeCategory::factory([
-            'name' => '西式',//類別名稱
-        ])->has(Recipe::factory(2))->create();
-
-        RecipeCategory::factory([
-            'name' => '泰式',//類別名稱
-        ])->has(Recipe::factory(2))->create();
-
-        RecipeCategory::factory([
-            'name' => '義式',//類別名稱
-        ])->has(Recipe::factory(2))->create();
-
-        RecipeCategory::factory([
-            'name' => '港式',//類別名稱
-        ])->has(Recipe::factory(2))->create();
-
-        RecipeCategory::factory([
-            'name' => '法式',//類別名稱
-        ])->has(Recipe::factory(2))->create();
-
-        RecipeCategory::factory([
-            'name' => '日式',//類別名稱
-        ])->has(Recipe::factory(2))->create();
+        RecipeCategory::create(['name' => '中式']);
+        RecipeCategory::create(['name' => '義式']);
+        RecipeCategory::create(['name' => '泰式']);
+        RecipeCategory::create(['name' => '日式']);
+        RecipeCategory::create(['name' => '港式']);
+        RecipeCategory::create(['name' => '法式']);
+        RecipeCategory::create(['name' => '美式']);
     }
 }
