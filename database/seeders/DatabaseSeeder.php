@@ -27,6 +27,9 @@ class DatabaseSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;'); //關閉外鍵檢查
         $this->call(UserSeeder::class);
         $this->call(CategorySeeder::class);
+        $this->call(ProductSeeder::class);
+        $this->call(ProductImgSeeder::class);
+        $this->call(OrderSeeder::class);
         $this->call(RecipeCategorySeeder::class);
         $this->call(RecipeSeeder::class);
         $this->call(RecipeImgSeeder::class);

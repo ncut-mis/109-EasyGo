@@ -17,58 +17,46 @@
     </div>
 
     <!--內容--->
+
+    </div>
+
     <section class="pt-4">
         <div class="container px-lg-5">
             <!-- Page Features-->
             <div class="row gx-lg-5">
                 <div class="col-lg-6 col-xxl-4 mb-5">
-                    <div class="card bg-light border-0 h-100">
-                        <!--圖片-->
-                        <img src ="#">
-                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-
-                            <h2 class="fs-4 fw-bold">玉米</h2>
-
-                            <a href="{{route('product.product')}}" class="stretched-link"></a>
+                    <!--全聯--->
+                    <div class="cookbook img-item">
+                        <div class="card bg-light border-0 h-100">
+                            <img src="https://www.pxmart.com.tw/Api/Images/133162494023417960.jfif">
                         </div>
-                    </div>
-                </div>
+                        <div class="info"><h2>菲力牛柳佐椰香綠咖哩 </h2>
+                            <div class="name">料理時間</div>
+                            <div class="unit">
+                                <span>15</span>
+                                <span>分鐘</span>
+                            </div>
+                            <div class="name">準備食材</div>
+                            <div class="unit">
+                                <span>5</span>
+                                <span>樣</span>
+                            </div>
+                        </div>
+                        <!--尾全聯--->
 
+{{--                    <div class="card bg-light border-0 h-100">--}}
+{{--                        <!--圖片-->--}}
+{{--                        <img src ="#">--}}
+{{--                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">--}}
 
+{{--                            <h2 class="fs-4 fw-bold">玉米</h2>--}}
 
-
-
-
-
-
-
-
-    {{--    <!--內容-->--}}
-{{--    <div class="tab-content" id="nav-tabContent">--}}
-{{--        <!--最新--><!--陣列內有幾筆資料就會重複執行幾次-->--}}
-{{--        <div class="tab-pane fade show active" id="nav-new" role="tabpanel" aria-labelledby="nav-new-tab">--}}
-{{--            <section class="pt-4">--}}
-{{--                <div class="container px-lg-5">--}}
-{{--                    <!-- Page Features-->--}}
-{{--                    <div class="row gx-lg-5">--}}
-{{--                                                    @foreach( as )--}}
-{{--                                                        <div class="col-lg-6 col-xxl-4 mb-5">--}}
-{{--                                                            <div class="card bg-light border-0 h-100">--}}
-{{--                                                                <!--圖片-->--}}
-{{--                                                                <img src="{{asset('images/'.$activity->img)}}">--}}
-{{--                                                                <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">--}}
-{{--                                                                    <h2 class="fs-4 fw-bold">{{$activity->name}}</h2>--}}
-{{--                                                                    <p class="mb-0">{{$activity->introduce}}</p>--}}
-{{--                                                                    <a href="{{route('activity.activity',$activity->id)}}" class="stretched-link"></a>--}}
-{{--                                                                </div>--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-{{--                                                    @endforeach--}}
+{{--                            <a href="{{route('product.product')}}" class="stretched-link"></a>--}}
+{{--                        </div>--}}
 {{--                    </div>--}}
-{{--                </div>--}}
-{{--            </section>--}}
-{{--        </div>--}}
-
-{{--    </div>--}}
+                </div>
+            </div>
+        </div>
+    </section>
 
 @endsection

@@ -19,6 +19,7 @@ class ProductFactory extends Factory
     {
         $this->faker->addProvider(new \FakerRestaurant\Provider\en_US\Restaurant($this->faker));
         return [
+            'status'=>rand(0,1),
             'name'=>$this->faker->foodname(),
             'brand'=>$this->faker->company,
             'stock'=>rand(50,100),

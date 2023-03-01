@@ -14,8 +14,12 @@
                         <header class="mb-4">
                             <h1 class="fw-bolder mb-1 ">寫食譜</h1>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
                                 <button type="button" class="btn btn-danger btn-lg">發布</button>
+                                <button type="button" class="btn  btn-lg">儲存</button>
+                                <button type="button" class="btn btn-lg">刪除</button>
                             </div>
+
                                     <!-- Post title-->
                                     <div class="mb-3">
                                         <div class="mb-3">
@@ -52,7 +56,7 @@
                                 <label for="exampleFormControlTextarea1" class="form-label">食譜簡介</label>
                                 <textarea name="introduce" id="introduce" class="form-control" rows="4" placeholder="請輸入食譜簡介"></textarea><!--多行輸入框-->
                             </div>
-                            <h1 class="fw-bolder mb-1 ">食材</h1>
+                            <h1 class="fw-bolder mb-1 ">食材   <button type="button" class="btn  btn-lg">+</button></h1></h1>
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -77,8 +81,9 @@
 
                             </table>
 
-                               
-                            <h1 class="fw-bolder mb-1 ">步驟1</h1>
+
+                            <h1 class="fw-bolder mb-1 ">步驟1 <button type="button" class="btn btn-lg">+</button></h1>
+
                             <div class="mb-3">
                                 <input type="file" name="image" id="image" accept="image/*" class="form-control">
                                 <div class="mb-3">
@@ -105,6 +110,23 @@
                                             <button class="btn btn-primary btn-sm" type="submit">儲存</button>
                                         </div>
 
+                                        <div class="container">
+                                            <h1>動態添加刪除輸入框組</h1>
+                                            <form>
+
+                                                <div class="form-group" id="form-group">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" placeholder="輸入框1" aria-label="輸入框1" aria-describedby="basic-addon2" name="input[]">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-danger remove-btn" type="button">刪除</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-center">
+                                                    <button class="btn btn-primary" type="button" id="add-btn">新增輸入框</button>
+                                                </div>
+                                            </form>
+                                        </div>
 
                             </div>
 

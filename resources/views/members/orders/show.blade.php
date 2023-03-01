@@ -2,7 +2,8 @@
 
 @section('page-title', '訂單詳細資料')
 
-@section('page-content')
+@section('content')
+
     <div class="container-fluid px-4">
         <h1 class="mt-4">{$訂單編號}</h1>
 
