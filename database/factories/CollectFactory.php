@@ -17,7 +17,8 @@ class CollectFactory extends Factory
     public function definition()
     {
         return [
-            //
+            //'member_id'=>rand(1,21),
+            'recipe_id'=>rand(1,7),
         ];
     }
 }

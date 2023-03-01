@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RecipeImgSeeder::class);
         $this->call(RecipeFilmSeeder::class);
         $this->call(CardSeeder::class);
+        $this->call(CollectSeeder::class);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;'); //開啟外鍵檢查
     }
 }
