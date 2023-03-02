@@ -14,21 +14,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $role=Auth::user()->role;//目前使用者，users資料表的role欄位
+        $type=Auth::user()->type;//目前使用者，users資料表的role欄位
 
-        if($role =='1')
+        if($type =='2')
         {
-            return view('blog.new');
+            return view('product.add_product');
         }
-        if($role =='2'){
-            return view('blog.new');
+        if($type =='1'){
+            return view('home');
         }
-        else
-        {
-            //顧客登入後role為0，轉至顧客訂單初始化路由
-            return  redirect()->route('blog.new');
-
-        }
+    }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('blog.new');
     }
 
     /**

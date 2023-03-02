@@ -110,22 +110,12 @@
                                             <button class="btn btn-primary btn-sm" type="submit">儲存</button>
                                         </div>
 
-                                        <div class="container">
-                                            <h1>動態添加刪除輸入框組</h1>
-                                            <form>
 
-                                                <div class="form-group" id="form-group">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="輸入框1" aria-label="輸入框1" aria-describedby="basic-addon2" name="input[]">
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-outline-danger remove-btn" type="button">刪除</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="text-center">
-                                                    <button class="btn btn-primary" type="button" id="add-btn">新增輸入框</button>
-                                                </div>
-                                            </form>
+
+
+                                        <div class="input_fields_wrap">
+                                            <button class="add_field_button">Add More Fields</button>
+                                            <div><input type="text" name="mytext[]"></div>
                                         </div>
 
                             </div>

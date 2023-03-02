@@ -17,7 +17,8 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'product_id'=>rand(1,32),
+            'quantity'=>rand(1,10),
         ];
     }
 }

@@ -4,8 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Category;
-use App\Models\RecipeCategory;
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -37,6 +36,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CardSeeder::class);
         $this->call(CollectSeeder::class);
         $this->call(CommentSeeder::class);
+        $this->call(SuggestSeeder::class);
+        $this->call(ItemSeeder::class);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;'); //開啟外鍵檢查
     }
 }
