@@ -16,13 +16,18 @@ class HomeController extends Controller
     {
         $type=Auth::user()->type;//目前使用者，users資料表的role欄位
 
-        if($type =='0')
+        if($type =='2')
         {
-            return view('product.product');
+            return view('product.add_product');
         }
         if($type =='1'){
             return view('blog.new');
         }
+    }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('blog.new');
     }
 
     /**

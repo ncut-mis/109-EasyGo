@@ -22,7 +22,7 @@ Route::get('/welcome',function (){
     return view('welcome');
 });
 
-Route::get('/',[HomeController::class,'home'])->name('home');//首頁
+Route::get('/',[HomeController::class,'home'])->name('blog.new');//首頁
 Route::get('/sid/{category}',[HomeController::class,'sid'])->name('sid');//按照分類顯示在index上
 Route::get('/search',[RecipeController::class,'search'])->name('search');//搜尋
 
@@ -68,15 +68,11 @@ Route::get('done',[MemberController::class,'done'])->name('members.orders.done')
 Route::get('show',[MemberController::class,'show'])->name('members.orders.show');//訂單詳細資料
 
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');});
+
+
+Route::get('/logout',[HomeController::class,'logout'])->name('logout');
 
 //辨別role，跳轉至各個使用者首面(0->poster,1->user)
 Route::get('/redirects',[HomeController::class,'index'])->name('index');

@@ -20,7 +20,7 @@
                               <li class="nav-item dropdown">
 
                               <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                      類別
+                                      食材類別
                                   </a>
                                   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                       <li><a class="dropdown-item" href="{{route('product.cereals')}}">穀物</a></li>
@@ -36,28 +36,35 @@
                           </ul>
                       </div>
                 <a class="nav-link link-light " aria-current="page"  href="{{route('product.add_product')}}">上架商品</a>
-                      <a class="nav-link link-light " aria-current="page"  href="{{route('product.product')}}">購物車</a>
+
 
                     @if(\Illuminate\Support\Facades\Auth::check())
-                        @if(Auth::user()->status == '0')
-                            <script>alert('管理者登入成功');window.location.href='{{ route('admin.dashboard.index') }}'</script>
-                        @else
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="{{route('blogger.recipes')}}">寫食譜</a></li>
-                                    <li><a class="dropdown-item" href="{{route('members.recipes')}}">發表過的食譜</a></li>
-                                    <li><a class="dropdown-item" href="{{route('members.collects')}}">我的收藏</a></li>
-                                    <li><a class="dropdown-item" href="{{route('members.members')}}">會員資料</a></li>
-                                    <li><a class="dropdown-item" href="{{route('members.orders')}}">所有訂單</a></li>
+                    @if(Auth::user()->status == '1')
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{route('blogger.recipes')}}">寫食譜</a></li>
+                                <li><a class="dropdown-item" href="{{route('members.recipes')}}">發表過的食譜</a></li>
+                                <li><a class="dropdown-item" href="{{route('members.collects')}}">我的收藏</a></li>
+                                <li><a class="dropdown-item" href="{{route('members.members')}}">會員資料</a></li>
+                                <li><a class="dropdown-item" href="{{route('members.orders')}}">所有訂單</a></li>
 
-                                    <li><a class="dropdown-item" href="{{ route('logout') }}">登出</a></li>
-                                </ul>
-                            </li>
-                        @endif
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">登出</a></li>
+                            </ul>
+                        </li>
                     @else
-                        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">登入</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">登出</a></li>
+                            </ul>
+                        </li>
                     @endif
+                @else
+                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">登入</a></li>
+            @endif
               </div>
             </ul>
           </div>
