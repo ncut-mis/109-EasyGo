@@ -15,117 +15,84 @@
                             <h1 class="fw-bolder mb-1 ">上架商品</h1>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
-                                <button type="button" class="btn btn-danger btn-lg">新增</button>
+                                <button type="button" class="btn btn-danger btn-lg">上架</button>
+                                <button type="button" class="btn  btn-lg">儲存</button>
                                 <button type="button" class="btn btn-lg">刪除</button>
                             </div>
 
                                     <!-- Post title-->
-                                    <div class="mb-3">
-                                        <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">商品名稱</label>
-                                            <!--回傳時會把name包裝成key，填入的內容包裝成value-->
-                                            <input name="name" id="name" type="text" class="form-control" placeholder="請輸入食譜名稱"><!--單行輸入框-->
-                                        </div>
+
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">商品品牌</label>
+                                <!--回傳時會把name包裝成key，填入的內容包裝成value-->
+                                <input name="name" id="name" type="text" class="form-control" placeholder=""><!--單行輸入框-->
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">商品名稱</label>
+                                    <!--回傳時會把name包裝成key，填入的內容包裝成value-->
+                                    <input name="name" id="name" type="text" class="form-control" placeholder="請輸入食譜名稱"><!--單行輸入框-->
+                                </div>
+                                <label for="exampleFormControlInput1" class="form-label">商品存貨</label>
+                                <!--回傳時會把name包裝成key，填入的內容包裝成value-->
+                                <input name="name" id="name" type="text" class="form-control" placeholder=""><!--單行輸入框-->
+                                <label for="exampleFormControlInput1" class="form-label">商品產地</label>
+                                <!--回傳時會把name包裝成key，填入的內容包裝成value-->
+                                <input name="name" id="name" type="text" class="form-control" placeholder=""><!--單行輸入框-->
+
+
                                         <div class="mb-3">
                                             <label for="exampleFormControlTextarea1" class="form-label">商品封面</label>
                                             <input type="file" name="image" id="image" accept="image/*" class="form-control">
                                         </div>
-                                        <label for="exampleFormControlTextarea1" class="form-label">食譜類別</label>
+                                        <label for="exampleFormControlTextarea1" class="form-label">商品類別</label>
                                         <div class="ms-3 me-3">
                                             <div class="row">
 
                                                 <div class="form-check col">
                                                     <input class="form-check-input" type="radio" name="category" id="category" value="1" checked>
-                                                    <label class="form-check-label" for="flexRadioDefault1">中式</label>
+                                                    <label class="form-check-label" for="flexRadioDefault1">穀物</label>
                                                 </div>
                                                 <div class="form-check col">
                                                     <input class="form-check-input" type="radio" name="category" id="category" value="2">
-                                                    <label class="form-check-label" for="flexRadioDefault2">西式</label>
+                                                    <label class="form-check-label" for="flexRadioDefault2">水果</label>
                                                 </div>
                                                 <div class="form-check col">
                                                     <input class="form-check-input" type="radio" name="category" id="category" value="3">
-                                                    <label class="form-check-label" for="flexRadioDefault2">日式
+                                                    <label class="form-check-label" for="flexRadioDefault2">蔬菜
+                                                    </label>
+                                                </div><div class="form-check col">
+                                                    <input class="form-check-input" type="radio" name="category" id="category" value="3">
+                                                    <label class="form-check-label" for="flexRadioDefault2">肉類
+                                                    </label>
+                                                </div><div class="form-check col">
+                                                    <input class="form-check-input" type="radio" name="category" id="category" value="3">
+                                                    <label class="form-check-label" for="flexRadioDefault2">海鮮
+                                                    </label>
+                                                </div><div class="form-check col">
+                                                    <input class="form-check-input" type="radio" name="category" id="category" value="3">
+                                                    <label class="form-check-label" for="flexRadioDefault2">奶類
+                                                    </label>
+                                                </div>
+                                                <div class="form-check col">
+                                                    <input class="form-check-input" type="radio" name="category" id="category" value="3">
+                                                    <label class="form-check-label" for="flexRadioDefault2">調味
+                                                    </label>
+                                                </div>
+                                                <div class="form-check col">
+                                                    <input class="form-check-input" type="radio" name="category" id="category" value="3">
+                                                    <label class="form-check-label" for="flexRadioDefault2">菇類
                                                     </label>
                                                 </div>
 
                                             </div>
                                         </div>
                                     </div>
+                            <label for="exampleFormControlInput1" class="form-label">商品規格</label>
+                            <!--回傳時會把name包裝成key，填入的內容包裝成value-->
+                            <input name="name" id="name" type="text" class="form-control" placeholder=""><!--單行輸入框-->
                             <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">食譜簡介</label>
-                                <textarea name="introduce" id="introduce" class="form-control" rows="4" placeholder="請輸入食譜簡介"></textarea><!--多行輸入框-->
+                                <label for="exampleFormControlTextarea1" class="form-label">商品簡介</label>
+                                <textarea name="introduce" id="introduce" class="form-control" rows="4" placeholder="請輸入商品簡介"></textarea><!--多行輸入框-->
                             </div>
-                            <h1 class="fw-bolder mb-1 ">食材   <button type="button" class="btn  btn-lg">+</button></h1></h1>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">食材名稱</th>
-                                    <th scope="col">食材另購買處</th>
-                                    <th scope="col">數量</th>
-
-                                </tr>
-                                </thead>
-
-                                <td>
-                                    <input type="text" class="name" value="">
-                                </td>
-                                <td>
-                                    <input type="text" class="name" value="">
-                                </td>
-                                <td>
-                                    <input type="text" class="name" value="">
-                                </td>
-
-
-
-                            </table>
-
-
-                            <h1 class="fw-bolder mb-1 ">步驟1 <button type="button" class="btn btn-lg">+</button></h1>
-
-                            <div class="mb-3">
-                                <input type="file" name="image" id="image" accept="image/*" class="form-control">
-                                <div class="mb-3">
-                                    <label for="exampleFormControlTextarea1" class="form-label"></label>
-                                    <textarea name="introduce" id="introduce" class="form-control" rows="4" placeholder=""></textarea><!--多行輸入框-->
-                                </div>
-
-                                <h1 class="fw-bolder mb-1 ">步驟2</h1>
-                                <div class="mb-3">
-                                    <input type="file" name="image" id="image" accept="image/*" class="form-control">
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlTextarea1" class="form-label"></label>
-                                        <textarea name="introduce" id="introduce" class="form-control" rows="4" placeholder=""></textarea><!--多行輸入框-->
-                                    </div>
-
-                                    <h1 class="fw-bolder mb-1 ">步驟3</h1>
-                                    <div class="mb-3">
-                                        <input type="file" name="image" id="image" accept="image/*" class="form-control">
-                                        <div class="mb-3">
-                                            <label for="exampleFormControlTextarea1" class="form-label"></label>
-                                            <textarea name="introduce" id="introduce" class="form-control" rows="4" placeholder=""></textarea><!--多行輸入框-->
-                                        </div>
-                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <button class="btn btn-primary btn-sm" type="submit">儲存</button>
-                                        </div>
-
-                                        <div class="container">
-                                            <h1>動態添加刪除輸入框組</h1>
-                                            <form>
-
-                                                <div class="form-group" id="form-group">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="輸入框1" aria-label="輸入框1" aria-describedby="basic-addon2" name="input[]">
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-outline-danger remove-btn" type="button">刪除</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="text-center">
-                                                    <button class="btn btn-primary" type="button" id="add-btn">新增輸入框</button>
-                                                </div>
-                                            </form>
-                                        </div>
 
                             </div>
 
