@@ -22,7 +22,6 @@ Route::get('/welcome',function (){
     return view('welcome');
 });
 
-Route::get('/',[HomeController::class,'home'])->name('blog.new');//首頁
 Route::get('/sid/{category}',[HomeController::class,'sid'])->name('sid');//按照分類顯示在index上
 Route::get('/search',[RecipeController::class,'search'])->name('search');//搜尋
 
@@ -74,5 +73,5 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 Route::get('/logout',[HomeController::class,'logout'])->name('logout');
 
-//辨別role，跳轉至各個使用者首面(0->poster,1->user)
+//辨別role，跳轉至各個使用者首面(1->member,2->admin)
 Route::get('/redirects',[HomeController::class,'index'])->name('index');

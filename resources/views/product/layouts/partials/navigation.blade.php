@@ -35,11 +35,15 @@
                               </li>
                           </ul>
                       </div>
-                <a class="nav-link link-light " aria-current="page"  href="{{route('product.add_product')}}">上架商品</a>
 
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    @if(Auth::user()->type == '2')
+                <a class="nav-link link-light " aria-current="page"  href="{{route('product.add_product')}}">上架商品</a>
+                    @endif
+                @endif
 
                     @if(\Illuminate\Support\Facades\Auth::check())
-                    @if(Auth::user()->status == '1')
+                    @if(Auth::user()->type == '1')
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
