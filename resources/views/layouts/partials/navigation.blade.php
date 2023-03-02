@@ -33,14 +33,15 @@
                               </li>
                           </ul>
                       </div>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    @if(Auth::user()->type == '1')
                 <a class="nav-link link-light " aria-current="page"  href="{{route('blogger.recipes')}}">寫食譜</a>
 
 {{--                <li class="nav-item active">--}}
 {{--                    <a class="nav-link" href="">購物車&ensp;</a>--}}
 {{--                </li>--}}
 
-                @if(\Illuminate\Support\Facades\Auth::check())
-                    @if(Auth::user()->type == '1')
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
