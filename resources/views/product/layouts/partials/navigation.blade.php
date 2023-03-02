@@ -1,7 +1,7 @@
 <!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
     <li class="container px-lg-5">
-        <a class="navbar-brand" href="{{route('product.product')}}">食譜EasyGo</a>
+        <a class="navbar-brand" href="{{route('product.product')}}">食材EasyGo</a>
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 " action="{{route('search')}}" method="get">
             <div class="input-group">
                 <input type="text" class="input-text" style="width:550px" placeholder="輸入食材名稱"  name="search" id="search">
@@ -35,6 +35,7 @@
                               </li>
                           </ul>
                       </div>
+                <a class="nav-link link-light " aria-current="page"  href="{{route('product.add_product')}}">上架商品</a>
                       <a class="nav-link link-light " aria-current="page"  href="{{route('product.product')}}">購物車</a>
 
                     @if(\Illuminate\Support\Facades\Auth::check())

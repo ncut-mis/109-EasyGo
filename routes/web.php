@@ -45,6 +45,7 @@ Route::get('blogger',[BloggerRecipeController::class,'recipes'])->name('blogger.
 //賣場
 Route::prefix('product')->name('product.')->group(function(){
     Route::get('/',[ProductController::class,'index'])->name('product');//賣場首頁
+    Route::get('add_product',[ProductController::class,'add_product'])->name('add_product');//新增商品葉面
     Route::get('cereals',[ProductController::class,'cereals'])->name('cereals');//穀物
     Route::get('fruit',[ProductController::class,'fruit'])->name('fruit');//水果
     Route::get('vegetable',[ProductController::class,'vegetable'])->name('vegetable');//蔬菜
@@ -77,5 +78,5 @@ Route::middleware([
     })->name('dashboard');
 });
 
-//辨別role，跳轉至各個使用者首面(0->user,1->poster,2->staff)
+//辨別role，跳轉至各個使用者首面(0->poster,1->user)
 Route::get('/redirects',[HomeController::class,'index'])->name('index');
