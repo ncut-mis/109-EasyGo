@@ -17,7 +17,7 @@ class IngredientFactory extends Factory
     public function definition()
     {
         return [
-            'category_id'=>rand(1,32),
+            'category_id'=>$this->faker->randomElement([2,3,5,6,8,9,11,12,14,15,17,18,20,21,23,24]),
             'quantity'=>rand(1,100),
             'unit'=>$this->faker->randomElement(['個','公克','公升','毫升','份','匙','包','把']),
         ];

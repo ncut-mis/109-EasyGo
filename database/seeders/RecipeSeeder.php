@@ -18,6 +18,7 @@ class RecipeSeeder extends Seeder
     public function run()
     {
         Recipe::truncate();//重制資料表
+        Ingredient::truncate();//重制資料表
 
             Recipe::factory(['name' => '番茄炒蛋', 'text' => '原材料易於搜集，製作步驟也較為簡單，大人小孩都愛吃。', 'recipe_category_id' => 1, 'user_id' => 1])->has(Ingredient::factory(5))->create();//中
             Recipe::factory(['name' => '蒜味鮮蝦義大利麵', 'text' => '這是一道輕鬆完成的主餐，適合一個人獨享或多人分食，美味簡單料理，整份料理的口感層次豐富。', 'recipe_category_id' => 2, 'user_id' => 2])->has(Ingredient::factory(5))->create();//義
