@@ -33,14 +33,15 @@
                               </li>
                           </ul>
                       </div>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    @if(Auth::user()->type == '1')
                 <a class="nav-link link-light " aria-current="page"  href="{{route('blogger.recipes')}}">寫食譜</a>
 
 {{--                <li class="nav-item active">--}}
 {{--                    <a class="nav-link" href="">購物車&ensp;</a>--}}
 {{--                </li>--}}
 
-                @if(\Illuminate\Support\Facades\Auth::check())
-                    @if(Auth::user()->type == '1')
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -65,34 +66,9 @@
                         </li>
                     @endif
                 @else
+                    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">註冊</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">登入</a></li>
                 @endif
 
-                <!-- Navbar Search-->
-{{--<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 " action="" method="get">--}}
-{{--    <div class="input-group">--}}
-{{--        <input type="text" class="input-text" style="width:250px" placeholder="輸入餐點名稱"  name="search" id="search">--}}
-{{--        <button type="submit" class="btn btn-success">搜尋</button>--}}
-{{--    </div>--}}
-{{--</form>--}}
-
-{{--
- <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">--}}
-
-
-{{--                              @if (Route::has('login'))--}}
-{{--                                  <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">--}}
-{{--                                      @auth--}}
-{{--                                          <a href="{{ url('/dashboard') }}" class="tbadge bg-light text-dark ">Dashboard</a>--}}
-{{--                                          <a href="" class="tbadge bg-light text-dark ">會員</a>--}}
-{{--                                      @else--}}
-{{--                                          <a href="{{ route('login') }}" class="badge bg-light text-dark ">Log in</a>--}}
-
-{{--                                          @if (Route::has('register'))--}}
-{{--                                              <a href="{{ route('register') }}" class="badge bg-light text-dark">Register</a>--}}
-{{--                                          @endif--}}
-{{--                                      @endauth--}}
-{{--                                  </div>--}}
-{{--                          @endif--}}
 
 </nav>

@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,16 +18,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//測試
-Route::get('/welcome',function (){
-    return view('welcome');
-});
+////測試
+//Route::get('/welcome',function (){
+//    return view('welcome');
+//});
 
 Route::get('/sid/{category}',[HomeController::class,'sid'])->name('sid');//按照分類顯示在index上
 Route::get('/search',[RecipeController::class,'search'])->name('search');//搜尋
 
 //食譜部落格
-Route::get('/',[RecipeController::class,'index'])->name('blog.new');//首頁
+Route::get('/home',[RecipeController::class,'index'])->name('blog.new');//首頁
 //中式
 Route::get('china',[RecipeController::class,'china'])->name('blog.china');
 //西式
@@ -68,7 +69,23 @@ Route::get('show',[MemberController::class,'show'])->name('members.orders.show')
 
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');});
+    Route::get('/dashboard', function () {
+        $user=Auth::User();
+        $type=$user->type;
+        if($type=='1')
+        {
+            return redirect('blog.new');
+        }
+        elseif($type=='2')
+        {
+            return redirect('blog.new');
+        }
+        return view('dashboard');
+
+    })->name('dashboard');
+});
+
+
 
 
 Route::get('/logout',[HomeController::class,'logout'])->name('logout');
