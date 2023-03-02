@@ -11,15 +11,15 @@ class Recipe extends Model
     protected $fillable = [
         'id',
         'recipe_category_id',
-        'member_id',
+        'user_id',
         'name',
         'text',
         'status',
     ];
 
     //某食譜屬於某一會員
-    public function member(){
-        return $this->belongsTo(Member::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 
     //某食譜屬於某一食譜種類
