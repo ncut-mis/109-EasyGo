@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
         User::factory([
             'type'=> 2,//身分編號
             'name' => 'admin',//姓名
-            'email' => 'admin@gmail.comm',//電子郵件
+            'email' => 'admin@gmail.com',//電子郵件
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ])->has(Admin::factory(1))->create();
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
         User::factory([
             'type'=> 1,//身分編號
             'name' => 'member',//姓名
-            'email' => 'member@gmail.comm',//電子郵件
+            'email' => 'member@gmail.com',//電子郵件
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ])->has(Member::factory(1))->create();
