@@ -15,6 +15,10 @@ class ProductController extends Controller
     {
         return view('product.product');
     }
+    public function add_product()
+    {
+        return view('product.add_product');
+    }
     public function cereals()
     {
         return view('product.cereals');

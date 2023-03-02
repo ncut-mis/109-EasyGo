@@ -22,7 +22,6 @@ Route::get('/welcome',function (){
     return view('welcome');
 });
 
-Route::get('/',[HomeController::class,'home'])->name('home');//首頁
 Route::get('/sid/{category}',[HomeController::class,'sid'])->name('sid');//按照分類顯示在index上
 Route::get('/search',[RecipeController::class,'search'])->name('search');//搜尋
 
@@ -45,6 +44,7 @@ Route::get('blogger',[BloggerRecipeController::class,'recipes'])->name('blogger.
 //賣場
 Route::prefix('product')->name('product.')->group(function(){
     Route::get('/',[ProductController::class,'index'])->name('product');//賣場首頁
+    Route::get('add_product',[ProductController::class,'add_product'])->name('add_product');//新增商品葉面
     Route::get('cereals',[ProductController::class,'cereals'])->name('cereals');//穀物
     Route::get('fruit',[ProductController::class,'fruit'])->name('fruit');//水果
     Route::get('vegetable',[ProductController::class,'vegetable'])->name('vegetable');//蔬菜
@@ -67,15 +67,11 @@ Route::get('done',[MemberController::class,'done'])->name('members.orders.done')
 Route::get('show',[MemberController::class,'show'])->name('members.orders.show');//訂單詳細資料
 
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');});
 
-//辨別role，跳轉至各個使用者首面(0->user,1->poster,2->staff)
+
+Route::get('/logout',[HomeController::class,'logout'])->name('logout');
+
+//辨別role，跳轉至各個使用者首面(1->member,2->admin)
 Route::get('/redirects',[HomeController::class,'index'])->name('index');
