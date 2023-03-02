@@ -23,11 +23,6 @@ class Member extends Model
         return $this->belongsTo(User::class);
     }
 
-    //一個會員可擁有多個食譜(一對多)
-    public function recipes(){
-        return $this->hasMany(Recipe::class);
-    }
-
     //一個會員可儲存多張信用卡(一對多)
     public function cards(){
         return $this->hasMany(Card::class);

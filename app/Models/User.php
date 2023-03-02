@@ -30,6 +30,10 @@ class User extends Authenticatable
         return $this->hasOne(Admin::class);
     }
 
+    //一個使用者可擁有多個食譜(一對多)
+    public function recipes(){
+        return $this->hasMany(Recipe::class);
+    }
     /**
      * The attributes that are mass assignable.
      *
