@@ -21,7 +21,7 @@ class HomeController extends Controller
             return view('product.add_product');
         }
         if($type =='1'){
-            return view('blog.new');
+            return view('home');
         }
     }
     public function logout()

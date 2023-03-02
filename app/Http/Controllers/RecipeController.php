@@ -48,6 +48,12 @@ class RecipeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function addFields(Request $request)
+    {
+        $html = view('partials.input-field')->render();
+        return response()->json(['html' => $html]);
+    }
+
     public function store(Request $request)
     {
         //
