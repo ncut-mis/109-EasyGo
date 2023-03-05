@@ -30,19 +30,23 @@
                         <div class="card bg-light border-0 h-100">
                             <img src="https://www.pxmart.com.tw/Api/Images/133162494023417960.jfif">
                         </div>
-                        <div class="info"><h2>菲力牛柳佐椰香綠咖哩 </h2>
-                            <div class="name">料理時間</div>
-                            <div class="unit">
-                                <span>15</span>
-                                <span>分鐘</span>
-                            </div>
-                            <div class="name">準備食材</div>
-                            <div class="unit">
-                                <span>5</span>
-                                <span>樣</span>
+                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                            <div class="info"><h2>菲力牛柳 </h2>
+                                <div class="name">價格:</div>
+                                <div class="unit">
+                                    <span>100</span>
+                                    <span>分鐘</span>
+                                </div>
+                                <div class="name">份量:</div>
+                                <div class="unit">
+                                    <span>5</span>
+                                    <span>克</span>
+                                </div>
+                                <a href="{{route('product.show')}}" class="stretched-link"> </a>
                             </div>
                         </div>
                         <!--尾全聯--->
+
 
 {{--                    <div class="card bg-light border-0 h-100">--}}
 {{--                        <!--圖片-->--}}
