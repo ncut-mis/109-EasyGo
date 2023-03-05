@@ -59,13 +59,16 @@ Route::prefix('product')->name('product.')->group(function(){
 Route::get('product',[ProductController::class,'product'])->name('product.product');
 
 //會員專區
-Route::get('members',[MemberController::class,'members'])->name('members.members');//個人資料
-Route::get('collects',[MemberController::class,'collects'])->name('members.collects');//我的收藏
-Route::get('recipes',[MemberController::class,'recipes'])->name('members.recipes');//我的食譜
-Route::get('orders',[MemberController::class,'orders'])->name('members.orders');//我的訂單(所有
-Route::get('cancel',[MemberController::class,'cancel'])->name('members.orders.cancel');//我的訂單(取消
-Route::get('done',[MemberController::class,'done'])->name('members.orders.done');//我的訂單(完成
-Route::get('show',[MemberController::class,'show'])->name('members.orders.show');//訂單詳細資料
+Route::prefix('members')->name('members.')->group(function(){
+    Route::get('members/',[MemberController::class,'members'])->name('members');//顯示個人資料
+    Route::patch('members/{member}',[MemberController::class,'update'])->name('update');//更新個人資料
+    Route::get('collects',[MemberController::class,'collects'])->name('collects');//我的收藏
+    Route::get('recipes',[MemberController::class,'recipes'])->name('recipes');//我的食譜
+    Route::get('orders',[MemberController::class,'orders'])->name('orders');//我的訂單(所有
+    Route::get('cancel',[MemberController::class,'cancel'])->name('orders.cancel');//我的訂單(取消
+    Route::get('done',[MemberController::class,'done'])->name('orders.done');//我的訂單(完成
+    Route::get('show',[MemberController::class,'show'])->name('orders.show');//訂單詳細資料
+});
 
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {

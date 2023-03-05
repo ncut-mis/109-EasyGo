@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
+use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MemberController extends Controller
 {
@@ -46,7 +50,11 @@ class MemberController extends Controller
      */
     public function members()
     {
-        return view('members.members');
+        $member = Auth::user()->member()->orderby('id', 'DESC')->first();//取得使用者在會員資料表的資訊
+        $data = [
+              'member' => $member,
+            ];
+        return view('members.members', $data);
     }
     public function create()
     {
@@ -93,9 +101,21 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Member $member)
     {
-        //
+        $user= Auth::user();
+        $user->update([
+            'name'=>$request->name,
+            'email'=>$request->email,
+        ]);
+
+        $member->update([
+            'address'=>$request->address,
+            'phone'=>$request->phone,
+            'nickname'=>$request->nickname,
+        ]);
+
+        return redirect()->route('members.members');
     }
 
     /**
