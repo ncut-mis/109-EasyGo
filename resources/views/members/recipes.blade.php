@@ -27,39 +27,58 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">我的食譜</h1>
 
-
+                    <section class="pt-4">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <a class="btn btn-success btn-sm" href="{{route('blogger.recipes')}}">新增</a>
                         </div>
-                        <!-- Main Content -->
-                        <div class="tab-pane fade show active" id="nav-show" role="tabpanel" aria-labelledby="nav-show-tab">
-                            <div class="pt-4">
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">食譜名稱</th>
-                                        <th scope="col">功能</th>
-                                    </tr>
-                                    </thead>
 
-                                    <tbody>
-                                    <tr>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">食譜名稱</th>
+                                <th scope="col">狀態</th>
+                                <th scope="col">功能</th>
+                            </tr>
+                            </thead>
 
-                                        <td style="width: 150px">
-                                            <a href="#" class="btn btn-primary btn-sm">詳細</a>
-                                            <form action="#" method="post" style="display: inline-block">
+                            <tbody>
+                            @foreach($recipes as $recipe)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td><!--自動編號-->
+                                    <td class="col-7">{{$recipe->name}}</td>
 
-                                                <button type="submit" class="btn btn-danger btn-sm">刪除</button>
-                                            </form>
+                                    @if($recipe->status== 1)
+                                        <td>
+                                            已上架
+                                            <button class="btn btn-sm btn-warning" type="submit">下架</button>
                                         </td>
-                                    </tr>
+                                    @else
+                                        <td>
+                                            下架中
+                                            <button class="btn btn-sm btn-warning" type="submit">上架</button>
+                                        </td>
+                                    @endif
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                                    <td class="col-2">
+                                        <a href="" type="button" class="btn btn-primary btn-sm">詳細資料</a>
 
+                                        <!--刪除-->
+                                        <form action="" method="POST" style="display: inline-block">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn btn-sm btn-danger" type="submit">刪除</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+
+                        </table>
+
+                    </section>
+                </div>
+            </div>
             </div>
         </div>
     </section>

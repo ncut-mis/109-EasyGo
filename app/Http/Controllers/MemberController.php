@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Card;
 use App\Models\Member;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,9 +24,17 @@ class MemberController extends Controller
     {
         return view('members.collects');
     }
+
+    //我的食譜列表
     public function recipes()
     {
-        return view('members.recipes');
+        $user=Auth::user();//目前使用者
+        $recipes = Recipe::where('user_id','=',$user->id)->get();//目前使用者的食譜
+        $data = [
+            'recipes' => $recipes,
+        ];
+       // $recipes=Event::where('activity_id','=',$activity->id)->orderby('time')->get();
+        return view('members.recipes',$data);
     }
     public function orders()
     {
