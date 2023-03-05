@@ -16,10 +16,10 @@
                         <a class="nav-link" href="{{route('members.collects')}}">食譜收藏</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('members.orders')}}">我的訂單</a>
+                        <a class="nav-link" href="{{route('members.orders.index')}}">我的訂單</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('members.members')}}">個人資料</a>
+                        <a class="nav-link" href="{{route('members.index')}}">個人資料</a>
                     </li>
                 </ul>
 

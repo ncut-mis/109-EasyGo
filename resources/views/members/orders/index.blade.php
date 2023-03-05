@@ -16,10 +16,10 @@
                         <a class="nav-link" href="{{route('members.collects')}}">食譜收藏</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('members.orders')}}">我的訂單</a>
+                        <a class="nav-link" href="{{route('members.orders.index')}}">我的訂單</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('members.members')}}">個人資料</a>
+                        <a class="nav-link" href="{{route('members.index')}}">個人資料</a>
                     </li>
                 </ul>
                 <div class="container-fluid px-4">
@@ -27,7 +27,7 @@
 
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('members.orders')}}">所有訂單</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('members.orders.index')}}">所有訂單</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('members.orders.done')}}">已完成訂單</a>
@@ -46,11 +46,18 @@
                                     <th scope="col">訂單編號</th>
                                     <th scope="col">時間</th>
                                     <th scope="col">總金額</th>
-                                    <th scope="col">付款方式</th>
+                                    <th scope="col">狀態</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
+                                   @foreach($array as $array_item)
+                                       <tr>
+                                           <td>{{$array_item['id']}}</td>
+                                           <td>{{$array_item['creat_time']}}</td>
+                                           <td>{{$array_item['price']}}</td>
+                                           <td>{{$array_item['status']}}</td>
+                                       </tr>
+                                   @endforeach
                                 </tbody>
                             </table>
                         </div>

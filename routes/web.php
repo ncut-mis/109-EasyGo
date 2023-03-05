@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BloggerRecipeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MemberOrderController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
@@ -66,10 +67,10 @@ Route::prefix('members')->name('members.')->group(function(){
     Route::get('recipes',[MemberController::class,'recipes'])->name('recipes');//我的食譜
     //會員-訂單
     Route::prefix('orders')->name('orders.')->group(function(){
-        Route::get('/',[MemberController::class,'orders'])->name('index');//我的訂單(所有
-        Route::get('cancel',[MemberController::class,'cancel'])->name('cancel');//我的訂單(取消
-        Route::get('done',[MemberController::class,'done'])->name('done');//我的訂單(完成
-        Route::get('show',[MemberController::class,'show'])->name('show');//訂單詳細資料
+        Route::get('/',[MemberOrderController::class,'index'])->name('index');//我的訂單(所有
+        Route::get('cancel',[MemberOrderController::class,'cancel'])->name('cancel');//我的訂單(取消
+        Route::get('done',[MemberOrderController::class,'done'])->name('done');//我的訂單(完成
+        Route::get('show',[MemberOrderController::class,'show'])->name('show');//訂單詳細資料
 
     });
 

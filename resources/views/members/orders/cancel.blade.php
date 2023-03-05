@@ -17,10 +17,10 @@
                         <a class="nav-link" href="{{route('members.collects')}}">食譜收藏</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('members.orders')}}">我的訂單</a>
+                        <a class="nav-link" href="{{route('members.orders.index')}}">我的訂單</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('members.members')}}">個人資料</a>
+                        <a class="nav-link" href="{{route('members.index')}}">個人資料</a>
                     </li>
                 </ul>
                 <div class="container-fluid px-4">
@@ -28,7 +28,7 @@
 
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('members.orders')}}">所有訂單</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('members.orders.index')}}">所有訂單</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('members.orders.done')}}">已完成訂單</a>
