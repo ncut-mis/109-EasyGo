@@ -26,7 +26,9 @@
                 <div class="container-fluid px-3">
                     <h1 class="mt-4">個人資料</h1>
                     <div class="row g-3">
-
+                        <form action="{{route('members.update',$member->id)}}" method="POST" role="form" class="row g-0">
+                            @method('patch')
+                            @csrf
 {{--                        圖片?--}}
 {{--                        <div class="mb-3">--}}
 {{--                            <figure class="figure">--}}
@@ -34,89 +36,75 @@
 {{--                            </figure>--}}
 {{--                        </div>--}}
 
-                        <div class="col-md-6">
-                            <label for="name" class="form-label">姓名</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="請輸入姓名" value="{{$member->user->name}}" disabled>
-                        </div>
+                            <div class="row g-2 align-items-center">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label">姓名</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="請輸入姓名" value="{{$member->user->name}}" disabled>
+                                </div>
 
-                        <div class="col-md-6">
-                            <label for="nickname" class="form-label">暱稱</label>
-                            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="請輸入暱稱" value="{{$member->nickname}}" disabled>
-                        </div>
+                                <div class="col-md-6">
+                                    <label for="nickname" class="form-label">暱稱</label>
+                                    <input type="text" class="form-control" id="nickname" name="nickname" placeholder="請輸入暱稱" value="{{$member->nickname}}" disabled>
+                                </div>
 
-                        <div class="col-md-6">
-                            <label for="tel" class="form-label">電話</label>
-                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="請輸入電話" value="{{$member->phone}}" disabled>
-                        </div>
+                                <div class="col-md-6">
+                                    <label for="tel" class="form-label">電話</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="請輸入電話" value="{{$member->phone}}" disabled>
+                                </div>
 
-                        <div class="col-md-6">
-                            <label for="email" class="form-label">信箱</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="請輸入信箱" value="{{$member->user->email}}" disabled>
-                        </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">信箱</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="請輸入信箱" value="{{$member->user->email}}" disabled>
+                                </div>
 
-                        <div class="col-md-12">
-                            <label for="address" class="form-label">住址</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="請輸入住址" value="{{$member->address}}" disabled>
-                        </div>
+                                <div class="col-md-12">
+                                    <label for="address" class="form-label">住址</label>
+                                    <input type="text" class="form-control" id="address" name="address" placeholder="請輸入住址" value="{{$member->address}}" disabled>
+                                </div>
 
-                        <!-- Button trigger modal -->
-                        <div class="col-12 justify-content-md-end">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">編輯</button>
-                        </div>
-                    </div>
-                    <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
+                                <!-- Button trigger modal -->
+                                <div class="col-12 g-3 justify-content-md-end">
+                                    <button class="btn btn-primary edit-button" type="button" onclick="enableFields()">編輯</button>
+                                    <button type="submit" class="btn btn-primary save-button" disabled>儲存</button>
+                                    <script>
+                                        const editBtn = document.querySelector('.edit-button');
+                                        const saveBtn = document.querySelector('.save-button');
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
+                                        // 當編輯按鈕被按下時
+                                        editBtn.addEventListener('click', () => {
+                                            // 移除 disabled 屬性
+                                            saveBtn.removeAttribute('disabled');
+                                        });
+                                        function enableFields() {
+                                            // 找到需要解除 disabled 屬性的元素，例如 input 和 textarea
+                                            var inputs = document.querySelectorAll('input');
 
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">編輯個資</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
+                                            // 解除 disabled 屬性
+                                            inputs.forEach(function(input) {
+                                                input.removeAttribute('disabled');
+                                            });
+                                            // 將編輯按鈕禁用
+                                            document.getElementById('edit-button').setAttribute('disabled', 'disabled');
+                                        }
+                                        function enableFields() {
+                                            // 找到需要解除 disabled 屬性的元素，例如 input 和 textarea
+                                            var inputs = document.querySelectorAll('input');
 
-                                    <form action="{{route('members.update',$member->id)}}" method="POST" role="form" class="row g-0">
-                                        @method('patch')
-                                        @csrf
+                                            // 解除 disabled 屬性
+                                            inputs.forEach(function(input) {
+                                                input.removeAttribute('disabled');
+                                            });
+                                            // 將編輯按鈕禁用
+                                            document.getElementById('edit-button').setAttribute('disabled', 'disabled');
+                                        }
 
-                                        <div class="modal-body">
-                                        <div class="col-md-12">
-                                            <label for="name" class="form-label">姓名</label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="請輸入姓名" value="{{$member->user->name}}">
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <label for="nickname" class="form-label">暱稱</label>
-                                            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="請輸入暱稱" value="{{$member->nickname}}">
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <label for="tel" class="form-label">電話</label>
-                                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="請輸入電話" value="{{$member->phone}}">
-                                        </div>
-
-
-                                        <div class="col-md-12">
-                                            <label for="email" class="form-label">信箱</label>
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="請輸入信箱" value="{{$member->user->email}}">
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <label for="address" class="form-label">住址</label>
-                                            <input type="text" class="form-control" id="address" name="address" placeholder="請輸入住址" value="{{$member->address}}">
-                                        </div>
-
-                                        </div>
-
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">儲存</button>
-                                    </div>
-
-                                    </form>
+                                    </script>
                                 </div>
                             </div>
-                        </div>
+                        </form>
+                    </div>
+
+                    <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
 
                     <h1 class="mt-4">重設密碼</h1>
                     <!--訊息-->
@@ -167,7 +155,6 @@
                         </form>
                     </div>
                     <br>
-
                 </div>
             </div>
         </div>
