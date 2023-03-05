@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Card;
 use App\Models\Member;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class MemberController extends Controller
 {
@@ -65,6 +64,33 @@ class MemberController extends Controller
             ];
         return view('members.members', $data);
     }
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $currentPassword = $request->input('current_password');
+        $newPassword = $request->input('password');
+
+        //用confirmed驗證新密碼和確認密碼是否相同
+        $request->validate([
+            'password' => 'required|confirmed',],[
+            'password.confirmed' => '新密碼和確認密碼不一致',
+        ]);
+
+        // 驗證舊密碼
+        if (!Hash::check($currentPassword, $user->password)) {
+            return redirect()->back()->withErrors(['current_password' => '舊密碼輸入錯誤']);
+        }
+        $request->user()->update([
+            'password' => Hash::make($request->input('password')),
+        ]);
+        // 更新密碼
+        $user->password = Hash::make($newPassword);
+        $user->save();
+
+        return redirect()->back()->with('success', '密碼已經更新');
+    }
+
     public function create()
     {
         //

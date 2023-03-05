@@ -50,13 +50,13 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="address" class="form-label">住址</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="請輸入住址" value="{{$member->address}}" disabled>
-                        </div>
-
-                        <div class="col-md-6">
                             <label for="email" class="form-label">信箱</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="請輸入信箱" value="{{$member->user->email}}" disabled>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="address" class="form-label">住址</label>
+                            <input type="text" class="form-control" id="address" name="address" placeholder="請輸入住址" value="{{$member->address}}" disabled>
                         </div>
 
                         <!-- Button trigger modal -->
@@ -64,6 +64,7 @@
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">編輯</button>
                         </div>
                     </div>
+                    <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
 
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -95,15 +96,17 @@
                                             <input type="tel" class="form-control" id="phone" name="phone" placeholder="請輸入電話" value="{{$member->phone}}">
                                         </div>
 
-                                        <div class="col-md-12">
-                                            <label for="address" class="form-label">住址</label>
-                                            <input type="text" class="form-control" id="address" name="address" placeholder="請輸入住址" value="{{$member->address}}">
-                                        </div>
 
                                         <div class="col-md-12">
                                             <label for="email" class="form-label">信箱</label>
                                             <input type="email" class="form-control" id="email" name="email" placeholder="請輸入信箱" value="{{$member->user->email}}">
                                         </div>
+
+                                        <div class="col-md-12">
+                                            <label for="address" class="form-label">住址</label>
+                                            <input type="text" class="form-control" id="address" name="address" placeholder="請輸入住址" value="{{$member->address}}">
+                                        </div>
+
                                         </div>
 
                                     <div class="modal-footer">
@@ -115,9 +118,57 @@
                             </div>
                         </div>
 
-                    </div>
-                </div>
+                    <h1 class="mt-4">重設密碼</h1>
+                    <!--訊息-->
+                    @if(session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
 
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="row g-3">
+                        <form method="POST" action="{{ route('members.password.update')}}">
+                            @method('post')
+                            @csrf
+
+                            <div class="row g-3 align-items-center">
+                                <div class="col-auto">
+                                    <label for="current_password" class="form-label">舊密碼：</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="password" class="form-control" name="current_password" required>
+                                </div>
+
+                                <div class="col-auto">
+                                    <label for="password" class="form-label">新密碼：</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="password" class="form-control" name="password" required>
+                                </div>
+
+                                <div class="col-auto">
+                                    <label for="password_confirmation" class="form-label">確認密碼：</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="password" class="form-control" name="password_confirmation" required>
+                                </div>
+
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary">確認</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <br>
+
+                </div>
             </div>
         </div>
     </section>

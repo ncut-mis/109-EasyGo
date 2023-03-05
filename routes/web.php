@@ -62,6 +62,7 @@ Route::get('product',[ProductController::class,'product'])->name('product.produc
 Route::prefix('members')->name('members.')->group(function(){
     Route::get('members/',[MemberController::class,'members'])->name('members');//顯示個人資料
     Route::patch('members/{member}',[MemberController::class,'update'])->name('update');//更新個人資料
+    Route::post('members/password',[MemberController::class,'updatePassword'])->name('password.update');//更新密碼
     Route::get('collects',[MemberController::class,'collects'])->name('collects');//我的收藏
     Route::get('recipes',[MemberController::class,'recipes'])->name('recipes');//我的食譜
     Route::get('orders',[MemberController::class,'orders'])->name('orders');//我的訂單(所有
