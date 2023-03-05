@@ -23,11 +23,14 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
+
+Route::get('/',[HomeController::class,'home'])->name('home');//首頁
+
 Route::get('/sid/{category}',[HomeController::class,'sid'])->name('sid');//按照分類顯示在index上
 Route::get('/search',[RecipeController::class,'search'])->name('search');//搜尋
 
 //食譜部落格
-Route::get('/home',[RecipeController::class,'index'])->name('blog.new');//首頁
+Route::get('/',[RecipeController::class,'index'])->name('blog.new');//首頁
 //中式
 Route::get('china',[RecipeController::class,'china'])->name('blog.china');
 //西式
