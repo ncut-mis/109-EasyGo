@@ -42,7 +42,7 @@ Route::get('japan',[RecipeController::class,'japan'])->name('blog.japan');
 //食譜頁面(選擇性路由
 Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
 //部落客
-Route::get('blogger',[BloggerRecipeController::class,'recipes'])->name('blogger.recipes');
+Route::get('blogger',[BloggerRecipeController::class,'recipes'])->name('blogger.recipes.create');
 
 
 //賣場
