@@ -3,6 +3,7 @@
 use App\Http\Controllers\BloggerRecipeController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MemberOrderController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
@@ -64,6 +65,7 @@ Route::prefix('product')->name('product.')->group(function(){
 Route::get('product',[ProductController::class,'product'])->name('product.product');
 
 //會員專區
+
 Route::get('members',[MemberController::class,'members'])->name('members.members');//個人資料
 Route::get('cart_items',[MemberController::class,'cart_items'])->name('members.cart_items.index');//購物車
 Route::get('collects',[MemberController::class,'collects'])->name('members.collects');//我的收藏
@@ -72,6 +74,23 @@ Route::get('orders',[MemberController::class,'orders'])->name('members.orders');
 Route::get('cancel',[MemberController::class,'cancel'])->name('members.orders.cancel');//我的訂單(取消
 Route::get('done',[MemberController::class,'done'])->name('members.orders.done');//我的訂單(完成
 Route::get('show',[MemberController::class,'show'])->name('members.orders.show');//訂單詳細資料
+
+Route::prefix('members')->name('members.')->group(function(){
+    Route::get('/',[MemberController::class,'members'])->name('index');//個人資料
+    Route::patch('members/{member}',[MemberController::class,'update'])->name('update');//更新個人資料
+    Route::post('members/password',[MemberController::class,'updatePassword'])->name('password.update');//更新密碼
+
+    Route::get('collects',[MemberController::class,'collects'])->name('collects');//我的收藏
+    Route::get('recipes',[MemberController::class,'recipes'])->name('recipes');//我的食譜
+    //會員-訂單
+    Route::prefix('orders')->name('orders.')->group(function(){
+        Route::get('/',[MemberOrderController::class,'index'])->name('index');//我的訂單(所有
+        Route::get('cancel',[MemberOrderController::class,'cancel'])->name('cancel');//我的訂單(取消
+        Route::get('done',[MemberOrderController::class,'done'])->name('done');//我的訂單(完成
+        Route::get('show',[MemberOrderController::class,'show'])->name('show');//訂單詳細資料
+
+    });
+});
 
 
 //購物車

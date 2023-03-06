@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Member;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class MemberController extends Controller
 {
@@ -23,9 +27,17 @@ class MemberController extends Controller
     {
         return view('members.collects');
     }
+
+    //我的食譜列表
     public function recipes()
     {
-        return view('members.recipes');
+        $user=Auth::user();//目前使用者
+        $recipes = Recipe::where('user_id','=',$user->id)->get();//目前使用者的食譜
+        $data = [
+            'recipes' => $recipes,
+        ];
+       // $recipes=Event::where('activity_id','=',$activity->id)->orderby('time')->get();
+        return view('members.recipes',$data);
     }
     public function orders()
     {
@@ -50,8 +62,39 @@ class MemberController extends Controller
      */
     public function members()
     {
-        return view('members.members');
+        $member = Auth::user()->member()->orderby('id', 'DESC')->first();//取得使用者在會員資料表的資訊
+        $data = [
+              'member' => $member,
+            ];
+        return view('members.members', $data);
     }
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $currentPassword = $request->input('current_password');
+        $newPassword = $request->input('password');
+
+        //用confirmed驗證新密碼和確認密碼是否相同
+        $request->validate([
+            'password' => 'required|confirmed',],[
+            'password.confirmed' => '新密碼和確認密碼不一致',
+        ]);
+
+        // 驗證舊密碼
+        if (!Hash::check($currentPassword, $user->password)) {
+            return redirect()->back()->withErrors(['current_password' => '舊密碼輸入錯誤']);
+        }
+        $request->user()->update([
+            'password' => Hash::make($request->input('password')),
+        ]);
+        // 更新密碼
+        $user->password = Hash::make($newPassword);
+        $user->save();
+
+        return redirect()->back()->with('success', '密碼已經更新');
+    }
+
     public function create()
     {
         //
@@ -97,9 +140,21 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Member $member)
     {
-        //
+        $user= Auth::user();
+        $user->update([
+            'name'=>$request->name,
+            'email'=>$request->email,
+        ]);
+
+        $member->update([
+            'address'=>$request->address,
+            'phone'=>$request->phone,
+            'nickname'=>$request->nickname,
+        ]);
+
+        return redirect()->route('members.index');
     }
 
     /**
