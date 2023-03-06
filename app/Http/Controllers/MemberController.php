@@ -150,7 +150,7 @@ class MemberController extends Controller
             'nickname'=>$request->nickname,
         ]);
 
-        return redirect()->route('members.members');
+        return redirect()->route('members.index');
     }
 
     /**

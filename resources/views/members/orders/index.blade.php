@@ -7,7 +7,6 @@
         <div class="container px-lg-5">
             <!-- Page Features-->
             <div class="row gx-lg-5">
-
                 <!--導染列-->
                 <ul class="nav">
                     <li class="nav-item">
@@ -40,27 +39,40 @@
                     </ul>
                     <!-- Main Content -->
                     <div class="tab-pane fade show active" id="nav-show" role="tabpanel" aria-labelledby="nav-show-tab">
-                        <div class="pt-4">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">訂單編號</th>
-                                    <th scope="col">時間</th>
-                                    <th scope="col">總金額</th>
-                                    <th scope="col">付款方式</th>
-                                </tr>
-                                </thead>
-
-                                <tbody>
-
-
-                                </tbody>
-                            </table>
+                        <div style="min-height:365px">
+                            <div class="pt-4">
+                                @if($has_data == 0)
+                                    <div class="my-auto">
+                                        <h4 class="text-center text-secondary">親，快去買一份屬於你的食材吧</h4>
+                                    </div>
+                                @else
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">訂單編號</th>
+                                            <th scope="col">時間</th>
+                                            <th scope="col">總金額</th>
+                                            <th scope="col">狀態</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($array as $array_item)
+                                            <tr>
+                                                <td>{{$array_item['id']}}</td>
+                                                <td>{{$array_item['creat_time']}}</td>
+                                                <td>{{$array_item['price']}}</td>
+                                                <td>{{$array_item['status']}}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                @endif
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 @endsection
