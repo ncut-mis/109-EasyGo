@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BloggerRecipeController;
+use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ProductController;
@@ -74,7 +75,8 @@ Route::get('show',[MemberController::class,'show'])->name('members.orders.show')
 
 
 //購物車
-Route::get('cart_items',[MemberController::class,'cart_items'])->name('members.cart_items.index');//購物車
+Route::get('index',[CartItemController::class,'index'])->name('members.cart_items.index');//購物車
+Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', function () {

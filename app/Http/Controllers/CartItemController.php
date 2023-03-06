@@ -13,7 +13,13 @@ class CartItemController extends Controller
      */
     public function index()
     {
-        return view('members.cart_items');
+        return view('members.cart_items.index');
+    }
+
+    public function finish()
+    {
+
+        return view('members.cart_items.finish');
     }
 
     /**
