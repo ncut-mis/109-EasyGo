@@ -42,7 +42,7 @@ Route::get('japan',[RecipeController::class,'japan'])->name('blog.japan');
 //食譜頁面(選擇性路由
 Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
 //部落客
-Route::get('blogger',[BloggerRecipeController::class,'recipes'])->name('blogger.recipes.create');
+Route::get('bloggers',[BloggerRecipeController::class,'recipes'])->name('bloggers.recipes.create');
 
 
 //賣場
@@ -64,6 +64,7 @@ Route::get('product',[ProductController::class,'product'])->name('product.produc
 
 //會員專區
 Route::get('members',[MemberController::class,'members'])->name('members.members');//個人資料
+Route::get('cart_items',[MemberController::class,'cart_items'])->name('members.cart_items.index');//購物車
 Route::get('collects',[MemberController::class,'collects'])->name('members.collects');//我的收藏
 Route::get('recipes',[MemberController::class,'recipes'])->name('members.recipes');//我的食譜
 Route::get('orders',[MemberController::class,'orders'])->name('members.orders');//我的訂單(所有
@@ -71,6 +72,9 @@ Route::get('cancel',[MemberController::class,'cancel'])->name('members.orders.ca
 Route::get('done',[MemberController::class,'done'])->name('members.orders.done');//我的訂單(完成
 Route::get('show',[MemberController::class,'show'])->name('members.orders.show');//訂單詳細資料
 
+
+//購物車
+Route::get('cart_items',[MemberController::class,'cart_items'])->name('members.cart_items.index');//購物車
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', function () {

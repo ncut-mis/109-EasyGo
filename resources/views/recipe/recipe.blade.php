@@ -11,14 +11,14 @@
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Preview image figure-->
-                            <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
+                            <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="{{asset('images/'.$recipe->recipe_imgs)}}" /></figure>
 
                                 <div class="row align-items-center">
                                     <div class="col-xs-12 col-md-9">
                                         <!-- Post title-->
-                                        <h1 class="fw-bolder mb-1 ">白醬蛤蠣義大利麵</h1>
+                                        <h1 class="fw-bolder mb-1 ">{{$recipe->name}}</h1>
                                         <button>收藏</button>
-                                        <h5 class>這道大人小孩都愛的白酒蛤蜊麵，不但能吃到蛤蜊的鮮味，蒜味和白酒更有提香的作用，最後利用九層塔的香氣來取代平時不常用的巴西利，依然美味無比哦！</h5>
+                                        <h5 class>{{$recipe->text}}</h5>
                                         <h5 class="fw-bolder mb-1"></h5>
                                     </div>
                                     <button type="button" id="btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#refund" data-bs-whatever="@123" >選購食材</button>
@@ -48,9 +48,7 @@
                                                         <tbody>
                                                         <tr>
                                                             <th scope="row">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">加入購物車</button>
                                                             </th>
                                                             <th scope="row">義大利麵</th>
                                                             <td>
@@ -71,9 +69,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th scope="row">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">加入購物車</button>
                                                             </th>
                                                             <th scope="row">蒜頭</th>
                                                             <td>
@@ -94,9 +90,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th scope="row">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">加入購物車</button>
                                                             </th>
                                                             <th scope="row">九層塔</th>
                                                             <td>
@@ -117,9 +111,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th scope="row">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">加入購物車</button>
                                                             </th>
                                                             <th scope="row">蛤蠣</th>
                                                             <td>
@@ -144,10 +136,13 @@
                                                             <td>
                                                             </td>
                                                             <td>
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
                                                             </td>
                                                             <td>
-                                                                <button type="submit" class="btn btn-primary refund">加入購物車</button>
+                                                                
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
                                                             </td>
                                                         </tr>

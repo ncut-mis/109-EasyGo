@@ -29,7 +29,7 @@
 
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a class="btn btn-success btn-sm" href="{{route('blogger.recipes')}}">新增</a>
+                            <a class="btn btn-success btn-sm" href="{{route('bloggers.recipes.create')}}">新增</a>
                         </div>
                         <!-- Main Content -->
                         <div class="tab-pane fade show active" id="nav-show" role="tabpanel" aria-labelledby="nav-show-tab">

@@ -18,24 +18,34 @@
         </div>
     </div>
 
-    <!--內容--->
-    <section class="pt-4">
-        <div class="container px-lg-5">
-            <!-- Page Features-->
-            <div class="row gx-lg-5">
-                <div class="col-lg-6 col-xxl-4 mb-5">
-                    <div class="card bg-light border-0 h-100">
-                        <!--圖片-->
-                        <img src ="../img/1.png ">
-                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+    <!--內容-->
+    <div class=" px-lg-5" id="nav-tabContent">
+        <!--陣列內有幾筆資料就會重複執行幾次-->
+        <div class="tab-pane fade show active " id="nav-new" role="tabpanel" aria-labelledby="nav-new-tab">
+            <section class="pt-4">
+                <div class="container px-lg-5">
+                    <!-- Page Features-->
+                    <div class="row gx-lg-5  px-lg-5">
+                        @foreach($recipes as $recipe)
+                            <div class="col-lg-6 col-xxl-4 mb-5 pt-5">
+                                <div class="card bg-light border-0 h-100 ">
+                                    <!--圖片-->
+                                    <img src="{{asset('images/'.$recipe->recipe_imgs)}}">
+                                    <div class="card-body text-center p-lg-5  pt-lg-0 pt-5">
+                                        <h2 class="fs-4 fw-bold pt-5">{{$recipe->name}}</h2>
+                                        <p class="mb-0">{{$recipe->text}}</p>
+                                        <a href="{{route('recipe.recipe',$recipe->id)}}" class="stretched-link"></a>
 
-                            <h2 class="fs-4 fw-bold">白酒蛤蠣義大利麵</h2>
-                            <p class="mb-0">白酒蛤蠣義大利麵製作</p>
-                            <a href="{{route('recipe.recipe')}}" class="stretched-link"></a>
-                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
+            </section>
+        </div>
 
+@endsection
 
 
 
@@ -70,5 +80,3 @@
 {{--        </div>--}}
 
 {{--    </div>--}}
-
-@endsection

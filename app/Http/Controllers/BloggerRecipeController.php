@@ -13,12 +13,12 @@ class BloggerRecipeController extends Controller
      */
     public function recipes()
     {
-        return view('blogger.recipes.create');
+        return view('bloggers.recipes.create');
     }
 
     public function index()
     {
-        return view('blogger.recipes');
+        return view('bloggers.recipes');
     }
 
     /**

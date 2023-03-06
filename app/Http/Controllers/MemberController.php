@@ -15,6 +15,10 @@ class MemberController extends Controller
     {
         return view('members.members');
     }
+    public function cart_items()
+    {
+        return view('members.cart_items.index');
+    }
     public function collects()
     {
         return view('members.collects');

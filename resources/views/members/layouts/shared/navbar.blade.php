@@ -12,9 +12,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('product.product') }}">進入食材網&ensp;</a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link link-light " aria-current="page"  href="#">購物車</a>
-                </li>
+
                 @if(\Illuminate\Support\Facades\Auth::check())
                     @if(Auth::user()->status == '0')
                         <script>alert('管理者登入成功');window.location.href='{{ route('admin.dashboard.index') }}'</script>
@@ -22,7 +20,8 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{{route('blogger.recipes')}}">寫食譜</a></li>
+                                <li><a class="dropdown-item" href="{{route('bloggers.recipes.create')}}">寫食譜</a></li>
+                                <li><a class="dropdown-item" href="{{route('members.cart_items.index')}}">購物車</a></li>
                                 <li><a class="dropdown-item" href="{{route('members.recipes')}}">發表過的食譜</a></li>
                                 <li><a class="dropdown-item" href="{{route('members.collects')}}">我的收藏</a></li>
                                 <li><a class="dropdown-item" href="{{route('members.members')}}">會員資料</a></li>

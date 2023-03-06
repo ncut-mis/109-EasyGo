@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Recipe;
+use App\Models\RecipeImg;
 use Illuminate\Http\Request;
 
 class RecipeController extends Controller
@@ -13,7 +15,12 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        return view('blog.new');
+        $recipes = Recipe::orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+
+        $data=[
+            'recipes'=>$recipes
+        ];
+        return view('blog.new',$data);
     }
     public function china()
     {
@@ -33,15 +40,23 @@ class RecipeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function recipe()
-    {
-        return view('recipe.recipe');
-    }
+
     public function create()
     {
         //
     }
+    public function recipe(Recipe $recipe)
+    {
 
+        $recipe_imgs=RecipeImg::where('recipe_id','=',$recipe->id)->get();
+        $data=[
+            'recipe'=>$recipe,
+            'recipte_img'=>$recipe_imgs,
+
+
+        ];
+        return view('recipe.recipe', $data);
+    }
     /**
      * Store a newly created resource in storage.
      *
