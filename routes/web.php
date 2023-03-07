@@ -26,13 +26,15 @@ use Illuminate\Support\Facades\Route;
 //});
 
 
-Route::get('/',[HomeController::class,'home'])->name('home');//首頁
+//Route::get('/',[HomeController::class,'home'])->name('home');//首頁
 
 Route::get('/sid/{category}',[HomeController::class,'sid'])->name('sid');//按照分類顯示在index上
 Route::get('/search',[RecipeController::class,'search'])->name('search');//搜尋
 
 //食譜部落格
 Route::get('/',[RecipeController::class,'index'])->name('blog.new');//首頁
+//Route::get('/',function (){return '123456789';})->name('blog.new');//首頁
+
 //中式
 Route::get('china',[RecipeController::class,'china'])->name('blog.china');
 //西式
@@ -98,16 +100,16 @@ Route::get('index',[CartItemController::class,'index'])->name('members.cart_item
 Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/dashboard', function (){
         $user=Auth::User();
         $type=$user->type;
         if($type=='1')
         {
-            return redirect('blog.new');
+            return redirect('/');
         }
         elseif($type=='2')
         {
-            return redirect('blog.new');
+            return route('blog.china');
         }
         return view('dashboard');
 

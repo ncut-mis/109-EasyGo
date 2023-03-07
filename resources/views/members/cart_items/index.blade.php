@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-{{--                @if(count($carts)>0)--}}
+{{--                @if(count($items)>0)--}}
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -31,30 +31,27 @@
                         </tr>
                         </thead>
                         <tbody>
-{{--                        @foreach($carts as $cart)--}}
+
                             <tr>
                                 <td style="text-align: center;vertical-align: middle">
                                     <img class="img-fluid rounded mb-3 mb-md-0" src="" style="width:150px;height:150px" alt="">
                                 </td>
                                 <td style="text-align: center;vertical-align: middle">
-
+{{--                                    {{$item->name}}--}}
                                 </td>
                                 <td style="text-align: center;vertical-align: middle">
-
+{{--                                    {{$item->price}}--}}
                                 </td>
                                 <td style="text-align: center;vertical-align: middle">
-
+{{--                                    {{$item->quantity}}--}}
                                 </td>
                                 <td style="text-align: center;vertical-align: middle">
-
-                                </td>
-                                <td style="text-align: center;vertical-align: middle">
-{{--                                    <form action= method="POST" style="vertical-align: middle">--}}
+{{--                                    <form action="/cart/destroy/{{$item->id}}" method="POST" style="vertical-align: middle">--}}
 {{--                                        @method('DELETE')--}}
 {{--                                        @csrf--}}
-{{--                                        <button type="submit" class="btn btn-danger">刪除</button>--}}
-{{--                                    </form>--}}
+                                        <button type="submit" class="btn btn-danger">刪除</button>
                                 </td>
+
                             </tr>
 {{--                        @endforeach--}}
                         </tbody>
