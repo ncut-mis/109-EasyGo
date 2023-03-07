@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminRecipeController;
 use App\Http\Controllers\BloggerRecipeController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\HomeController;
@@ -100,6 +102,8 @@ Route::get('index',[CartItemController::class,'index'])->name('members.cart_item
 Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+
+
     Route::get('/dashboard', function (){
         $user=Auth::User();
         $type=$user->type;
@@ -109,13 +113,25 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         }
         elseif($type=='2')
         {
-            return route('blog.china');
+            return redirect('admins/recipes');
         }
         return view('dashboard');
 
     })->name('dashboard');
 });
 
+
+
+    //平台人員
+    Route::prefix('admins')->name('admins.')->group(function () {
+        Route::get('/recipes',[AdminRecipeController::class,'index'])->name('recipes.index');//餐點列表
+        Route::get('/recipes/create', [AdminRecipeController::class, 'create'])->name('recipes.create');//新增餐點頁面
+
+
+        Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表
+        Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面
+
+    });
 
 
 

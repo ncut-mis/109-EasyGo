@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Recipe;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class HomeController extends Controller
+class AdminRecipeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,20 +14,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $type=Auth::user()->type;//目前使用者，users資料表的role欄位
+        $recipes = Recipe::orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'recipes'=>$recipes
+        ];
 
-        if($type =='2')
-        {
-            return view('admins.recipes.index');
-        }
-        if($type =='1'){
-            return view('blog.new');
-        }
-    }
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('blog.new');
+        return view('admins.recipes.index',$data);
     }
 
     /**
