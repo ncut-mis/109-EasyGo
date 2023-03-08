@@ -38,14 +38,20 @@ class Recipe extends Model
     }
 
     //一個食譜可擁有多個照片(一對多)
-    public function recipeimg(){
+    public function recipeimgs(){
         return $this->hasMany(RecipeImg::class);
     }
 
     //一個食譜可擁有多個影片(一對多)
-    public function recipefilm(){
+    public function recipefilms(){
         return $this->hasMany(RecipeFilm::class);
     }
+
+    //一個食譜可擁有多個步驟(一對多)
+    public function recipesteps(){
+        return $this->hasMany(RecipeStep::class);
+    }
+
     public function ingredients(){
         //一份食譜擁有多項食材
         return $this->hasMany(Ingredient::class);
