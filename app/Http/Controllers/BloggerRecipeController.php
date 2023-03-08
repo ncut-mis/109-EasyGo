@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 
 class BloggerRecipeController extends Controller
@@ -19,6 +20,19 @@ class BloggerRecipeController extends Controller
     public function index()
     {
         return view('bloggers.recipes');
+    }
+
+    //下架食譜
+    public function stop(Recipe $recipe)
+    {
+        $recipe->update(['status'=>0]);
+        return redirect()->route('members.recipes');
+    }
+    //上架食譜
+    public function launch(Recipe $recipe)
+    {
+        $recipe->update(['status'=>1]);
+        return redirect()->route('members.recipes');
     }
 
     /**
