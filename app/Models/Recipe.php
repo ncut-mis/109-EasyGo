@@ -49,7 +49,7 @@ class Recipe extends Model
 
     //一個食譜可擁有多個步驟(一對多)
     public function recipesteps(){
-        return $this->hasMany(RecipeStep::class);
+        return $this->hasMany(RecipeStep::class)->orderBy('sequence');
     }
 
     public function ingredients(){
