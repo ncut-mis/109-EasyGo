@@ -18,7 +18,7 @@ class RecipeStepFactory extends Factory
     {
         return [
             'text' => $this->faker->realText(35),
-            'picture'=>rand(1,7),
+            'picture'=>rand(1,7).'.jpg',
         ];
     }
 }
