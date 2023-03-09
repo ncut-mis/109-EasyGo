@@ -17,7 +17,8 @@ class SuggestFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'recommend'=>$this->faker->boolean,
+            'quantity'=>rand(1,10),
         ];
     }
 }

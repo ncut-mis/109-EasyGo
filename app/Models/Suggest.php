@@ -12,6 +12,9 @@ class Suggest extends Model
         'id',
         'ingredient_id',
         'product_id',
+        'recommend',
+        'quantity',
+
     ];
 
     public function ingredient(){
