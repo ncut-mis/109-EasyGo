@@ -48,8 +48,8 @@ Route::get('japan',[RecipeController::class,'japan'])->name('blog.japan');
 //食譜頁面(選擇性路由
 Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
 //部落客
-Route::get('bloggers',[BloggerRecipeController::class,'recipes'])->name('bloggers.recipes.create');
-
+Route::get('create',[BloggerRecipeController::class,'create'])->name('bloggers.recipes.create');
+Route::get('create2',[BloggerRecipeController::class,'create2'])->name('bloggers.recipes.create2');
 
 //賣場
 Route::prefix('product')->name('product.')->group(function(){
