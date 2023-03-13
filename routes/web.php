@@ -138,7 +138,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
         Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表
         Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面
-
+        Route::post('/products/store',[AdminProductController::class,'store'])->name('products.store');//儲存商品
     });
 
 

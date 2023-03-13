@@ -41,7 +41,28 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
+        //資料驗證
+        $this->validate($request,[
+            'name'=>'required',
+            'brand'=>'required',
+            'origin_place'=>'required',
+            'stock'=>'required',
+            'price'=>'required',
+        ]);
+        //取得現在時間
+        $created_at=date('y/n/j');
+        //儲存資料至products
+        Product::create([
+            'name'=>$request->name,
+            'brand'=>$request->brand,
+            'stock'=>$request->stock,
+            'origin_place'=>$request->origin_place,
+            'price'=>$request->price,
+            'created_at'=>$created_at,
+            'updated_at'=>$created_at,
 
+        ]);
+        return redirect()->route('admins.products.index');
     }
 
     /**
