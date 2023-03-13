@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminProductController extends Controller
 {
@@ -29,7 +30,7 @@ class AdminProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admins.products.create');
     }
 
     /**
@@ -40,7 +41,7 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
