@@ -137,9 +137,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     //平台人員
     Route::prefix('admins')->name('admins.')->group(function () {
-        Route::get('/recipes',[AdminRecipeController::class,'index'])->name('recipes.index');//餐點列表
-        Route::get('/recipes/create', [AdminRecipeController::class, 'create'])->name('recipes.create');//新增餐點頁面
-
+        Route::prefix('recipes')->name('recipes.')->group(function(){
+            Route::get('/',[AdminRecipeController::class,'index'])->name('index');//餐點列表
+            Route::patch ('/{recipe}/launch',[AdminRecipeController::class,'launch'])->name('launch');//上架
+            Route::patch ('/{recipe}/stop',[AdminRecipeController::class,'stop'])->name('stop');//下架
+            Route::get('/create', [AdminRecipeController::class, 'create'])->name('create');//新增餐點頁面
+        });
 
         Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表
         Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面
