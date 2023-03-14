@@ -53,9 +53,10 @@ Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
 //部落客
 Route::prefix('bloggers')->name('bloggers.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
-        Route::get('/',[BloggerRecipeController::class,'recipes'])->name('create');
+        Route::get('/',[BloggerRecipeController::class,'recipes'])->name('create');//新增食譜
         Route::patch ('/{recipe}/launch',[BloggerRecipeController::class,'launch'])->name('launch');//上架
         Route::patch ('/{recipe}/stop',[BloggerRecipeController::class,'stop'])->name('stop');//下架
+        Route::get('/{recipe}/edit',[BloggerRecipeController::class,'edit'])->name('edit');//食譜資料顯示
     });
 });
 
@@ -90,7 +91,7 @@ Route::get('show',[MemberController::class,'show'])->name('members.orders.show')
 Route::prefix('members')->name('members.')->group(function(){
     Route::get('/',[MemberController::class,'members'])->name('index');//個人資料
     Route::patch('/{member}',[MemberController::class,'update'])->name('update');//更新個人資料
-    Route::post('/password',[MemberController::class,'updatePassword'])->name('password.update');//更新密碼
+    Route::post('/password',[MemberController::class,'updatepassword'])->name('password.update');//更新密碼
     Route::get('collects',[MemberController::class,'collects'])->name('collects');//我的收藏
     Route::get('recipes',[MemberController::class,'recipes'])->name('recipes');//我的食譜
 
