@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,8 +17,12 @@ class CartItemController extends Controller
      */
     public function index()
     {
+        $items=Item::orderBy('id','DESC')->get();
+        $data = [
+            'item' => $items
+        ];
 
-        return view('members.cart_items.index');
+        return view('members.cart_items.index',$data);
     }
 
     public function finish()

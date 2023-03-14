@@ -48,6 +48,10 @@ Route::get('japan',[RecipeController::class,'japan'])->name('blog.japan');
 //食譜頁面(選擇性路由
 Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
 
+//部落客
+Route::get('create',[BloggerRecipeController::class,'create'])->name('bloggers.recipes.create');
+Route::get('create2',[BloggerRecipeController::class,'create2'])->name('bloggers.recipes.create2');
+
 
 
 //部落客
@@ -139,7 +143,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
         Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表
         Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面
-
+        Route::post('/products/store',[AdminProductController::class,'store'])->name('products.store');//儲存商品
     });
 
 
