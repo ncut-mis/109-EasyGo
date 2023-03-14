@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Suggest>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\RecipeStep>
  */
-class SuggestFactory extends Factory
+class RecipeStepFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,8 @@ class SuggestFactory extends Factory
     public function definition()
     {
         return [
-            'recommend'=>$this->faker->boolean,
-            'quantity'=>rand(1,10),
+            'text' => $this->faker->realText(35),
+            'picture'=>rand(1,7).'.jpg',
         ];
     }
 }

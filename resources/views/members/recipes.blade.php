@@ -26,11 +26,16 @@
 
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">我的食譜</h1>
-
-                    <section class="pt-4">
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <div class="d-grid gap-2 d-md-flex ">
                             <a class="btn btn-success btn-sm" href="{{route('bloggers.recipes.create')}}">新增</a>
                         </div>
+
+                    <section class="pt-4">
+                        @if($datanull == 0)
+                            <div class="my-auto">
+                                <h4 class="text-center text-secondary">~撰寫你的美味料理祕密配方~</h4>
+                            </div>
+                        @else
 
                         <table class="table">
                             <thead>
@@ -51,12 +56,20 @@
                                     @if($recipe->status== 1)
                                         <td>
                                             已上架
-                                            <button class="btn btn-sm btn-warning" type="submit">下架</button>
+                                            <form action="{{route('bloggers.recipes.stop',$recipe->id)}}" method="POST" style="display: inline-block">
+                                                @method('patch')
+                                                @csrf
+                                                <button class="btn btn-sm btn-warning" type="submit">下架</button>
+                                            </form>
                                         </td>
                                     @else
                                         <td>
                                             下架中
-                                            <button class="btn btn-sm btn-warning" type="submit">上架</button>
+                                            <form action="{{route('bloggers.recipes.launch',$recipe->id)}}" method="POST" style="display: inline-block">
+                                                @method('patch')
+                                                @csrf
+                                                <button class="btn btn-sm btn-warning" type="submit">上架</button>
+                                            </form>
                                         </td>
                                     @endif
 
@@ -75,6 +88,7 @@
                             </tbody>
 
                         </table>
+                        @endif
 
                     </section>
                 </div>

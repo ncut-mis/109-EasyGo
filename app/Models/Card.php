@@ -12,7 +12,6 @@ class Card extends Model
         'id',
         'member_id',
         'number',
-        'check',
         'deadline',
     ];
 

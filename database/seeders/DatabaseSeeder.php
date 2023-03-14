@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CommentSeeder::class);
         $this->call(SuggestSeeder::class);
         $this->call(ItemSeeder::class);
+        $this->call(RecipeStepSeeder::class);
         DB::statement('SET FOREIGN_KEY_CHECKS=1;'); //開啟外鍵檢查
     }
 }

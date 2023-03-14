@@ -5,16 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RecipeImg extends Model
+class RecipeStep extends Model
 {
     use HasFactory;
     protected $fillable = [
         'id',
         'recipe_id',
+        'sequence',
+        'text',
         'picture',
     ];
 
-    //某圖片屬於某一食譜
+    //某步驟屬於某一食譜
     public function recipe(){
         return $this->belongsTo(Recipe::class);
     }

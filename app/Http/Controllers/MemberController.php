@@ -33,10 +33,15 @@ class MemberController extends Controller
     {
         $user=Auth::user();//目前使用者
         $recipes = Recipe::where('user_id','=',$user->id)->get();//目前使用者的食譜
+        if ($recipes->first()==null){  //檢測是否有資料
+            $datanull=0;
+        }else{
+            $datanull=1;
+        }
         $data = [
+            'datanull' =>$datanull,
             'recipes' => $recipes,
         ];
-       // $recipes=Event::where('activity_id','=',$activity->id)->orderby('time')->get();
         return view('members.recipes',$data);
     }
     public function orders()

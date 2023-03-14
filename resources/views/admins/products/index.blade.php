@@ -9,7 +9,7 @@
             <li class="breadcrumb-item active">商品一覽表</li>
         </ol>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a class="btn btn-success btn-sm" href="#">新增</a>
+            <a class="btn btn-success btn-sm" href="{{route('admins.products.create')}}">新增</a>
         </div>
         <table class="table">
             <thead>
