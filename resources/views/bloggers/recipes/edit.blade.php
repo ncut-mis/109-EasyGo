@@ -11,7 +11,6 @@
                     <button type="button" class="btn btn-danger btn-lg">發布</button>
                     <button type="button" class="btn  btn-lg">儲存</button>
                     <button type="button" class="btn btn-lg">取消</button>
-                    <button type="button" class="btn btn-lg">刪除</button>
                 </div>
 
                 <!-- Post title-->
@@ -83,8 +82,8 @@
                         <tbody>
                             @foreach($recipe_ingredients as $recipe_ingredient)
                                 <tr>
-                                    <td><input name="name" id="name" type="text" class="form-control" placeholder="請輸入食材名稱" value=""></td>
-                                    <td><input type="text" class="name" value="{{$recipe_ingredient->quantity}}/{{$recipe_ingredient->unit}}"></td>
+                                    <td><input name="name" id="name" type="text" class="form-control" placeholder="請輸入食材名稱" value="{{$recipe_ingredient->name}}"></td>
+                                    <td><input type="text" class="name" value="{{$recipe_ingredient->quantity}}"></td>
                                     <td><input type="text" class="name" value="{{$recipe_ingredient->category->name}}"></td>
                                 </tr>
                             @endforeach

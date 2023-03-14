@@ -12,9 +12,9 @@ class Ingredient extends Model
         'id',
         'recipe_id',
         'category_id',
-        'product_id',
+        'name',
+        'remark',
         'quantity',
-        'unit',
     ];
     public function recipes(){
         //一項食材只屬於一個食譜
