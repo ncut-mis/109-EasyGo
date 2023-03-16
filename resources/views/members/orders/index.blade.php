@@ -53,16 +53,22 @@
                                             <th scope="col">時間</th>
                                             <th scope="col">總金額</th>
                                             <th scope="col">狀態</th>
+                                            <th scope="col">功能</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($array as $array_item)
-                                            <tr>
-                                                <td>{{$array_item['id']}}</td>
-                                                <td>{{$array_item['creat_time']}}</td>
-                                                <td>{{$array_item['price']}}</td>
-                                                <td>{{$array_item['status']}}</td>
-                                            </tr>
+
+                                                <tr onclick="window.location.href='#';">
+                                                    <td>{{$array_item['id']}}</td>
+                                                    <td>{{$array_item['creat_time']}}</td>
+                                                    <td>{{$array_item['price']}}</td>
+                                                    <td>{{$array_item['status']}}</td>
+                                                    <td>
+                                                        <a href="{{route('members.orders.show',$array_item['id'])}}" class="btn btn-secondary btn-sm">詳細資料</a>
+
+                                                    </td>
+                                                </tr>
                                         @endforeach
                                         </tbody>
                                     </table>

@@ -158,5 +158,39 @@ class MemberOrderController extends Controller
         ];
         return view('members.orders.cancel',$data);
     }
+    public function show(Order $order){
+
+        $array=[];
+        $key=0;
+        $orderderails=$order->orderDetali()->get();//取得訂單明細
+        foreach ($orderderails as $orderderail){
+            $products=$orderderail->product()->get();//取得商品資訊
+            foreach ($products as $product){
+                $price=$product->price * $orderderail->quantity;//計算價格
+                $array=Arr::add($array,$key,[//產生新的資料表
+                    'name'=>$product->name,//產品名稱
+                    'quantity'=>$orderderail->quantity,//數量
+                    'price'=>$product->price,//單價
+                ]);
+                $key++;
+            }
+
+        }
+        $data=[
+            'order'=>$order,
+            'array'=>$array,
+        ];
+        //運送狀態
+        //收件者姓名
+        //電話
+        //地址
+        //訂單明細(品項、數量、金額)
+        //總金額
+        //付款方式
+        //付款狀態
+        //訂單編號
+        //訂單成立時間
+        return view('members.orders.show',$data);
+    }
 }
 

@@ -99,7 +99,7 @@ Route::prefix('members')->name('members.')->group(function(){
         Route::get('/',[MemberOrderController::class,'index'])->name('index');//我的訂單(所有
         Route::get('cancel',[MemberOrderController::class,'cancel'])->name('cancel');//我的訂單(取消
         Route::get('done',[MemberOrderController::class,'done'])->name('done');//我的訂單(完成
-        Route::get('show',[MemberOrderController::class,'show'])->name('show');//訂單詳細資料
+        Route::get('show/{order}',[MemberOrderController::class,'show'])->name('show');//訂單詳細資料
 
     });
 });
