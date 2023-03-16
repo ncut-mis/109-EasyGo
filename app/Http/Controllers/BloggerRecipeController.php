@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ingredient;
 use App\Models\Recipe;
+use App\Models\RecipeCategory;
+use App\Models\RecipeImg;
+use App\Models\RecipeStep;
+use App\Models\Suggest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BloggerRecipeController extends Controller
 {
@@ -14,12 +20,12 @@ class BloggerRecipeController extends Controller
      */
     public function recipes()
     {
-        return view('bloggers.recipes.create');
+//        return view('bloggers.recipes.create');
     }
 
     public function index()
     {
-        return view('bloggers.recipes');
+//        return view('bloggers.recipes');
     }
 
     //下架食譜
@@ -42,7 +48,12 @@ class BloggerRecipeController extends Controller
      */
     public function create()
     {
-        //
+        return view('bloggers.recipes.create');
+    }
+
+    public function create2()
+    {
+        return view('bloggers.recipes.create2');
     }
 
     /**
@@ -62,9 +73,21 @@ class BloggerRecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function edit(Recipe $recipe)
     {
-        //
+        $recipe_imgs=RecipeImg::where('recipe_id','=',$recipe->id)->get();//圖片
+        $recipe_categories=RecipeCategory::orderBy('id','DESC')->get();//食譜類別
+        $recipe_ingredients=Ingredient::where('recipe_id','=',$recipe->id)->get();//食材
+        $recipe_steps=RecipeStep::where('recipe_id','=',$recipe->id)->get();//步驟
+        $data = [
+            'recipe' => $recipe,
+            'recipe_imgs'=>$recipe_imgs,
+//            'suggests'=>$suggests,
+            'recipe_ingredients'=>$recipe_ingredients,
+            'recipe_categories'=>$recipe_categories,
+            'recipe_steps'=>$recipe_steps,
+        ];
+        return view('bloggers.recipes.edit',$data);
     }
 
     /**
@@ -73,10 +96,7 @@ class BloggerRecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
