@@ -111,7 +111,10 @@ Route::prefix('members')->name('members.')->group(function(){
 
 //購物車
 Route::get('index',[CartItemController::class,'index'])->name('members.cart_items.index');//購物車
+Route::post('remove',[CartItemController::class,'destroy'])->name('members.cart_items.remove');
+Route::post('update',[CartItemController::class,'update'])->name('members.cart_items.update');
 Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');
+
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 
+use App\Models\Product;
+use App\Models\ProductImg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,10 +19,30 @@ class CartItemController extends Controller
      */
     public function index()
     {
-        $items=Item::orderBy('id','DESC')->get();
+        $user=Auth::user();//目前使用者
+
+        $items = Item::where('member_id','=',$user->id)->get();//目前使用者的食譜
+
+        $carts = array();
+
+        foreach ($items as $item)
+        {
+            $product_info = Product::where('id','=',$item->product_id)->get();//目前使用者的食譜
+            $product_img = ProductImg::where('id','=',$item->product_id)->get();//目前使用者的食譜
+
+            $cart_item = $product_info[0];
+            $cart_item->quantity = $item->quantity;
+            $cart_item->picture = $product_img[0]->picture;
+
+            array_push($carts, $cart_item);
+        }
+
         $data = [
-            'item' => $items
+            'carts' => $carts
         ];
+
+        //$user_list = DB::select('select * from users');
+        //return view('index',['user_list' => $user_list]);
 
         return view('members.cart_items.index',$data);
     }
