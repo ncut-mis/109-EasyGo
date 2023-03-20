@@ -60,7 +60,7 @@
                         </tbody>
                     </table>
                     <div style="text-align:right">
-                        <b>總計： 元</b>
+                        <b>總計： {{$total}}元</b>
                     </div>
                     <br>
                     <div class="form-group">

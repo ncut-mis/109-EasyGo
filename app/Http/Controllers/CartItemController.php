@@ -29,20 +29,23 @@ class CartItemController extends Controller
 
         $carts = array();
 
+        $total=0;
+
+
         foreach ($items as $item)
         {
             $product_info = Product::where('id','=',$item->product_id)->get();//目前使用者的食譜
             $product_img = ProductImg::where('id','=',$item->product_id)->get();//目前使用者的食譜
-
             $cart_item = $product_info[0];
             $cart_item->quantity = $item->quantity;
             $cart_item->picture = $product_img[0]->picture;
-
+            $total = ($cart_item->price)*($cart_item->quantity)+$total;
             array_push($carts, $cart_item);
         }
 
         $data = [
-            'carts' => $carts
+            'carts' => $carts,
+           'total'=>$total
         ];
 
         //$user_list = DB::select('select * from users');
@@ -57,23 +60,24 @@ class CartItemController extends Controller
         $name=Auth::user()->name;
         $items = Item::where('member_id','=',$user->id)->get();//目前使用者的食譜
         $carts = array();
+        $total=0;
 
         foreach ($items as $item)
         {
             $product_info = Product::where('id','=',$item->product_id)->get();//目前使用者的食譜
             $product_img = ProductImg::where('id','=',$item->product_id)->get();//目前使用者的食譜
-
             $cart_item = $product_info[0];
             $cart_item->quantity = $item->quantity;
             $cart_item->picture = $product_img[0]->picture;
-
+            $total = ($cart_item->price)*($cart_item->quantity)+$total;
             array_push($carts, $cart_item);
         }
 
         $data = [
             'name'=>$name,
             'user'=>$user,
-            'carts'=>$carts
+            'carts'=>$carts,
+             'total'=>$total
         ];
         return view('members.cart_items.finish',$data);
     }

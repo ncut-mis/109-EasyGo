@@ -93,7 +93,9 @@
         @endforelse
 
                     </table>
-
+                <div style="text-align:right">
+                    <b>總計：{{$total}} 元</b>
+                </div>
                 <div style="text-align:center">
                     <a class="btn btn-outline-primary" href="{{route('members.cart_items.finish')}}">前往結帳</a>
                 </div>
