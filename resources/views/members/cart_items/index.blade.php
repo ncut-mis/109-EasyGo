@@ -75,10 +75,10 @@
                     @endif
                 </td>
                 <td class="text-right">${{  $cart->price  }}</td>
-                <td class="text-center"><input type="number" id="quantity" name="quantity" min="1" value="{{  $cart->quantity  }}" onchange="post_update_quantity('{{$cart->id}}', this.value);"></td>
+                <td class="text-right">{{  $cart->quantity  }}</td>
                 <td class="text-right" id="display_price">${{  $cart->price * $cart->quantity  }}</td>
                 <td nowrap>
-                    <form action="{{    route('members.cart_items.remove')    }}" method="post">
+                    <form action="{{route('members.cart_items.remove')}}" method="post">
                         @csrf <!-- Laravel's built-in CSRF protection -->
                         <input name="id" value="{{$cart->id}}" style="display:none"/>
                         <button class="btn btn-danger btn-sm">移除</button>
@@ -95,7 +95,7 @@
                     </table>
 
                 <div style="text-align:center">
-                    <a class="btn btn-outline-primary" href="">前往結帳</a>
+                    <a class="btn btn-outline-primary" href="{{route('members.cart_items.finish')}}">前往結帳</a>
                 </div>
 @endsection
 

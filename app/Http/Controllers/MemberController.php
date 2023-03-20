@@ -73,6 +73,7 @@ class MemberController extends Controller
             ];
         return view('members.members', $data);
     }
+
     public function updatePassword(Request $request)
     {
         $user = Auth::user();

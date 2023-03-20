@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Item;
 
+use App\Models\Items;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductImg;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -49,8 +53,29 @@ class CartItemController extends Controller
 
     public function finish()
     {
+        $user=Auth::user();//目前使用者
+        $name=Auth::user()->name;
+        $items = Item::where('member_id','=',$user->id)->get();//目前使用者的食譜
+        $carts = array();
 
-        return view('members.cart_items.finish');
+        foreach ($items as $item)
+        {
+            $product_info = Product::where('id','=',$item->product_id)->get();//目前使用者的食譜
+            $product_img = ProductImg::where('id','=',$item->product_id)->get();//目前使用者的食譜
+
+            $cart_item = $product_info[0];
+            $cart_item->quantity = $item->quantity;
+            $cart_item->picture = $product_img[0]->picture;
+
+            array_push($carts, $cart_item);
+        }
+
+        $data = [
+            'name'=>$name,
+            'user'=>$user,
+            'carts'=>$carts
+        ];
+        return view('members.cart_items.finish',$data);
     }
 
     /**
@@ -69,9 +94,22 @@ class CartItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+//        //取得使用者此筆訂單資訊
+//        $order = Auth::user()->order()->orderby('id', 'DESC')->first();
+//
+//
+//        //關聯餐點及訂單到order_item表內
+//        $product->order()->attach($order->id, ['quantity' => $request['quantity'], 'status' => 0]);
+//
+//        //變數$meal存入矩陣
+//        $data=[ 'meal'=>$meal ];
+//
+//        //返回該餐點介面
+//
+//        return redirect()->route('product.index')->with('status','系統提示：訂單已送出！');
+
     }
 
     /**
@@ -103,7 +141,7 @@ class CartItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $user=Auth::user();//目前使用者
 
