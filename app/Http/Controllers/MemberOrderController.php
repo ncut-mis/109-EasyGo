@@ -118,4 +118,79 @@ class MemberOrderController extends Controller
         ];
         return view('members.orders.done',$data);
     }
+    public function cancel(){
+        //顯示已完成訂單列表
+        $array=[];
+        $array_key=0;
+        $has_data=null;
+
+        $user_id=Auth::id();
+        $members=Member::where('user_id',$user_id)->get();//取得會員編號
+        foreach ($members as $member){
+            $orders=Order::where('member_id',$member->id)->where('status',6)->get();//取得訂單
+            if (Order::where('member_id',$member->id)->where('status',6)->first()==null){  //檢測是否有資料
+                $has_data=0;
+            }else{
+                $has_data=1;
+                foreach ($orders as $order){
+                    $sum_price=0;
+                    $order_details=OrderDetali::where('order_id',$order->id)->get();//取得訂單明細編號
+                    foreach ($order_details as $order_detail){
+                        $price=Product::find($order_detail->product_id)->price;//取得產品價格
+                        $sum_price+=$price * $order_detail->quantity;//加總該訂單所有價格
+                    }
+                    //建立新的資料表
+                    $array=Arr::add($array,$array_key,[
+                        'id'=>$order->id,//訂單編號
+                        'creat_time'=>$order->created_at,//成立時間
+                        'price'=>$sum_price,//總金額
+                        'status'=>'已取消',//訂單狀態
+                    ]);
+
+                    $array_key++;
+                }
+            }
+
+        }
+        $data=[
+            'has_data'=>$has_data,
+            'array'=>$array,
+        ];
+        return view('members.orders.cancel',$data);
+    }
+    public function show(Order $order){
+
+        $array=[];
+        $key=0;
+        $orderderails=$order->orderDetali()->get();//取得訂單明細
+        foreach ($orderderails as $orderderail){
+            $products=$orderderail->product()->get();//取得商品資訊
+            foreach ($products as $product){
+                $price=$product->price * $orderderail->quantity;//計算價格
+                $array=Arr::add($array,$key,[//產生新的資料表
+                    'name'=>$product->name,//產品名稱
+                    'quantity'=>$orderderail->quantity,//數量
+                    'price'=>$product->price,//單價
+                ]);
+                $key++;
+            }
+
+        }
+        $data=[
+            'order'=>$order,
+            'array'=>$array,
+        ];
+        //運送狀態
+        //收件者姓名
+        //電話
+        //地址
+        //訂單明細(品項、數量、金額)
+        //總金額
+        //付款方式
+        //付款狀態
+        //訂單編號
+        //訂單成立時間
+        return view('members.orders.show',$data);
+    }
 }
+

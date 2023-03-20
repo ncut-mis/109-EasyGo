@@ -32,16 +32,15 @@
                         </div>
                         <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
                             <div class="info"><h2>菲力牛柳 </h2>
-                                <div class="name">價格:</div>
-                                <div class="unit">
-                                    <span>100</span>
-                                    <span>分鐘</span>
+                                <div class="name">
+                                    <span>價格:</span>
+                                    <span>100元</span>
                                 </div>
-                                <div class="name">份量:</div>
-                                <div class="unit">
-                                    <span>5</span>
-                                    <span>克</span>
+                                <div class="name">
+                                    <span>份量:</span>
+                                    <span>5克</span>
                                 </div>
+
                                 <a href="{{route('product.show')}}" class="stretched-link"> </a>
                             </div>
                         </div>

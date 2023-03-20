@@ -74,7 +74,7 @@
                                     @endif
 
                                     <td class="col-2">
-                                        <a href="" type="button" class="btn btn-primary btn-sm">詳細資料</a>
+                                        <a href="{{route('bloggers.recipes.edit',$recipe->id)}}" type="button" class="btn btn-primary btn-sm">詳細資料</a>
 
                                         <!--刪除-->
                                         <form action="" method="POST" style="display: inline-block">

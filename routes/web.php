@@ -58,9 +58,10 @@ Route::get('create2',[BloggerRecipeController::class,'create2'])->name('bloggers
 //部落客
 Route::prefix('bloggers')->name('bloggers.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
-        Route::get('/',[BloggerRecipeController::class,'recipes'])->name('create');
+        Route::get('/',[BloggerRecipeController::class,'recipes'])->name('create');//新增食譜
         Route::patch ('/{recipe}/launch',[BloggerRecipeController::class,'launch'])->name('launch');//上架
         Route::patch ('/{recipe}/stop',[BloggerRecipeController::class,'stop'])->name('stop');//下架
+        Route::get('/{recipe}/edit',[BloggerRecipeController::class,'edit'])->name('edit');//食譜資料顯示
     });
 });
 
@@ -95,7 +96,7 @@ Route::get('show',[MemberController::class,'show'])->name('members.orders.show')
 Route::prefix('members')->name('members.')->group(function(){
     Route::get('/',[MemberController::class,'members'])->name('index');//個人資料
     Route::patch('/{member}',[MemberController::class,'update'])->name('update');//更新個人資料
-    Route::post('/password',[MemberController::class,'updatePassword'])->name('password.update');//更新密碼
+    Route::post('/password',[MemberController::class,'updatepassword'])->name('password.update');//更新密碼
     Route::get('collects',[MemberController::class,'collects'])->name('collects');//我的收藏
     Route::get('recipes',[MemberController::class,'recipes'])->name('recipes');//我的食譜
 
@@ -104,7 +105,7 @@ Route::prefix('members')->name('members.')->group(function(){
         Route::get('/',[MemberOrderController::class,'index'])->name('index');//我的訂單(所有
         Route::get('cancel',[MemberOrderController::class,'cancel'])->name('cancel');//我的訂單(取消
         Route::get('done',[MemberOrderController::class,'done'])->name('done');//我的訂單(完成
-        Route::get('show',[MemberOrderController::class,'show'])->name('show');//訂單詳細資料
+        Route::get('show/{order}',[MemberOrderController::class,'show'])->name('show');//訂單詳細資料
 
     });
 });
@@ -146,9 +147,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     //平台人員
     Route::prefix('admins')->name('admins.')->group(function () {
-        Route::get('/recipes',[AdminRecipeController::class,'index'])->name('recipes.index');//餐點列表
-        Route::get('/recipes/create', [AdminRecipeController::class, 'create'])->name('recipes.create');//新增餐點頁面
-
+        Route::prefix('recipes')->name('recipes.')->group(function(){
+            Route::get('/',[AdminRecipeController::class,'index'])->name('index');//餐點列表
+            Route::patch ('/{recipe}/launch',[AdminRecipeController::class,'launch'])->name('launch');//上架
+            Route::patch ('/{recipe}/stop',[AdminRecipeController::class,'stop'])->name('stop');//下架
+            Route::get('/create', [AdminRecipeController::class, 'create'])->name('create');//新增餐點頁面
+        });
 
         Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表
         Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面

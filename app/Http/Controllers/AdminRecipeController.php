@@ -22,6 +22,19 @@ class AdminRecipeController extends Controller
         return view('admins.recipes.index',$data);
     }
 
+    //下架食譜
+    public function stop(Recipe $recipe)
+    {
+        $recipe->update(['status'=>0]);
+        return redirect()->route('admins.recipes.index');
+    }
+    //上架食譜
+    public function launch(Recipe $recipe)
+    {
+        $recipe->update(['status'=>1]);
+        return redirect()->route('admins.recipes.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
