@@ -15,7 +15,7 @@
 
             const xhr = new XMLHttpRequest(); // Create a new XMLHttpRequest object
 
-            xhr.open('POST', "{{    route('members.cart_items.update')    }}"); // Specify the HTTP method and endpoint
+            xhr.open('POST', "{{route('members.cart_items.update')}}"); // Specify the HTTP method and endpoint
 
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -27,16 +27,39 @@
             xhr.send(formData);
         }
     </script>
-    <h1>我的購物車</h1>
-    <table class="table table-striped">
-        <tr>
-            <th colspan=2>商品名稱</th>
-            <th nowrap class="text-right">商品單價</th>
-            <th nowrap class="text-center">購買數量</th>
-            <th nowrap class="text-right">小計</th>
-            <th>功能</th>
-        </tr>
-        @forelse($carts as $cart)
+
+    </style>
+    <br>
+    <header class="masthead">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="page-heading">
+                        <br><center><h1><b>購物車</b></h1></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <center><hr width="80%"></center>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <br>
+                            <th width="20%" style="text-align: center">圖片</th>
+                            <th width="20%" style="text-align: center">名稱</th>
+                            <th width="10%" style="text-align: center">單價</th>
+                            <th width="10%" style="text-align: center">數量</th>
+                            <th width="10%" style="text-align: center">小計</th>
+                            <th width="15%" style="text-align: center">刪除</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+        @forelse ($carts as $cart)
             <tr>
                 <td>
                     <a target="_blank" href="">
@@ -46,7 +69,7 @@
                 <td>
                     <a target="_blank" href=""><h5></h5></a>
                     @if(!$cart->status)
-                        <div class="warning">该商品已下架</div>
+                        <div class="warning">商品被下架</div>
                     @else
                         <div class="warning">{{  $cart->name  }}</div>
                     @endif
@@ -63,11 +86,17 @@
                 </td>
             </tr>
         @empty
+
             <tr>
                 <td><h1>購物車空無一物</h1></td>
             </tr>
         @endforelse
-    </table>
+
+                    </table>
+
+                <div style="text-align:center">
+                    <a class="btn btn-outline-primary" href="">前往結帳</a>
+                </div>
 @endsection
 
 

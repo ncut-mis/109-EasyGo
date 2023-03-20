@@ -103,9 +103,18 @@ class CartItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user=Auth::user();//目前使用者
+
+        $product_id = $request->input('product_id');
+        $quantity = $request->input('quantity');
+
+        $item = Item::where('member_id','=',$user->id)->where('product_id','=',$product_id)->get();
+        $item[0]->quantity = $quantity;
+        $item[0]->save();
+
+        return redirect()->back()->with('success', '編輯成功');
     }
 
     /**
@@ -114,8 +123,14 @@ class CartItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $user=Auth::user();//目前使用者
+
+        $product_id = $request->input('id');
+
+        Item::where('member_id','=',$user->id)->where('product_id','=',$product_id)->delete();
+
+        return redirect()->back()->with('success', '刪除成功');
     }
 }

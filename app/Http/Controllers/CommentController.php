@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -22,9 +23,21 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request$request)
     {
-        //
+        $user=Auth::user();//目前使用者
+
+        $recipe_id = $request->input('recipe_id');
+
+        $content = $request->input('content');
+
+        $new_comment = new Comment;
+        $new_comment->member_id = $user->id;
+        $new_comment->recipe_id = $recipe_id;
+        $new_comment->content = $content;
+        $new_comment->save();
+
+        return redirect()->back()->with('success', '留言成功');
     }
 
     /**
