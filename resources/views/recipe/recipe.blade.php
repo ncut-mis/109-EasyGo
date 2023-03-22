@@ -41,15 +41,15 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @foreach($ingredients as $ingredient)
+{{--                                                        @foreach($ingredients as $ingredient)--}}
                                                             <tr>
                                                                 <form action="" method="post">
                                                                     @csrf <!-- Laravel's built-in CSRF protection -->
                                                                     <th scope="row">
                                                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">加入購物車</button>
                                                                     </th>
-                                                                    <th scope="row">{{  $ingredient->name  }}</th>
-                                                                    <input name="name" value="{{$ingredient->name}}" style="display:none"/>
+                                                                    <th scope="row"></th>
+                                                                    <input name="name" value="" style="display:none"/>
 
                                                                     <td>
                                                                         <select name="brand">
@@ -67,7 +67,7 @@
                                                                     <td>$100</td>
                                                                 </form>
                                                             </tr>
-                                                        @endforeach
+{{--                                                        @endforeach--}}
                                                         <tr>
                                                             <td>
                                                             </td>
@@ -118,12 +118,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($ingredients as $ingredient)
+{{--                                @foreach($ingredients as $ingredient)--}}
                                     <tr>
-                                        <th scope="row">{{  $ingredient->name  }}</th>
-                                        <td>{{  $ingredient->quantity  }}</td>
+                                        <th scope="row"></th>
+                                        <td></td>
                                     </tr>
-                                @endforeach
+{{--                                @endforeach--}}
                                 </tbody>
                             </table>
                         </div>
@@ -172,7 +172,7 @@
                                 <div class="media-body">
                                     <h5 class="mt-0">留言區</h5>
                                     <!--表單 textarea-->
-                                    <form action="{{    route('comment.create')    }}" method="post">
+                                    <form action="{{route('comment.create')}}" method="post">
                                         @csrf <!-- Laravel's built-in CSRF protection -->
                                         <div class="form-group">
                                             <input name="recipe_id" value="" style="display:none"/>
@@ -184,15 +184,15 @@
                                 </div>
                             </div>
                             <!-- media object-->
-                            @foreach($comments as $comment)
+{{--                            @foreach($comments as $comment)--}}
                                 <div class="media my-3">
                                     <img src="https://randomuser.me/api/portraits/lego/2.jpg" class="mr-3" alt="..." width="64" height="64">
                                     <div class="media-body">
-                                        <h5 class="mt-0">{{  $comment->fullname  }}</h5>
-                                        {{  $comment->content  }}
+                                        <h5 class="mt-0"></h5>
+
                                     </div>
                                 </div>
-                            @endforeach
+{{--                            @endforeach--}}
                         </div>
                     </div>
             </div>

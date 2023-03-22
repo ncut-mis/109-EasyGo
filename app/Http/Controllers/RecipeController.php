@@ -22,19 +22,10 @@ class RecipeController extends Controller
     {
         $recipes=Recipe::orderBy('id','DESC')->get();
 
-        $rsp_recipes = array();
-
-        foreach ($recipes as $recipe)
-        {
-            $recipe_imgs=RecipeImg::where('recipe_id','=',$recipe->id)->get();
-
-            $recipe->picture = $recipe_imgs[0]->picture;
-
-            array_push($rsp_recipes, $recipe);
-        }
 
         $data=[
-            'recipes'=>$rsp_recipes
+            'recipes'=>$recipes
+
         ];
 
         return view('blog.new',$data);
