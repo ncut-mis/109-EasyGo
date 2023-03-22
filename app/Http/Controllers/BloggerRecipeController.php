@@ -20,12 +20,12 @@ class BloggerRecipeController extends Controller
      */
     public function recipes()
     {
-//        return view('bloggers.recipes.create');
+    return view('bloggers.recipes.create');
     }
 
     public function index()
     {
-//        return view('bloggers.recipes');
+     return view('bloggers.recipes');
     }
 
     //下架食譜
