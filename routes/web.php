@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminRecipeController;
 use App\Http\Controllers\BloggerRecipeController;
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberOrderController;
 use App\Http\Controllers\RecipeController;
@@ -112,7 +113,16 @@ Route::prefix('members')->name('members.')->group(function(){
 
 //購物車
 Route::get('index',[CartItemController::class,'index'])->name('members.cart_items.index');//購物車
+Route::post('remove',[CartItemController::class,'destroy'])->name('members.cart_items.remove');
+Route::post('update',[CartItemController::class,'update'])->name('members.cart_items.update');
 Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');
+
+
+//留言
+Route::prefix('comment')->name('comment.')->group(function(){
+    Route::post('create',[CommentController::class,'create'])->name('create');
+});
+
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 

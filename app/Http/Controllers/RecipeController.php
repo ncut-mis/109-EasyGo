@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Recipe;
 use App\Models\RecipeImg;
+use App\Models\Ingredient;
+use App\Models\Member;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,11 +20,23 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        $recipes = Recipe::orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $recipes=Recipe::orderBy('id','DESC')->get();
+
+        $rsp_recipes = array();
+
+        foreach ($recipes as $recipe)
+        {
+            $recipe_imgs=RecipeImg::where('recipe_id','=',$recipe->id)->get();
+
+            $recipe->picture = $recipe_imgs[0]->picture;
+
+            array_push($rsp_recipes, $recipe);
+        }
 
         $data=[
-            'recipes'=>$recipes
+            'recipes'=>$rsp_recipes
         ];
+
         return view('blog.new',$data);
     }
     public function china()
@@ -46,17 +62,44 @@ class RecipeController extends Controller
     {
         //
     }
-    public function recipe(Recipe $recipe)
+    public function recipe(Request $request)
     {
+        $id = $request->input('id');
 
-        $recipe_imgs=RecipeImg::where('recipe_id','=',$recipe->id)->get();
+        $recipe=Recipe::where('id','=',$id)->get();
+        $recipe_imgs=RecipeImg::where('recipe_id','=',$id)->get();
+        $ingredients=Ingredient::where('recipe_id','=',$id)->get();
+
+        $all_comments=Comment::where('recipe_id','=',$id)->get();
+
+        $rsp_comments = array();
+
+        foreach ($all_comments as $comment)
+        {
+            $member_info=Member::where('id','=',$comment->member_id)->get();
+            $user_info=User::where('id','=',$member_info[0]->user_id)->get();
+
+            $comment->nickname = $member_info[0]->nickname;
+            $comment->fullname = $user_info[0]->name;
+
+            array_push($rsp_comments, $comment);
+        }
+
         $data=[
             'recipe'=>$recipe,
-            'recipte_img'=>$recipe_imgs,
 
-
+            'recipe_img'=>$recipe_imgs,
+            'ingredients'=>$ingredients,
+            'comments'=>$rsp_comments,
         ];
+
+        //print_r($data);
+
         return view('recipe.recipe', $data);
+    }
+
+    public function leave_message(Request $request)
+    {
     }
     /**
      * Store a newly created resource in storage.
@@ -72,7 +115,6 @@ class RecipeController extends Controller
 
     public function store(Request $request)
     {
-        //
     }
 
     /**

@@ -41,38 +41,61 @@
                         </tr>
                         </thead>
                         <tbody>
-{{--                        @foreach($carts as $cart)--}}
+                        @foreach($carts as $cart)
                             <tr>
                                 <td style="text-align: center;line-height:40px;">
-{{--                                    {{$cart->name}}--}}
+                                    {{$cart->name}}
                                 </td>
                                 <td style="text-align: center;line-height:40px;">
-{{--                                    ${{$cart->price}}--}}
+                                    ${{$cart->price}}
                                 </td>
                                 <td style="text-align: center;line-height:40px;">
-{{--                                    {{$cart->quantity}}--}}
+                                    {{$cart->quantity}}
                                 </td>
                                 <td style="text-align: center;line-height:40px;">
-{{--                                    ${{($cart->quantity)*($cart->price)}}--}}
+                                    ${{($cart->quantity)*($cart->price)}}
                                 </td>
                             </tr>
-{{--                        @endforeach--}}
+                        @endforeach
                         </tbody>
                     </table>
                     <div style="text-align:right">
-                        <b>總計： 元</b>
+                        <b>總計： {{$total}}元</b>
                     </div>
                     <br>
                     <div class="form-group">
                         <label for="name">收件人姓名：</label><br>
-                        <input name="name" value="" class="form-control" disabled="true">
+                        <input name="name" value="{{$user->name}}" class="form-control" disabled="true">
                         <br>
-                        <label for="name">收件人電話：</label><br>
-                        <input name="name" value="" class="form-control" disabled="true">
+                        <label for="name">收件人信箱：</label><br>
+                        <input name="name" value="{{$user->email}}" class="form-control" disabled="true">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col"> 付款資訊</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">信用卡號<input type="password" class="form-control" placeholder="xxxx-xxxx-xxxx-xxxx"></th>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">有效期限<input type="password" class="form-control"  placeholder="有效期限"></th>
+
+                            </tr>
+                            <th scope="row">手機號碼 <input class="form-control"  placeholder="手機號碼"></th>
+
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <br>
                     <div style="text-align:center">
-                        <a class="btn btn-outline-primary" href="">完成結帳</a>
+                        <button type="submit" class="btn btn-primary btn-sm">成功訂購</button>
                     </div>
                 </form>
             </div>
