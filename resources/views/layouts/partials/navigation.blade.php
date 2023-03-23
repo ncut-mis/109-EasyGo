@@ -1,7 +1,7 @@
 <!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
     <div class="container px-lg-5">
-        <a class="navbar-brand" href="{{route('blog.new')}}">食譜EasyGo</a>
+        <a class="navbar-brand" href="{{route('blog.new')}}">食材EasyGo</a>
 
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 " action="{{route('search')}}" method="get">
