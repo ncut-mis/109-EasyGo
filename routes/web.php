@@ -114,6 +114,7 @@ Route::prefix('members')->name('members.')->group(function(){
 //購物車
 Route::get('index',[CartItemController::class,'index'])->name('members.cart_items.index');//購物車
 Route::post('remove',[CartItemController::class,'destroy'])->name('members.cart_items.remove');
+Route::post('store',[CartItemController::class,'store'])->name('members.cart_items.store');//商品加入購物車
 Route::post('update',[CartItemController::class,'update'])->name('members.cart_items.update');
 Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');
 

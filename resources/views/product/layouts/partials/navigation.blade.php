@@ -48,6 +48,7 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{route('bloggers.recipes.create')}}">寫食譜</a></li>
+                                <li><a class="dropdown-item" href="{{route('members.cart_items.index')}}">購物車</a></li>
                                 <li><a class="dropdown-item" href="{{route('members.recipes')}}">發表過的食譜</a></li>
                                 <li><a class="dropdown-item" href="{{route('members.collects')}}">我的收藏</a></li>
                                 <li><a class="dropdown-item" href="{{route('members.index')}}">會員資料</a></li>

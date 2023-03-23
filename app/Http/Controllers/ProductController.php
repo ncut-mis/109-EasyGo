@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -13,7 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+
         return view('product.product');
+
     }
     public function add_product()
     {
@@ -66,7 +70,15 @@ class ProductController extends Controller
      */
     public function product()
     {
-        return view('product.product');
+        $products=Product::orderBy('id','DESC')->get();
+
+
+        $data=[
+            'products'=>$products
+
+        ];
+        return view('product.product', $data);
+
     }
     public function create()
     {
