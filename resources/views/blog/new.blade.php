@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title','EasyGo')
 @section('content')
-    @include('blog.share.header')
+@include('blog.share.header')
 
 
     <!--標籤列-->
@@ -30,12 +30,21 @@
                             <div class="col-lg-6 col-xxl-4 mb-5 pt-5">
                                 <div class="card bg-light border-0 h-100 ">
                                     <!--圖片-->
-                                    <img src="{{asset('images/'.$recipe->recipe_imgs)}}">
+                                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-inner">
+                                            @foreach ($recipe->recipeImgs as $recipeImg)
+                                            <div class="carousel-item active">
+                                                <img src="{{asset('img/recipe/'.$recipeImg->picture)}}" width="350" height="250">
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+
+
                                     <div class="card-body text-center p-lg-5  pt-lg-0 pt-5">
                                         <h2 class="fs-4 fw-bold pt-5">{{$recipe->name}}</h2>
                                         <p class="mb-0">{{$recipe->text}}</p>
                                         <a href="{{route('recipe.recipe',$recipe->id)}}" class="stretched-link"></a>
-
                                     </div>
                                 </div>
                             </div>

@@ -9,6 +9,7 @@ use App\Models\Ingredient;
 use App\Models\Member;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
@@ -21,15 +22,13 @@ class RecipeController extends Controller
     public function index()
     {
         $recipes=Recipe::orderBy('id','DESC')->get();
-
-
         $data=[
-            'recipes'=>$recipes
+            'recipes' => $recipes,
+            ];
 
-        ];
-
-        return view('blog.new',$data);
+    return view('blog.new',$data);
     }
+
     public function china()
     {
         return view('blog.china');
