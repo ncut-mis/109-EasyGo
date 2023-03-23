@@ -83,11 +83,8 @@ Route::prefix('product')->name('product.')->group(function(){
 Route::get('product',[ProductController::class,'product'])->name('product.product');
 
 //會員專區
-
-Route::get('members',[MemberController::class,'members'])->name('members.members');//個人資料
 Route::get('cart_items',[MemberController::class,'cart_items'])->name('members.cart_items.index');//購物車
 Route::get('collects',[MemberController::class,'collects'])->name('members.collects');//我的收藏
-Route::get('recipes',[MemberController::class,'recipes'])->name('members.recipes');//我的食譜
 Route::get('orders',[MemberController::class,'orders'])->name('members.orders');//我的訂單(所有
 Route::get('cancel',[MemberController::class,'cancel'])->name('members.orders.cancel');//我的訂單(取消
 Route::get('done',[MemberController::class,'done'])->name('members.orders.done');//我的訂單(完成
@@ -97,8 +94,12 @@ Route::prefix('members')->name('members.')->group(function(){
     Route::get('/',[MemberController::class,'members'])->name('index');//個人資料
     Route::patch('/{member}',[MemberController::class,'update'])->name('update');//更新個人資料
     Route::post('/password',[MemberController::class,'updatepassword'])->name('password.update');//更新密碼
-    Route::get('collects',[MemberController::class,'collects'])->name('collects');//我的收藏
-    Route::get('recipes',[MemberController::class,'recipes'])->name('recipes');//我的食譜
+    Route::get('/collects',[MemberController::class,'collects'])->name('collects');//我的收藏
+
+    Route::prefix('recipes')->name('recipes.')->group(function(){
+        Route::get('/',[MemberController::class,'recipes'])->name('index');//我的食譜
+        Route::get('/{recipe}',[MemberController::class,'show'])->name('show');//檢視某一食譜
+    });
 
     //會員-訂單
     Route::prefix('orders')->name('orders.')->group(function(){
