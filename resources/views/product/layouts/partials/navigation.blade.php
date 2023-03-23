@@ -52,7 +52,7 @@
                                 <li><a class="dropdown-item" href="{{route('members.recipes')}}">發表過的食譜</a></li>
                                 <li><a class="dropdown-item" href="{{route('members.collects')}}">我的收藏</a></li>
                                 <li><a class="dropdown-item" href="{{route('members.index')}}">會員資料</a></li>
-                                <li><a class="dropdown-item" href="{{route('members.orders')}}">所有訂單</a></li>
+                                <li><a class="dropdown-item" href="{{route('members.orders.index')}}">所有訂單</a></li>
 
                                 <li><a class="dropdown-item" href="{{ route('logout') }}">登出</a></li>
                             </ul>
