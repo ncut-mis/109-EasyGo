@@ -172,27 +172,45 @@
                                 <div class="media-body">
                                     <h5 class="mt-0">留言區</h5>
                                     <!--表單 textarea-->
-                                    <form action="{{route('comment.create')}}" method="post">
+                                    <form action="{{    route('comment.create')    }}" method="post">
                                         @csrf <!-- Laravel's built-in CSRF protection -->
                                         <div class="form-group">
-                                            <input name="recipe_id" value="" style="display:none"/>
+                                            <input name="recipe_id" value="{{$recipe->id}}" style="display:none"/>
                                             <textarea class="form-control" rows="3" name="content"></textarea>
                                             <!--讓 button 滿版寬使用 .btn-block-->
-                                            <button class="btn btn-success btn-block mt-3">Submit</button>
+                                            <button class="btn btn-success btn-block mt-3">留言</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                             <!-- media object-->
-{{--                            @foreach($comments as $comment)--}}
+                            @foreach($comments as $comment)
                                 <div class="media my-3">
                                     <img src="https://randomuser.me/api/portraits/lego/2.jpg" class="mr-3" alt="..." width="64" height="64">
                                     <div class="media-body">
-                                        <h5 class="mt-0"></h5>
-
+                                        <h5 class="mt-0">{{  $comment->fullname  }}</h5>
+                                        <div>{{  $comment->content  }}</div>
+                                        <div style="margin-left: 5%">
+                                            @foreach($comment->replies as $reply)
+                                                <img src="https://randomuser.me/api/portraits/lego/2.jpg" class="mr-3" alt="..." width="64" height="64">
+                                                <h5 class="mt-0">{{  $reply->fullname  }}</h5>
+                                                <div>{{  $reply->content  }}</div>
+                                            @endforeach
+                                            <!--表單 textarea-->
+                                            <form action="{{route('comment.create')}}" method="post">
+                                                @csrf <!-- Laravel's built-in CSRF protection -->
+                                                <div class="form-group">
+                                                    <input name="comment_id" value="{{$comment->id}}" style="display:none"/>
+                                                    <input name="recipe_id" value="{{$recipe->id}}" style="display:none"/>
+                                                    <textarea class="form-control" rows="3" name="content"></textarea>
+                                                    <!--讓 button 滿版寬使用 .btn-block-->
+                                                    <button class="btn btn-success btn-block mt-3">回復</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-{{--                            @endforeach--}}
+                            @endforeach
                         </div>
                     </div>
             </div>
@@ -201,6 +219,3 @@
     </article>
     </div>
     </div>
-    </div>
-    </section>
-@endsection

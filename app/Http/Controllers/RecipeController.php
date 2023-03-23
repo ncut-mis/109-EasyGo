@@ -68,24 +68,38 @@ class RecipeController extends Controller
 
         foreach ($all_comments as $comment)
         {
+            $all_replies=Comment::where('recipe_id','=',$id)->where('comment_id','=',$comment->id)->get();
+
+            $comment_replies = array();
+
+            foreach ($all_replies as $reply)
+            {
+                $member_info=Member::where('id','=',$reply->member_id)->get();
+                $user_info=User::where('id','=',$member_info[0]->user_id)->get();
+
+                $reply->nickname = $member_info[0]->nickname;
+                $reply->fullname = $user_info[0]->name;
+
+                array_push($comment_replies, $reply);
+            }
+
             $member_info=Member::where('id','=',$comment->member_id)->get();
             $user_info=User::where('id','=',$member_info[0]->user_id)->get();
 
             $comment->nickname = $member_info[0]->nickname;
             $comment->fullname = $user_info[0]->name;
+            $comment->replies = $comment_replies;
 
             array_push($rsp_comments, $comment);
         }
 
         $data=[
-            'recipe'=>$recipe,
-
-            'recipe_img'=>$recipe_imgs,
+            'recipe'=>$recipe[0],
+            'recipe_img'=>$recipe_imgs[0],
             'ingredients'=>$ingredients,
             'comments'=>$rsp_comments,
         ];
 
-        //print_r($data);
 
         return view('recipe.recipe', $data);
     }

@@ -91,7 +91,7 @@ Route::get('recipes',[MemberController::class,'recipes'])->name('members.recipes
 Route::get('orders',[MemberController::class,'orders'])->name('members.orders.index');//我的訂單(所有
 
 Route::get('orders',[MemberController::class,'orders'])->name('members.orders');//我的訂單(所有
->>>>>>> 1e9d45e0cb6e7581cbfba2cb6f23e6e8597bdf7e
+
 Route::get('cancel',[MemberController::class,'cancel'])->name('members.orders.cancel');//我的訂單(取消
 Route::get('done',[MemberController::class,'done'])->name('members.orders.done');//我的訂單(完成
 Route::get('show',[MemberController::class,'show'])->name('members.orders.show');//訂單詳細資料
