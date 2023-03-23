@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminRecipeController;
+use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\BloggerRecipeController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CommentController;
@@ -115,7 +116,7 @@ Route::prefix('members')->name('members.')->group(function(){
 Route::get('index',[CartItemController::class,'index'])->name('members.cart_items.index');//購物車
 Route::post('remove',[CartItemController::class,'destroy'])->name('members.cart_items.remove');
 Route::post('update',[CartItemController::class,'update'])->name('members.cart_items.update');
-Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');
+Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');//結帳
 
 
 //留言
@@ -157,6 +158,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表
         Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面
         Route::post('/products/store',[AdminProductController::class,'store'])->name('products.store');//儲存商品
+
+        Route::get('/orders',[AdminOrderController::class,'index'])->name('orders.index');//訂單列表
     });
 
 
