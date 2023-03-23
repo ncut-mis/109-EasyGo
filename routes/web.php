@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminRecipeController;
+use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\BloggerRecipeController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CommentController;
@@ -83,22 +84,28 @@ Route::prefix('product')->name('product.')->group(function(){
 Route::get('product',[ProductController::class,'product'])->name('product.product');
 
 //會員專區
-
-Route::get('members',[MemberController::class,'members'])->name('members.members');//個人資料
 Route::get('cart_items',[MemberController::class,'cart_items'])->name('members.cart_items.index');//購物車
 Route::get('collects',[MemberController::class,'collects'])->name('members.collects');//我的收藏
+
 Route::get('recipes',[MemberController::class,'recipes'])->name('members.recipes');//我的食譜
 Route::get('orders',[MemberController::class,'orders'])->name('members.orders.index');//我的訂單(所有
+
+Route::get('orders',[MemberController::class,'orders'])->name('members.orders');//我的訂單(所有
+>>>>>>> 1e9d45e0cb6e7581cbfba2cb6f23e6e8597bdf7e
 Route::get('cancel',[MemberController::class,'cancel'])->name('members.orders.cancel');//我的訂單(取消
 Route::get('done',[MemberController::class,'done'])->name('members.orders.done');//我的訂單(完成
 Route::get('show',[MemberController::class,'show'])->name('members.orders.show');//訂單詳細資料
 
 Route::prefix('members')->name('members.')->group(function(){
     Route::get('/',[MemberController::class,'members'])->name('index');//個人資料
-    Route::patch('/{member}',[MemberController::class,'update'])->name('update');//更新個人資料
-    Route::post('/password',[MemberController::class,'updatepassword'])->name('password.update');//更新密碼
+    Route::patch('{member}',[MemberController::class,'update'])->name('update');//更新個人資料
+    Route::post('password',[MemberController::class,'updatepassword'])->name('password.update');//更新密碼
     Route::get('collects',[MemberController::class,'collects'])->name('collects');//我的收藏
-    Route::get('recipes',[MemberController::class,'recipes'])->name('recipes');//我的食譜
+
+    Route::prefix('recipes')->name('recipes.')->group(function(){
+        Route::get('/',[MemberController::class,'recipes'])->name('index');//我的食譜
+        Route::get('show/{recipe}',[RecipeController::class,'show'])->name('show');//檢視某一食譜
+    });
 
     //會員-訂單
     Route::prefix('orders')->name('orders.')->group(function(){
@@ -116,7 +123,7 @@ Route::get('index',[CartItemController::class,'index'])->name('members.cart_item
 Route::post('remove',[CartItemController::class,'destroy'])->name('members.cart_items.remove');
 Route::post('store',[CartItemController::class,'store'])->name('members.cart_items.store');//商品加入購物車
 Route::post('update',[CartItemController::class,'update'])->name('members.cart_items.update');
-Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');
+Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');//結帳
 
 
 //留言
@@ -158,6 +165,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表
         Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面
         Route::post('/products/store',[AdminProductController::class,'store'])->name('products.store');//儲存商品
+
+        Route::get('/orders',[AdminOrderController::class,'index'])->name('orders.index');//訂單列表
     });
 
 

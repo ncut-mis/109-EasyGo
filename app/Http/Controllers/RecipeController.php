@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Recipe;
+use App\Models\RecipeCategory;
 use App\Models\RecipeImg;
 use App\Models\Ingredient;
 use App\Models\Member;
+use App\Models\RecipeStep;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
@@ -21,15 +24,13 @@ class RecipeController extends Controller
     public function index()
     {
         $recipes=Recipe::orderBy('id','DESC')->get();
-
-
         $data=[
-            'recipes'=>$recipes
+            'recipes' => $recipes,
+            ];
 
-        ];
-
-        return view('blog.new',$data);
+    return view('blog.new',$data);
     }
+
     public function china()
     {
         return view('blog.china');
@@ -114,9 +115,22 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Recipe $recipe)
     {
-        //
+        $recipe_ingredients=Ingredient::where('recipe_id','=',$recipe->id)->get();//食材
+        $recipe_steps=RecipeStep::where('recipe_id','=',$recipe->id)->get();//步驟
+       // $comments=Comment::where('recipe_id','=',$recipe->id)->get();//留言
+       // $comments = Comment::where('comment_id',null)->get();
+        $comments = Comment::where('recipe_id','=',$recipe->id)->where('comment_id', null)->get();//留言(comment_id為null-第一階留言)
+        $data = [
+            'recipe' => $recipe,
+//            'suggests'=>$suggests,
+            'recipe_ingredients'=>$recipe_ingredients,
+            'recipe_steps'=>$recipe_steps,
+            'comments'=>$comments
+        ];
+        return view('recipe.show',$data);
+        //dd($comments);
     }
 
     /**
