@@ -43,7 +43,7 @@
                                     <div class="card-body text-center p-lg-5  pt-lg-0 pt-5">
                                         <h2 class="fs-4 fw-bold pt-5">{{$recipe->name}}</h2>
                                         <p class="mb-0">{{$recipe->text}}</p>
-                                        <a href="{{route('recipe.recipe',$recipe->id)}}" class="stretched-link"></a>
+                                        <a href="{{route('members.recipes.show',$recipe->id)}}" class="stretched-link"></a>
                                     </div>
                                 </div>
                             </div>

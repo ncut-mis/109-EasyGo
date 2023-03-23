@@ -92,13 +92,13 @@ Route::get('show',[MemberController::class,'show'])->name('members.orders.show')
 
 Route::prefix('members')->name('members.')->group(function(){
     Route::get('/',[MemberController::class,'members'])->name('index');//個人資料
-    Route::patch('/{member}',[MemberController::class,'update'])->name('update');//更新個人資料
-    Route::post('/password',[MemberController::class,'updatepassword'])->name('password.update');//更新密碼
-    Route::get('/collects',[MemberController::class,'collects'])->name('collects');//我的收藏
+    Route::patch('{member}',[MemberController::class,'update'])->name('update');//更新個人資料
+    Route::post('password',[MemberController::class,'updatepassword'])->name('password.update');//更新密碼
+    Route::get('collects',[MemberController::class,'collects'])->name('collects');//我的收藏
 
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[MemberController::class,'recipes'])->name('index');//我的食譜
-        Route::get('/{recipe}',[MemberController::class,'show'])->name('show');//檢視某一食譜
+        Route::get('show/{recipe}',[RecipeController::class,'show'])->name('show');//檢視某一食譜
     });
 
     //會員-訂單
