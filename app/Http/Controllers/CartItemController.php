@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\Item;
 
 use App\Models\Items;
+use App\Models\Member;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductImg;
@@ -24,9 +25,11 @@ class CartItemController extends Controller
     public function index()
     {
         $user=Auth::user();//目前使用者
+        $members=Member::where('user_id','=',$user->id)->get();
 
-        $items = Item::where('member_id','=',$user->id)->get();//目前使用者的食譜
-
+        foreach ($members as $member){
+            $items = Item::where('member_id','=',$member->id)->get();//目前使用者的選購項目
+        }
         $carts = array();
 
         $total=0;
@@ -34,13 +37,13 @@ class CartItemController extends Controller
 
         foreach ($items as $item)
         {
-            $product_info = Product::where('id','=',$item->product_id)->get();//目前使用者的食譜
-            $product_img = ProductImg::where('id','=',$item->product_id)->get();//目前使用者的食譜
-            $cart_item = $product_info[0];
-            $cart_item->quantity = $item->quantity;
-            $cart_item->picture = $product_img[0]->picture;
-            $total = ($cart_item->price)*($cart_item->quantity)+$total;
-            array_push($carts, $cart_item);
+            $product_info = Product::where('id','=',$item->product_id)->get();//取得商品資料列
+            $product_img = ProductImg::where('id','=',$item->product_id)->get();//取得商品圖片資料列
+            $cart_item = $product_info[0];//取出陣列中單一筆資料
+            $cart_item->quantity = $item->quantity;//將商品數量替代為選購數量
+            $cart_item->picture = $product_img[0]->picture;//取得商品圖片
+            $total = ($cart_item->price)*($cart_item->quantity)+$total;//計算總額
+            array_push($carts, $cart_item);//將商品資訊加入陣列
         }
 
         $data = [
@@ -58,7 +61,10 @@ class CartItemController extends Controller
     {
         $user=Auth::user();//目前使用者
         $name=Auth::user()->name;
-        $items = Item::where('member_id','=',$user->id)->get();//目前使用者的食譜
+        $members=Member::where('user_id',$user->id)->get();
+        foreach ($members as $member){
+            $items = Item::where('member_id','=',$member->id)->get();//目前使用者的選購項目
+        }
         $carts = array();
         $total=0;
 
