@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
+use App\Models\Order;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class CommentController extends Controller
+class AdminOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,36 +14,23 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.index',$data);
     }
+
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request$request)
+    public function create()
     {
-
-        $comment_id = $request->input('comment_id');
-        $user=Auth::user();//目前使用者
-
-        $recipe_id = $request->input('recipe_id');
-
-        $content = $request->input('content');
-        $new_comment = new Comment;
-
-        if($comment_id!=NULL)
-        {
-            $new_comment->comment_id = $comment_id;
-        }
-
-        $new_comment->member_id = $user->id;
-        $new_comment->recipe_id = $recipe_id;
-        $new_comment->content = $content;
-        $new_comment->save();
-
-        return redirect()->back()->with('success', '留言成功');
+        //
     }
 
     /**
@@ -61,10 +47,10 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show($id)
     {
         //
     }
@@ -72,10 +58,10 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit($id)
     {
         //
     }
@@ -84,10 +70,10 @@ class CommentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -95,10 +81,10 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Comment  $comment
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
         //
     }

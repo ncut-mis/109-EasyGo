@@ -28,13 +28,12 @@ class Comment extends Model
     }
 
     //一則留言可被多則留言回復(一對多)
-    public function comment(){
+    public function comments(){
         return $this->hasMany(Comment::class);
     }
 
     //多則回覆留言再某一留言下
-    public function comments(){
+    public function comment(){
         return $this->belongsTo(Comment::class);
     }
-
 }

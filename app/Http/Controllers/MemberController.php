@@ -103,6 +103,7 @@ class MemberController extends Controller
         return redirect()->back()->with('success', '密碼已經更新');
     }
 
+
     public function create()
     {
         //

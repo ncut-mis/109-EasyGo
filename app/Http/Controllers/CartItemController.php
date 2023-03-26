@@ -98,21 +98,11 @@ class CartItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-//        //取得使用者此筆訂單資訊
-//        $order = Auth::user()->order()->orderby('id', 'DESC')->first();
-//
-//
-//        //關聯餐點及訂單到order_item表內
-//        $product->order()->attach($order->id, ['quantity' => $request['quantity'], 'status' => 0]);
-//
-//        //變數$meal存入矩陣
-//        $data=[ 'meal'=>$meal ];
-//
-//        //返回該餐點介面
-//
-//        return redirect()->route('product.index')->with('status','系統提示：訂單已送出！');
+        $user=Auth::user();//目前使用者
+      Item::create($request->all());
+       return redirect()->route('members.cart_items.index')->with('status','已加入購物車');
 
     }
 

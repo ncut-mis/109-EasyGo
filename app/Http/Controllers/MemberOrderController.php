@@ -192,5 +192,6 @@ class MemberOrderController extends Controller
         //訂單成立時間
         return view('members.orders.show',$data);
     }
+
 }
 

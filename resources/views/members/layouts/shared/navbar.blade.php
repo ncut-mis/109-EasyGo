@@ -1,7 +1,7 @@
 <!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
     <div class="container px-lg-5">
-        <a class="navbar-brand" href="{{route('blog.new')}}">食譜EasyGo</a>
+        <a class="navbar-brand" href="{{route('blog.new')}}">食材EasyGo</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -22,7 +22,7 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{route('bloggers.recipes.create')}}">寫食譜</a></li>
                                 <li><a class="dropdown-item" href="{{route('members.cart_items.index')}}">購物車</a></li>
-                                <li><a class="dropdown-item" href="{{route('members.recipes')}}">發表過的食譜</a></li>
+                                <li><a class="dropdown-item" href="{{route('members.recipes.index')}}">發表過的食譜</a></li>
                                 <li><a class="dropdown-item" href="{{route('members.collects')}}">我的收藏</a></li>
                                 <li><a class="dropdown-item" href="{{route('members.index')}}">會員資料</a></li>
                                 <li><a class="dropdown-item" href="{{route('members.orders.index')}}">所有訂單</a></li>

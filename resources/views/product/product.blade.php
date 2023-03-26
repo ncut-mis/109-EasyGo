@@ -16,20 +16,37 @@
     </div>
 
     <!--內容--->
-    <section class="pt-4">
-        <div class="container px-lg-5">
-            <!-- Page Features-->
-            <div class="row gx-lg-5">
-                <div class="col-lg-6 col-xxl-4 mb-5">
-                    <div class="card bg-light border-0 h-100">
-                        <!--圖片-->
-                        <img src ="../img/1.png ">
-                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+    <div class=" px-lg-5" id="nav-tabContent">
+        <!--陣列內有幾筆資料就會重複執行幾次-->
+        <div class="tab-pane fade show active " id="nav-new" role="tabpanel" aria-labelledby="nav-new-tab">
+            <section class="pt-4">
+                <div class="container px-lg-5">
+                    <!-- Page Features-->
+{{--                    <form action="{{route('members.cart_items.store')}}" method="POST" role="form">--}}
+                        @method('POST')
+                        @csrf
+                    <div class="row gx-lg-5  px-lg-5">
+                        @foreach($products as $product)
+                            <div class="col-lg-6 col-xxl-4 mb-5 pt-5">
+                                <div class="card bg-light border-0 h-100 ">
+                                    <!--圖片-->
+                                    <img src="{{asset('images/'.$product->product_imgs)}}">
+                                    <div class="card-body text-center p-lg-5  pt-lg-0 pt-5">
+                                        <h2 class="fs-4 fw-bold pt-5">{{$product->name}}</h2>
+                                        <p class="mb-0">{{$product->text}}</p>
+                                        <div style="text-align:center">
+                                            <br><button type="submit" class="btn btn-outline-success" name="products_id" value="{{$product->id}}">加入購物車</button>
+                                        </div>
 
-                            <h2 class="fs-4 fw-bold">蛤蠣</h2>
-                            <a href="{{route('product.product')}}" class="stretched-link"></a>
-                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        @endforeach
+
                     </div>
+                    </form>
                 </div>
-
+            </section>
+        </div>
 @endsection
