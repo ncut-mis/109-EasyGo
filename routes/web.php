@@ -109,10 +109,11 @@ Route::prefix('members')->name('members.')->group(function(){
 
     //會員-訂單
     Route::prefix('orders')->name('orders.')->group(function(){
-        Route::get('/',[MemberOrderController::class,'index'])->name('index');//我的訂單(所有
-        Route::get('cancel',[MemberOrderController::class,'cancel'])->name('cancel');//我的訂單(取消
-        Route::get('done',[MemberOrderController::class,'done'])->name('done');//我的訂單(完成
+        Route::get('/',[MemberOrderController::class,'index'])->name('index');//顯示所有訂單
+        Route::get('cancel',[MemberOrderController::class,'cancel'])->name('cancel');//顯示已取消訂單
+        Route::get('done',[MemberOrderController::class,'done'])->name('done');//顯示已完成訂單
         Route::get('show/{order}',[MemberOrderController::class,'show'])->name('show');//訂單詳細資料
+        Route::patch('{order}/cancel',[MemberOrderController::class,'cancel_update'])->name('cancel_update');//取消訂單
 
     });
 });

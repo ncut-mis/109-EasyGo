@@ -192,6 +192,14 @@ class MemberOrderController extends Controller
         //訂單成立時間
         return view('members.orders.show',$data);
     }
-
+    public function cancel_update(Order $order){
+        //刪除訂單資訊
+        $order_details=$order->orderDetali()->get();//取得訂單明細
+        foreach ($order_details as $order_detail){
+            OrderDetali::destroy($order_detail->id);
+        }
+        Order::destroy($order->id);
+        return redirect()->route('members.orders.index');
+    }
 }
 

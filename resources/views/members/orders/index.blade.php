@@ -59,14 +59,21 @@
                                         <tbody>
                                         @foreach($array as $array_item)
 
-                                                <tr onclick="window.location.href='#';">
+                                                <tr>
                                                     <td>{{$array_item['id']}}</td>
                                                     <td>{{$array_item['creat_time']}}</td>
                                                     <td>{{$array_item['price']}}</td>
                                                     <td>{{$array_item['status']}}</td>
                                                     <td>
                                                         <a href="{{route('members.orders.show',$array_item['id'])}}" class="btn btn-secondary btn-sm">詳細資料</a>
-
+                                                        @if($array_item['status']=='審核中' || $array_item['status']=='已成立')
+                                                            <form action="{{route('members.orders.cancel_update',$array_item['id'])}}" method="post" enctype="multipart/form-data">
+                                                                @method('patch')
+                                                                <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
+                                                                @csrf
+                                                                <button class="btn btn-danger btn-sm" type="submit">取消</button>
+                                                            </form>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                         @endforeach
