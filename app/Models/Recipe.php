@@ -23,7 +23,7 @@ class Recipe extends Model
     }
 
     //某食譜屬於某一食譜種類
-    public function recipecategory(){
+    public function recipeCategory(){
         return $this->belongsTo(RecipeCategory::class);
     }
 

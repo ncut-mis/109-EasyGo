@@ -63,10 +63,10 @@
                             </button>
                         </div>
                     </div>
-                    
+
                     <!--食譜類別-->
                     <div class="mb-3">
-                        <h4>食譜類別： </h4>
+                        <h4>食譜類別：{{$recipe->recipeCategory->name}}</h4>
                     </div>
 
                     <!--食譜簡介-->
@@ -97,11 +97,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($recipe_ingredients as $recipe_ingredient)
+                                            @foreach($recipe->ingredients as $ingredient)
                                                 <tr>
-                                                    <td><h4>{{$recipe_ingredient->name}}</h4></td>
+                                                    <td><h4>{{$ingredient->name}}</h4></td>
                                                     <td><button type="button" class="btn btn-info btn-lg">詳細</button></td>
-                                                    <td><h4>{{$recipe_ingredient->quantity}}</h4></td>
+                                                    <td><h4>{{$ingredient->quantity}}</h4></td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -121,12 +121,12 @@
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <div class="mb-3">
-                                    @foreach ($recipe_steps as $recipe_step)
+                                    @foreach ($recipe->recipeSteps as $recipeStep)
                                         <div class="card w-80 mb-3">
                                             <div class="row g-0">
-                                                @if($recipe_step->picture!=null)
+                                                @if($recipeStep->picture!=null)
                                                     <div class="col-md-4">
-                                                        <img class="d-block w-100" src="{{asset('img/step/'.$recipe_step->picture)}}" alt="...">
+                                                        <img class="d-block w-100" src="{{asset('img/step/'.$recipeStep->picture)}}" alt="...">
                                                     </div>
                                                 @else
                                                     <div class="row col-md-4 align-items-center">
@@ -136,8 +136,8 @@
 
                                                 <div class="col-md-8">
                                                     <div class="card-body mb-3">
-                                                        <h2 class="card-title mb-6">步驟{{$recipe_step->sequence}}</h2><br>
-                                                        <h3>{{$recipe_step->text}}</h3>
+                                                        <h2 class="card-title mb-6">步驟{{$recipeStep->sequence}}</h2><br>
+                                                        <h3>{{$recipeStep->text}}</h3>
                                                     </div>
                                                 </div>
                                             </div>

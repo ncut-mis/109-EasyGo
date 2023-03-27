@@ -75,17 +75,11 @@ class BloggerRecipeController extends Controller
      */
     public function edit(Recipe $recipe)
     {
-        $recipe_imgs=RecipeImg::where('recipe_id','=',$recipe->id)->get();//圖片
         $recipe_categories=RecipeCategory::orderBy('id','DESC')->get();//食譜類別
-        $recipe_ingredients=Ingredient::where('recipe_id','=',$recipe->id)->get();//食材
-        $recipe_steps=RecipeStep::where('recipe_id','=',$recipe->id)->get();//步驟
         $data = [
             'recipe' => $recipe,
-            'recipe_imgs'=>$recipe_imgs,
 //            'suggests'=>$suggests,
-            'recipe_ingredients'=>$recipe_ingredients,
             'recipe_categories'=>$recipe_categories,
-            'recipe_steps'=>$recipe_steps,
         ];
         return view('bloggers.recipes.edit',$data);
     }

@@ -8,9 +8,8 @@
         <div class="container px-5 my-5 ">
             <div class="row gx-3">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="button" class="btn btn-danger btn-lg">發布</button>
-                    <button type="button" class="btn  btn-lg">儲存</button>
-                    <button type="button" class="btn btn-lg">取消</button>
+                    <button type="button" class="btn btn-primary btn-lg">儲存</button>
+                    <button type="button" class="btn btn-danger btn-lg">取消</button>
                 </div>
 
                 <!-- Post title-->
@@ -28,9 +27,10 @@
                         <!--輪播圖片-->
                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
-                                @foreach ($recipe_imgs as $key => $recipe_img)
+                                @foreach ($recipe->recipeImgs as $key=> $recipeImg)
                                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                        <img class="d-block w-100" src="{{asset('img/recipe/'.$recipe_img->picture)}}" alt="...">
+                                        <img src="{{asset('img/recipe/'.$recipeImg->picture)}}" width="1250" height="850">
+                                        <button class="delete-btn btn-danger" style="position: absolute; top: 0; right: 0; z-index: 1;">刪除</button>
                                     </div>
                                 @endforeach
                             </div>
@@ -42,8 +42,33 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
+                            <input type="file" name="img" id="img" accept="img/*" class="form-control">
                         </div>
-                        <input type="file" name="image" id="image" accept="image/*" class="form-control">
+                    </div>
+
+                    <!--食譜影片-->
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">食譜影片</label>
+                        <!--輪播影片-->
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                @foreach ($recipe->recipeFilms as $key=> $recipeFilm)
+                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                        <video src="{{asset('video/'.$recipeFilm->film)}}" width="1250" height="740" controls></video>
+                                        <button class="delete-btn btn-danger" style="position: absolute; top: 0; right: 0; z-index: 1;">刪除</button>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                            <input type="file" name="film" id="film" accept="film/*" class="form-control">
+                        </div>
                     </div>
 
                     <!--食譜類別-->
@@ -59,11 +84,37 @@
                         </div>
                     </div>
 
+                    <!--食譜是否上架-->
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">是否上架</label>
+                        @if($recipe->status == 1)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="is_feature" id="is_feature" value="1" checked>
+                                <label class="form-check-label" for="flexRadioDefault1">是</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="is_feature" id="is_feature" value="0">
+                                <label class="form-check-label" for="flexRadioDefault2">否</label>
+                            </div>
+                        @else
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="is_feature" id="is_feature" value="1">
+                                <label class="form-check-label" for="flexRadioDefault1">是</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="is_feature" id="is_feature" value="0" checked>
+                                <label class="form-check-label" for="flexRadioDefault2">否</label>
+                            </div>
+                        @endif
+
+                    </div>
+
                     <!--食譜簡介-->
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">食譜簡介</label>
                         <textarea name="introduce" id="introduce" class="form-control" rows="4" placeholder="請輸入食譜簡介">{{$recipe->text}}</textarea><!--多行輸入框-->
                     </div>
+
                 </div>
 
                 <!--食材-->
@@ -73,34 +124,35 @@
                         <thead>
                             <tr>
                                 <th scope="col">名稱</th>
+                                <th scope="col">建議</th>
                                 <th scope="col">數量</th>
-                                <th scope="col">類別</th>
-{{--                                <th scope="col">數量</th>--}}
-{{--                                <th scope="col">數量</th>--}}
+                                <th scope="col"> </th>
                             </tr>
                         </thead>
+
+                        @foreach($recipe->ingredients as $ingredient)
                         <tbody>
-                            @foreach($recipe_ingredients as $recipe_ingredient)
-                                <tr>
-                                    <td><input name="name" id="name" type="text" class="form-control" placeholder="請輸入食材名稱" value="{{$recipe_ingredient->name}}"></td>
-                                    <td><input type="text" class="name" value="{{$recipe_ingredient->quantity}}"></td>
-                                    <td><input type="text" class="name" value="{{$recipe_ingredient->category->name}}"></td>
-                                </tr>
-                            @endforeach
-{{--                                <td><input type="text" class="name" value=""></td>--}}
+                            <tr>
+                                <td><input name="name" id="name" type="text" class="form-control" placeholder="請輸入食材名稱" value="{{$ingredient->name}}"></td>
+                                <td><input type="text" class="form-control" value="{{$ingredient->remark}}"></td>
+                                <td><input name="quantity" id="quantity" type="text" class="form-control" value="{{$ingredient->quantity}}"></td>
+                                <td><button type="button" class="btn btn-lg">－</button></td>
+                            </tr>
                         </tbody>
+                        @endforeach
+
                     </table>
                 </div>
 
                 <!--步驟-->
                 <div class="mb-3">
                     <h1 class="fw-bolder mb-2">步驟<button type="button" class="btn btn-lg">+</button></h1>
-                    @foreach ($recipe_steps as $recipe_step)
+                        @foreach ($recipe->recipeSteps as $recipeStep)
                     <div class="card w-80 mb-3">
                         <div class="row g-0">
-                            @if($recipe_step->picture!=null)
+                            @if($recipeStep->picture!=null)
                                 <div class="col-md-4">
-                                    <img class="d-block w-100" src="{{asset('img/step/'.$recipe_step->picture)}}" alt="...">
+                                    <img class="d-block w-100" src="{{asset('img/step/'.$recipeStep->picture)}}" alt="...">
                                     <div class="navbar-fixed-bottom">
                                         <input type="file" name="stepimage" id="stepimage" accept="image/*" class="form-control">
                                     </div>
@@ -116,8 +168,8 @@
 
                             <div class="col-md-8">
                                 <div class="card-body mb-3">
-                                    <h2 class="card-title mb-6">步驟{{$recipe_step->sequence}}<button type="button" class="btn btn-lg">－</button></h2>
-                                    <textarea name="text" id="text" class="form-control" rows="7" placeholder="">{{$recipe_step->text}}</textarea>
+                                    <h2 class="card-title mb-6">步驟{{$recipeStep->sequence}}<button type="button" class="btn btn-lg">－</button></h2>
+                                    <textarea name="text" id="text" class="form-control" rows="7" placeholder="">{{$recipeStep->text}}</textarea>
                                 </div>
                             </div>
 

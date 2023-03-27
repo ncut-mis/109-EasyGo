@@ -23,7 +23,7 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        $recipes=Recipe::orderBy('id','DESC')->get();
+        $recipes=Recipe::where('status','=',1)->get();//顯示上架食譜
         $data=[
             'recipes' => $recipes,
             ];
@@ -117,20 +117,16 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        $recipe_ingredients=Ingredient::where('recipe_id','=',$recipe->id)->get();//食材
-        $recipe_steps=RecipeStep::where('recipe_id','=',$recipe->id)->get();//步驟
        // $comments=Comment::where('recipe_id','=',$recipe->id)->get();//留言
        // $comments = Comment::where('comment_id',null)->get();
         $comments = Comment::where('recipe_id','=',$recipe->id)->where('comment_id', null)->get();//留言(comment_id為null-第一階留言)
         $data = [
+//          'suggests'=>$suggests,
             'recipe' => $recipe,
-//            'suggests'=>$suggests,
-            'recipe_ingredients'=>$recipe_ingredients,
-            'recipe_steps'=>$recipe_steps,
             'comments'=>$comments
         ];
         return view('recipe.show',$data);
-        //dd($comments);
+        //dd($categoryName);
     }
 
     /**
