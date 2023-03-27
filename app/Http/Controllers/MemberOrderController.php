@@ -199,5 +199,12 @@ class MemberOrderController extends Controller
         ]);
         return redirect()->route('members.orders.index');
     }
+    public function done_update(Order $order){
+        //修改訂單狀態為已完成
+        $order->update([
+            'status'=>5
+        ]);
+        return redirect()->route('members.orders.index');
+    }
 }
 
