@@ -114,6 +114,7 @@ Route::prefix('members')->name('members.')->group(function(){
         Route::get('done',[MemberOrderController::class,'done'])->name('done');//顯示已完成訂單
         Route::get('show/{order}',[MemberOrderController::class,'show'])->name('show');//訂單詳細資料
         Route::patch('{order}/cancel',[MemberOrderController::class,'cancel_update'])->name('cancel_update');//取消訂單
+        Route::patch('{order}/done',[MemberOrderController::class,'done_update'])->name('done_update');//完成訂單
 
     });
 });

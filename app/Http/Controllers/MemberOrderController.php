@@ -193,12 +193,10 @@ class MemberOrderController extends Controller
         return view('members.orders.show',$data);
     }
     public function cancel_update(Order $order){
-        //刪除訂單資訊
-        $order_details=$order->orderDetali()->get();//取得訂單明細
-        foreach ($order_details as $order_detail){
-            OrderDetali::destroy($order_detail->id);
-        }
-        Order::destroy($order->id);
+        //修改訂單狀態為取消
+        $order->update([
+            'status'=>6
+        ]);
         return redirect()->route('members.orders.index');
     }
 }
