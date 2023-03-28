@@ -69,6 +69,7 @@ Route::prefix('bloggers')->name('bloggers.')->group(function(){
 //賣場
 Route::prefix('product')->name('product.')->group(function(){
     Route::get('/',[ProductController::class,'index'])->name('product');//賣場首頁
+    Route::get('detail',[ProductController::class,'detail'])->name('detail');//產品詳細
     Route::get('add_product',[ProductController::class,'add_product'])->name('add_product');//新增商品葉面
     Route::get('cereals',[ProductController::class,'cereals'])->name('cereals');//穀物
     Route::get('fruit',[ProductController::class,'fruit'])->name('fruit');//水果
@@ -121,7 +122,7 @@ Route::prefix('members')->name('members.')->group(function(){
 
 //購物車
 Route::get('index',[CartItemController::class,'index'])->name('members.cart_items.index');//購物車
-Route::post('remove',[CartItemController::class,'destroy'])->name('members.cart_items.remove');
+Route::post('remove',[CartItemController::class,'destroy'])->name('members.cart_items.remove');//刪除購物車商品
 Route::post('store',[CartItemController::class,'store'])->name('members.cart_items.store');//商品加入購物車
 Route::post('update',[CartItemController::class,'update'])->name('members.cart_items.update');
 Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');//結帳

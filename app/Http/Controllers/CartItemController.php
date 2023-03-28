@@ -106,9 +106,9 @@ class CartItemController extends Controller
      */
     public function store(Request $request)
     {
-        $user=Auth::user();//目前使用者
-      Item::create($request->all());
-       return redirect()->route('members.cart_items.index')->with('status','已加入購物車');
+
+        Item::create($request->all());
+        return redirect()->route('product')->with('status','系統提示：餐點已加入購物車');
 
     }
 

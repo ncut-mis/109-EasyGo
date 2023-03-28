@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductImg;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -13,6 +15,17 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+//    public function detail(Product $products)
+//    {
+//
+//        $products=Product::where('id','=',$products->id)->get();
+//
+//        $data=[
+//            'products'=>$products,
+//        ];
+//        return view('product.detail',$data);
+//
+//    }
     public function index()
     {
 
@@ -68,13 +81,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function product()
+    public function product(Request $request)
     {
+        $id = $request->input('id');
         $products=Product::orderBy('id','DESC')->get();
 
+        $products_imgs=ProductImg::where('product_id','=',$id)->get();
 
         $data=[
-            'products'=>$products
+            'products'=>$products,
+              'products_img'=>$products_imgs,
 
         ];
         return view('product.product', $data);
@@ -91,9 +107,21 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id)
     {
-        //
+        $carts=DB::table('items')->where('product_id','=',$id)->count();
+        if($carts==0){
+            DB::table('items')->insert
+            (
+                [
+                    'customer_id'=>auth()->user()->id,
+                    'product_id'=>$id,
+                    'quantity'=>1
+                ]
+            );
+
+        }
+        return back();
     }
 
     /**

@@ -63,7 +63,7 @@
                             </button>
                         </div>
                     </div>
-                    
+
                     <!--食譜類別-->
                     <div class="mb-3">
                         <h4>食譜類別： </h4>
@@ -151,7 +151,6 @@
             </div>
 
             <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
-
             <!-- card 元件為外層-->
             <div class="card">
                 <div class="card-header">
@@ -161,15 +160,14 @@
                 <div class="card-body">
                     <!-- media object-->
                     <div class="media">
-                        <img src="https://randomuser.me/api/portraits/lego/2.jpg" class="mr-3" alt="..." width="64"
-                             height="64">
+
                         <div class="media-body">
                             <h5 class="mt-0">留言區</h5>
                             <!--表單 textarea-->
                             <form action="{{route('comment.create')}}" method="post">
                                 @csrf <!-- Laravel's built-in CSRF protection -->
                                 <div class="form-group">
-                                    <input name="recipe_id" value="" style="display:none"/>
+                                    <input name="recipe_id" value="{{$recipe->id}}" style="display:none" />
                                     <textarea class="form-control" rows="3" name="content"></textarea>
                                     <!--讓 button 滿版寬使用 .btn-block-->
                                     <button class="btn btn-success btn-block mt-3">Submit</button>
@@ -178,23 +176,72 @@
                         </div>
                     </div>
                     <!-- media object-->
-                    {{--                            @foreach($comments as $comment)--}}
-                    <div class="media my-3">
-                        <img src="https://randomuser.me/api/portraits/lego/2.jpg" class="mr-3" alt="..." width="64" height="64">
-                        <div class="media-body">
-                            <ul>
-                                @foreach ($comments as $comment)
+                    @foreach($comments as $comment)
+                        <div class="media my-3">
+
+                            <div class="media-body">
+                                <ul>
                                     <li>
-                                        {{ $comment->content }}
-{{--                                        @if ($comment->childComments()->count() > 0)--}}
-{{--                                            @include('comment.replies', ['comments' => $comment->childComments])--}}
-{{--                                        @endif--}}
+                                        <div class="card mb-4 col-12 d-flex align-items-end">
+                                            <div class="card-body col-12">
+                                                <div class="d-flex flex-row align-items-center">
+                                                    <img class="rounded-circle shadow-1-strong me-3" src="https://teameowdev.files.wordpress.com/2016/04/avatar-01.png?w=300&h=300" alt="avatar" width="40" height="40" />
+                                                    <p class="small mb-0 ms-2">{{ $comment->nickname }}</p>
+                                                </div>
+                                                <p>{{ $comment->content }}</p>
+                                                <div class="d-flex justify-content-between">
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <p class="small text-muted mb-0">發布時間: {{$comment->created_at}}</p>
+                                                        <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
+                                                        <!-- <p class="small text-muted mb-0">4</p> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @foreach ($comment->sub_comments as $sub_comment)
+                                                <div class="card mb-4 col-10 ">
+
+                                                    <div class="card-body">
+                                                        <div class="d-flex flex-row align-items-center">
+                                                            <img class="rounded-circle shadow-1-strong me-3" src="https://teameowdev.files.wordpress.com/2016/04/avatar-01.png?w=300&h=300" alt="avatar" width="40" height="40" />
+                                                            <p class="small mb-0 ms-2">{{ $sub_comment->nickname }}</p>
+                                                        </div>
+                                                        <p>{{ $sub_comment->content }}</p>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div class="d-flex flex-row align-items-center">
+
+                                                                <!-- <div class="input-group mb-3">
+                                                                    <button class="btn btn-success input-group-text" id="inputGroup-sizing-default">送出</button>
+                                                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                                                </div> -->
+                                                                <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
+                                                                <!-- <p class="small text-muted mb-0">4</p> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                            <form class="card-footer py-3 border-0 col-12 my-0" style="background-color: #f8f9fa;" action="{{route('comment.create')}}" method="post">
+                                                @csrf
+                                                <div class="d-flex flex-start w-100">
+                                                    <img class="rounded-circle shadow-1-strong me-3" src="https://teameowdev.files.wordpress.com/2016/04/avatar-01.png?w=300&h=300" alt="avatar" width="40" height="40" />
+                                                    <div class="form-outline w-100">
+                                                        <input type="text" style="display:none" name="recipe_id" value="{{ $comment->recipe_id }}">
+                                                        <input type="text" style="display:none" name="comment_id" value="{{ $comment->id }}">
+                                                        <textarea name="content" class="form-control" id="textAreaExample" rows="4" style="background: #fff;"></textarea>
+                                                        <label class="form-label" for="textAreaExample">留ㄍ言吧......</label>
+                                                    </div>
+                                                </div>
+                                                <div class="float-end mt-2 pt-1">
+                                                    <button type="submit" class="btn btn-primary btn-sm">回覆</button>
+                                                    <!-- <button type="button" class="btn btn-outline-primary btn-sm">清除</button> -->
+                                                </div>
+                                            </form>
+                                        </div>
                                     </li>
-                                @endforeach
-                            </ul>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    {{--                            @endforeach--}}
+                    @endforeach
                 </div>
             </div>
 

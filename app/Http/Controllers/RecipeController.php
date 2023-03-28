@@ -94,8 +94,8 @@ class RecipeController extends Controller
         }
 
         $data=[
-            'recipe'=>$recipe[0],
-            'recipe_img'=>$recipe_imgs[0],
+            'recipe'=>$recipe,
+            'recipe_img'=>$recipe_imgs,
             'ingredients'=>$ingredients,
             'comments'=>$rsp_comments,
         ];
@@ -130,21 +130,40 @@ class RecipeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Recipe $recipe)
-    {
+    {  //
         $recipe_ingredients=Ingredient::where('recipe_id','=',$recipe->id)->get();//食材
         $recipe_steps=RecipeStep::where('recipe_id','=',$recipe->id)->get();//步驟
-       // $comments=Comment::where('recipe_id','=',$recipe->id)->get();//留言
-       // $comments = Comment::where('comment_id',null)->get();
-        $comments = Comment::where('recipe_id','=',$recipe->id)->where('comment_id', null)->get();//留言(comment_id為null-第一階留言)
+        //將會員跟留言連結
+        $comments =
+            Comment::where('recipe_id', '=', $recipe->id)->where('comment_id', null)
+            ->join('members', 'comments.member_id', '=', 'members.id')
+            ->select('comments.id', 'nickname', 'content', 'comment_id', 'recipe_id', 'comments.created_at')
+            ->get();
+        //第二層留言
+        function getSubComment(Recipe $recipe, $id)
+        {
+            $sub_comments =
+                Comment::where('recipe_id', '=', $recipe->id)->where('comment_id', '!=', null)->where('comment_id', '=', $id)
+                ->join('members', 'comments.member_id', '=', 'members.id')
+                ->select('nickname', 'content', 'comment_id', 'comments.created_at')
+                ->get();
+            // print_r($sub_comments);
+            return $sub_comments;
+        }
+
+        foreach ($comments as $comment) {
+            $comment->sub_comments = getSubComment($recipe, $comment->id);
+        }
+        // print_r($comments);
         $data = [
             'recipe' => $recipe,
-//            'suggests'=>$suggests,
-            'recipe_ingredients'=>$recipe_ingredients,
-            'recipe_steps'=>$recipe_steps,
-            'comments'=>$comments
+            //            'suggests'=>$suggests,
+            'recipe_ingredients' => $recipe_ingredients,
+            'recipe_steps' => $recipe_steps,
+            'comments' => $comments
         ];
-        return view('recipe.show',$data);
-        //dd($comments);
+        return view('recipe.show', $data);
+
     }
 
     /**
