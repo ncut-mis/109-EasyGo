@@ -71,7 +71,15 @@
                                                                 @method('patch')
                                                                 <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
                                                                 @csrf
-                                                                <button class="btn btn-danger btn-sm" type="submit">取消</button>
+                                                                <button class="btn btn-danger btn-sm" type="submit">取消訂單</button>
+                                                            </form>
+                                                        @endif
+                                                        @if($array_item['status']=='已送達')
+                                                            <form action="{{route('members.orders.done_update',$array_item['id'])}}" method="post" enctype="multipart/form-data">
+                                                                @method('patch')
+                                                                <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
+                                                                @csrf
+                                                                <button class="btn btn-success btn-sm" type="submit">完成訂單</button>
                                                             </form>
                                                         @endif
                                                     </td>
