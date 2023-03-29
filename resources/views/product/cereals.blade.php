@@ -40,7 +40,11 @@
                                     <span>份量:</span>
                                     <span>5克</span>
                                 </div>
-
+                                <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                                    <div class="text-center">
+                                        <button class="btn btn-outline-dark mt-auto">加入購物車</button>
+                                    </div>
+                                </div>
                                 <a href="{{route('product.show')}}" class="stretched-link"> </a>
                             </div>
                         </div>
