@@ -64,6 +64,10 @@
                                                 <td>{{$array_item['creat_time']}}</td>
                                                 <td>{{$array_item['price']}}</td>
                                                 <td>{{$array_item['status']}}</td>
+                                                <td>
+                                                    <a href="{{route('members.orders.show',$array_item['id'])}}" class="btn btn-secondary btn-sm">詳細資料</a>
+
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>

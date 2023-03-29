@@ -72,6 +72,7 @@ Route::prefix('bloggers')->name('bloggers.')->group(function(){
 //賣場
 Route::prefix('product')->name('product.')->group(function(){
     Route::get('/',[ProductController::class,'index'])->name('product');//賣場首頁
+    Route::get('detail',[ProductController::class,'detail'])->name('detail');//產品詳細
     Route::get('add_product',[ProductController::class,'add_product'])->name('add_product');//新增商品葉面
     Route::get('cereals',[ProductController::class,'cereals'])->name('cereals');//穀物
     Route::get('fruit',[ProductController::class,'fruit'])->name('fruit');//水果
@@ -89,7 +90,12 @@ Route::get('product',[ProductController::class,'product'])->name('product.produc
 //會員專區
 Route::get('cart_items',[MemberController::class,'cart_items'])->name('members.cart_items.index');//購物車
 Route::get('collects',[MemberController::class,'collects'])->name('members.collects');//我的收藏
+
+Route::get('recipes',[MemberController::class,'recipes'])->name('members.recipes');//我的食譜
+Route::get('orders',[MemberController::class,'orders'])->name('members.orders.index');//我的訂單(所有
+
 Route::get('orders',[MemberController::class,'orders'])->name('members.orders');//我的訂單(所有
+
 Route::get('cancel',[MemberController::class,'cancel'])->name('members.orders.cancel');//我的訂單(取消
 Route::get('done',[MemberController::class,'done'])->name('members.orders.done');//我的訂單(完成
 Route::get('show',[MemberController::class,'show'])->name('members.orders.show');//訂單詳細資料
@@ -107,10 +113,12 @@ Route::prefix('members')->name('members.')->group(function(){
 
     //會員-訂單
     Route::prefix('orders')->name('orders.')->group(function(){
-        Route::get('/',[MemberOrderController::class,'index'])->name('index');//我的訂單(所有
-        Route::get('cancel',[MemberOrderController::class,'cancel'])->name('cancel');//我的訂單(取消
-        Route::get('done',[MemberOrderController::class,'done'])->name('done');//我的訂單(完成
+        Route::get('/',[MemberOrderController::class,'index'])->name('index');//顯示所有訂單
+        Route::get('cancel',[MemberOrderController::class,'cancel'])->name('cancel');//顯示已取消訂單
+        Route::get('done',[MemberOrderController::class,'done'])->name('done');//顯示已完成訂單
         Route::get('show/{order}',[MemberOrderController::class,'show'])->name('show');//訂單詳細資料
+        Route::patch('{order}/cancel',[MemberOrderController::class,'cancel_update'])->name('cancel_update');//取消訂單
+        Route::patch('{order}/done',[MemberOrderController::class,'done_update'])->name('done_update');//完成訂單
 
     });
 });
@@ -118,7 +126,8 @@ Route::prefix('members')->name('members.')->group(function(){
 
 //購物車
 Route::get('index',[CartItemController::class,'index'])->name('members.cart_items.index');//購物車
-Route::post('remove',[CartItemController::class,'destroy'])->name('members.cart_items.remove');
+Route::post('remove',[CartItemController::class,'destroy'])->name('members.cart_items.remove');//刪除購物車商品
+Route::post('store',[CartItemController::class,'store'])->name('members.cart_items.store');//商品加入購物車
 Route::post('update',[CartItemController::class,'update'])->name('members.cart_items.update');
 Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');//結帳
 
@@ -162,7 +171,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表
         Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面
         Route::post('/products/store',[AdminProductController::class,'store'])->name('products.store');//儲存商品
-
+        Route::delete('/products/destroy',[AdminProductController::class,'destroy'])->name('products.destroy');//刪除商品
         Route::get('/orders',[AdminOrderController::class,'index'])->name('orders.index');//訂單列表
     });
 

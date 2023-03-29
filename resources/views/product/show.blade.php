@@ -17,21 +17,16 @@
                             <div class="col-xs-12 col-md-9">
                                 <!-- Post title-->
                                 <h1 class="fw-bolder mb-1 ">菲力牛柳</h1>
-                                <p>我是介紹我是介紹我是介紹我是介紹我是介紹我是介紹我是介紹我是介紹我是介紹我是介紹</p>
                                 <h3 class="fw-bolder mb-1">$100</h3>
-                                <!-- 增減按鈕-->
-                                <form id='myform' method='POST' action='#'>
-                                    <label for="">數量 </label>
-                                    <input type='button' value='-' class='qtyminus' field='quantity' />
-                                    <input type='text' name='quantity' value='0' class='qty' />
-                                    <input type='button' value='+' class='qtyplus' field='quantity' />
-                                </form>
-
-
 
                             </div>
-                            <button type="button" id="btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#refund" data-bs-whatever="@123" >加入購物車</button>
+                            <button type="button" id="btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#refund" data-bs-whatever="@123" >加入購物車</button><br><br><br><br>
                             <div class="modal fade" id="refund" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            </div>
+
+                            <div class="col-xs-12 col-md-9">
+                                <h5 class="fw-bolder mb-1">商品詳情</h5>
+                                <p>我是介紹我是介紹我是介紹我是介紹我是介紹我是介紹我是介紹我是介紹我是介紹我是介紹</p>
 
                             </div>
                         </div>

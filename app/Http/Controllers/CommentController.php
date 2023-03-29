@@ -25,15 +25,22 @@ class CommentController extends Controller
      */
     public function create(Request$request)
     {
-        $user=Auth::user();//目前使用者
+
+        $comment_id = $request->input('comment_id');
+        $user = Auth::user(); //目前使用者
 
         $recipe_id = $request->input('recipe_id');
 
         $content = $request->input('content');
-
         $new_comment = new Comment;
+
+        if ($comment_id != NULL) {
+            $new_comment->comment_id = $comment_id;
+        }
+
         $new_comment->member_id = $user->id;
         $new_comment->recipe_id = $recipe_id;
+        $new_comment->comment_id = $comment_id == NULL ? NULL : $comment_id; //
         $new_comment->content = $content;
         $new_comment->save();
 

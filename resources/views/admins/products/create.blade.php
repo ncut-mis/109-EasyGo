@@ -39,7 +39,7 @@
 
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">介紹</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea name="text" id="text" class="form-control" rows="10" placeholder="請輸入商品介紹"></textarea><!--多行輸入框-->
         </div>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">

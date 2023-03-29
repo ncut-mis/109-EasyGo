@@ -13,7 +13,10 @@
             <thead>
             <tr>
                 <th scope="col">訂單編號</th>
-                <th scope="col">訂單人</th>
+                <th scope="col">收件人</th>
+                <th scope="col">訂單狀態</th>
+                <th scope="col">付款狀態</th>
+
                 <th scope="col">功能</th>
             </tr>
             </thead>
@@ -23,6 +26,41 @@
             <tr>
                 <th scope="row" style="width: 100px">{{$order->id}}</th>
                 <td>{{$order->receiver}}</td>
+                <td>
+                    @if($order->remit==0)
+                        未付款
+                    @else
+                        已付款
+                    @endif
+                </td>
+                <td>
+                    @switch ($order->status)    //辨識訂單狀態
+                    @case(0)
+                        審核中
+                    @break
+                    @case(1)
+                        已成立
+                    @break
+                    @case(2)
+                        出貨中
+                    @break
+                    @case(3)
+                        已出貨
+                    @break
+                    @case(4)
+                        已送達
+                    @break
+                    @case(5)
+                        已完成
+                    @break
+                    @case(6)
+                        已取消
+                    @break
+                    @default
+                        error
+                    @endswitch
+                </td>
+
                 <td style="width: 150px">
 
                     <a href="#" class="btn btn-primary btn-sm">詳細資料</a>
@@ -55,6 +93,7 @@
 {{--                            </div>--}}
 {{--                        </div>--}}
 {{--                        </form>--}}
+                    </div>
             @endforeach
             </tbody>
         </table>

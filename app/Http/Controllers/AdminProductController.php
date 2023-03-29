@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,7 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
+
         //資料驗證
         $this->validate($request,[
             'name'=>'required',
@@ -48,19 +50,33 @@ class AdminProductController extends Controller
             'origin_place'=>'required',
             'stock'=>'required',
             'price'=>'required',
+            'text'=>'required|max:255',
         ]);
         //取得現在時間
         $created_at=date('y/n/j');
+
+//        //判斷種類為種類編號
+//        $categories=$request->categories;
+//        $categoryname=Category::all('name');
+//
+//        if ($categories == $categoryname) {
+//            $categoryid = Category::all('category_id');
+//        }
+//        else {
+//                print "產品種類輸入錯誤!";
+//        }
+
         //儲存資料至products
         Product::create([
+            'category_id'=>'1',//修改
             'name'=>$request->name,
             'brand'=>$request->brand,
-            'stock'=>$request->stock,
             'origin_place'=>$request->origin_place,
+            'stock'=>$request->stock,
+            'norm'=>'/份',//修改
             'price'=>$request->price,
+            'text'=>$request->text,
             'created_at'=>$created_at,
-            'updated_at'=>$created_at,
-
         ]);
         return redirect()->route('admins.products.index');
     }
@@ -102,11 +118,13 @@ class AdminProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)//待修改
     {
-        //
+
+        Product::destroy($product->id);
+        return redirect()->route('admins.products.index');
     }
 }

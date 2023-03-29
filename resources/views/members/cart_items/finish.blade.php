@@ -27,9 +27,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-{{--                <form action="/cart/clear" method="post" role="form">--}}
-{{--                    @method('POST')--}}
-{{--                    @csrf--}}
+                <form action="/cart/clear" method="post" role="form">
+                    @method('POST')
+                    @csrf
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -95,7 +95,7 @@
                     </div>
                     <br>
                     <div style="text-align:center">
-                        <button type="submit" class="btn btn-primary btn-sm">成功訂購</button>
+                        <a class="btn btn-outline-primary" href="">完成結帳</a>
                     </div>
                 </form>
             </div>
