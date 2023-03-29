@@ -23,10 +23,6 @@ class MemberController extends Controller
     {
         return view('members.cart_items.index');
     }
-    public function collects()
-    {
-        return view('members.collects');
-    }
 
     //我的食譜列表
     public function recipes()

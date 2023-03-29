@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminRecipeController;
 use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\BloggerRecipeController;
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\CollectController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberOrderController;
@@ -89,7 +90,6 @@ Route::get('product',[ProductController::class,'product'])->name('product.produc
 
 //會員專區
 Route::get('cart_items',[MemberController::class,'cart_items'])->name('members.cart_items.index');//購物車
-Route::get('collects',[MemberController::class,'collects'])->name('members.collects');//我的收藏
 
 Route::get('recipes',[MemberController::class,'recipes'])->name('members.recipes');//我的食譜
 Route::get('orders',[MemberController::class,'orders'])->name('members.orders.index');//我的訂單(所有
@@ -104,7 +104,7 @@ Route::prefix('members')->name('members.')->group(function(){
     Route::get('/',[MemberController::class,'members'])->name('index');//個人資料
     Route::patch('{member}',[MemberController::class,'update'])->name('update');//更新個人資料
     Route::post('password',[MemberController::class,'updatepassword'])->name('password.update');//更新密碼
-    Route::get('collects',[MemberController::class,'collects'])->name('collects');//我的收藏
+    Route::get('collects',[CollectController::class,'index'])->name('collects');//我的收藏
 
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[MemberController::class,'recipes'])->name('index');//我的食譜

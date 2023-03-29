@@ -26,36 +26,83 @@
 
                 <h1 class="mt-4">我的收藏</h1>
 
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <a class="btn btn-success btn-sm" href="#">新增</a>
-                </div>
-                <!-- Main Content -->
-                <div class="tab-pane fade show active" id="nav-show" role="tabpanel" aria-labelledby="nav-show-tab">
-                    <div class="pt-4">
+                <section class="pt-4">
+                    @if($datanull == 0)
+                        <div class="my-auto">
+                            <h4 class="text-center text-secondary">~快收藏美味秘方~</h4>
+                        </div>
+                    @else
+
                         <table class="table">
                             <thead>
                             <tr>
+                                <th scope="col">#</th>
                                 <th scope="col">食譜名稱</th>
                                 <th scope="col">功能</th>
                             </tr>
                             </thead>
 
                             <tbody>
-                            <tr>
 
-                                <td style="width: 150px">
-                                    <a href="#" class="btn btn-primary btn-sm">詳細</a>
-                                    <form action="#" method="post" style="display: inline-block">
-
-                                        <button type="submit" class="btn btn-danger btn-sm">刪除</button>
-                                    </form>
-                                </td>
-                            </tr>
+                            @foreach($collects as $collect)
+                                <tr>
+                                    <td class="col-1">{{ $loop->iteration }}</td><!--自動編號-->
+                                    <td class="col-9">{{$collect->recipe->name}}</td>
+                                    <td class="col-2">
+                                        <a href="{{route('members.recipes.show',$collect->recipe->id)}}" type="button" class="btn btn-primary btn-sm">詳細資料</a>
+                                        <!--刪除-->
+                                        <form action="" method="POST" style="display: inline-block">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn btn-sm btn-danger" type="submit">刪除</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
 
                             </tbody>
+
                         </table>
-                    </div>
-                </div>
+                    @endif
+
+                </section>
+
+{{--                <!-- Main Content -->--}}
+{{--                <div class="tab-pane fade show active" id="nav-show" role="tabpanel" aria-labelledby="nav-show-tab">--}}
+{{--                    <div class="pt-4">--}}
+{{--                        --}}
+{{--                        <table class="table">--}}
+{{--                            <thead>--}}
+{{--                            <tr>--}}
+{{--                                <th scope="col">#</th>--}}
+{{--                                <th scope="col">食譜名稱</th>--}}
+{{--                                <th scope="col">功能</th>--}}
+{{--                            </tr>--}}
+{{--                            </thead>--}}
+
+{{--                            <tbody>--}}
+
+{{--                            @foreach($recipes as $recipe)--}}
+{{--                            <tr>--}}
+{{--                                <td>{{ $loop->iteration }}</td><!--自動編號-->--}}
+{{--                                <td class="col-2">--}}
+{{--                                    <a href="" type="button" class="btn btn-primary btn-sm">詳細資料</a>--}}
+
+{{--                                    <!--刪除-->--}}
+{{--                                    <form action="" method="POST" style="display: inline-block">--}}
+{{--                                        @method('DELETE')--}}
+{{--                                        @csrf--}}
+{{--                                        <button class="btn btn-sm btn-danger" type="submit">刪除</button>--}}
+{{--                                    </form>--}}
+{{--                                </td>--}}
+{{--                            </tr>--}}
+{{--                            @endforeach--}}
+
+{{--                            </tbody>--}}
+{{--                        </table>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
             </div>
         </div>
     </section>

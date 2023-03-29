@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Collect;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CollectController extends Controller
 {
@@ -14,7 +16,19 @@ class CollectController extends Controller
      */
     public function index()
     {
-        //
+        $user=Auth::user();
+        $collects = Collect::where('member_id','=',$user->member->id)->get();//目前使用者收藏的食譜
+        //dd($collects);
+        if ($collects->first()==null){  //檢測是否有資料
+            $datanull=0;
+        }else{
+            $datanull=1;
+        }
+        $data = [
+            'datanull' =>$datanull,
+            'collects' => $collects,
+        ];
+        return view('members.collects',$data);
     }
 
     /**
