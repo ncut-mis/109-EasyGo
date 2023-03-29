@@ -24,7 +24,7 @@
                     <form action="{{route('members.cart_items.store',$product->id)}}" method="POST">
                         @csrf
                         @method('POST')
-                        <td>        <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
+                        <td>   <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -38,9 +38,9 @@
                             <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <button class="btn btn-outline-dark mt-auto">加入購物車</button>
-
                                 </div>
                             </div>
+
                     </form>
                 @endforeach
             </div>
