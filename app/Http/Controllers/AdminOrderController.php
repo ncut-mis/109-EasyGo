@@ -52,7 +52,7 @@ class AdminOrderController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admins.orders.show');
     }
 
     /**

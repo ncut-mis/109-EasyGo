@@ -63,7 +63,7 @@
 
                 <td style="width: 150px">
 
-                    <a href="#" class="btn btn-primary btn-sm">詳細資料</a>
+                    <a href="{{route('admins.orders.show',$order->id)}}" class="btn btn-primary btn-sm">詳細資料</a>
 
 
                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#order{{$order->id}}" data-bs-whatever="@123">刪除</button>

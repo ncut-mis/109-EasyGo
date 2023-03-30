@@ -92,13 +92,6 @@ Route::get('product',[ProductController::class,'product'])->name('product.produc
 Route::get('cart_items',[MemberController::class,'cart_items'])->name('members.cart_items.index');//購物車
 
 Route::get('recipes',[MemberController::class,'recipes'])->name('members.recipes');//我的食譜
-Route::get('orders',[MemberController::class,'orders'])->name('members.orders.index');//我的訂單(所有
-
-Route::get('orders',[MemberController::class,'orders'])->name('members.orders');//我的訂單(所有
-
-Route::get('cancel',[MemberController::class,'cancel'])->name('members.orders.cancel');//我的訂單(取消
-Route::get('done',[MemberController::class,'done'])->name('members.orders.done');//我的訂單(完成
-Route::get('show',[MemberController::class,'show'])->name('members.orders.show');//訂單詳細資料
 
 Route::prefix('members')->name('members.')->group(function(){
     Route::get('/',[MemberController::class,'members'])->name('index');//個人資料
@@ -116,7 +109,7 @@ Route::prefix('members')->name('members.')->group(function(){
         Route::get('/',[MemberOrderController::class,'index'])->name('index');//顯示所有訂單
         Route::get('cancel',[MemberOrderController::class,'cancel'])->name('cancel');//顯示已取消訂單
         Route::get('done',[MemberOrderController::class,'done'])->name('done');//顯示已完成訂單
-        Route::get('show/{order}',[MemberOrderController::class,'show'])->name('show');//訂單詳細資料
+        Route::get('{order}',[MemberOrderController::class,'show'])->name('show');//訂單詳細資料
         Route::patch('{order}/cancel',[MemberOrderController::class,'cancel_update'])->name('cancel_update');//取消訂單
         Route::patch('{order}/done',[MemberOrderController::class,'done_update'])->name('done_update');//完成訂單
 
@@ -172,7 +165,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面
         Route::post('/products/store',[AdminProductController::class,'store'])->name('products.store');//儲存商品
         Route::delete('/products/destroy',[AdminProductController::class,'destroy'])->name('products.destroy');//刪除商品
-        Route::get('/orders',[AdminOrderController::class,'index'])->name('orders.index');//訂單列表
+        Route::prefix('orders')->name('orders.')->group(function () {
+            Route::get('/',[AdminOrderController::class,'index'])->name('index');//訂單列表
+            Route::get('/{order}/',[AdminOrderController::class,'show'])->name('show');//訂單詳細資料
+        });
     });
 
 
