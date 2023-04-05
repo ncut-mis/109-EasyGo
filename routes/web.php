@@ -104,7 +104,12 @@ Route::prefix('members')->name('members.')->group(function(){
     Route::get('/',[MemberController::class,'members'])->name('index');//個人資料
     Route::patch('{member}',[MemberController::class,'update'])->name('update');//更新個人資料
     Route::post('password',[MemberController::class,'updatepassword'])->name('password.update');//更新密碼
-    Route::get('collects',[CollectController::class,'index'])->name('collects');//我的收藏
+
+    Route::prefix('collects')->name('collects.')->group(function(){
+        Route::get('/',[CollectController::class,'index'])->name('index');//我的收藏
+        Route::post('/{recipe}',[CollectController::class,'store'])->name('store');//食譜加入收藏
+        Route::delete('/{collect}',[CollectController::class,'destroy'])->name('destroy');//取消食譜收藏
+    });
 
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[MemberController::class,'recipes'])->name('index');//我的食譜

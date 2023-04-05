@@ -14,7 +14,7 @@
                         <a class="nav-link active" aria-current="page" href="{{route('members.recipes.index')}}">我的食譜</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('members.collects')}}">食譜收藏</a>
+                        <a class="nav-link" href="{{route('members.collects.index')}}">食譜收藏</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('members.orders.index')}}">我的訂單</a>
@@ -51,7 +51,7 @@
                                     <td class="col-2">
                                         <a href="{{route('members.recipes.show',$collect->recipe->id)}}" type="button" class="btn btn-primary btn-sm">詳細資料</a>
                                         <!--刪除-->
-                                        <form action="" method="POST" style="display: inline-block">
+                                        <form action="{{route('members.collects.destroy',$collect->id)}}" method="POST" style="display: inline-block">
                                             @method('DELETE')
                                             @csrf
                                             <button class="btn btn-sm btn-danger" type="submit">刪除</button>
@@ -66,43 +66,6 @@
                     @endif
 
                 </section>
-
-{{--                <!-- Main Content -->--}}
-{{--                <div class="tab-pane fade show active" id="nav-show" role="tabpanel" aria-labelledby="nav-show-tab">--}}
-{{--                    <div class="pt-4">--}}
-{{--                        --}}
-{{--                        <table class="table">--}}
-{{--                            <thead>--}}
-{{--                            <tr>--}}
-{{--                                <th scope="col">#</th>--}}
-{{--                                <th scope="col">食譜名稱</th>--}}
-{{--                                <th scope="col">功能</th>--}}
-{{--                            </tr>--}}
-{{--                            </thead>--}}
-
-{{--                            <tbody>--}}
-
-{{--                            @foreach($recipes as $recipe)--}}
-{{--                            <tr>--}}
-{{--                                <td>{{ $loop->iteration }}</td><!--自動編號-->--}}
-{{--                                <td class="col-2">--}}
-{{--                                    <a href="" type="button" class="btn btn-primary btn-sm">詳細資料</a>--}}
-
-{{--                                    <!--刪除-->--}}
-{{--                                    <form action="" method="POST" style="display: inline-block">--}}
-{{--                                        @method('DELETE')--}}
-{{--                                        @csrf--}}
-{{--                                        <button class="btn btn-sm btn-danger" type="submit">刪除</button>--}}
-{{--                                    </form>--}}
-{{--                                </td>--}}
-{{--                            </tr>--}}
-{{--                            @endforeach--}}
-
-{{--                            </tbody>--}}
-{{--                        </table>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
             </div>
         </div>
     </section>

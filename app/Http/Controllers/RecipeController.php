@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collect;
 use App\Models\Comment;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
@@ -131,8 +132,14 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-//        $recipe_ingredients=Ingredient::where('recipe_id','=',$recipe->id)->get();//食材
-//        $recipe_steps=RecipeStep::where('recipe_id','=',$recipe->id)->get();//步驟
+        //辨別該會員是否收藏此食譜
+        $member=Auth::user()->member;
+        $isCollect = Collect::where('member_id', $member->id)
+            ->where('recipe_id', $recipe->id)
+            ->exists();
+        $collect = Collect::where('member_id', $member->id)->where('recipe_id', $recipe->id)->first();
+       // $collectId = $collect->id;
+
         //將會員跟留言連結
         $comments =
             Comment::where('recipe_id', '=', $recipe->id)->where('comment_id', null)
@@ -159,9 +166,9 @@ class RecipeController extends Controller
         $data = [
             'recipe' => $recipe,
             //'suggests'=>$suggests,
-//            'recipe_ingredients' => $recipe_ingredients,
-//            'recipe_steps' => $recipe_steps,
-            'comments' => $comments
+            'comments' => $comments,
+            'isCollect'=>$isCollect,
+            'collect'=>$collect
         ];
         return view('recipe.show', $data);
 

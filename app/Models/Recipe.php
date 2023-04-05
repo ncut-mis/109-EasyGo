@@ -27,9 +27,9 @@ class Recipe extends Model
         return $this->belongsTo(RecipeCategory::class);
     }
 
-    //一個食譜擁有一個收藏食譜(一對一)
-    public function collect(){
-        return $this->hasOne(Collect::class);
+    //一個食譜能被多次收藏
+    public function collects(){
+        return $this->hasMany(Collect::class);
     }
 
     //一個食譜可擁有多則留言(一對多)

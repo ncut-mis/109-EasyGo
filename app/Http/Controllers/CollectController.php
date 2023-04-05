@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Collect;
 use App\Models\Recipe;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
 
 class CollectController extends Controller
@@ -16,8 +18,8 @@ class CollectController extends Controller
      */
     public function index()
     {
-        $user=Auth::user();
-        $collects = Collect::where('member_id','=',$user->member->id)->get();//目前使用者收藏的食譜
+        $member=Auth::user()->member;
+        $collects = Collect::where('member_id','=', $member->id)->get();//目前使用者收藏的食譜
         //dd($collects);
         if ($collects->first()==null){  //檢測是否有資料
             $datanull=0;
@@ -41,15 +43,20 @@ class CollectController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Recipe $recipe)
     {
-        //
+        //目前使用者
+        $member = Auth::user()->member;
+
+        //儲存至DB
+        Collect::create([
+            'member_id'=>$member->id,
+            'recipe_id'=>$recipe->id,
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now(),
+        ]);
+
+        return redirect()->back()->with('success', '成功加入收藏.');
     }
 
     /**
@@ -86,14 +93,10 @@ class CollectController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Collect  $collect
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Collect $collect)
     {
-        //
+        $collect->delete();
+        return redirect()->back()->with('success', '收藏已删除.');
     }
 }

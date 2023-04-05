@@ -7,9 +7,28 @@
     <section class="py-0">
         <div class="container px-5 my-5 ">
             <div class="row gx-3">
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 <!-- Post title-->
                 <div class="mb-3">
-                    <button type="button" class="btn btn-outline-secondary btn-lg">收藏</button>
+                    @if($isCollect)
+                        <form action="{{route('members.collects.destroy',$collect->id)}}" method="POST">
+                            @method('delete')
+                            @csrf
+                            <button type="submit" class="btn btn-outline-secondary btn-lg">★已收藏</button>
+                        </form>
+                    @else
+                        <form action="{{route('members.collects.store',$recipe->id)}}" method="POST">
+                            @method('post')
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger btn-lg">☆收藏</button>
+                        </form>
+                    @endif
+
                     <!--食譜名稱-->
                     <div class="mb-3">
                         <h4>
