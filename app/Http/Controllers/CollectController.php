@@ -19,8 +19,13 @@ class CollectController extends Controller
     public function index()
     {
         $member=Auth::user()->member;
-        $collects = Collect::where('member_id','=', $member->id)->get();//目前使用者收藏的食譜
+
+        //目前使用者收藏的食譜(且確認為上架食譜)
+        $collects = $member->collects()->with('recipe')->whereHas('recipe', function ($query) {
+            $query->where('status', '1');
+        })->get();
         //dd($collects);
+
         if ($collects->first()==null){  //檢測是否有資料
             $datanull=0;
         }else{
