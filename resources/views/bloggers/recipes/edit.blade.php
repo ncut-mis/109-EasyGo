@@ -13,14 +13,10 @@
                 </div>
             @endif
 
-{{--               @livewire('blogger-recipe-edit',['recipe' => $recipe])--}}
             <form action="{{route('bloggers.recipes.update',$recipe->id)}}" method="POST" style="display: inline-block" enctype="multipart/form-data">
                 @method('patch')
                 @csrf
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="submit" class="btn btn-primary btn-lg">儲存</button>
-                    <button type="button" class="btn btn-danger btn-lg">取消</button>
-                </div>
+
                 <!-- Post title-->
                 <div class="mb-3">
                     <!--食譜名稱-->
@@ -39,25 +35,27 @@
                                 @foreach ($recipe->recipeImgs as $key=> $recipeImg)
                                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                         <img src="{{asset('img/recipe/'.$recipeImg->picture)}}" width="1250" height="850">
-                                        <button class="delete-btn btn-danger" style="position: absolute; top: 0; right: 0; z-index: 1;">刪除</button>
+                                        <button class="btn delete-btn btn-danger" style="position: absolute; top: 0; right: 0; z-index: 1;">&times;</button>
                                     </div>
                                 @endforeach
+
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-{{--                            <input type="file" name="recipe_img" id="recipe_img" accept="img/*" class="form-control">--}}
-                            <div class="form-group">
-                                <label for="images">圖片上傳</label>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input form-control" name="images[]" multiple>
-                                </div>
+
+                            <!--上傳圖片-->
+                            <div>
+                                <label for="images"></label>
+                                <input type="file" id="images" name="images[]" class="custom-file-input form-control" multiple>
                             </div>
+                            <div id="preview"></div>
+
                         </div>
                     </div>
 
@@ -70,7 +68,7 @@
                                 @foreach ($recipe->recipeFilms as $key=> $recipeFilm)
                                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                                         <video src="{{asset('video/'.$recipeFilm->film)}}" width="1250" height="740" controls></video>
-                                        <button class="delete-btn btn-danger" style="position: absolute; top: 0; right: 0; z-index: 1;">刪除</button>
+                                        <button class="btn delete-btn btn-danger" style="position: absolute; top: 0; right: 0; z-index: 1;">刪除</button>
                                     </div>
                                 @endforeach
                             </div>
@@ -130,13 +128,19 @@
                         <textarea name="recipe_text" id="recipe_text" class="form-control" rows="4" placeholder="請輸入食譜簡介">{{$recipe->text}}</textarea><!--多行輸入框-->
                     </div>
 
-                </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary btn-sm">儲存</button>
+                        <button type="button" class="btn btn-danger btn-sm">取消</button>
+                    </div>
 
+                </div>
+            </form>
                 <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
 
                 <!--食材-->
                 <div class="mb-3">
                     <h1 class="fw-bolder mb-1">食材<button type="button" class="btn btn-lg">+</button></h1>
+
                     <table class="table">
                         <thead>
                             <tr>
@@ -157,8 +161,13 @@
                             </tr>
                         </tbody>
                         @endforeach
-
                     </table>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary btn-sm">儲存</button>
+                        <button type="button" class="btn btn-danger btn-sm">取消</button>
+                    </div>
+
                 </div>
 
                 <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
@@ -193,10 +202,55 @@
                             </div>
                         </div>
                     @endforeach
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary btn-sm">儲存</button>
+                        <button type="button" class="btn btn-danger btn-sm">取消</button>
+                    </div>
+
                 </div>
-            </form>
 
             </div>
         </div>
     </section>
+
+
+    <!-- JavaScript 預覽圖片 -->
+    <script>
+        function previewImages() {
+            var preview = document.querySelector('#preview');
+            var images = document.querySelector('#images').files;
+
+            function readAndPreview(image) {
+                if ( /\.(jpe?g|png|gif)$/i.test(image.name) ) {
+                    var reader = new FileReader();
+
+                    reader.addEventListener("load", function () {
+                        var imageElement = document.createElement("img");
+                        imageElement.src = this.result;
+                        preview.appendChild(imageElement);
+                    }, false);
+
+                    reader.readAsDataURL(image);
+                }
+            }
+
+            if (images) {
+                [].forEach.call(images, readAndPreview);
+            }
+        }
+
+        // 載入時顯示已經上傳的圖片
+        window.addEventListener('load', function() {
+            previewImages();
+        });
+
+        // 上傳時預覽圖片
+        document.querySelector('#images').addEventListener('change', function() {
+            previewImages();
+        });
+
+    </script>
+
 @endsection
+

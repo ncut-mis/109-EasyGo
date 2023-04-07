@@ -76,7 +76,11 @@ class BloggerRecipeController extends Controller
     public function edit(Recipe $recipe)
     {
         $recipe_categories=RecipeCategory::orderBy('id','DESC')->get();//食譜類別
-        $data = ['recipe' => $recipe,'recipe_categories'=>$recipe_categories];
+
+        $data = [
+            'recipe' => $recipe,
+            'recipe_categories'=>$recipe_categories
+            ];
         return view('bloggers.recipes.edit',$data);
     }
 
@@ -97,36 +101,37 @@ class BloggerRecipeController extends Controller
      */
     public function update(Request $request, Recipe $recipe)
     {
-        $recipe->update([
-            'name' => $request->name,
-            'recipe_category_id' => $request->recipe_category_id,
-            'status' => $request->status,
-            'text' => $request->recipe_text,
-        ]);
+        //食譜封面圖片
+        if($request->hasFile('images')){
+            $files=$request->file('images');
+            //處理圖片上傳
+            foreach ($files as$file){
+                //自訂名稱
+                $imageName=time().'.'.$file->getClientOriginalExtension();
 
-        //處理上傳的圖片
-        //確認是否有上傳檔案
-//        if ($request->hasFile('recipe_img')) {
-//            foreach ($request->file('recipe_img') as $image) {
-//
-//                //自訂檔案名稱
-//                $ImageName = time().'.'.$image->extension();
-//                //把檔案存到public資料夾下
-//                $path =$image->move(public_path('/img/recipe'), $ImageName);
-//                // 儲存圖片到 storage/app/public 目錄下
-////                $path = $image->store('public');
-//                // 建立食譜圖片資料
-//                //$recipeImage = RecipeImg::where('recipe_id','=',$recipe->id)->get();
-//                $recipeImage = new RecipeImg();
-//                $recipeImage->recipe_id = $recipe->id;
-//                $recipeImage->picture = $path;
-//
-//                // 儲存食譜圖片資料
-//                $recipeImage->save();
-//            }
-//        }
-//        dd($request);
-        return redirect()->back()->with('success', '食譜更新成功！');
+                //儲存至陣列中
+                $request['recipe_id']=$recipe->id;
+                $request['picture']=$imageName;
+
+                //儲存至指定目錄
+                $file->move(\public_path('img/recipe'),$imageName);
+                //存入DB
+                RecipeImg::create([
+                        'recipe_id' =>$recipe->id,
+                        'picture' => $imageName
+                    ]);
+            }
+        }
+
+            $recipe->update([
+                'name' => $request->name,
+                'recipe_category_id' => $request->recipe_category_id,
+                'status' => $request->status,
+                'text' => $request->recipe_text,
+            ]);
+
+
+        return redirect()->back()->with('success', '食譜基本設定更新成功！');
     }
 
     /**
