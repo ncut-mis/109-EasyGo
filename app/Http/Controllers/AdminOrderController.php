@@ -115,4 +115,10 @@ class AdminOrderController extends Controller
     {
         //
     }
+    public function check(Order $order){
+        $order->update([
+            'status'=>1,
+        ]);
+        return redirect()->route('admins.orders.index');
+    }
 }

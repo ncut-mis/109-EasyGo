@@ -106,6 +106,14 @@
                     <h6 for="exampleFormControlInput1"  class="col-form-label mb-2">訂單取消時間：{{$order->updated_at}}</h6>
                 @endif
             </table>
+            @if($order->status==0)
+                <form action="{{route('admins.orders.check',$order->id)}}" method="post" >
+                    @method('patch')
+                    <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
+                    @csrf
+                    <button type="submit" class="btn btn-primary btn-sm">確認訂單</button>
+                </form>
+            @endif
         </div>
 
     </div>
