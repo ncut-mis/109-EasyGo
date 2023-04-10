@@ -54,8 +54,7 @@
                             <th width="20%" style="text-align: center">名稱</th>
                             <th width="10%" style="text-align: center">單價</th>
                             <th width="10%" style="text-align: center">數量</th>
-                            <th width="10%" style="text-align: center">小計</th>
-                            <th width="15%" style="text-align: center">刪除</th>
+                            <th width="15%" style="text-align: center">功能</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -75,8 +74,9 @@
                     @endif
                 </td>
                 <td class="text-right">${{  $cart->price  }}</td>
-                <td class="text-right">{{  $cart->quantity  }}</td>
-                <td class="text-right" id="display_price">${{  $cart->price * $cart->quantity  }}</td>
+                <td class="text-center"><input type="number" id="quantity" name="quantity" min="1" value="{{  $cart->quantity  }}" onchange="post_update_quantity('{{$cart->id}}', this.value);"></td>
+
+
                 <td nowrap>
                     <form action="{{route('members.cart_items.remove')}}" method="post">
                         @csrf <!-- Laravel's built-in CSRF protection -->
@@ -94,7 +94,7 @@
 
                     </table>
                 <div style="text-align:right">
-                    <b>總計：{{$total}} 元</b>
+{{--                    <b>總計：{{$total}} 元</b>--}}
                 </div>
                 <div style="text-align:center">
                     <a class="btn btn-outline-primary" href="{{route('members.cart_items.finish')}}">前往結帳</a>
