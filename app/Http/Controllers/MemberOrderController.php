@@ -166,7 +166,7 @@ class MemberOrderController extends Controller
         foreach ($orderderails as $orderderail){
             $products=$orderderail->product()->get();//取得商品資訊
             foreach ($products as $product){
-                $price=$product->price * $orderderail->quantity;//計算價格
+                $price=$product->price * $orderderail->quantity;//計算價格(各品項小計)
                 $array=Arr::add($array,$key,[//產生新的資料表
                     'name'=>$product->name,//產品名稱
                     'quantity'=>$orderderail->quantity,//數量
