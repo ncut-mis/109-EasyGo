@@ -65,12 +65,20 @@
                     <br>
                     <div class="form-group">
                         <label for="name">收件人姓名：</label><br>
-                        <input name="name" value="{{$user->name}}" class="form-control" disabled="true">
+                        <input name="name" value="{{$user->name}}" class="form-control">
                         <br>
                         <label for="name">收件人信箱：</label><br>
-                        <input name="name" value="{{$user->email}}" class="form-control" disabled="true">
+                        <input name="name" value="{{$user->email}}" class="form-control" >
                         <table class="table">
-                            <thead>
+{{--                            <br>--}}
+{{--                            <label for="name">收件人電話：</label><br>--}}
+{{--                            <input name="name" value="" class="form-control" >--}}
+{{--                            <table class="table">--}}
+{{--                                <br>--}}
+{{--                                <label for="name">收件人地址：</label><br>--}}
+{{--                                <input name="name" value="" class="form-control" >--}}
+{{--                                <table class="table">--}}
+{{--                            <thead>--}}
                             <tr>
                                 <th scope="col"> 付款資訊</th>
                             </tr>
