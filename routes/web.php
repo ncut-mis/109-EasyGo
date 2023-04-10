@@ -123,7 +123,7 @@ Route::post('remove',[CartItemController::class,'destroy'])->name('members.cart_
 Route::post('store',[CartItemController::class,'store'])->name('members.cart_items.store');//商品加入購物車
 Route::post('update',[CartItemController::class,'update'])->name('members.cart_items.update');
 Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');//結帳
-
+Route::post('order', [OrderController::class, 'checkout'])->name('members.orders.checkout'); //下訂單
 
 //留言
 Route::prefix('comment')->name('comment.')->group(function(){
