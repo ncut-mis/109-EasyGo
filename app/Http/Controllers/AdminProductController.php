@@ -115,15 +115,10 @@ class AdminProductController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $product
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Product $product)//待修改
     {
-
+        //要把產品相關的訂單一起刪除才可以把產品刪除
         Product::destroy($product->id);
         return redirect()->route('admins.products.index');
     }

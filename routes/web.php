@@ -164,7 +164,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表
         Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面
         Route::post('/products/store',[AdminProductController::class,'store'])->name('products.store');//儲存商品
-        Route::delete('/products/destroy',[AdminProductController::class,'destroy'])->name('products.destroy');//刪除商品
+        Route::delete('/products/{product}',[AdminProductController::class,'destroy'])->name('products.destroy');//刪除商品
+        //訂單
         Route::prefix('orders')->name('orders.')->group(function () {
             Route::get('/',[AdminOrderController::class,'index'])->name('index');//訂單列表
             Route::get('/{order}/',[AdminOrderController::class,'show'])->name('show');//訂單詳細資料

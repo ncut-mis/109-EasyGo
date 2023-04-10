@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">取消</button>
-                                        <form action="{{route('admins.products.destroy',$product['id'])}}" method="post" style="display: inline-block">
+                                        <form action="{{route('admins.products.destroy',$product->id)}}" method="post" style="display: inline-block">
                                             @method('delete')
                                             @csrf
                                             <button type="submit" class="btn btn-danger btn-sm">確定</button>
