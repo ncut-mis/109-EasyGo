@@ -65,10 +65,10 @@
                     <br>
                     <div class="form-group">
                         <label for="name">收件人姓名：</label><br>
-                        <input name="name" value="{{$user->name}}" class="form-control">
+                        <input name="receiver" value="{{$user->name}}" class="form-control" required>
                         <br>
                         <label for="name">收件人信箱：</label><br>
-                        <input name="name" value="{{$user->email}}" class="form-control" >
+                        <input name="email" value="{{$user->email}}" class="form-control" required>
                         <table class="table">
                             <br>
                             <label for="name">收件地址：</label><br>
@@ -107,7 +107,7 @@
                     </div>
                     <br>
                     <div style="text-align:center">
-                        <a class="btn btn-outline-primary" href="">完成結帳</a>
+                        <button class="btn btn-outline-primary" type="submit">完成結帳</button>
                     </div>
                 </form>
             </div>
