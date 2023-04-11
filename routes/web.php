@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminProductController;
 use App\Http\Controllers\AdminRecipeController;
 use App\Http\Controllers\AdminOrderController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\CollectController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberOrderController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
@@ -41,6 +43,10 @@ Route::get('/search',[RecipeController::class,'search'])->name('search');//搜�
 Route::get('/',[RecipeController::class,'index'])->name('blog.new');//首頁
 //Route::get('/',function (){return '123456789';})->name('blog.new');//首頁
 
+
+
+//中式
+Route::get('adminlogin',[AdminLoginController::class,'adminlogin'])->name('blog.adminlogin');
 //中式
 Route::get('china',[RecipeController::class,'china'])->name('blog.china');
 //西式
@@ -153,6 +159,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 
     //平台人員
+
     Route::prefix('admins')->name('admins.')->group(function () {
         Route::prefix('recipes')->name('recipes.')->group(function(){
             Route::get('/',[AdminRecipeController::class,'index'])->name('index');//餐點列表
@@ -160,14 +167,13 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             Route::patch ('/{recipe}/stop',[AdminRecipeController::class,'stop'])->name('stop');//下架
             Route::get('/create', [AdminRecipeController::class, 'create'])->name('create');//新增餐點頁面
         });
-
+        Route::get('/logins',[AdminLoginController::class,'index'])->name('login.index');//商品列表
         Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表
         Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面
         Route::post('/products/store',[AdminProductController::class,'store'])->name('products.store');//儲存商品
         Route::delete('/products/{product}',[AdminProductController::class,'destroy'])->name('products.destroy');//刪除商品
         //訂單
         Route::prefix('orders')->name('orders.')->group(function () {
-            Route::get('/',[AdminOrderController::class,'index'])->name('index');//訂單列表
             Route::get('/{order}/',[AdminOrderController::class,'show'])->name('show');//訂單詳細資料
         });
     });

@@ -11,7 +11,7 @@
 
             <h3>登入 Login</h3>
 
-            <form action="用戶管理.php">
+            <form action="">
                 <input type="text" id="username" name="username" placeholder="帳號" required>
                 <div class="tab"></div>
                 <input type="text" id="password" name="password" placeholder="密碼" required>
@@ -32,7 +32,7 @@
 
         <h3>註冊 Sign Up</h3>
 
-        <form action="用戶管理.php">
+        <form action="">
             <input type="text" id="fullname" name="fullname" placeholder="使用者全名" required>
             <div class="tab"></div>
             <input type="text" id="username2" name="username" placeholder="帳號" required>

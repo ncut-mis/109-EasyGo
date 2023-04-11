@@ -27,7 +27,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <form action="/cart/clear" method="post" role="form">
+                <form action="{{route('members.orders.checkout')}}" method="post" role="form">
                     @method('POST')
                     @csrf
                     <table class="table table-hover">
@@ -70,7 +70,13 @@
                         <label for="name">收件人信箱：</label><br>
                         <input name="name" value="{{$user->email}}" class="form-control" >
                         <table class="table">
-{{--                            <br>--}}
+                            <br>
+                            <label for="name">收件地址：</label><br>
+                            <input name="address" class="form-control" required>
+                            <input type="hidden" name="remit" value="0" id="">
+                            <table class="table">
+                            <br>
+                                <label for="name">收件人電話：</label> <input class="form-control" name="tel" placeholder="手機號碼" required></th>
 {{--                            <label for="name">收件人電話：</label><br>--}}
 {{--                            <input name="name" value="" class="form-control" >--}}
 {{--                            <table class="table">--}}
@@ -95,9 +101,7 @@
                                 <th scope="row">有效期限<input type="password" class="form-control"  placeholder="有效期限"></th>
 
                             </tr>
-                            <th scope="row">手機號碼 <input class="form-control"  placeholder="手機號碼"></th>
 
-                            </tr>
                             </tbody>
                         </table>
                     </div>
