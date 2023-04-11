@@ -174,6 +174,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::delete('/products/{product}',[AdminProductController::class,'destroy'])->name('products.destroy');//刪除商品
         //訂單
         Route::prefix('orders')->name('orders.')->group(function () {
+            Route::get('/',[AdminOrderController::class,'index'])->name('index');//訂單列表
             Route::get('/{order}/',[AdminOrderController::class,'show'])->name('show');//訂單詳細資料
         });
     });
