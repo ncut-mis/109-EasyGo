@@ -54,7 +54,7 @@
                                 <label for="images"></label>
                                 <input type="file" id="images" name="images[]" class="custom-file-input form-control" multiple>
                             </div>
-                            <div id="preview"></div>
+                            <div id="preview-img"></div>
 
                         </div>
                     </div>
@@ -80,7 +80,25 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
-                            <input type="file" name="film" id="film" accept="film/*" class="form-control">
+
+                            <!--上傳影片-->
+                            <div>
+                                <label for="videos"></label>
+                                <input type="file" id="videos" name="videos[]" class="custom-file-input form-control" >
+                            </div>
+
+                            <div>
+                                <video id="preview-video" controls>
+                                    <source id="source" src="" type="video/mp4">
+                                </video>
+                            </div>
+
+
+{{--                            <div>--}}
+{{--                                <label for="films"></label>--}}
+{{--                                <input type="file" id="films" name="films[]" class="custom-file-input form-control" multiple>--}}
+{{--                            </div>--}}
+{{--                            <div id="preview-film"></div>--}}
                         </div>
                     </div>
 
@@ -218,7 +236,7 @@
     <!-- JavaScript 預覽圖片 -->
     <script>
         function previewImages() {
-            var preview = document.querySelector('#preview');
+            var preview = document.querySelector('#preview-img');
             var images = document.querySelector('#images').files;
 
             function readAndPreview(image) {
@@ -249,6 +267,54 @@
         document.querySelector('#images').addEventListener('change', function() {
             previewImages();
         });
+
+        //影片
+        // function previewVideo(event) {
+        //     var input = event.target;
+        //     var preview = document.getElementById('preview-film');
+        //     var source = document.getElementById('source');
+        //     var reader = new FileReader();
+        //
+        //     reader.onload = function() {
+        //         preview.style.display = 'block';
+        //         source.src = reader.result;
+        //         preview.load();
+        //     }
+        //
+        //     reader.readAsDataURL(input.files[0]);
+        // }
+        function previewVideos() {
+            var preview = document.querySelector('#preview-video');
+            var source = document.getElementById('source');
+            var videos = document.querySelector('#videos').files;
+
+            function readAndPreview(video) {
+                if ( /\.(mp4?|mp3)$/i.test(video.name) ) {
+                    var reader = new FileReader();
+
+                    reader.addEventListener("load", function () {
+                        var videoElement = document.createElement("video");
+                        videoElement.src = this.result;
+                        preview.appendChild(videoElement);
+                    }, false);
+
+                    reader.readAsDataURL(video);
+                }
+            }
+
+            if (videos) {
+                [].forEach.call(videos, readAndPreview);
+            }
+        }
+
+        reader.onload = function() {
+            preview.style.display = 'block';
+            source.src = reader.result;
+            preview.load();
+        }
+
+        reader.readAsDataURL(input.files[0]);
+
 
     </script>
 

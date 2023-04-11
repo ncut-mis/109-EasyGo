@@ -123,6 +123,28 @@ class BloggerRecipeController extends Controller
             }
         }
 
+        //食譜封面圖片
+        if($request->hasFile('videos')){
+            $files=$request->file('videos');
+            //處理圖片上傳
+            foreach ($files as$file){
+                //自訂名稱
+                $videoName=time().'.'.$file->getClientOriginalExtension();
+
+                //儲存至陣列中
+                $request['recipe_id']=$recipe->id;
+                $request['film']=$videoName;
+
+                //儲存至指定目錄
+                $file->move(\public_path('video'),$videoName);
+                //存入DB
+                RecipeImg::create([
+                    'recipe_id' =>$recipe->id,
+                    'film' => $videoName
+                ]);
+            }
+        }
+
             $recipe->update([
                 'name' => $request->name,
                 'recipe_category_id' => $request->recipe_category_id,

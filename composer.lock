@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a4d444b08cfda77fc4423b2761b61791",
+    "content-hash": "14489a494dd4ddceee5b4b1b0c110070",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2531,16 +2531,16 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v2.11.2",
+            "version": "v2.12.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "e92233f31dc1b88fb1ac242b32afe1ab7525ee05"
+                "reference": "019b1e69d8cd8c7e749eba7a38e4fa69ecbc8f74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/e92233f31dc1b88fb1ac242b32afe1ab7525ee05",
-                "reference": "e92233f31dc1b88fb1ac242b32afe1ab7525ee05",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/019b1e69d8cd8c7e749eba7a38e4fa69ecbc8f74",
+                "reference": "019b1e69d8cd8c7e749eba7a38e4fa69ecbc8f74",
                 "shasum": ""
             },
             "require": {
@@ -2592,7 +2592,7 @@
             "description": "A front-end framework for Laravel.",
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v2.11.2"
+                "source": "https://github.com/livewire/livewire/tree/v2.12.3"
             },
             "funding": [
                 {
@@ -2600,7 +2600,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-29T23:45:02+00:00"
+            "time": "2023-03-03T20:12:38+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",

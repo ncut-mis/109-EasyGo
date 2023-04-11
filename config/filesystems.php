@@ -30,6 +30,14 @@ return [
 
     'disks' => [
 
+        //儲存至public/img下的某個資料夾
+        'public_recipe' => [
+            'driver' => 'local',
+            'root' => public_path('img'),
+            'url' => env('APP_URL').'/img',
+            'visibility' => 'public',
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

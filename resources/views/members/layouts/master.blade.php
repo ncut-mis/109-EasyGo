@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  class="no-js" lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -11,6 +11,10 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="{{ asset('css/admin-styles.css') }}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
+    <!--Bootstrap Css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    @livewireStyles
 </head>
 <body>
 <!-- Navigation-->
@@ -28,7 +32,7 @@
 <!-- Core theme JS-->
 <script src="{{asset('js/scripts.js')}}"></script>
 
-
+@livewireScripts
 
 </body>
 {{--<body class="sb-nav-fixed">--}}
