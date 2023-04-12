@@ -2,8 +2,9 @@
     <x-jet-authentication-card>
         <x-slot name="logo">
 
-            <img src="../img/login.png" class="mr-3" alt="..." width="600" height="300">
+            <img src="../img/adminlogin.png" class="mr-3" alt="..." width="600" height="300">
         </x-slot>
+
         <x-jet-validation-errors class="mb-4" />
 
         @if (session('status'))

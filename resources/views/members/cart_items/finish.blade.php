@@ -27,7 +27,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
-                <form action="/cart/clear" method="post" role="form">
+                <form action="{{route('members.orders.checkout')}}" method="post" role="form">
                     @method('POST')
                     @csrf
                     <table class="table table-hover">
@@ -65,12 +65,26 @@
                     <br>
                     <div class="form-group">
                         <label for="name">收件人姓名：</label><br>
-                        <input name="name" value="{{$user->name}}" class="form-control" disabled="true">
+                        <input name="receiver" value="{{$user->name}}" class="form-control" required>
                         <br>
                         <label for="name">收件人信箱：</label><br>
-                        <input name="name" value="{{$user->email}}" class="form-control" disabled="true">
+                        <input name="email" value="{{$user->email}}" class="form-control" required>
                         <table class="table">
-                            <thead>
+                            <br>
+                            <label for="name">收件地址：</label><br>
+                            <input name="address" class="form-control" required>
+                            <input type="hidden" name="remit" value="0" id="">
+                            <table class="table">
+                            <br>
+                                <label for="name">收件人電話：</label> <input class="form-control" name="tel" placeholder="手機號碼" required></th>
+{{--                            <label for="name">收件人電話：</label><br>--}}
+{{--                            <input name="name" value="" class="form-control" >--}}
+{{--                            <table class="table">--}}
+{{--                                <br>--}}
+{{--                                <label for="name">收件人地址：</label><br>--}}
+{{--                                <input name="name" value="" class="form-control" >--}}
+{{--                                <table class="table">--}}
+{{--                            <thead>--}}
                             <tr>
                                 <th scope="col"> 付款資訊</th>
                             </tr>
@@ -87,15 +101,13 @@
                                 <th scope="row">有效期限<input type="password" class="form-control"  placeholder="有效期限"></th>
 
                             </tr>
-                            <th scope="row">手機號碼 <input class="form-control"  placeholder="手機號碼"></th>
 
-                            </tr>
                             </tbody>
                         </table>
                     </div>
                     <br>
                     <div style="text-align:center">
-                        <a class="btn btn-outline-primary" href="">完成結帳</a>
+                        <button class="btn btn-outline-primary" type="submit">完成結帳</button>
                     </div>
                 </form>
             </div>
