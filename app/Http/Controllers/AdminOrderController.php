@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class AdminOrderController extends Controller
 {
@@ -50,9 +51,35 @@ class AdminOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Order $order)
     {
-        return view('admins.orders.show');
+        $array=[];
+        $key=0;
+        $sum=0;
+        $orderderails=$order->orderDetali()->get();//取得訂單明細
+        foreach ($orderderails as $orderderail){
+            $products=$orderderail->product()->get();//取得商品資訊
+            foreach ($products as $product){
+                $subtotal=$product->price * $orderderail->quantity;//計算價格(各品項小計)
+                $array=Arr::add($array,$key,[//產生新的資料表
+                    'name'=>$product->name,//產品名稱
+                    'quantity'=>$orderderail->quantity,//數量
+                    'price'=>$product->price,//單價
+                    'subtotal'=>$subtotal,//小計
+
+                ]);
+                $sum+=$subtotal;
+                $key++;
+            }
+
+        }
+        $data=[
+            'order'=>$order,
+            'array'=>$array,
+            'sum'=>$sum,
+        ];
+
+        return view('admins.orders.show',$data);
     }
 
     /**
@@ -87,5 +114,11 @@ class AdminOrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function check(Order $order){
+        $order->update([
+            'status'=>1,
+        ]);
+        return redirect()->route('admins.orders.index');
     }
 }

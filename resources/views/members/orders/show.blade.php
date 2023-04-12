@@ -69,21 +69,22 @@
                             <tr>
                                 <th scope="col">品項</th>
                                 <th scope="col">數量</th>
-                                <th scope="col">金額</th>
+                                <th scope="col">單價</th>
+                                <th scope="col">小計</th>
                             </tr>
                             </thead>
                             <tbody>
-                                {{$sum=0}}
                                 @foreach($array as $array_tiem)
                                     <tr>
                                         <th scope="col">{{$array_tiem['name']}}</th>
                                         <th scope="col">{{$array_tiem['quantity']}}</th>
                                         <th scope="col">{{$array_tiem['price']}}</th>
+                                        <th scope="col">{{$array_tiem['subtotal']}}</th>
                                     </tr>
-                                    {{$sum+=$array_tiem['price']*$array_tiem['quantity']}}
                                 @endforeach
                                 <tr class="table-active">
                                     <th>總金額</th>
+                                    <th></th>
                                     <th></th>
                                     <th>{{$sum}}</th>
                                 </tr>
