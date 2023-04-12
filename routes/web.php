@@ -167,11 +167,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             Route::patch ('/{recipe}/stop',[AdminRecipeController::class,'stop'])->name('stop');//下架
             Route::get('/create', [AdminRecipeController::class, 'create'])->name('create');//新增餐點頁面
         });
+        //食材
         Route::get('/logins',[AdminLoginController::class,'index'])->name('login.index');//商品列表
         Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表
         Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面
         Route::post('/products/store',[AdminProductController::class,'store'])->name('products.store');//儲存商品
+        Route::get('/products/show',[AdminProductController::class,'show'])->name('products.show');//儲存商品
         Route::delete('/products/{product}',[AdminProductController::class,'destroy'])->name('products.destroy');//刪除商品
+        Route::patch ('/products/{product}/launch',[AdminProductController::class,'launch'])->name('products.launch');//上架
+        Route::patch ('/products/{product}/stop',[AdminProductController::class,'stop'])->name('products.stop');//下架
         //訂單
         Route::prefix('orders')->name('orders.')->group(function () {
             Route::get('/',[AdminOrderController::class,'index'])->name('index');//訂單列表
