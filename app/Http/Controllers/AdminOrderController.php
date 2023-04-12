@@ -93,7 +93,7 @@ class AdminOrderController extends Controller
         //
     }
 
-    
+
     public function update(Request $request)
     {
         $order=Order::find($request->id);
@@ -114,9 +114,15 @@ class AdminOrderController extends Controller
     {
         //
     }
-    public function check(Order $order){
+    public function update_check(Order $order){
         $order->update([
             'status'=>1,
+        ]);
+        return redirect()->route('admins.orders.index');
+    }
+    public function update_cancel(Order $order){
+        $order->update([
+            'status'=>6,
         ]);
         return redirect()->route('admins.orders.index');
     }

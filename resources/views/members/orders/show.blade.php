@@ -50,6 +50,9 @@
                                 @case(6)
                                     已取消
                                     @break
+                                @case(7)
+                                    取消申請中
+                                    @break
                                 @default
                                     error
                             @endswitch

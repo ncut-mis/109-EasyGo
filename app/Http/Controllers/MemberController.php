@@ -40,22 +40,6 @@ class MemberController extends Controller
         ];
         return view('members.recipes',$data);
     }
-    public function orders()
-    {
-        return view('members.orders');
-    }
-    public function cancel()
-    {
-        return view('members.orders.cancel');
-    }
-    public function done()
-    {
-        return view('members.orders.done');
-    }
-    public function show()
-    {
-        return view('members.orders.show');
-    }
     /**
      * Show the form for creating a new resource.
      *

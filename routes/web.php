@@ -176,7 +176,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::prefix('orders')->name('orders.')->group(function () {
             Route::get('/',[AdminOrderController::class,'index'])->name('index');//訂單列表
             Route::get('/{order}/',[AdminOrderController::class,'show'])->name('show');//訂單詳細資料
-            Route::patch('/{order}/check',[AdminOrderController::class,'check'])->name('check');//確認訂單
+            Route::patch('/{order}/update_check',[AdminOrderController::class,'update_check'])->name('update_check');//確認訂單
+            Route::patch('/{order}/update_cancel',[AdminOrderController::class,'update_cancel'])->name('update_cancel');//修改訂單狀態
             Route::patch('/{order}',[AdminOrderController::class,'update'])->name('update');//修改訂單狀態
         });
     });
