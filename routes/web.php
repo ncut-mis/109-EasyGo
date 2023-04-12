@@ -167,11 +167,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             Route::patch ('/{recipe}/stop',[AdminRecipeController::class,'stop'])->name('stop');//下架
             Route::get('/create', [AdminRecipeController::class, 'create'])->name('create');//新增餐點頁面
         });
-<<<<<<< HEAD
         //食材
-=======
         Route::get('/logins',[AdminLoginController::class,'index'])->name('login.index');//商品列表
->>>>>>> 3581a06b459380f438551cdb1a5f0a2c4b850bd3
         Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表
         Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面
         Route::post('/products/store',[AdminProductController::class,'store'])->name('products.store');//儲存商品

@@ -96,9 +96,8 @@ class AdminProductController extends Controller
 
     public function show(Product $product)
     {
-        $data = [
-            'product' => $product,
-
+        $data=[
+            'product'=>$product
         ];
         return view('admins.products.show',$data);
     }

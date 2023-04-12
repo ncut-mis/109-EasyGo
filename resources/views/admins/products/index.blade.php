@@ -27,7 +27,7 @@
                 <th scope="row" style="width: 50px">{{$product->id}}</th>
                 <td>{{$product->name}}</td>
 
-                
+
                 @if($product->status== 1)
                     <td>
                         已上架
@@ -85,16 +85,11 @@
                                     </div>
                             </div>
                         </div>
-                        </form>
                     </div>
-
-
                 </td>
             </tr>
             @endforeach
             </tbody>
-
         </table>
-
     </div>
 @endsection
