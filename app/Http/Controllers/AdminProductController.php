@@ -23,6 +23,18 @@ class AdminProductController extends Controller
 
         return view('admins.products.index',$data);
     }
+    //下架食材
+    public function stop(Product $product)
+    {
+        $product->update(['status'=>0]);
+        return redirect()->route('admins.products.index');
+    }
+    //上架食材
+    public function launch(Product $product)
+    {
+        $product->update(['status'=>1]);
+        return redirect()->route('admins.products.index');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -81,15 +93,14 @@ class AdminProductController extends Controller
         return redirect()->route('admins.products.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+    public function show(Product $product)
     {
-        //
+        $data = [
+            'product' => $product,
+
+        ];
+        return view('admins.products.show',$data);
     }
 
     /**
