@@ -8,11 +8,7 @@ use Illuminate\Support\Arr;
 
 class AdminOrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $orders = Order::orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
@@ -23,34 +19,38 @@ class AdminOrderController extends Controller
         return view('admins.orders.index',$data);
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function cancel()
     {
-        //
+        $orders = Order::where('status','=','7')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.cancel',$data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function done()
+    {
+        $orders = Order::where('status','=','5')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.done',$data);
+    }
+
+    public function create()
+    {
+
+    }
+
+
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Order $order)
     {
         $array=[];
