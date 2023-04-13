@@ -209,8 +209,12 @@
                                         <div class="card-body mb-3">
                                             <h2 class="card-title mb-6">
                                                 <span>步驟{{ $step['sequence'] }}</span>
-                                                <button type="button" class="btn btn-lg" wire:click="removeStep({{ $loop->index }})">－</button>
-                                                @if ($loop->index  > 0)
+                                                <button type="button" class="btn btn-lg" wire:click="removeStep({{ $loop->index }})"><img src="{{ asset('img/garbage.png') }}" width="30" height="30"></button>
+
+{{--                                                <img src="../img/login.png" class="mr-3" alt="..." width="600" height="300">--}}
+
+
+                                            @if ($loop->index  > 0)
                                                     <button class="btn btn-lg" wire:click="moveStepUp({{ $loop->index }})">▲</button>
                                                 @endif
                                                 @if ($loop->index  < count($steps) - 1)
