@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
+use App\Models\RecipeFilm;
 use App\Models\RecipeImg;
 use App\Models\RecipeStep;
 use Illuminate\Support\Facades\Storage;
@@ -23,6 +24,7 @@ class BloggerRecipeEdit extends Component
     public $steps = [];
     public $originalSteps = [];
     public $images = [];
+    public $videos = [];
 
 
 
@@ -35,6 +37,7 @@ class BloggerRecipeEdit extends Component
         $this->text = $recipe->text;
         $this->recipe_category_id = $recipe->recipeCategory->id;
         $this->images = $recipe->images;
+        $this->videos = $recipe->videos;
         $this->status = $recipe->status;
         $this->steps = $recipe->recipesteps->toArray();
         $this->originalSteps = $recipe->recipesteps->toArray();
@@ -126,6 +129,22 @@ class BloggerRecipeEdit extends Component
         session()->flash('message', '圖片已成功刪除！');
     }
 
+    //刪除食譜片
+    public function deleteRecipeVideo($id)
+    {
+        $video = RecipeFilm::find($id);
+        if ($video) {
+            //刪除public下的影片
+            $path = public_path('video/' . $video->film);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+            //刪除DB資料
+            $video->delete();
+        }
+        session()->flash('message', '影片已成功刪除！');
+    }
+
     //刪除食譜步驟圖片
     public function deleteStepImg($id)
     {
@@ -168,12 +187,29 @@ class BloggerRecipeEdit extends Component
             }
             //清空陣列
             $this->images = [];
-            //取得storage\app\livewire-tmp目錄下的檔案，並刪除
-            $files = Storage::disk('local')->allFiles('livewire-tmp');
-            foreach ($files as $file) {
-                Storage::disk('local')->delete($file);
-            }
+            //刪除臨時文件
+            Storage::disk('local')->delete($image->getRealPath());
         }
+
+        //食譜影片(未完成)
+        if ($this->videos) {
+            foreach ($this->videos as $video) {
+                //自訂名稱
+                $videoName = time() . '_' . $video->getClientOriginalName();
+                //dd($videoName);
+                //儲存至公開資料夾下
+                $video->storeAs('', $videoName, 'public_new');
+                //存入DB
+                RecipeFilm::create([
+                    'recipe_id' => $recipe->id,
+                    'film' => $videoName,
+                ]);
+            }
+            //清空陣列
+            $this->videos = [];
+
+        }
+
 
 //        //食譜步驟
 //        foreach ($this->steps as $step) {
@@ -309,27 +345,28 @@ class BloggerRecipeEdit extends Component
                     }
                 }
             }
-
-            // 刪除暫存檔案
-            $files = Storage::disk('local')->allFiles('livewire-tmp');
-            foreach ($files as $file) {
-                Storage::disk('local')->delete($file);
-            }
         }
 
+        // 刪除暫存檔案
+        $files = Storage::disk('local')->allFiles('livewire-tmp');
+        foreach ($files as $file) {
+            Storage::disk('local')->delete($file);
+        }
 
-                    return redirect()->back()->with('message', '食譜更新成功！');
+        return redirect()->back()->with('message', '食譜更新成功！');
     }
 
     public function render()
     {
         $recipe_categories = RecipeCategory::orderBy('id','DESC')->get();//食譜類別
         $recipeImages = RecipeImg::where('recipe_id', $this->recipe->id)->get();//封面
+        $recipeVideos = RecipeFilm::where('recipe_id', $this->recipe->id)->get();//影片
         $steps = RecipeStep::where('recipe_id', $this->recipe->id)->get();//步驟
         return view('livewire.blogger-recipe-edit', [
             'recipe_categories' => $recipe_categories,
             'recipeImages' => $recipeImages,
-            'steps' => $steps
+            'recipeVideos' => $recipeVideos,
+            'steps' => $steps,
         ])->extends('members.layouts.master');
     }
 }

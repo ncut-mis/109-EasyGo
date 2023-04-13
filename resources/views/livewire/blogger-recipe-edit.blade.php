@@ -47,41 +47,52 @@
 
                         </div>
 
+                        <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
+
                         <!--食譜影片-->
                         <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">食譜影片</label>
-                            <!--輪播影片-->
-                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner">
-                                    @foreach ($recipe->recipeFilms as $key=> $recipeFilm)
-                                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                            <video src="{{asset('video/'.$recipeFilm->film)}}" width="1250" height="740" controls></video>
-                                            <button class="btn delete-btn btn-danger" style="position: absolute; top: 0; right: 0; z-index: 1;">刪除</button>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-
-                                <!--上傳影片-->
-                                <div>
-                                    <label for="videos"></label>
-                                    <input type="file" id="videos" name="videos[]" class="custom-file-input form-control" >
-                                </div>
-
-                                <div>
-                                    <video id="preview-video" controls>
-                                        <source id="source" src="" type="video/mp4">
-                                    </video>
-                                </div>
+                            <label class="form-label" for="videos">食譜影片</label>
+                            <div class="carousel-inner">
+                                @foreach ($recipeVideos as $recipeVideo)
+                                    <video src="{{ asset('video/' . $recipeVideo->film) }}" controls  width="40%" height="350"></video>
+                                    <a href="#" wire:click.prevent="deleteRecipeVideo({{ $recipeVideo->id }})"><i class="fa fa-times text-danger mr-2"></i></a>
+                                @endforeach
                             </div>
+
+                            <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
+
+{{--                            <input type="file" class="form-control" wire:model="videos" multiple>--}}
+{{--                            <div wire:loading wire:target="videos">Uploading...</div>--}}
+{{--                            <div wire:loading.remove>--}}
+{{--                                @if ($videos)--}}
+{{--                                    <div>--}}
+{{--                                        @foreach($videos as $index => $video)--}}
+{{--                                            <video src="{{$video->temporaryUrl() }}" controls width="350px" height="350px"></video>--}}
+
+{{--                                            <a herf="#" wire:click.prevent="deleteUploadVideo({{ $index }})"><i class="fa fa-times text-danger--}}
+{{--                                    mr-2"></i></a>--}}
+{{--                                        @endforeach--}}
+{{--                                    </div>--}}
+{{--                                @endif--}}
+{{--                            </div>--}}
+                            <input type="file" class="form-control" wire:model="videos" controls multiple>
+                            <div wire:loading wire:target="videos">Uploading...</div>
+                            <div wire:loading.remove>
+                                @if ($videos)
+                                    <div>
+                                        @foreach($videos as $index => $video)
+                                            <div class="mb-2">
+                                                <video src="{{ $video->temporaryUrl() }}" controls width="100%"></video>
+                                                <a href="#" wire:click.prevent="deleteUploadVideo({{ $index }})"><i class="fa fa-times text-danger mr-2"></i></a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+
                         </div>
+
+                        <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
 
                         <!--食譜類別-->
                         <div class="mb-3">
