@@ -8,11 +8,7 @@ use Illuminate\Support\Arr;
 
 class AdminOrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $orders = Order::orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
@@ -23,34 +19,101 @@ class AdminOrderController extends Controller
         return view('admins.orders.index',$data);
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function cancel_apply()
     {
-        //
+        //取消申請訂單列表
+        $orders = Order::where('status','=','7')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.cancel_apply',$data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function done()
+    {
+        //已完成訂單列表
+        $orders = Order::where('status','=','5')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.done',$data);
+    }
+
+    public function check_apply()
+    {
+        //待審核訂單列表
+        $orders = Order::where('status','=','0')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.check_apply',$data);
+    }
+    public function audited()
+    {
+        //已審核訂單列表
+        $orders = Order::where('status','=','1')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.audited',$data);
+    }
+    public function ship()
+    {
+        //出貨中訂單列表
+        $orders = Order::where('status','=','2')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.ship',$data);
+    }
+    public function shipped()
+    {
+        //已出貨訂單列表
+        $orders = Order::where('status','=','3')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.shipped',$data);
+    }
+
+    public function arrival()
+    {
+        //已送達訂單列表
+        $orders = Order::where('status','=','4')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.arrival',$data);
+    }
+    public function cancel()
+    {
+        //已取消訂單列表
+        $orders = Order::where('status','=','6')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.cancel',$data);
+    }
+    public function create()
+    {
+
+    }
+
+
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Order $order)
     {
         $array=[];
@@ -93,16 +156,15 @@ class AdminOrderController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function update(Request $request)
     {
-        //
+        $order=Order::find($request->id);
+        $order->update([
+            'status'=>$request->status,
+        ]);
+        return redirect()->route('admins.orders.index');
+
     }
 
     /**
@@ -115,9 +177,15 @@ class AdminOrderController extends Controller
     {
         //
     }
-    public function check(Order $order){
+    public function update_check(Order $order){
         $order->update([
             'status'=>1,
+        ]);
+        return redirect()->route('admins.orders.index');
+    }
+    public function update_cancel(Order $order){
+        $order->update([
+            'status'=>6,
         ]);
         return redirect()->route('admins.orders.index');
     }

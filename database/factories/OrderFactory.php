@@ -18,7 +18,7 @@ class OrderFactory extends Factory
     {
         return [
             'remit'=>rand(0,1),
-            'status'=>rand(0,6),
+            'status'=>rand(0,7),
             'receiver'=>$this->faker->name,
             'address'=>$this->faker->address,
             'tel'=>$this->faker->phoneNumber,

@@ -6,32 +6,18 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">訂單管理</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item active">訂單一覽表</li>
+            <li class="breadcrumb-item active">審核專區</li>
         </ol>
 
         <div class="mb-2">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{route('admins.orders.index')}}">所有訂單</a>
+                    <a class="nav-link active" aria-current="page" href="{{route('admins.orders.check_apply')}}">待審核訂單</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('admins.orders.audited')}}">已成立</a>
+                    <a class="nav-link" href="{{route('admins.orders.cancel_apply')}}">申請取消訂單</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('admins.orders.ship')}}">出貨中</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('admins.orders.shipped')}}">已出貨</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('admins.orders.arrival')}}">已送達</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('admins.orders.done')}}">已完成</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('admins.orders.cancel')}}">已取消</a>
-                </li>
+
             </ul>
         </div>
 

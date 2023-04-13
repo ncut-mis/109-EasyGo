@@ -36,7 +36,7 @@ class MemberOrderController extends Controller
                     }
                     switch ($order->status){    //辨識訂單狀態
                         case 0:
-                            $status='審核中';
+                            $status='訂單審核中';
                             break;
                         case 1:
                             $status='已成立';
@@ -55,6 +55,9 @@ class MemberOrderController extends Controller
                             break;
                         case 6:
                             $status='已取消';
+                            break;
+                        case(7):
+                            $status='取消申請中';
                             break;
                         default:
                             $status='error';
@@ -200,7 +203,7 @@ class MemberOrderController extends Controller
     public function cancel_update(Order $order){
         //修改訂單狀態為取消
         $order->update([
-            'status'=>6
+            'status'=>7
         ]);
         return redirect()->route('members.orders.index');
     }
