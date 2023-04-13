@@ -15,10 +15,22 @@
                     <a class="nav-link" href="{{route('admins.orders.index')}}">所有訂單</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('admins.orders.cancel')}}">申請取消訂單</a>
+                    <a class="nav-link" href="{{route('admins.orders.audited')}}">已成立</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{route('admins.orders.done')}}">已完成訂單</a>
+                    <a class="nav-link" href="{{route('admins.orders.ship')}}">出貨中</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('admins.orders.shipped')}}">已出貨</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('admins.orders.arrival')}}">已送達</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{route('admins.orders.done')}}">已完成</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('admins.orders.cancel')}}">已取消</a>
                 </li>
 
             </ul>

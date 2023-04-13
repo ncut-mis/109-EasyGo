@@ -21,7 +21,7 @@
                     <a class="nav-link" href="{{route('admins.orders.ship')}}">出貨中</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('admins.orders.shipped')}}">已出貨</a>
+                    <a class="nav-link active" aria-current="page" href="{{route('admins.orders.shipped')}}">已出貨</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('admins.orders.arrival')}}">已送達</a>
@@ -30,7 +30,7 @@
                     <a class="nav-link" href="{{route('admins.orders.done')}}">已完成</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{route('admins.orders.cancel')}}">已取消</a>
+                    <a class="nav-link" href="{{route('admins.orders.cancel')}}">已取消</a>
                 </li>
 
             </ul>

@@ -19,18 +19,20 @@ class AdminOrderController extends Controller
         return view('admins.orders.index',$data);
     }
 
-    public function cancel()
+    public function cancel_apply()
     {
+        //取消申請訂單列表
         $orders = Order::where('status','=','7')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
         $data=[
             'orders'=>$orders
         ];
 
-        return view('admins.orders.cancel',$data);
+        return view('admins.orders.cancel_apply',$data);
     }
 
     public function done()
     {
+        //已完成訂單列表
         $orders = Order::where('status','=','5')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
         $data=[
             'orders'=>$orders
@@ -39,6 +41,67 @@ class AdminOrderController extends Controller
         return view('admins.orders.done',$data);
     }
 
+    public function check_apply()
+    {
+        //待審核訂單列表
+        $orders = Order::where('status','=','0')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.check_apply',$data);
+    }
+    public function audited()
+    {
+        //已審核訂單列表
+        $orders = Order::where('status','=','1')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.audited',$data);
+    }
+    public function ship()
+    {
+        //出貨中訂單列表
+        $orders = Order::where('status','=','2')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.ship',$data);
+    }
+    public function shipped()
+    {
+        //已出貨訂單列表
+        $orders = Order::where('status','=','3')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.shipped',$data);
+    }
+
+    public function arrival()
+    {
+        //已送達訂單列表
+        $orders = Order::where('status','=','4')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.arrival',$data);
+    }
+    public function cancel()
+    {
+        //已取消訂單列表
+        $orders = Order::where('status','=','6')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $data=[
+            'orders'=>$orders
+        ];
+
+        return view('admins.orders.cancel',$data);
+    }
     public function create()
     {
 

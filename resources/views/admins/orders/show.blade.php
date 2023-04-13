@@ -107,7 +107,7 @@
                 @endif
             </table>
             @if($order->status==0)
-                <form action="{{route('admins.orders.check',$order->id)}}" method="post" >
+                <form action="{{route('admins.orders.update_check',$order->id)}}" method="post" >
                     @method('patch')
                     <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
                     @csrf
