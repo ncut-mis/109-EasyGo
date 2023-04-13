@@ -21,7 +21,7 @@
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 @foreach($products as $product)
-                    <form action="{{route('members.cart_items.store',$product->id)}}" method="POST">
+                    <form action="{{route('members.cart_items.store')}}?pid={{$product->id}}" method="POST">
                         @csrf
                         @method('POST')
                         <td>   <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
@@ -37,6 +37,7 @@
                             <!-- Product actions-->
                             <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
+                                    <input type="number" name="quantity" class="form-control mb-3" value="1">
                                     <button class="btn btn-outline-dark mt-auto">加入購物車</button>
                                 </div>
                             </div>

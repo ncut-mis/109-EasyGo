@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Member;
 use App\Models\Order;
 use App\Models\OrderDetali;
@@ -162,16 +163,19 @@ class MemberOrderController extends Controller
 
         $array=[];
         $key=0;
+        $sum=0;
         $orderderails=$order->orderDetali()->get();//取得訂單明細
         foreach ($orderderails as $orderderail){
             $products=$orderderail->product()->get();//取得商品資訊
             foreach ($products as $product){
-                $price=$product->price * $orderderail->quantity;//計算價格
+                $subtotal=$product->price * $orderderail->quantity;//計算價格(各品項小計)
                 $array=Arr::add($array,$key,[//產生新的資料表
                     'name'=>$product->name,//產品名稱
                     'quantity'=>$orderderail->quantity,//數量
                     'price'=>$product->price,//單價
+                    'subtotal'=>$subtotal,//小計
                 ]);
+                $sum+=$subtotal;//總金額
                 $key++;
             }
 
@@ -179,6 +183,7 @@ class MemberOrderController extends Controller
         $data=[
             'order'=>$order,
             'array'=>$array,
+            'sum'=>$sum,
         ];
         //運送狀態
         //收件者姓名
@@ -206,5 +211,8 @@ class MemberOrderController extends Controller
         ]);
         return redirect()->route('members.orders.index');
     }
+
+
+
 }
 

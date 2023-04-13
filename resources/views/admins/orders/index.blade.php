@@ -63,7 +63,15 @@
 
                 <td style="width: 150px">
 
-                    <a href="#" class="btn btn-primary btn-sm">詳細資料</a>
+                    <a href="{{route('admins.orders.show',$order->id)}}" class="btn btn-primary btn-sm">詳細資料</a>
+                    @if($order->status==0)
+                        <form action="{{route('admins.orders.check',$order->id)}}" method="post" >
+                            @method('patch')
+                            <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
+                            @csrf
+                            <button type="submit" class="btn btn-primary btn-sm">確認訂單</button>
+                        </form>
+                    @endif
 
 
                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#order{{$order->id}}" data-bs-whatever="@123">刪除</button>

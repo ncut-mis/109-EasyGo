@@ -16,6 +16,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">商品名稱</th>
+                <th scope="col">狀態</th>
                 <th scope="col">功能</th>
             </tr>
             </thead>
@@ -25,9 +26,30 @@
             <tr>
                 <th scope="row" style="width: 50px">{{$product->id}}</th>
                 <td>{{$product->name}}</td>
-                <td style="width: 150px">
 
-                    <a href="#" class="btn btn-primary btn-sm">詳細資料</a>
+
+                @if($product->status== 1)
+                    <td>
+                        已上架
+                        <form action="{{route('admins.products.stop',$product->id)}}" method="POST" style="display: inline-block">
+                            @method('patch')
+                            @csrf
+                            <button class="btn btn-sm btn-warning" type="submit">下架</button>
+                        </form>
+                    </td>
+                @else
+                    <td>
+                        下架中
+                        <form action="{{route('admins.products.launch',$product->id)}}" method="POST" style="display: inline-block">
+                            @method('patch')
+                            @csrf
+                            <button class="btn btn-sm btn-warning" type="submit">上架</button>
+                        </form>
+                    </td>
+                @endif
+
+                <td class="col-2">
+                    <a href="{{route('admins.products.show')}}" class="btn btn-primary btn-sm">詳細資料</a>
 
 
 
@@ -54,7 +76,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">取消</button>
-                                        <form action="{{route('admins.products.destroy',$product['id'])}}" method="post" style="display: inline-block">
+                                        <form action="{{route('admins.products.destroy',$product->id)}}" method="post" style="display: inline-block">
                                             @method('delete')
                                             @csrf
                                             <button type="submit" class="btn btn-danger btn-sm">確定</button>
@@ -63,16 +85,11 @@
                                     </div>
                             </div>
                         </div>
-                        </form>
                     </div>
-
-
                 </td>
             </tr>
             @endforeach
             </tbody>
-
         </table>
-
     </div>
 @endsection
