@@ -107,17 +107,19 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">注意!</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">確認購物車</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     @forelse ($carts as $cart)
                                         @if(!$cart->status)
 
-                                            <div class="warning">▶{{  $cart->name  }}</div>
-                                            <h2><b><font color="#FF0000">!!!!!被下架囉!!!!!</font></b></h2>
-                                        @else
-                                            
+                                            <div class="warning">▶{{$cart->name}}x{{$cart->quantity}}</div>
+
+                                            <b><font color="#FF0000">(此商品被下架，無法結帳)</font></b>
+                                        @elseif($cart->status)
+                                            <div class="warning">▶{{$cart->name}}x{{$cart->quantity}}</div>
+                                            <b><font color="#FF0000"></font></b>
                                         @endif
                                     @empty
                                             @endforelse
