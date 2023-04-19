@@ -48,7 +48,8 @@ class CartItemController extends Controller
 
         $data = [
             'carts' => $carts,
-           'total'=>$total
+           'total'=>$total,
+            'items'=>$items,
         ];
 
         //$user_list = DB::select('select * from users');

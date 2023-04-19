@@ -68,7 +68,7 @@
                 <td>
                     <a target="_blank" href=""><h5></h5></a>
                     @if(!$cart->status)
-                        <div class="warning">商品被下架</div>
+                        <div class="warning">{{ $cart->name }}<font color="#FF0000">(商品被下架)</font></div>
                     @else
                         <div class="warning">{{  $cart->name  }}</div>
                     @endif
@@ -97,7 +97,41 @@
 {{--                    <b>總計：{{$total}} 元</b>--}}
                 </div>
                 <div style="text-align:center">
-                    <a class="btn btn-outline-primary" href="{{route('members.cart_items.finish')}}">前往結帳</a>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                       前往結帳
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">注意!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    @forelse ($carts as $cart)
+                                        @if(!$cart->status)
+
+                                            <div class="warning">▶{{  $cart->name  }}</div>
+                                            <h2><b><font color="#FF0000">!!!!!被下架囉!!!!!</font></b></h2>
+                                        @else
+                                            
+                                        @endif
+                                    @empty
+                                            @endforelse
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <a class="btn btn-outline-primary" href="{{route('members.cart_items.finish')}}">前往結帳</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 @endsection
 
