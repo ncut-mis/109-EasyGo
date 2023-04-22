@@ -37,6 +37,13 @@ return [
             'url' => env('APP_URL').'/img',
             'visibility' => 'public',
         ],
+        'public_video' => [
+            'driver' => 'local',
+            'root' => public_path('video'),
+            'url' => env('APP_URL').'/video',
+            'visibility' => 'public',
+        ],
+
 
         'local' => [
             'driver' => 'local',

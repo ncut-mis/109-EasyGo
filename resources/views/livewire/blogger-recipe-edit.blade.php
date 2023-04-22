@@ -1,6 +1,6 @@
 @section('page-title', '食譜編輯')
 <div>
-    <form wire:submit.prevent="update" enctype="multipart/form-data">
+
         <div class="container px-5 my-5 ">
             <div class="row gx-3">
                 @if(session('message'))
@@ -9,90 +9,15 @@
                     </div>
                 @endif
 
+                <form wire:submit.prevent="update" enctype="multipart/form-data">
                     <!-- Post title-->
+                    <h1 class="fw-bolder mb-1">食譜基本資料</h1>
                     <div class="mb-3">
                         <!--食譜名稱-->
                         <div class="mb-3">
                             <label class="form-label" for="name">食譜名稱</label>
-                            <!--回傳時會把name包裝成key，填入的內容包裝成value-->
                             <input  wire:model="name" id="name" type="text" class="form-control" placeholder="請輸入食譜名稱" value="{{$recipe->name}}">
                         </div>
-
-                        <!--食譜封面-->
-                        <div class="mb-3">
-                            <label class="form-label" for="images">食譜封面</label>
-                            <div class="carousel-inner">
-                                @foreach ($recipeImages as $recipeImg)
-                                    <img src="{{ asset('img/recipe/' . $recipeImg->picture) }}" width="350px" height="350px">
-                                    <a herf="#" wire:click.prevent="deleteRecipeImg({{ $recipeImg->id }})"><i class="fa fa-times text-danger
-                                    mr-2"></i></a>
-                                @endforeach
-                            </div>
-
-                            <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
-
-                            <input type="file" class="form-control" wire:model="images" multiple>
-                            <div wire:loading wire:target="images">Uploading...</div>
-                            <div wire:loading.remove>
-                            @if ($images)
-                                <div>
-                                    @foreach($images as $index => $image)
-                                        <img src="{{ $image->temporaryUrl() }}" width="350px" height="350px">
-                                        <a herf="#" wire:click.prevent="deleteUploadImg({{ $index }})"><i class="fa fa-times text-danger
-                                    mr-2"></i></a>
-                                    @endforeach
-                                </div>
-                            @endif
-                            </div>
-
-                        </div>
-
-                        <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
-
-                        <!--食譜影片-->
-                        <div class="mb-3">
-                            <label class="form-label" for="videos">食譜影片</label>
-                            <div class="carousel-inner">
-                                @foreach ($recipeVideos as $recipeVideo)
-                                    <video src="{{ asset('video/' . $recipeVideo->film) }}" controls  width="40%" height="350"></video>
-                                    <a href="#" wire:click.prevent="deleteRecipeVideo({{ $recipeVideo->id }})"><i class="fa fa-times text-danger mr-2"></i></a>
-                                @endforeach
-                            </div>
-
-                            <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
-
-{{--                            <input type="file" class="form-control" wire:model="videos" multiple>--}}
-{{--                            <div wire:loading wire:target="videos">Uploading...</div>--}}
-{{--                            <div wire:loading.remove>--}}
-{{--                                @if ($videos)--}}
-{{--                                    <div>--}}
-{{--                                        @foreach($videos as $index => $video)--}}
-{{--                                            <video src="{{$video->temporaryUrl() }}" controls width="350px" height="350px"></video>--}}
-
-{{--                                            <a herf="#" wire:click.prevent="deleteUploadVideo({{ $index }})"><i class="fa fa-times text-danger--}}
-{{--                                    mr-2"></i></a>--}}
-{{--                                        @endforeach--}}
-{{--                                    </div>--}}
-{{--                                @endif--}}
-{{--                            </div>--}}
-                            <input type="file" class="form-control" wire:model="videos" controls multiple>
-                            <div wire:loading wire:target="videos">Uploading...</div>
-                            <div wire:loading.remove>
-                                @if ($videos)
-                                    <div>
-                                        @foreach($videos as $index => $video)
-                                            <div class="mb-2">
-                                                <video src="{{ $video->temporaryUrl() }}" controls width="100%"></video>
-                                                <a href="#" wire:click.prevent="deleteUploadVideo({{ $index }})"><i class="fa fa-times text-danger mr-2"></i></a>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endif
-                            </div>
-
-                        </div>
-
-                        <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
 
                         <!--食譜類別-->
                         <div class="mb-3">
@@ -138,11 +63,73 @@
                             <textarea wire:model="text" id="text" class="form-control" rows="4" placeholder="請輸入食譜簡介">{{$recipe->text}}</textarea><!--多行輸入框-->
                         </div>
 
+                        <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
+
+                        <!--食譜封面-->
+                        <div class="mb-3">
+                            <label for="images">食譜封面</label>
+                            <div>
+                                @foreach ($recipeImages as $recipeImg)
+                                    <img src="{{ asset('img/recipe/' . $recipeImg->picture) }}" width="350px" height="350px">
+                                    <a herf="#" wire:click.prevent="deleteRecipeImg({{ $recipeImg->id }})"><i class="fa fa-times text-danger
+                                    mr-2"></i></a>
+                                @endforeach
+                            </div>
+
+                            <input type="file" class="form-control" wire:model="images" id="images" name="images[]" accept="image/*" multiple>
+                            <div wire:loading wire:target="images">Uploading...</div>
+                            <div wire:loading.remove>
+                            @if ($images)
+                                <div>
+                                    @foreach($images as $index => $image)
+                                        <img src="{{ $image->temporaryUrl() }}" width="350px" height="350px">
+                                        <a herf="#" wire:click.prevent="deleteUploadImg({{ $index }})"><i class="fa fa-times text-danger
+                                    mr-2"></i></a>
+                                    @endforeach
+                                </div>
+                            @endif
+                            </div>
+
+                        </div>
+                        <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
+
+                        <!--食譜影片-->
+                        <div class="mb-3">
+                            <label for="videos">食譜影片</label>
+                            <div>
+                                @foreach ($recipeVideos as $recipeVideo)
+                                    <video src="{{ asset('video/' . $recipeVideo->film) }}" autoplay controls muted  width="40%" height="350"></video>
+                                    <a href="#" wire:click.prevent="deleteRecipeVideo({{ $recipeVideo->id }})"><i class="fa fa-times text-danger mr-2"></i></a>
+                                @endforeach
+                            </div>
+
+                            <input type="file" class="form-control"  wire:model="videos" id="videos" name="videos[]" accept="video/*" multiple>
+                            <div wire:loading wire:target="videos">Uploading...</div>
+                            <div wire:loading.remove>
+                                @if ($videos)
+                                    <div>
+                                        @foreach($videos as $index => $video)
+                                            <div class="mb-2">
+                                                <video src="{{ $video->temporaryUrl() }}" autoplay controls muted width="40%" height="350"></video>
+                                                <a href="#" wire:click.prevent="deleteUploadVideo({{ $index }})"><i class="fa fa-times text-danger mr-2"></i></a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
                     </div>
 
-                <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary btn-lg">儲存</button>
+                        <button type="button" class="btn btn-danger btn-lg">取消</button>
+                    </div>
+                </form>
+                    <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
 
                 <!--食材-->
+                <form wire:submit.prevent="" enctype="multipart/form-data">
                 <div class="mb-3">
                     <h1 class="fw-bolder mb-1">食材<button type="button" class="btn btn-lg">+</button></h1>
 
@@ -169,9 +156,21 @@
                     </table>
                 </div>
 
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary btn-lg">儲存</button>
+                        <button type="button" class="btn btn-danger btn-lg">取消</button>
+                    </div>
+                </form>
+
                 <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
 
                     <!--步驟-->
+                    @if(session('message2'))
+                        <div class="alert alert-success">
+                            {{ session('message2') }}
+                        </div>
+                    @endif
+                    <form wire:submit.prevent="StepUpdate" enctype="multipart/form-data">
                     <div class="mb-3">
                         <h1 class="fw-bolder mb-2">步驟<button type="button" class="btn btn-lg" wire:click="addStep">+</button></h1>
                             @foreach ($steps as $index => $step)
@@ -243,13 +242,13 @@
                         @endforeach
                     </div>
 
-            </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-primary btn-lg">儲存</button>
+                            <button type="button" class="btn btn-danger btn-lg">取消</button>
+                        </div>
+                    </form>
 
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="submit" class="btn btn-primary btn-lg">儲存</button>
-                <button type="button" class="btn btn-danger btn-lg">取消</button>
             </div>
 
         </div>
-    </form>
 </div>

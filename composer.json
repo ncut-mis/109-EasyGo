@@ -8,11 +8,13 @@
         "php": "^8.0.2",
         "doctrine/dbal": "^3.6",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^2.7",
         "jzonta/faker-restaurant": "^2.0",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.16",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "league/flysystem": "^3.14",
         "livewire/livewire": "^2.12"
     },
     "require-dev": {
