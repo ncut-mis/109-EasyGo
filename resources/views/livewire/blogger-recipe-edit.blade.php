@@ -129,9 +129,9 @@
                     <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
 
                 <!--食材-->
-                <form wire:submit.prevent="" enctype="multipart/form-data">
+                <form wire:submit.prevent="IngredientUpdate" >
                 <div class="mb-3">
-                    <h1 class="fw-bolder mb-1">食材<button type="button" class="btn btn-lg">+</button></h1>
+                    <h1 class="fw-bolder mb-1">食材<button type="button" class="btn btn-lg"  wire:click="addList">+</button></h1>
 
                     <table class="table">
                         <thead>
@@ -143,16 +143,16 @@
                         </tr>
                         </thead>
 
-                        @foreach($recipe->ingredients as $ingredient)
-                            <tbody>
+                        <tbody>
+                        @foreach($ingredients as $index => $ingredient)
                             <tr>
-                                <td><input name="ingredient" id="ingredient" type="text" class="form-control" placeholder="請輸入食材名稱" value="{{$ingredient->name}}"></td>
-                                <td><input name="remark" id="remark" type="text" class="form-control" value="{{$ingredient->remark}}"></td>
-                                <td><input name="quantity" id="quantity" type="text" class="form-control" value="{{$ingredient->quantity}}"></td>
-                                <td><button type="button" class="btn btn-lg">－</button></td>
+                                <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.name"></td>
+                                <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.remark"></td>
+                                <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.quantity"></td>
+                                <td><button type="button" class="btn btn-lg" wire:click="removeList({{ $index }})"><img src="{{ asset('img/garbage.png') }}" width="30" height="30"></button></td>
                             </tr>
-                            </tbody>
                         @endforeach
+                        </tbody>
                     </table>
                 </div>
 
@@ -170,37 +170,42 @@
                             {{ session('message2') }}
                         </div>
                     @endif
+
                     <form wire:submit.prevent="StepUpdate" enctype="multipart/form-data">
                     <div class="mb-3">
                         <h1 class="fw-bolder mb-2">步驟<button type="button" class="btn btn-lg" wire:click="addStep">+</button></h1>
                             @foreach ($steps as $index => $step)
                             <div class="card w-80 mb-3 step">
-                                <div class="row g-0">
-{{--                                    <div class="col-md-4">--}}
-{{--                                        <label for="picture_{{ $index }}">Upload picture:</label>--}}
-{{--                                        <input type="file" id="picture_{{ $index }}" wire:model="steps.{{ $index }}.picture" class="form-control">--}}
-{{--                                        <div wire:loading wire:target="steps.{{ $index }}.picture">Uploading...</div>--}}
-{{--                                        <div wire:ignore>--}}
-{{--                                            @if ($step['picture'])--}}
-{{--                                                <img src="{{ $step['picture']->temporaryUrl() }}" alt="Step {{ $step['sequence'] }} picture" width="350px" height="350px">--}}
-{{--                                            @endif--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
+                                <div class="row g-0" >
 
                                     @if($step['picture'])
                                         <div class="col-md-4">
-                                            <img class="d-block" src="{{asset('img/step/'. $step['picture'] )}}" alt="Step {{ $step['sequence'] }} picture" width="406px" height="290px">
-                                            <a href="#" wire:click.prevent="deleteStepImg({{ $step['id'] }})"><i class="fa fa-times text-danger mr-2"></i></a>
-
-                                            <div class="navbar-fixed-bottom"></div>
+{{--                                            <img src="{{ asset('img/step/' . $step['picture']) }}" alt="Step {{ $step['sequence'] }} picture" width="350px" height="350px">--}}
+{{--                                            <a href="#" wire:click.prevent="deleteStepImg({{ $step['id'] }})"><i class="fa fa-times text-danger mr-2"></i></a>--}}
+                                            <div wire:loading.remove>
+                                                @if ($steps[$index]['picture'] instanceof \Illuminate\Http\UploadedFile)
+                                                    <img src="{{ $steps[$index]['picture']->temporaryUrl() }}" alt="Step {{ $step['sequence'] }} picture" width="350px" height="350px">
+                                                @elseif($step['picture'])
+                                                    <img src="{{ asset('img/step/' . $step['picture']) }}" alt="Step {{ $step['sequence'] }} picture" width="350px" height="350px">
+                                                    <a href="#" wire:click.prevent="deleteStepImg({{ $step['id'] }})"><i class="fa fa-times text-danger mr-2"></i></a>
+                                                @endif
+                                            </div>
+                                            <div wire:loading wire:target="steps.{{ $index }}.picture">Uploading...</div>
+                                            <input type="file" class="form-control" wire:model="steps.{{ $index }}.picture" id="picture_{{ $step['id'] }}" name="picture_{{ $step['id'] }}" accept="image/*">
 
                                         </div>
                                     @else
                                         <div class="row col-md-4 align-items-center">
                                             <h1 class="card-title text-secondary">目前無照片</h1>
-                                            <div class="navbar-fixed-bottom">
-{{--                                                <input type="file" wire:model="steps.{{ $loop->index }}.picture" class="form-control">--}}
+
+                                            <div wire:loading.remove>
+                                                @if ($steps[$index]['picture'] instanceof \Illuminate\Http\UploadedFile)
+                                                    <img src="{{ $steps[$index]['picture']->temporaryUrl() }}" alt="Step {{ $step['sequence'] }} picture" width="350px" height="350px">
+                                                @endif
                                             </div>
+                                            <div wire:loading wire:target="steps.{{ $index }}.picture">Uploading...</div>
+                                            <input type="file" class="form-control" wire:model="steps.{{ $index }}.picture" id="picture_{{ $step['id'] }}" name="picture_{{ $step['id'] }}" accept="image/*">
+
                                         </div>
                                     @endif
 
@@ -210,30 +215,17 @@
                                                 <span>步驟{{ $step['sequence'] }}</span>
                                                 <button type="button" class="btn btn-lg" wire:click="removeStep({{ $loop->index }})"><img src="{{ asset('img/garbage.png') }}" width="30" height="30"></button>
 
-{{--                                                <img src="../img/login.png" class="mr-3" alt="..." width="600" height="300">--}}
-
-
                                             @if ($loop->index  > 0)
                                                     <button class="btn btn-lg" wire:click="moveStepUp({{ $loop->index }})">▲</button>
-                                                @endif
-                                                @if ($loop->index  < count($steps) - 1)
+                                            @endif
+
+                                            @if ($loop->index  < count($steps) - 1)
                                                     <button class="btn btn-lg" wire:click="moveStepDown({{ $loop->index }})">▼</button>
-                                                @endif
+                                            @endif
+
                                             </h2>
                                             <textarea class="form-control" rows="7" wire:model="steps.{{ $loop->index }}.text"></textarea>
                                         </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-{{--                                        <label for="picture_{{ $step['id'] }}">Upload picture:</label>--}}
-                                        <input type="file"  wire:model="steps.{{ $index }}.picture" class="form-control">
-{{--                                        <div wire:loading wire:target="steps.{{ $index }}.picture">Uploading...</div>--}}
-{{--                                        <div wire:ignore>--}}
-{{--                                            @if ($step['picture'])--}}
-{{--                                                <img src="{{ $step['picture']->temporaryUrl() }}" alt="Step {{ $step['sequence'] }} picture" width="350px" height="350px">--}}
-{{--                                                <a href="#" wire:click.prevent="deleteStepImg({{ $step['id'] }})"><i class="fa fa-times text-danger mr-2"></i></a>--}}
-{{--                                            @endif--}}
-{{--                                        </div>--}}
                                     </div>
 
                                 </div>
