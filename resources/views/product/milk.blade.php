@@ -17,58 +17,44 @@
     </div>
 
     <!--內容--->
-    <section class="pt-4">
-        <div class="container px-lg-5">
-            <!-- Page Features-->
-            <div class="row gx-lg-5">
-                <div class="col-lg-6 col-xxl-4 mb-5">
-                    <div class="card bg-light border-0 h-100">
-                        <!--圖片-->
-                        <img src ="#">
-                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                @foreach($products as $product)
+                    @if ($product->category_id >=16 && $product->category_id <=18)
+                        <form action="{{route('members.cart_items.store')}}?pid={{$product->id}}" method="POST">
+                            @csrf
+                            @method('POST')
+                            <!--典籍進入詳細葉面-->
+                            <div class="pt-5">
+                                <div class="card ht border-0 h-100 ">
+                                    <td>   <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
+                                        <!-- Product details-->
+                                        <div class="card-body p-4">
+                                            <div class="text-center">
+                                                <!-- Product name-->
+                                                <h5 class="fw-bolder" value="{{$product->name}}">{{$product->name}}</h5>
+                                                <!-- Product price-->
+                                                ${{$product->price}}
+                                                <a href="{{route('product.show',$product->id)}}" class="stretched-link"></a>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <input type="number" name="quantity" class="form-control mb-3" value="1">
+                                    <button class="btn btn-outline-dark mt-auto">加入購物車</button>
+                                </div>
+                            </div>
+                            </td>
 
-                            <h2 class="fs-4 fw-bold">起司</h2>
-
-                            <a href="{{route('product.product')}}" class="stretched-link"></a>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-    {{--    <!--內容-->--}}
-{{--    <div class="tab-content" id="nav-tabContent">--}}
-{{--        <!--最新--><!--陣列內有幾筆資料就會重複執行幾次-->--}}
-{{--        <div class="tab-pane fade show active" id="nav-new" role="tabpanel" aria-labelledby="nav-new-tab">--}}
-{{--            <section class="pt-4">--}}
-{{--                <div class="container px-lg-5">--}}
-{{--                    <!-- Page Features-->--}}
-{{--                    <div class="row gx-lg-5">--}}
-{{--                                                    @foreach( as )--}}
-{{--                                                        <div class="col-lg-6 col-xxl-4 mb-5">--}}
-{{--                                                            <div class="card bg-light border-0 h-100">--}}
-{{--                                                                <!--圖片-->--}}
-{{--                                                                <img src="{{asset('images/'.$activity->img)}}">--}}
-{{--                                                                <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">--}}
-{{--                                                                    <h2 class="fs-4 fw-bold">{{$activity->name}}</h2>--}}
-{{--                                                                    <p class="mb-0">{{$activity->introduce}}</p>--}}
-{{--                                                                    <a href="{{route('activity.activity',$activity->id)}}" class="stretched-link"></a>--}}
-{{--                                                                </div>--}}
-{{--                                                            </div>--}}
-{{--                                                        </div>--}}
-{{--                                                    @endforeach--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </section>--}}
-{{--        </div>--}}
-
-{{--    </div>--}}
+                        </form>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    </section>
 
 @endsection
