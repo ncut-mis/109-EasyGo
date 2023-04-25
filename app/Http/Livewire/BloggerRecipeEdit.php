@@ -24,12 +24,10 @@ class BloggerRecipeEdit extends Component
            $recipe_category_id,
            $status,
            $steps = [],
-           $stepImg,
            $ingredients = [],
            $originalSteps = [],
            $images = [],
            $videos = [];
-           //$stepImg=[];
 
 
     protected $rules = [
@@ -49,7 +47,6 @@ class BloggerRecipeEdit extends Component
         $this->recipe_category_id = $recipe->recipeCategory->id;
         $this->images = $recipe->images;
         $this->videos = $recipe->videos;
-        $this->stepImg = $recipe->stepImg;
         $this->status = $recipe->status;
         $this->ingredients = $recipe->ingredients->toArray();
         $this->steps = $recipe->recipesteps->toArray();
@@ -163,22 +160,6 @@ class BloggerRecipeEdit extends Component
         session()->flash('message', '影片已成功刪除！');
     }
 
-    //刪除食譜步驟圖片
-    public function deleteStepImg($id)
-    {
-        $recipeStep = RecipeStep::find($id);
-
-        if ($recipeStep) {
-            $path = public_path('img/step/' . $recipeStep->picture);
-            if (file_exists($path)) {
-                unlink($path);
-            }
-            $recipeStep->update(['picture' => '']);
-        }
-        // 顯示成功消息
-        session()->flash('message2', '圖片已成功刪除！');
-    }
-
     //更新食譜基本資料
     public function update()
     {
@@ -232,8 +213,7 @@ class BloggerRecipeEdit extends Component
         foreach ($files as $file) {
             Storage::disk('local')->delete($file);
         }
-
-        return redirect()->back()->with('message', '食譜更新成功！');
+        session()->flash('message', '食譜更新成功!');
     }
 
 
@@ -263,6 +243,21 @@ class BloggerRecipeEdit extends Component
     }
 
 
+    //刪除食譜步驟圖片
+    public function deleteStepImg($id)
+    {
+        $recipeStep = RecipeStep::find($id);
+
+        if ($recipeStep) {
+            $path = public_path('img/step/' . $recipeStep->picture);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+            $recipeStep->update(['picture' => '']);
+        }
+        // 顯示成功消息
+        session()->flash('message2', '圖片已成功刪除！');
+    }
 
     public function StepUpdate()
     {
@@ -290,17 +285,12 @@ class BloggerRecipeEdit extends Component
                                 }
                             }
                             //上傳新的圖片
-                            $imageName = time() . '_' .$steps[$index]['picture']->getClientOriginalName();
+                            $imageName = time() . '_' . $steps[$index]['picture']->getClientOriginalName();
                             $steps[$index]['picture']->storeAs('step', $imageName, 'public_recipe');
+                            $steps[$index]['picture']=null;
+                            //dd( $steps);
                             $recipeStep->update(['picture' => $imageName]);
                         }
-                    }
-                } else {
-                    //上傳圖片
-                    if (isset($step['picture']) && $step['picture'] instanceof \Illuminate\Http\UploadedFile) {
-                        $imageName = time() . '_' . $step['picture']->getClientOriginalName();
-                        $step['picture']->storeAs('step', $imageName, 'public_recipe');
-                        $recipeStep->update(['picture' => $imageName]);
                     }
                 }
             }
@@ -325,16 +315,9 @@ class BloggerRecipeEdit extends Component
                 RecipeStep::whereIn('id', $deletedStepIds)->delete();//刪除DB
             }
         }
-        // 刪除暫存檔案
-        $files = Storage::disk('local')->allFiles('livewire-tmp');
-        foreach ($files as $file) {
-            Storage::disk('local')->delete($file);
-        }
-
-        return redirect()->back()->with('message2', '食譜步驟更新成功！');
+       // $steps->refresh();
+        session()->flash('message2', '食譜步驟更新成功！');
     }
-
-
 
     public function render()
     {

@@ -180,34 +180,31 @@
 
                                     @if($step['picture'])
                                         <div class="col-md-4">
-{{--                                            <img src="{{ asset('img/step/' . $step['picture']) }}" alt="Step {{ $step['sequence'] }} picture" width="350px" height="350px">--}}
-{{--                                            <a href="#" wire:click.prevent="deleteStepImg({{ $step['id'] }})"><i class="fa fa-times text-danger mr-2"></i></a>--}}
                                             <div wire:loading.remove>
-                                                @if ($steps[$index]['picture'] instanceof \Illuminate\Http\UploadedFile)
-                                                    <img src="{{ $steps[$index]['picture']->temporaryUrl() }}" alt="Step {{ $step['sequence'] }} picture" width="350px" height="350px">
-                                                @elseif($step['picture'])
-                                                    <img src="{{ asset('img/step/' . $step['picture']) }}" alt="Step {{ $step['sequence'] }} picture" width="350px" height="350px">
+                                                @if (!is_null($steps[$index]['picture']) && $steps[$index]['picture'] instanceof \Illuminate\Http\UploadedFile)
+                                                    <img src="{{ $steps[$index]['picture']->temporaryUrl() }}" alt="Step {{ $step['sequence'] }} picture" width="370px" height="350px">
+                                                @elseif(is_null($steps[$index]['picture']) || $step['picture'])
+                                                    <img src="{{ asset('img/step/' . $step['picture']) }}" alt="Step {{ $step['sequence'] }} picture" width="370px" height="350px">
                                                     <a href="#" wire:click.prevent="deleteStepImg({{ $step['id'] }})"><i class="fa fa-times text-danger mr-2"></i></a>
                                                 @endif
                                             </div>
                                             <div wire:loading wire:target="steps.{{ $index }}.picture">Uploading...</div>
                                             <input type="file" class="form-control" wire:model="steps.{{ $index }}.picture" id="picture_{{ $step['id'] }}" name="picture_{{ $step['id'] }}" accept="image/*">
-
                                         </div>
                                     @else
                                         <div class="row col-md-4 align-items-center">
                                             <h1 class="card-title text-secondary">目前無照片</h1>
 
                                             <div wire:loading.remove>
-                                                @if ($steps[$index]['picture'] instanceof \Illuminate\Http\UploadedFile)
-                                                    <img src="{{ $steps[$index]['picture']->temporaryUrl() }}" alt="Step {{ $step['sequence'] }} picture" width="350px" height="350px">
+                                                @if (!is_null($steps[$index]['picture']) && $steps[$index]['picture'] instanceof \Illuminate\Http\UploadedFile)
+                                                    <img src="{{ $steps[$index]['picture']->temporaryUrl() }}" alt="Step {{ $step['sequence'] }} picture" width="370px" height="350px">
                                                 @endif
                                             </div>
                                             <div wire:loading wire:target="steps.{{ $index }}.picture">Uploading...</div>
                                             <input type="file" class="form-control" wire:model="steps.{{ $index }}.picture" id="picture_{{ $step['id'] }}" name="picture_{{ $step['id'] }}" accept="image/*">
-
                                         </div>
                                     @endif
+
 
                                     <div class="col-md-8">
                                         <div class="card-body mb-3">
@@ -233,7 +230,6 @@
                             </div>
                         @endforeach
                     </div>
-
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="submit" class="btn btn-primary btn-lg">儲存</button>
                             <button type="button" class="btn btn-danger btn-lg">取消</button>
