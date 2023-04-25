@@ -14,8 +14,8 @@
                         <!-- Preview image figure-->
                     <div class="container px-4 px-lg-5 mt-5">
 
-
                         <form action="{{route('members.cart_items.store')}}?pid={{$product->id}}" method="POST">
+
                         <figure class="mb-4">
                             <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
                         </figure>
@@ -28,10 +28,12 @@
 
                             </div>
 
-                            <button type="button" id="btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#refund" data-bs-whatever="@123" >加入購物車</button><br><br><br><br>
-                            <div class="modal fade" id="refund" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center d-grid gap-2">
+                                    <input type="number" name="quantity" class="form-control mb-3" value="1">
+                                    <button class="btn btn-outline-dark mt-auto ">加入購物車</button>
+                                </div>
                             </div>
-
 
                             <div class="col-xs-12 col-md-9">
                                 <h5 class="fw-bolder mb-1">商品詳情</h5>
@@ -39,7 +41,6 @@
                             </div>
                         </div>
                         </form>
-
                     </div>
                 </article>
             </div>
