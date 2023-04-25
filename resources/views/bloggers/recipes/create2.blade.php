@@ -7,6 +7,12 @@
     <section class="py-5">
         <div class="container px-5 my-5 ">
             <div class="row gx-5">
+
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div >
                     <!-- Post content-->
                     <article>
