@@ -130,9 +130,13 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Product $product)
     {
-        return view('product.show');
+        $data=[
+            'product'=>$product,
+
+        ];
+        return view('product.show', $data);
     }
 
     /**

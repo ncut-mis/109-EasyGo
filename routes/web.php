@@ -91,7 +91,8 @@ Route::prefix('product')->name('product.')->group(function(){
     Route::get('milk',[ProductController::class,'milk'])->name('milk');//奶類
     Route::get('seasoning',[ProductController::class,'seasoning'])->name('seasoning');//調味
     Route::get('mushrooms',[ProductController::class,'mushrooms'])->name('mushrooms');//菇類
-    Route::get('show',[ProductController::class,'show'])->name('show');//食材詳細資料
+    Route::get('show/{product}',[ProductController::class,'show'])->name('show');//食材詳細資料
+    
 });
 //賣場頁面(選擇性路由
 Route::get('product',[ProductController::class,'product'])->name('product.product');
