@@ -1,63 +1,49 @@
 @extends('layouts.master')
 @section('title','詳細資訊')
 @section('content')
-<!-- Page Content-->
-<section class="py-5">
-    <div class="container px-5 my-5 ">
-        <div class="row gx-5">
-            <div >
-                <!-- Post content-->
-                <article>
-                    <!-- Post header-->
-{{--                   <header class="mb-4">--}}
-{{--                    </header>--}}
-                        <!-- Preview image figure-->
-                    <div class="container px-4 px-lg-5 mt-5">
+    <!-- Page Content-->
+    <section class="py-5">
+        <div class="container px-5 my-5 ">
+            <div class="row gx-5">
+                <div>
+                    <!-- Post content-->
+                    <article>
+                        <div class="container px-4 px-lg-5 mt-5">
 
-                        <form action="{{route('members.cart_items.store')}}?pid={{$product->id}}" method="POST">
-<<<<<<< HEAD
+                            <form action="{{route('members.cart_items.store')}}?pid={{$product->id}}" method="POST">
+                                @csrf
+                                @method('POST')
 
-=======
-                            @csrf
-                            @method('POST')
->>>>>>> cc2edd791e39ef11afd6fe6cf32759f7fc5a9392
-                        <figure class="mb-4">
-                            <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
-                        </figure>
+                                <figure class="mb-4">
+                                    <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
+                                </figure>
 
-                        <div class="row align-items-center">
-                            <div class="col-xs-12 col-md-9">
-                                <!-- Post title-->
-                                <h1 class="fw-bolder">{{$product->name}}</h1>
-                                <h3 class="fw-bolder">${{$product->price}}</h3>
+                                <div class="row align-items-center">
+                                    <div class="col-xs-12 col-md-9">
+                                        <!-- Post title-->
+                                        <h1 class="fw-bolder">{{$product->name}}</h1>
+                                        <h3 class="fw-bolder">${{$product->price}}</h3>
 
-                            </div>
+                                    </div>
+                                    <!-- Product actions-->
+                                    <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <input style="width:100px;" type="number" name="quantity" min="1" max="99" value="1">
+                                            <button class="btn btn-outline-dark mt-auto">加入購物車</button>
 
-<<<<<<< HEAD
-                            <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center d-grid gap-2">
-                                    <input type="number" name="quantity" class="form-control mb-3" value="1">
-                                    <button class="btn btn-outline-dark mt-auto ">加入購物車</button>
-=======
-                            <!-- Product actions-->
-                            <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center">
-                                    <input style="width:100px;" type="number" name="quantity" min="1" max="99" value="1">
-                                    <button class="btn btn-outline-dark mt-auto">加入購物車</button>
->>>>>>> cc2edd791e39ef11afd6fe6cf32759f7fc5a9392
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12 col-md-9">
+                                        <h5 class="fw-bolder mb-1">商品詳情</h5>
+                                        <p>{{$product->text}}</p>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="col-xs-12 col-md-9">
-                                <h5 class="fw-bolder mb-1">商品詳情</h5>
-                                <p>{{$product->text}}</p>
-                            </div>
+                            </form>
                         </div>
-                        </form>
-                    </div>
-                </article>
+                    </article>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 @endsection

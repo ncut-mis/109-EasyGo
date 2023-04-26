@@ -159,9 +159,16 @@ class ProductController extends Controller
 
         ];
         return view('product.seasoning', $data);
-//        return view('product.seasoning');
     }
-
+    //搜尋食材
+    public function keyword(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $products = Product::query()->where('name', 'LIKE', "%{$keyword}%")->get();
+        //$categories=RecipeCategory::orderBy('id','DESC')->get();//sidenav顯示類別
+        $data=['products'=>$products];//index的sib需要類別的資料，記得給分類的資料
+        return view('product.keyword',$data);
+    }
     /**
      * Show the form for creating a new resource.
      *

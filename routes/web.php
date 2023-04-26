@@ -93,6 +93,7 @@ Route::prefix('product')->name('product.')->group(function(){
     Route::get('seasoning',[ProductController::class,'seasoning'])->name('seasoning');//調味
     Route::get('mushrooms',[ProductController::class,'mushrooms'])->name('mushrooms');//菇類
     Route::get('show/{product}',[ProductController::class,'show'])->name('show');//食材詳細資料
+    Route::get('/keyword',[ProductController::class,'keyword'])->name('keyword');//使用者搜尋食譜
 
 });
 //賣場頁面(選擇性路由
