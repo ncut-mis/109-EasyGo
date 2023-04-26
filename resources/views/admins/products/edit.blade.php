@@ -27,8 +27,10 @@
             <label for="exampleFormControlTextarea1" class="form-label">商品詳情:</label>
             <textarea name="text" id="text" class="form-control" rows="10" placeholder="">{{$product->text}}</textarea><!--多行輸入框-->
         </div>
-    <div class="d-grid gap-2  mx-auto">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
         <button class="btn btn-primary btn-sm" type="submit">儲存</button>
+{{--        <button class="btn btn-danger btn-sm" type="submit">取消</button>--}}
+        <a class="btn btn-danger btn-sm" href="{{route('admins.products.show',$product)}}">取消</a>
     </div>
     </fieldset>
 </div>
