@@ -18,50 +18,42 @@
 
     <!--內容--->
 
-    </div>
-
-    <section class="pt-4">
-        <div class="container px-lg-5">
-            <!-- Page Features-->
-            <div class="row gx-lg-5">
-                <div class="col-lg-6 col-xxl-4 mb-5">
-                    <!--全聯--->
-                    <div class="cookbook img-item">
-                        <div class="card bg-light border-0 h-100">
-                            <img src="https://www.pxmart.com.tw/Api/Images/133162494023417960.jfif">
-                        </div>
-                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
-                            <div class="info"><h2>菲力牛柳 </h2>
-                                <div class="name">
-                                    <span>價格:</span>
-                                    <span>100元</span>
-                                </div>
-                                <div class="name">
-                                    <span>份量:</span>
-                                    <span>5克</span>
-                                </div>
-                                <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center">
-                                        <button class="btn btn-outline-dark mt-auto">加入購物車</button>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                @foreach($products as $product)
+                 @if ($product->category_id >=10 && $product->category_id <=12)
+                    <form action="{{route('members.cart_items.store')}}?pid={{$product->id}}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <!--典籍進入詳細葉面-->
+                        <div class="pt-5">
+                            <div class="card ht border-0 h-100 ">
+                                <td>   <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder" value="{{$product->name}}">{{$product->name}}</h5>
+                                            <!-- Product price-->
+                                            ${{$product->price}}
+                                            <a href="{{route('product.show',$product->id)}}" class="stretched-link"></a>
+                                        </div>
                                     </div>
-                                </div>
-                                <a href="{{route('product.show')}}" class="stretched-link"> </a>
                             </div>
                         </div>
-                        <!--尾全聯--->
+                        <!-- Product actions-->
+                        <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <input type="number" name="quantity" class="form-control mb-3" value="1">
+                                <button class="btn btn-outline-dark mt-auto">加入購物車</button>
+                            </div>
+                        </div>
+                        </td>
 
-
-{{--                    <div class="card bg-light border-0 h-100">--}}
-{{--                        <!--圖片-->--}}
-{{--                        <img src ="#">--}}
-{{--                        <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">--}}
-
-{{--                            <h2 class="fs-4 fw-bold">玉米</h2>--}}
-
-{{--                            <a href="{{route('product.product')}}" class="stretched-link"></a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-                </div>
+                    </form>
+                    @endif
+                @endforeach
             </div>
         </div>
     </section>

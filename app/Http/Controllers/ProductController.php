@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImg;
 use Illuminate\Http\Request;
@@ -36,44 +37,129 @@ class ProductController extends Controller
     {
         return view('product.add_product');
     }
-    public function cereals()
+    public function cereals(Request $request)
     {
-        return view('product.cereals');
+        $id = $request->input('id');
+        $products=Product::orderBy('id','DESC')->get();
+
+        $products_imgs=ProductImg::where('product_id','=',$id)->get();
+
+        $data=[
+            'products'=>$products,
+            'products_img'=>$products_imgs,
+
+        ];
+        return view('product.cereals', $data);
     }
 
-    public function mushrooms()
+    public function mushrooms(Request $request)
     {
-        return view('product.mushrooms');
+        $id = $request->input('id');
+        $products=Product::orderBy('id','DESC')->get();
+
+        $products_imgs=ProductImg::where('product_id','=',$id)->get();
+
+        $data=[
+            'products'=>$products,
+            'products_img'=>$products_imgs,
+
+        ];
+        return view('product.mushrooms', $data);
+//        return view('product.mushrooms');
     }
 
-    public function fruit()
+    public function fruit(Request $request)
     {
-        return view('product.fruit');
+        $id = $request->input('id');
+        $products=Product::orderBy('id','DESC')->get();
+
+        $products_imgs=ProductImg::where('product_id','=',$id)->get();
+
+        $data=[
+            'products'=>$products,
+            'products_img'=>$products_imgs,
+
+        ];
+        return view('product.fruit', $data);
+//        return view('product.fruit');
     }
 
-    public function vegetable()
+    public function vegetable(Request $request)
     {
-        return view('product.vegetable');
+        $id = $request->input('id');
+        $products=Product::orderBy('id','DESC')->get();
+
+        $products_imgs=ProductImg::where('product_id','=',$id)->get();
+
+        $data=[
+            'products'=>$products,
+            'products_img'=>$products_imgs,
+
+        ];
+        return view('product.vegetable', $data);
+//        return view('product.vegetable');
     }
 
-    public function meat()
+    public function meat(Request $request)
     {
-        return view('product.meat');
+        $id = $request->input('id');
+        $products=Product::orderBy('id','DESC')->get();
+
+        $products_imgs=ProductImg::where('product_id','=',$id)->get();
+        $data=[
+            'products'=>$products,
+            'products_img'=>$products_imgs,
+        ];
+        return view('product.meat', $data);
+//        return view('product.meat');
     }
 
-    public function fresh()
+    public function fresh(Request $request)
     {
-        return view('product.fresh');
+        $id = $request->input('id');
+        $products=Product::orderBy('id','DESC')->get();
+
+        $products_imgs=ProductImg::where('product_id','=',$id)->get();
+
+        $data=[
+            'products'=>$products,
+            'products_img'=>$products_imgs,
+
+        ];
+        return view('product.fresh', $data);
+//        return view('product.fresh');
     }
 
-    public function milk()
+    public function milk(Request $request)
     {
-        return view('product.milk');
+        $id = $request->input('id');
+        $products=Product::orderBy('id','DESC')->get();
+
+        $products_imgs=ProductImg::where('product_id','=',$id)->get();
+
+        $data=[
+            'products'=>$products,
+            'products_img'=>$products_imgs,
+
+        ];
+        return view('product.milk', $data);
+//        return view('product.milk');
     }
 
-    public function seasoning()
+    public function seasoning(Request $request)
     {
-        return view('product.seasoning');
+        $id = $request->input('id');
+        $products=Product::orderBy('id','DESC')->get();
+
+        $products_imgs=ProductImg::where('product_id','=',$id)->get();
+
+        $data=[
+            'products'=>$products,
+            'products_img'=>$products_imgs,
+
+        ];
+        return view('product.seasoning', $data);
+//        return view('product.seasoning');
     }
 
     /**
@@ -130,9 +216,13 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Product $product)
     {
-        return view('product.show');
+        $data=[
+            'product'=>$product,
+
+        ];
+        return view('product.show', $data);
     }
 
     /**
