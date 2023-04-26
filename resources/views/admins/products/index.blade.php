@@ -49,7 +49,7 @@
                 @endif
 
                 <td class="col-2">
-                    <a href="{{route('admins.products.show')}}" class="btn btn-primary btn-sm">詳細資料</a>
+                    <a href="{{route('admins.products.show',$product)}}" class="btn btn-primary btn-sm">詳細資料</a>
 
 
 
