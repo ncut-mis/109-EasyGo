@@ -63,23 +63,23 @@
                         <b>總計： {{$total}}元</b>
                     </div>
                     <tr>
-                        <th scope="col"> 付款資訊</th>
+                        <th scope="col"> <b>收件資訊</th>
                     </tr>
-
+                </thead>
                     <br>
                     <div class="form-group">
-                        <label for="name">收件人姓名：</label><br>
+                        <label for="name">收件人姓名</label><br>
                         <input name="receiver" value="{{$user->name}}" class="form-control" required>
                         <br>
-                        <label for="name">收件人信箱：</label><br>
+                        <label for="name">收件人信箱</label><br>
                         <input name="email" value="{{$user->email}}" class="form-control" required>
                         <table class="table">
                             <br>
-                            <label for="name">收件地址：</label><br>
-                            <input name="address" class="form-control" required>
+                            <label for="name">收件地址</label><br>
+                            <input name="address" class="form-control"  placeholder="輸入收件地址" required>
                             <input type="hidden" name="remit" value="0" id="">
                             <table class="table">
-                                <label for="name">收件人電話：</label> <input class="form-control" name="tel" placeholder="手機號碼" required></th>
+                                <label for="name">收件人電話</label> <input class="form-control" name="tel" placeholder="手機號碼" required></th>
 
                                 <br>
                             <tr>
@@ -98,6 +98,7 @@
                                 <th scope="row">有效期限<input type="password" class="form-control"  placeholder="有效期限"></th>
 
                             </tr>
+                          
 
                             </tbody>
                         </table>

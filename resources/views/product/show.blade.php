@@ -16,6 +16,8 @@
 
 
                         <form action="{{route('members.cart_items.store')}}?pid={{$product->id}}" method="POST">
+                            @csrf
+                            @method('POST')
                         <figure class="mb-4">
                             <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
                         </figure>
@@ -28,8 +30,12 @@
 
                             </div>
 
-                            <button type="button" id="btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#refund" data-bs-whatever="@123" >加入購物車</button><br><br><br><br>
-                            <div class="modal fade" id="refund" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <!-- Product actions-->
+                            <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <input style="width:100px;" type="number" name="quantity" min="1" max="99" value="1">
+                                    <button class="btn btn-outline-dark mt-auto">加入購物車</button>
+                                </div>
                             </div>
 
 
