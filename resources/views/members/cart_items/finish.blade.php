@@ -62,6 +62,10 @@
                     <div style="text-align:right">
                         <b>總計： {{$total}}元</b>
                     </div>
+                    <tr>
+                        <th scope="col"> 付款資訊</th>
+                    </tr>
+
                     <br>
                     <div class="form-group">
                         <label for="name">收件人姓名：</label><br>
@@ -75,16 +79,9 @@
                             <input name="address" class="form-control" required>
                             <input type="hidden" name="remit" value="0" id="">
                             <table class="table">
-                            <br>
                                 <label for="name">收件人電話：</label> <input class="form-control" name="tel" placeholder="手機號碼" required></th>
-{{--                            <label for="name">收件人電話：</label><br>--}}
-{{--                            <input name="name" value="" class="form-control" >--}}
-{{--                            <table class="table">--}}
-{{--                                <br>--}}
-{{--                                <label for="name">收件人地址：</label><br>--}}
-{{--                                <input name="name" value="" class="form-control" >--}}
-{{--                                <table class="table">--}}
-{{--                            <thead>--}}
+
+                                <br>
                             <tr>
                                 <th scope="col"> 付款資訊</th>
                             </tr>
