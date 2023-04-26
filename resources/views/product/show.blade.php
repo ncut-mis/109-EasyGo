@@ -15,7 +15,12 @@
                     <div class="container px-4 px-lg-5 mt-5">
 
                         <form action="{{route('members.cart_items.store')}}?pid={{$product->id}}" method="POST">
+<<<<<<< HEAD
 
+=======
+                            @csrf
+                            @method('POST')
+>>>>>>> cc2edd791e39ef11afd6fe6cf32759f7fc5a9392
                         <figure class="mb-4">
                             <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
                         </figure>
@@ -28,10 +33,18 @@
 
                             </div>
 
+<<<<<<< HEAD
                             <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center d-grid gap-2">
                                     <input type="number" name="quantity" class="form-control mb-3" value="1">
                                     <button class="btn btn-outline-dark mt-auto ">加入購物車</button>
+=======
+                            <!-- Product actions-->
+                            <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <input style="width:100px;" type="number" name="quantity" min="1" max="99" value="1">
+                                    <button class="btn btn-outline-dark mt-auto">加入購物車</button>
+>>>>>>> cc2edd791e39ef11afd6fe6cf32759f7fc5a9392
                                 </div>
                             </div>
 

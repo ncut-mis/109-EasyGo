@@ -59,21 +59,22 @@ Route::get('japan',[RecipeController::class,'japan'])->name('blog.japan');
 Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
 
 //部落客
-Route::get('create',[BloggerRecipeController::class,'create'])->name('bloggers.recipes.create');
-Route::get('create2',[BloggerRecipeController::class,'create2'])->name('bloggers.recipes.create2');
+//Route::get('create',[BloggerRecipeController::class,'create'])->name('bloggers.recipes.create');
+//Route::get('create2',[BloggerRecipeController::class,'create2'])->name('bloggers.recipes.create2');
 
 
 
 //部落客
 Route::prefix('bloggers')->name('bloggers.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
-        Route::get('/',[BloggerRecipeController::class,'recipes'])->name('create');//新增食譜
+        Route::get('/',[BloggerRecipeController::class,'create'])->name('create');//新增食譜(基本資料)
+        Route::get('/createNext/',[BloggerRecipeController::class,'create_next'])->name('create_next');//新增食譜(步驟、食材)
+        Route::post('/',[BloggerRecipeController::class,'store'])->name('store');//儲存食譜基本資料
         Route::patch ('/{recipe}/launch',[BloggerRecipeController::class,'launch'])->name('launch');//上架
         Route::patch ('/{recipe}/stop',[BloggerRecipeController::class,'stop'])->name('stop');//下架
         //Route::get('/{recipe}/edit',[BloggerRecipeController::class,'edit'])->name('edit');//食譜資料編輯
         Route::get('/{recipe}/edit',BloggerRecipeEdit::class)->name('edit');//食譜資料編輯
 
-       // Route::patch('/recipes/{recipe}', [BloggerRecipeController::class,'update'])->name('update');//食譜更新
 
     });
 });
@@ -118,6 +119,7 @@ Route::prefix('members')->name('members.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[MemberController::class,'recipes'])->name('index');//我的食譜
         Route::get('show/{recipe}',[RecipeController::class,'show'])->name('show');//檢視某一食譜
+        Route::get('/search',[RecipeController::class,'search'])->name('search');//使用者搜尋食譜
     });
 
     //會員-訂單

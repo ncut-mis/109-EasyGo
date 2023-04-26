@@ -1,134 +1,81 @@
-
-
-@extends('layouts.master')
-@section('title','食譜名稱')
+@extends('members.layouts.master')
+@section('page-title', '新增食譜')
 @section('content')
-    <!-- Page Content-->
+
     <section class="py-5">
         <div class="container px-5 my-5 ">
             <div class="row gx-5">
-                <div >
-                    <!-- Post content-->
-                    <article>
 
+                {{--如果有成功訊息，顯示該訊息--}}
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
-                        <!-- Post header-->
-                        <header class="mb-4">
-                            <h1 class="fw-bolder mb-1 ">寫食譜</h1>
-{{--                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">--}}
+                {{--如果有錯誤訊息，顯示該訊息--}}
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-{{--                                <button type="button" class="btn btn-danger btn-lg">發布</button>--}}
-{{--                                <button type="button" class="btn  btn-lg">儲存</button>--}}
-{{--                                <button type="button" class="btn btn-lg">刪除</button>--}}
-{{--                            </div>--}}
+        <form action="{{route('bloggers.recipes.store')}}" method="POST" style="display: inline-block">
+             @method('post')
+             @csrf
 
-                                    <!-- Post title-->
-                                    <div class="mb-3">
-                                        <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">食譜名稱</label>
-                                            <!--回傳時會把name包裝成key，填入的內容包裝成value-->
-                                            <input name="name" id="name" type="text" class="form-control" placeholder="請輸入食譜名稱"><!--單行輸入框-->
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="exampleFormControlTextarea1" class="form-label">食譜封面</label>
-                                            <input type="file" name="image" id="image" accept="image/*" class="form-control">
-                                        </div>
-                                        <label for="exampleFormControlTextarea1" class="form-label">食譜類別</label>
-                                        <div class="ms-3 me-3">
-                                            <div class="row">
+            <!-- Post title-->
+            <h1 class="fw-bolder mb-1">寫食譜</h1>
+            <div class="mb-3">
+                <!--食譜名稱-->
+                <div class="mb-3">
+                    <label class="form-label" for="name">食譜名稱</label>
+                    <input name="name" id="name" type="text" class="form-control" placeholder="請輸入食譜名稱">
+                </div>
 
-                                                <div class="form-check col">
-                                                    <input class="form-check-input" type="radio" name="category" id="category" value="1" checked>
-                                                    <label class="form-check-label" for="flexRadioDefault1">中式</label>
-                                                </div>
-                                                <div class="form-check col">
-                                                    <input class="form-check-input" type="radio" name="category" id="category" value="2">
-                                                    <label class="form-check-label" for="flexRadioDefault2">西式</label>
-                                                </div>
-                                                <div class="form-check col">
-                                                    <input class="form-check-input" type="radio" name="category" id="category" value="3">
-                                                    <label class="form-check-label" for="flexRadioDefault2">日式
-                                                    </label>
-                                                </div>
+                <!--食譜類別-->
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">食譜類別</label>
+                    <select class="form-select" aria-label="Default select example" name="recipe_category_id" id="recipe_category_id">
+                        <option selected>選擇食譜類別</option>
+                        <!--迴圈抓取categories資料表資料-->
+                        @foreach($recipe_categories as $recipe_category)
+                            <option value="{{$recipe_category->id}}">{{$recipe_category->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                            <div class="mb-3">
-                                <label for="exampleFormControlTextarea1" class="form-label">食譜簡介</label>
-                                <textarea name="introduce" id="introduce" class="form-control" rows="4" placeholder="請輸入食譜簡介"></textarea><!--多行輸入框-->
-                            </div>
+                <!--食譜是否上架-->
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">是否上架</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="status" id="status" value="1">
+                            <label class="form-check-label" for="flexRadioDefault1">是</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio"  name="status" id="status" value="0" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">否</label>
+                        </div>
+                </div>
 
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <!--食譜簡介-->
+                <div class="mb-3">
+                    <label for="text" class="form-label">食譜簡介</label>
+                    <textarea name="text" id="text" class="form-control" rows="7" placeholder="請輸入食譜簡介"></textarea><!--多行輸入框 -->
+                </div>
 
-                                <div class="col-xs-12 col-md-3 d-md-flex">
-                                    <a href="{{route('bloggers.recipes.create2')}}" class="btn btn-secondary fs justify-content-md-end-5 position-end " >下一步</a>
-                                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-secondary btn-lg">下一頁</button>
+                </div>
 
-                            </div>
-{{--                            <h1 class="fw-bolder mb-1 ">食材   <button type="button" class="btn  btn-lg">+</button></h1></h1>--}}
-{{--                            <table class="table">--}}
-{{--                                <thead>--}}
-{{--                                <tr>--}}
-{{--                                    <th scope="col">食材名稱</th>--}}
-{{--                                    <th scope="col">食材另購買處</th>--}}
-{{--                                    <th scope="col">數量</th>--}}
+                </div>
 
-{{--                                </tr>--}}
-{{--                                </thead>--}}
-
-{{--                                <td>--}}
-{{--                                    <input type="text" class="name" value="">--}}
-{{--                                </td>--}}
-{{--                                <td>--}}
-{{--                                    <input type="text" class="name" value="">--}}
-{{--                                </td>--}}
-{{--                                <td>--}}
-{{--                                    <input type="text" class="name" value="">--}}
-{{--                                </td>--}}
-
-
-
-{{--                            </table>--}}
-
-
-{{--                            <h1 class="fw-bolder mb-1 ">步驟1 <button type="button" class="btn btn-lg">+</button></h1>--}}
-
-{{--                            <div class="mb-3">--}}
-{{--                                <input type="file" name="image" id="image" accept="image/*" class="form-control">--}}
-{{--                                <div class="mb-3">--}}
-{{--                                    <label for="exampleFormControlTextarea1" class="form-label"></label>--}}
-{{--                                    <textarea name="introduce" id="introduce" class="form-control" rows="4" placeholder=""></textarea><!--多行輸入框-->--}}
-{{--                                </div>--}}
-
-{{--                                <h1 class="fw-bolder mb-1 ">步驟2</h1>--}}
-{{--                                <div class="mb-3">--}}
-{{--                                    <input type="file" name="image" id="image" accept="image/*" class="form-control">--}}
-{{--                                    <div class="mb-3">--}}
-{{--                                        <label for="exampleFormControlTextarea1" class="form-label"></label>--}}
-{{--                                        <textarea name="introduce" id="introduce" class="form-control" rows="4" placeholder=""></textarea><!--多行輸入框-->--}}
-{{--                                    </div>--}}
-
-{{--                                    <h1 class="fw-bolder mb-1 ">步驟3</h1>--}}
-{{--                                    <div class="mb-3">--}}
-{{--                                        <input type="file" name="image" id="image" accept="image/*" class="form-control">--}}
-{{--                                        <div class="mb-3">--}}
-{{--                                            <label for="exampleFormControlTextarea1" class="form-label"></label>--}}
-{{--                                            <textarea name="introduce" id="introduce" class="form-control" rows="4" placeholder=""></textarea><!--多行輸入框-->--}}
-{{--                                        </div>--}}
-{{--                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">--}}
-{{--                                            <button class="btn btn-primary btn-sm" type="submit">儲存</button>--}}
-{{--                                        </div>--}}
-
-
-
-
-{{--                                        <div class="input_fields_wrap">--}}
-{{--                                            <button class="add_field_button">Add More Fields</button>--}}
-{{--                                            <div><input type="text" name="mytext[]"></div>--}}
-{{--                                        </div>--}}
-
-{{--                            </div>--}}
-
-
+                </form>
+            </div>
+        </div>
+    </section>
 @endsection

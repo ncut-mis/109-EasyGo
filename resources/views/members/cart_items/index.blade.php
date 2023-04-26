@@ -114,7 +114,7 @@
                                     @forelse ($carts as $cart)
                                         @if(!$cart->status)
 
-                                            <div class="warning">▶{{$cart->name}}x{{$cart->quantity}}</div>
+                                            <div class="warning">▶<span style="color:gray;"> <del>{{$cart->name}}x{{$cart->quantity}} <del></span></div>
 
                                             <b><font color="#FF0000">(此商品被下架，無法結帳)</font></b>
                                         @elseif($cart->status)

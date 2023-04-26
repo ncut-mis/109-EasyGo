@@ -2,27 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
 use App\Models\RecipeImg;
-use App\Models\RecipeStep;
-use App\Models\Suggest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class BloggerRecipeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function recipes()
-    {
-    return view('bloggers.recipes.create');
-    }
-
     public function index()
     {
      return view('bloggers.recipes');
@@ -41,30 +29,53 @@ class BloggerRecipeController extends Controller
         return redirect()->route('members.recipes');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   //寫食譜頁面(基本)
     public function create()
     {
-        return view('bloggers.recipes.create');
+        $recipe_categories=RecipeCategory::orderBy('id','DESC')->get();//食譜類別
+
+        $data = [
+            'recipe_categories'=>$recipe_categories
+        ];
+        return view('bloggers.recipes.create',$data);
     }
 
-    public function create2()
+    public function create_next()
     {
         return view('bloggers.recipes.create2');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    //儲存食譜基本資料
     public function store(Request $request)
     {
-        //
+        //驗證資料
+        $request->validate( [
+            'name' => ['required', 'string', 'max:255'],
+            'text' => ['required', 'string', 'max:255'],
+            'recipe_category_id' => ['required'],
+        ], [
+            'name.required' => '請輸入食譜名稱!',
+            'text.required' => '請填寫食譜簡介!',
+            'recipe_category_id.required' => '請選擇食譜類別!',
+        ]);
+
+        //目前使用者
+        $user=Auth::user();
+
+        //儲存至DB
+        Recipe::create([
+            'user_id'=>$user->id,
+            'recipe_category_id'=>$request->recipe_category_id,
+            'status'=>$request->status,
+            'name'=>$request->name,
+            'text'=>$request->text,
+        ]);
+
+        //回到傳送資料來的頁面
+        return redirect()->route('bloggers.recipes.create_next')->with('message', '食譜基本建立成功！');
+        // 如果資料驗證失敗，自動回傳錯誤訊息並返回上一頁
+        return back()->withErrors($validator)->withInput();
+
     }
 
     /**
