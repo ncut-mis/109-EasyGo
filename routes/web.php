@@ -119,6 +119,7 @@ Route::prefix('members')->name('members.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[MemberController::class,'recipes'])->name('index');//我的食譜
         Route::get('show/{recipe}',[RecipeController::class,'show'])->name('show');//檢視某一食譜
+        Route::get('/search',[RecipeController::class,'search'])->name('search');//使用者搜尋食譜
     });
 
     //會員-訂單
