@@ -98,6 +98,9 @@
                             <button type="submit" class="btn btn-success btn-sm">確認</button>
                         </form>
                     @elseif($order->status==7)
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{$order->id}}">
+                            查看
+                        </button>
                         <form action="{{route('admins.orders.update_cancel',$order->id)}}" method="post" class="col" style="display: inline-block">
                             @method('patch')
                             <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
@@ -147,7 +150,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">更新訂單狀態</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">取消訂單申請</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="{{route('admins.orders.update',$order->id)}}" method="post" class="col">

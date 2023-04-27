@@ -16,6 +16,7 @@ class Order extends Model
         'receiver',
         'address',
         'tel',
+        'remark',
     ];
 
     public function member(){

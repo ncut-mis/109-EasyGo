@@ -72,28 +72,29 @@
                         @method('POST')
                         <!--典籍進入詳細葉面-->
                         <div class="pt-5">
-                        <div class="card ht border-0 h-100 ">
-                        <td>   <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder" value="{{$product->name}}">{{$product->name}}</h5>
-                                    <!-- Product price-->
-                                    <h5>價格:{{$product->price}}</h5>
-                                    <a href="{{route('product.show',$product->id)}}" class="stretched-link"></a>
-                                </div>
+                            <div class="card ht border-0 h-100 ">
+                                <td>   <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder" value="{{$product->name}}">{{$product->name}}</h5>
+                                            <!-- Product price-->
+                                            <h5>價格:{{$product->price}}</h5>
+                                            <a href="{{route('product.show',$product->id)}}" class="stretched-link"></a>
+                                        </div>
+                                    </div>
+                                </td>
                             </div>
                         </div>
-                        </div>
-{{--                            <!-- Product actions-->--}}
+                            <!-- Product actions-->
 {{--                            <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">--}}
 {{--                                <div class="text-center">--}}
 {{--                                    <input type="number" name="quantity" class="form-control mb-3" value="1">--}}
 {{--                                    <button class="btn btn-outline-dark mt-auto">加入購物車</button>--}}
 {{--                                </div>--}}
 {{--                            </div>--}}
-                        </td>
+
 
                     </form>
                 @endforeach

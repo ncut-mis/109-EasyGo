@@ -11,6 +11,7 @@
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
             <a class="btn btn-success btn-sm" href="{{route('admins.products.create')}}">新增</a>
         </div>
+
         <table class="table">
             <thead>
             <tr>
@@ -49,7 +50,7 @@
                 @endif
 
                 <td class="col-2">
-                    <a href="{{route('admins.products.show')}}" class="btn btn-primary btn-sm">詳細資料</a>
+                    <a href="{{route('admins.products.show',$product)}}" class="btn btn-primary btn-sm">詳細資料</a>
 
 
 

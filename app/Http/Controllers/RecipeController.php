@@ -45,6 +45,17 @@ class RecipeController extends Controller
         return view('blog.japan');
     }
 
+    //搜尋食譜
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $recipes = Recipe::query()->where('name', 'LIKE', "%{$search}%")->get();
+        //$categories=RecipeCategory::orderBy('id','DESC')->get();//sidenav顯示類別
+        $data=['recipes'=>$recipes];//index的sib需要類別的資料，記得給分類的資料
+        return view('members.recipes.search',$data);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

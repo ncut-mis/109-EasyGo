@@ -59,21 +59,22 @@ Route::get('japan',[RecipeController::class,'japan'])->name('blog.japan');
 Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
 
 //部落客
-Route::get('create',[BloggerRecipeController::class,'create'])->name('bloggers.recipes.create');
-Route::get('create2',[BloggerRecipeController::class,'create2'])->name('bloggers.recipes.create2');
+//Route::get('create',[BloggerRecipeController::class,'create'])->name('bloggers.recipes.create');
+//Route::get('create2',[BloggerRecipeController::class,'create2'])->name('bloggers.recipes.create2');
 
 
 
 //部落客
 Route::prefix('bloggers')->name('bloggers.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
-        Route::get('/',[BloggerRecipeController::class,'recipes'])->name('create');//新增食譜
+        Route::get('/',[BloggerRecipeController::class,'create'])->name('create');//新增食譜(基本資料)
+        Route::get('/createNext/',[BloggerRecipeController::class,'create_next'])->name('create_next');//新增食譜(步驟、食材)
+        Route::post('/',[BloggerRecipeController::class,'store'])->name('store');//儲存食譜基本資料
         Route::patch ('/{recipe}/launch',[BloggerRecipeController::class,'launch'])->name('launch');//上架
         Route::patch ('/{recipe}/stop',[BloggerRecipeController::class,'stop'])->name('stop');//下架
         //Route::get('/{recipe}/edit',[BloggerRecipeController::class,'edit'])->name('edit');//食譜資料編輯
         Route::get('/{recipe}/edit',BloggerRecipeEdit::class)->name('edit');//食譜資料編輯
 
-       // Route::patch('/recipes/{recipe}', [BloggerRecipeController::class,'update'])->name('update');//食譜更新
 
     });
 });
@@ -92,7 +93,8 @@ Route::prefix('product')->name('product.')->group(function(){
     Route::get('seasoning',[ProductController::class,'seasoning'])->name('seasoning');//調味
     Route::get('mushrooms',[ProductController::class,'mushrooms'])->name('mushrooms');//菇類
     Route::get('show/{product}',[ProductController::class,'show'])->name('show');//食材詳細資料
-    
+    Route::get('/keyword',[ProductController::class,'keyword'])->name('keyword');//使用者搜尋食譜
+
 });
 //賣場頁面(選擇性路由
 Route::get('product',[ProductController::class,'product'])->name('product.product');
@@ -118,6 +120,7 @@ Route::prefix('members')->name('members.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[MemberController::class,'recipes'])->name('index');//我的食譜
         Route::get('show/{recipe}',[RecipeController::class,'show'])->name('show');//檢視某一食譜
+        Route::get('/search',[RecipeController::class,'search'])->name('search');//使用者搜尋食譜
     });
 
     //會員-訂單
@@ -181,11 +184,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/logins',[AdminLoginController::class,'index'])->name('login.index');//商品列表
         Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表
         Route::get('/products/create', [AdminProductController::class, 'create'])->name('products.create');//新增商品頁面
+        Route::get('/products/{product}',[AdminProductController::class,'show'])->name('products.show');//商品詳細
         Route::post('/products/store',[AdminProductController::class,'store'])->name('products.store');//儲存商品
-        Route::get('/products/show',[AdminProductController::class,'show'])->name('products.show');//儲存商品
         Route::delete('/products/{product}',[AdminProductController::class,'destroy'])->name('products.destroy');//刪除商品
         Route::patch ('/products/{product}/launch',[AdminProductController::class,'launch'])->name('products.launch');//上架
         Route::patch ('/products/{product}/stop',[AdminProductController::class,'stop'])->name('products.stop');//下架
+        Route::get('/products/{product}/edit',[AdminProductController::class,'edit'])->name('products.edit');//修改商品
+        Route::patch('/products/{product}}',[AdminProductController::class,'update'])->name('products.update');//更新商品
+
+
         //訂單
         Route::prefix('orders')->name('orders.')->group(function () {
             Route::get('/',[AdminOrderController::class,'index'])->name('index');//訂單列表

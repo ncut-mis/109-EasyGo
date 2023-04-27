@@ -200,10 +200,13 @@ class MemberOrderController extends Controller
         //訂單成立時間
         return view('members.orders.show',$data);
     }
-    public function cancel_update(Order $order){
+    public function cancel_update(Order $order,Request $request){
         //修改訂單狀態為取消
+        $order=Order::find($request->id);
         $order->update([
-            'status'=>7
+
+            'remark'=>$request->remark,
+            'status'=>7,
         ]);
         return redirect()->route('members.orders.index');
     }
