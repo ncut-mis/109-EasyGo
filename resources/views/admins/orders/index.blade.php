@@ -115,12 +115,12 @@
                         <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#cancelModal" data-bs-whatever="{{$order->id}}">
                             查看
                         </button>
-                        <form action="{{route('admins.orders.update_cancel',$order->id)}}" method="post" class="col" style="display: inline-block">
-                            @method('patch')
-                            <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
-                            @csrf
-                            <button type="submit" class="btn btn-danger btn-sm">取消</button>
-                        </form>
+{{--                        <form action="{{route('admins.orders.update_cancel',$order->id)}}" method="post" class="col" style="display: inline-block">--}}
+{{--                            @method('patch')--}}
+{{--                            <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->--}}
+{{--                            @csrf--}}
+{{--                            <button type="submit" class="btn btn-danger btn-sm">取消</button>--}}
+{{--                        </form>--}}
                     @elseif($order->status==5 || $order->status==6)
 
                     @else
