@@ -189,16 +189,16 @@
         var exampleModal = document.getElementById('exampleModal')
         exampleModal.addEventListener('show.bs.modal', function (event) {
             // Button that triggered the modal
-            var button = event.relatedTarget
+            var button = event.relatedTarget    //不懂甚麼意思
             // Extract info from data-bs-* attributes
-            var recipient = button.getAttribute('data-bs-whatever')
+            var recipient = button.getAttribute('data-bs-whatever') //取得按鈕中data-bs-whatever的屬性值
             // If necessary, you could initiate an AJAX request here
             // and then do the updating in a callback.
             //
             // Update the modal's content.
-            var modalBodyInput = exampleModal.querySelector('.modal-body input')
+            var modalBodyInput = exampleModal.querySelector('.modal-body input') //指定modalbody中的input標籤
 
-            modalBodyInput.value = recipient
+            modalBodyInput.value = recipient    //將input的值設定為recipient
         })
     </script>
 @endsection
