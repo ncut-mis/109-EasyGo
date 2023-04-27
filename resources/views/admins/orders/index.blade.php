@@ -112,6 +112,9 @@
                             <button type="submit" class="btn btn-success btn-sm">確認</button>
                         </form>
                     @elseif($order->status==7)
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#cancelModal" data-bs-whatever="{{$order->id}}">
+                            查看
+                        </button>
                         <form action="{{route('admins.orders.update_cancel',$order->id)}}" method="post" class="col" style="display: inline-block">
                             @method('patch')
                             <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
@@ -121,7 +124,7 @@
                     @elseif($order->status==5 || $order->status==6)
 
                     @else
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{$order->id}}">
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{$order->id}}" data-bs-any="{{$order->remark}}">
                             修改狀態
                         </button>
                     @endif
@@ -157,6 +160,7 @@
 {{--                    </div>--}}
 {{--                </div>--}}
 {{--            </div>--}}
+        <!--修改狀態-->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -184,6 +188,32 @@
                 </div>
             </div>
         </div>
+        <!--取消訂單-->
+        <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">取消訂單</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{route('admins.orders.update_cancel',$order->id)}}" method="post" class="col">
+                        @method('patch')
+                        <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
+                        @csrf
+                        <div class="modal-body">
+                            <input type="hidden" class="form-control" id="id" name="id">
+                            <label>取消理由</label>
+                            <textarea class="form-control" id="remark" name="remark" rows="3"></textarea>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-warning">確認</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </div>
     <script>
         var exampleModal = document.getElementById('exampleModal')
@@ -192,13 +222,16 @@
             var button = event.relatedTarget    //不懂甚麼意思
             // Extract info from data-bs-* attributes
             var recipient = button.getAttribute('data-bs-whatever') //取得按鈕中data-bs-whatever的屬性值
+            var remark = button.getAttribute('data-bs-any')
             // If necessary, you could initiate an AJAX request here
             // and then do the updating in a callback.
             //
             // Update the modal's content.
             var modalBodyInput = exampleModal.querySelector('.modal-body input') //指定modalbody中的input標籤
+            var modalBodyTextarea = exampleModal.querySelector('.modal-body textarea') //指定modalbody中的input標籤
 
             modalBodyInput.value = recipient    //將input的值設定為recipient
+            modalBodyTextarea.value = remark
         })
     </script>
 @endsection

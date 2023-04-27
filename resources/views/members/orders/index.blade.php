@@ -67,15 +67,9 @@
                                                     <td>
                                                         <a href="{{route('members.orders.show',$array_item['id'])}}" class="btn btn-secondary btn-sm">詳細資料</a>
                                                         @if($array_item['status']=='訂單審核中' || $array_item['status']=='已成立')
-                                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{$array_item['id']}}">
+                                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{$order->id}}">
                                                                 取消訂單
                                                             </button>
-                                                            <form action="{{route('members.orders.cancel_update',$array_item['id'])}}" method="post" enctype="multipart/form-data">
-                                                                @method('patch')
-                                                                <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
-                                                                @csrf
-                                                                <button class="btn btn-danger btn-sm" type="submit">取消訂單</button>
-                                                            </form>
                                                         @endif
                                                         @if($array_item['status']=='已送達')
                                                             <form action="{{route('members.orders.done_update',$array_item['id'])}}" method="post" enctype="multipart/form-data">
