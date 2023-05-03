@@ -47,12 +47,6 @@ Route::get('/',[RecipeController::class,'index'])->name('blog.new');//首頁
 
 //平台人員登入
 Route::get('adminlogin',[AdminLoginController::class,'adminlogin'])->name('blog.adminlogin');
-//中式
-Route::get('china',[RecipeController::class,'china'])->name('blog.china');
-//西式
-Route::get('western',[RecipeController::class,'western'])->name('blog.western');
-//日式
-Route::get('japan',[RecipeController::class,'japan'])->name('blog.japan');
 
 
 //食譜頁面(選擇性路由
@@ -119,7 +113,7 @@ Route::prefix('members')->name('members.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[MemberController::class,'recipes'])->name('index');//我的食譜
         Route::get('show/{recipe}',[RecipeController::class,'show'])->name('show');//檢視某一食譜
-        Route::get('/search',[RecipeController::class,'search'])->name('search');//使用者搜尋食譜
+        Route::get('/search',[RecipeController::class,'search'])->name('search');//搜尋食譜
         Route::get('/categories/{category}',[RecipeController::class,'category'])->name('categories');//食譜分類搜尋(下拉表單)
     });
 
