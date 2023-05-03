@@ -26,9 +26,19 @@
                                       食譜類別
                                   </a>
                                   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                      <li><a class="dropdown-item" href="{{route('blog.china')}}">中式</a></li>
-                                      <li><a class="dropdown-item" href="{{route('blog.western')}}">西式</a></li>
-                                      <li><a class="dropdown-item" href="{{route('blog.japan')}}">日式</a></li>
+{{--                                      <li><a class="dropdown-item" href="{{route('blog.china')}}">中式</a></li>--}}
+{{--                                      <li><a class="dropdown-item" href="{{route('blog.western')}}">西式</a></li>--}}
+{{--                                      <li><a class="dropdown-item" href="{{route('blog.japan')}}">日式</a></li>--}}
+
+
+{{--                                      @foreach($categories as $category)--}}
+{{--                                          <a class="nav-link" href="{{route('',$category->id)}}"><!--抓取目前點選的category找出相關meals-->--}}
+{{--                                              <div class="sb-nav-link-icon">--}}
+{{--                                                  <i class="fas fa-tachometer-alt"></i>--}}
+{{--                                              </div>--}}
+{{--                                              {{$category->name}}--}}
+{{--                                          </a>--}}
+{{--                                      @endforeach--}}
                                   </ul>
                               </li>
                           </ul>

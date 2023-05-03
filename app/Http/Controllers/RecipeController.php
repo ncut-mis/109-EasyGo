@@ -25,8 +25,12 @@ class RecipeController extends Controller
     public function index()
     {
         $recipes=Recipe::where('status','=',1)->get();//顯示上架食譜
+        $categories=RecipeCategory::orderBy('id','DESC')->get();
+
         $data=[
             'recipes' => $recipes,
+            'categories'=>$categories,
+
             ];
 
     return view('blog.new',$data);
@@ -49,10 +53,34 @@ class RecipeController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $recipes = Recipe::query()->where('name', 'LIKE', "%{$search}%")->get();
+        $SearchRecipe = Recipe::query()->where('name', 'LIKE', "%{$search}%")->get();
         //$categories=RecipeCategory::orderBy('id','DESC')->get();//sidenav顯示類別
-        $data=['recipes'=>$recipes];//index的sib需要類別的資料，記得給分類的資料
-        return view('members.recipes.search',$data);
+        $data=['SearchRecipe'=>$SearchRecipe];//index的sib需要類別的資料，記得給分類的資料
+        return view('blog.new',$data);
+//        $search = $request->input('search');
+//        if ($search) {
+//            $SearchRecipe = Recipe::query()->where('name', 'LIKE', "%{$search}%")->get();
+//            $data = ['SearchRecipe' => $SearchRecipe];
+//            return view('blog.new', $data);
+//        } else {
+//            $recipes=Recipe::where('status','=',1)->get();//顯示上架食譜
+//            $categories=RecipeCategory::orderBy('id','DESC')->get();
+//            $data=[
+//                'recipes' => $recipes,
+//                'categories'=>$categories
+//            ];
+//            return view('blog.index', $data);
+//        }
+    }
+    public function category(RecipeCategory $recipeCategory)
+    {
+        $categories=RecipeCategory::orderBy('id','DESC')->get();
+        $recipes=Recipe::where('category_id','=',$recipeCategory->id)->get();
+        $data=[
+            'recipes'=>$recipes,
+            'categories'=>$categories
+        ];
+        return view('index',$data);
     }
 
 
