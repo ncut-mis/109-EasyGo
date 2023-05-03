@@ -96,8 +96,11 @@ class AdminProductController extends Controller
 
     public function show(Product $product)
     {
+
+
         $data=[
-            'product'=>$product
+            'product'=>$product,
+
         ];
         return view('admins.products.show',$data);
     }
@@ -108,9 +111,12 @@ class AdminProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $data=[
+            'product'=>$product,
+        ];
+        return view('admins.products.edit',$data);
     }
 
     /**
@@ -120,9 +126,18 @@ class AdminProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-        //
+        $product = Product::find($id);
+
+        if ($product) {
+            $product->price= $request->input('price');
+             $product->name= $request->input('name');
+             $product->text= $request->input('text');
+            $product->save();
+            return redirect()->route('admins.products.index',$id);
+        }
+//        return redirect()->route('admins.products.index',$validatedData);
     }
 
 

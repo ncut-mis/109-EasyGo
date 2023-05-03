@@ -10,6 +10,13 @@
                 <article>
                     <!-- Post header-->
                     <header class="mb-4">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a class="btn btn-success btn-sm" href="{{route('admins.products.edit',$product)}}">編輯</a>
+                            <a class="btn btn-dark btn-sm" href="{{route('admins.products.index')}}">返回</a>
+                        </div>
+
+                        <br>
+
                         <!-- Preview image figure-->
                        <figure class="mb-4"><img class="img-fluid rounded" src="https://www.pxmart.com.tw/Api/Images/133162494023417960.jfif" alt="..." /></figure>
 

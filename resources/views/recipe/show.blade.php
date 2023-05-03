@@ -44,7 +44,83 @@
                             <p>食譜名稱：{{$recipe->name}}</p>
                         </h2>
                     </div>
+                        <button type="button" id="btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#refund" data-bs-whatever="@123" >一鍵選購</button>
+                        <div class="modal fade" id="refund" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <form action="" method="post" >
 
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <!--標題-->
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col"></th>
+                                                    <th scope="col">所需食材</th>
+                                                    <th scope="col">選擇商品</th>
+                                                    <th scope="col">數量</th>
+                                                    <th scope="col">金額</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                                            <label class="form-check-label" for="flexCheckDefault">
+                                                    </th>
+
+                                                    <th scope="row"></th>
+                                                    <td>
+                                                        <select >
+
+
+                                                        </select>
+                                                    </td>
+                                                    <td>   <select >
+                                                            <option value="1">1</option>
+                                                            <option value="2" selected>2</option>
+                                                            <option value="3">3</option>
+
+                                                        </select>
+                                                    </td>
+                                                    <td>$</td>
+
+                                                </tr>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    </td>
+                                                    <td>
+                                                        <button type="submit" class="btn btn-primary refund">加入購物車</button>
+
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+
+
+                                        </div>
+                                    </div>
+                            </form>
+                        </div>
+                        </td>
+                        </tr>
+                        </tbody>
+
+                        </table>
+                </div>
+            </div>
+
+            </header>
                     <!--食譜封面-->
                     <div class="mb-3">
                         <!--輪播圖片-->
