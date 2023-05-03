@@ -15,19 +15,25 @@
 
                 <!-- Post title-->
                 <div class="mb-3">
-                    @if($isCollect)
-                        <form action="{{route('members.collects.destroy',$collect->id)}}" method="POST">
-                            @method('delete')
-                            @csrf
-                            <button type="submit" class="btn btn-outline-secondary btn-lg">★已收藏</button>
-                        </form>
-                    @else
-                        <form action="{{route('members.collects.store',$recipe->id)}}" method="POST">
-                            @method('post')
-                            @csrf
-                            <button type="submit" class="btn btn-outline-danger btn-lg">☆收藏</button>
-                        </form>
+                    <!--收藏按鈕-->
+                    <!--未登入-->
+                    @if(!is_null($isCollect))
+                        <!--登入後-->
+                        @if($isCollect)
+                            <form action="{{route('members.collects.destroy',$collect->id)}}" method="POST">
+                                @method('delete')
+                                @csrf
+                                <button type="submit" class="btn btn-outline-secondary btn-lg">★已收藏</button>
+                            </form>
+                        @else
+                            <form action="{{route('members.collects.store',$recipe->id)}}" method="POST">
+                                @method('post')
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger btn-lg">☆收藏</button>
+                            </form>
+                        @endif
                     @endif
+
 
                     <!--食譜名稱-->
                     <div class="mb-3">

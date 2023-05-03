@@ -143,13 +143,21 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
+        //未登入
+        $isCollect = null;
+        $collect = null;
         //辨別該會員是否收藏此食譜
-        $member=Auth::user()->member;
-        $isCollect = Collect::where('member_id', $member->id)
-            ->where('recipe_id', $recipe->id)
-            ->exists();
-        $collect = Collect::where('member_id', $member->id)->where('recipe_id', $recipe->id)->first();
-       // $collectId = $collect->id;
+        if (Auth::check()) {
+            $member = Auth::user()->member;
+            $isCollect = Collect::where('member_id', $member->id)
+                ->where('recipe_id', $recipe->id)
+                ->exists();
+            if ($isCollect) {
+                $collect = Collect::where('member_id', $member->id)
+                    ->where('recipe_id', $recipe->id)
+                    ->first();
+            }
+        }
 
         //將會員跟留言連結
         $comments =
