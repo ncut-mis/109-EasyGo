@@ -44,67 +44,43 @@
                             <p>食譜名稱：{{$recipe->name}}</p>
                         </h2>
                     </div>
-                        <button type="button" id="btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#refund" data-bs-whatever="@123" >一鍵選購</button>
-                        <div class="modal fade" id="refund" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <form action="" method="post" >
+                    <button type="button" id="dss" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#refund" data-bs-whatever="@123">一鍵選購</button>
+                    <div class="modal fade" id="refund" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" keyboard="false" backdrop="false">
+                        <form action="{{route('members.cart_items.easy')}}" method="post">
+                            @csrf
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <!--標題-->
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col"></th>
+                                                <th scope="col">所需食材</th>
+                                                <th scope="col">選擇商品</th>
+                                                <th scope="col">數量</th>
+                                                <!-- <th scope="col">金額</th> -->
 
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <!--標題-->
-                                            <table class="table">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">所需食材</th>
-                                                    <th scope="col">選擇商品</th>
-                                                    <th scope="col">數量</th>
-                                                    <th scope="col">金額</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="products">
 
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <th scope="row">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                    </th>
-
-                                                    <th scope="row"></th>
-                                                    <td>
-                                                        <select >
-
-
-                                                        </select>
-                                                    </td>
-                                                    <td>   <select >
-                                                            <option value="1">1</option>
-                                                            <option value="2" selected>2</option>
-                                                            <option value="3">3</option>
-
-                                                        </select>
-                                                    </td>
-                                                    <td>$</td>
-
-                                                </tr>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                    </td>
-                                                    <td>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    </td>
-                                                    <td>
-                                                        <button type="submit" class="btn btn-primary refund">加入購物車</button>
-
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-primary refund">加入購物車</button>
+                                                </td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
 
 
 
@@ -349,4 +325,74 @@
 
         </div>
     </section>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#refund").on("hidden.bs.modal", function() {
+                location.reload();
+            });
+            $("#dss").click(function() {
+
+                // 送出 Ajax
+                $.ajax({
+                    url: "{{route('members.recipes.List',$recipe->id)}}",
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+
+                        let appendHtml = ``;
+                        let orderListCategoryGroup = data.reduce((group, product) => {
+                            const {
+                                category_name
+                            } = product;
+                            group[category_name] = group[category_name] ?? [];
+                            group[category_name].push(product);
+                            return group;
+                        }, [])
+                        console.log(orderListCategoryGroup)
+
+                        let category_name = Object.keys(orderListCategoryGroup)
+                        category_name.forEach((category_name, index) => {
+
+                            let html = `<tr>
+                            <td>
+                                <input type="checkbox" name="product[${index}][suretobuy]" checked>
+                            </td>
+                            <td>
+                                <h4>${category_name}</h4>
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" id="quantity" value="1" placeholder="數量" name="product[${index}][quantity]">
+                            </td>
+                            <!--td>
+                                <h4 class="price"></h4>
+                            </td--!>
+                        </tr>`
+                    //商品
+
+                            $('#products').append(html)//append是在被選元素的结尾插入指定内容，html-返回被選元素的html
+
+                            orderListCategoryGroup[category_name].forEach((product) => {
+                                const {
+                                    product_name,
+                                    product_id,
+                                    product_price,
+                                    product_norm
+                                } = product;
+                                let option = `<option value="${product_id}">${product_name}</option>`
+                                let price = `${product_price} ${product_norm}`
+                                $('.selectProduct').eq(index).append(option)
+                                // $('.price').eq(index).append(price)
+                            })
+
+                        })
+
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
