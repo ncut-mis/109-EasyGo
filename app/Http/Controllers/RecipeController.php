@@ -136,7 +136,7 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
     }
-    
+
 
     //食譜顯示資訊
     public function show(Recipe $recipe)

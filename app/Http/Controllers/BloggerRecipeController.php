@@ -63,16 +63,21 @@ class BloggerRecipeController extends Controller
         $user=Auth::user();
 
         //儲存至DB
-        Recipe::create([
-            'user_id'=>$user->id,
-            'recipe_category_id'=>$request->recipe_category_id,
-            'status'=>$request->status,
-            'name'=>$request->name,
-            'text'=>$request->text,
-        ]);
+        $recipe = new Recipe;
+        $recipe->user_id = $user->id;
+        $recipe->recipe_category_id = $request->recipe_category_id;
+        $recipe->status = $request->status;
+        $recipe->name = $request->name;
+        $recipe->text = $request->text;
+        $recipe->save();
 
-        //回到傳送資料來的頁面
-        return redirect()->route('bloggers.recipes.create_next')->with('message', '食譜基本建立成功！');
+        $recipeId = $recipe->id;
+        session(['previousRecipeId' => $recipeId]);
+        $data=['recipeId' =>$recipeId];
+
+        //將新增的食譜id傳到下一頁
+        return redirect()->route('bloggers.recipes.add',$data);
+//        return view('livewire.blogger-recipe-add',$data);
         // 如果資料驗證失敗，自動回傳錯誤訊息並返回上一頁
         return back()->withErrors($validator)->withInput();
 

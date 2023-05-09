@@ -30,7 +30,7 @@ return [
 
     'disks' => [
 
-        //儲存至public/img下的某個資料夾
+        //儲存至public下的某個資料夾
         'public_recipe' => [
             'driver' => 'local',
             'root' => public_path('img'),
@@ -44,6 +44,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'public_new' => [
+            'driver' => 'local',
+            'root' => public_path('/'),
+            'url' => env('APP_URL'),
+            'visibility' => 'public',
+        ],
 
         'local' => [
             'driver' => 'local',

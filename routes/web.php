@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
+use App\Http\Livewire\BloggerRecipeAdd;
 use App\Http\Livewire\BloggerRecipeEdit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -62,8 +63,9 @@ Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
 Route::prefix('bloggers')->name('bloggers.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[BloggerRecipeController::class,'create'])->name('create');//新增食譜(基本資料)
-        Route::get('/createNext/',[BloggerRecipeController::class,'create_next'])->name('create_next');//新增食譜(步驟、食材)
         Route::post('/',[BloggerRecipeController::class,'store'])->name('store');//儲存食譜基本資料
+        Route::get('/add',BloggerRecipeAdd::class)->name('add');//新增食譜(其他資料)
+//        Route::get('/createNext',[BloggerRecipeController::class,'create_next'])->name('create_next');//新增食譜(步驟、食材...)
         Route::patch ('/{recipe}/launch',[BloggerRecipeController::class,'launch'])->name('launch');//上架
         Route::patch ('/{recipe}/stop',[BloggerRecipeController::class,'stop'])->name('stop');//下架
         //Route::get('/{recipe}/edit',[BloggerRecipeController::class,'edit'])->name('edit');//食譜資料編輯

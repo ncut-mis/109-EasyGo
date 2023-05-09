@@ -51,7 +51,6 @@ class BloggerRecipeEdit extends Component
         $this->ingredients = $recipe->ingredients->toArray();
         $this->steps = $recipe->recipesteps->toArray();
         $this->originalSteps = $recipe->recipesteps->toArray();
-
     }
 
     //步驟填寫欄位
