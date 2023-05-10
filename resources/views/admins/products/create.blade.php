@@ -29,12 +29,21 @@
                     <label for="exampleFormControlTextarea1" class="form-label">數量</label>
                     <input name="stock" id="stock" type="text" class="form-control">
                 </div>
+                <div class="col-6">
+                    <label for="exampleFormControlTextarea1" class="form-label">價格</label>
+                    <input name="price" id="price" type="text" class="form-control">
+                </div>
+                <div class="col-6">
+                    <!--改為下拉式選單-->
+                    <label for="exampleFormControlInput1" class="form-label">種類</label>
+                    <select name="category" id="category" class="form-select form-select" aria-label=".form-select example">
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}} </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
 
-            </div>
-            <div class="col-6">
-                <label for="exampleFormControlTextarea1" class="form-label">價格</label>
-                <input name="price" id="price" type="text" class="form-control">
-            </div>
         </div>
 
         <div class="mb-3">
