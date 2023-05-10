@@ -66,16 +66,26 @@
             @endif
 
                 <!--食材-->
-                <form wire:submit.prevent="IngredientUpdate" >
+                    @if(session('message1'))
+                        <div class="alert alert-success">
+                            {{ session('message1') }}
+                        </div>
+                    @elseif(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                <form wire:submit.prevent="IngredientSave" >
                 <div class="mb-3">
                     <h1 class="fw-bolder mb-1">食材<button type="button" class="btn btn-lg"  wire:click="addList">+</button></h1>
 
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">名稱</th>
+                            <th scope="col">名稱*</th>
                             <th scope="col">建議</th>
-                            <th scope="col">數量</th>
+                            <th scope="col">用量*</th>
                             <th scope="col"> </th>
                         </tr>
                         </thead>
@@ -83,9 +93,38 @@
                         <tbody>
                         @foreach($ingredients as $index => $ingredient)
                             <tr>
-                                <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.name"></td>
+
+                                <td>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" aria-label="Text input with dropdown button" wire:model="ingredients.{{ $index }}.name"  id="ingredient-{{ $index }}" wire:keydown.enter="handleEnter($event.target.value, {{ $index }})">
+                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">食材庫</button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li>
+                                                @foreach($categories as $category)
+                                                    {{--第一階--}}
+                                                    @if($category->category_id == null)
+                                                        <ul>
+                                                            <a class="dropdown-item" wire:model="ingredients.{{ $index }}.category_id" href="#" wire:click.prevent="select('{{ $category->name }}', {{ $index }})"><li>{{ $category->name }}</li></a>
+                                                            {{--第二階--}}
+                                                            @foreach($categories as $child)
+                                                                {{--屬於第一階的哪個id--}}
+                                                                @if($child->category_id == $category->id)
+                                                                    <ul>
+                                                                        <a class="dropdown-item" wire:model="ingredients.{{ $index }}.category_id" href="#" wire:click.prevent="select('{{$child->name }}', {{ $index }})">{{ $child->name }}</a>
+                                                                    </ul>
+                                                                @endif
+                                                            @endforeach
+                                                        </ul>
+                                                    @endif
+                                                @endforeach
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+
+{{--                                <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.name"></td>--}}
                                 <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.remark"></td>
-                                <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.quantity"></td>
+                                <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.quantity" placeholder="ex：?/單位"></td>
                                 <td><button type="button" class="btn btn-lg" wire:click="removeList({{ $index }})"><img src="{{ asset('img/garbage.png') }}" width="30" height="30"></button></td>
                             </tr>
                         @endforeach
@@ -107,7 +146,7 @@
                         </div>
                     @endif
 
-                    <form wire:submit.prevent="StepUpdate" enctype="multipart/form-data">
+                    <form wire:submit.prevent="stepSave" enctype="multipart/form-data">
                     <div class="mb-3">
                         <h1 class="fw-bolder mb-2">步驟<button type="button" class="btn btn-lg" wire:click="addStep">+</button></h1>
                             @foreach ($steps as $index => $step)
@@ -119,9 +158,6 @@
                                             <div wire:loading.remove>
                                                 @if (!is_null($steps[$index]['picture']) && $steps[$index]['picture'] instanceof \Illuminate\Http\UploadedFile)
                                                     <img src="{{ $steps[$index]['picture']->temporaryUrl() }}" alt="Step {{ $step['sequence'] }} picture" width="370px" height="350px">
-{{--                                                @elseif(is_null($steps[$index]['picture']) || $step['picture'])--}}
-{{--                                                    <img src="{{ asset('img/step/' . $step['picture']) }}" alt="Step {{ $step['sequence'] }} picture" width="370px" height="350px">--}}
-{{--                                                    <a href="#" wire:click.prevent="deleteStepImg({{ $step['id'] }})"><i class="fa fa-times text-danger mr-2"></i></a>--}}
                                                 @endif
                                             </div>
                                             <div wire:loading wire:target="steps.{{ $index }}.picture">Uploading...</div>
@@ -168,9 +204,9 @@
                     </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="submit" class="btn btn-primary btn-lg">儲存</button>
+                            <a href="{{route('members.recipes.index')}}" type="submit" class="btn btn-secondary btn-lg">回列表</a>
                         </div>
                     </form>
-
             </div>
 
         </div>

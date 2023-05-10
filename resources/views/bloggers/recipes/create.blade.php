@@ -70,8 +70,6 @@
 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button type="submit" class="btn btn-primary btn-lg">儲存</button>
-{{--                    <a href="{{route('bloggers.recipes.add')}}" type="submit" class="btn btn-primary btn-lg">儲存</a>--}}
-{{--                    <a href="{{route('bloggers.recipes.create_next')}}" type="button" class="btn btn-secondary btn-lg">下一頁</a>--}}
                 </div>
 
                 </div>

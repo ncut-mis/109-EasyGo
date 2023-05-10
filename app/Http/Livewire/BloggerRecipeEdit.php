@@ -53,62 +53,9 @@ class BloggerRecipeEdit extends Component
         $this->originalSteps = $recipe->recipesteps->toArray();
     }
 
-    //步驟填寫欄位
-    public function addStep()
-    {
-        $newStep = new RecipeStep([
-            'recipe_id' => $this->recipe->id,
-            'sequence' => count($this->steps) + 1,
-            'text' => '',
-            'picture' => null,
-        ]);
+//<<<食譜基本資料>>>
 
-        $newStep->save();
-        $this->steps[] = $newStep;
-        session()->flash('message2', '新增步驟成功!');
-
-    }
-
-    //移除某步驟
-    public function removeStep($index)
-    {
-        unset($this->steps[$index]);
-        $this->steps = array_values($this->steps);
-        $this->resetSequence();
-    }
-
-    //某步驟上移
-    public function moveStepUp($index)
-    {
-        if ($index > 0 && $index < count($this->steps)) {
-            $temp = $this->steps[$index];
-            $this->steps[$index] = $this->steps[$index - 1];
-            $this->steps[$index - 1] = $temp;
-
-            $this->resetSequence();
-        }
-    }
-
-    //某步驟下移
-    public function moveStepDown($index)
-    {
-        if ($index < count($this->steps) - 1) {
-            $temp = $this->steps[$index];
-            $this->steps[$index] = $this->steps[$index + 1];
-            $this->steps[$index + 1] = $temp;
-
-            $this->resetSequence();
-        }
-    }
-    //重新排序編號
-    private function resetSequence()
-    {
-        foreach ($this->steps as $key => $step) {
-            $this->steps[$key]['sequence'] = $key + 1;
-        }
-    }
-
-
+    //圖片
     //刪除預覽中的圖片
     public function deleteUploadImg($index)
     {
@@ -117,7 +64,6 @@ class BloggerRecipeEdit extends Component
         //重新排列
         $this->images = array_values($this->images);
     }
-
     //刪除食譜封面圖片
     public function deleteRecipeImg($id)
     {
@@ -134,7 +80,7 @@ class BloggerRecipeEdit extends Component
         session()->flash('message', '圖片已成功刪除！');
     }
 
-
+    //影片
     //刪除預覽中的影片
     public function deleteUploadVideo($index)
     {
@@ -175,7 +121,7 @@ class BloggerRecipeEdit extends Component
                 //自訂名稱
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 //儲存至公開資料夾下
-                $image->storeAs('recipe', $imageName, 'public_recipe');
+                $image->storeAs('img/recipe', $imageName, 'public_new');
                 //存入DB
                 RecipeImg::create([
                     'recipe_id' => $recipe->id,
@@ -196,7 +142,7 @@ class BloggerRecipeEdit extends Component
                 $videoName = time() . '_' . $video->getClientOriginalName();
                 //dd($videoName);
                 //儲存至公開資料夾下
-                $video->storeAs('', $videoName, 'public_video');
+                $video->storeAs('video', $videoName, 'public_new');
                 //存入DB
                 RecipeFilm::create([
                     'recipe_id' => $recipe->id,
@@ -216,7 +162,8 @@ class BloggerRecipeEdit extends Component
     }
 
 
-    //食材填寫欄位
+//<<<食譜食材>>>
+   //食材填寫欄位
     public function addList()
     {
         $this->ingredients[] = [
@@ -225,7 +172,6 @@ class BloggerRecipeEdit extends Component
             'quantity'=>'',
         ];
     }
-
     //移除某食材
     public function removeList($index)
     {
@@ -242,7 +188,82 @@ class BloggerRecipeEdit extends Component
     }
 
 
-    //刪除食譜步驟圖片
+//<<<食譜步驟>>>
+    //步驟填寫欄位
+    public function addStep()
+    {
+        $newStep = new RecipeStep([
+            'recipe_id' => $this->recipe->id,
+            'sequence' => count($this->steps) + 1,
+            'text' => '',
+            'picture' => null,
+        ]);
+
+        $newStep->save();
+        $this->steps[] = $newStep;
+        session()->flash('message2', '新增步驟成功!');
+
+    }
+
+    //移除某步驟
+    public function removeStep($index)
+    {
+        if (isset($this->steps[$index]['id'])) {
+            $stepId = $this->steps[$index]['id'];
+            // 從資料庫中獲取步驟資料
+            $recipeStep = RecipeStep::find($stepId);
+            if ($recipeStep) {
+                // 刪除步驟圖片
+                if ($recipeStep->picture) {
+                    Storage::disk('public_new')->delete('img/step/' . $recipeStep->picture);
+                }
+                // 從資料庫中刪除步驟記錄
+                $recipeStep->delete();
+            }
+        }
+
+        //從步驟陣列中移除該步驟
+        unset($this->steps[$index]);
+        //重新索引步驟陣列
+        $this->steps = array_values($this->steps);
+        $this->resetSequence();
+        //儲存步驟至資料庫
+        $this->StepUpdate();
+
+    }
+
+    //某步驟上移
+    public function moveStepUp($index)
+    {
+        if ($index > 0 && $index < count($this->steps)) {
+            $temp = $this->steps[$index];
+            $this->steps[$index] = $this->steps[$index - 1];
+            $this->steps[$index - 1] = $temp;
+
+            $this->resetSequence();
+        }
+    }
+
+    //某步驟下移
+    public function moveStepDown($index)
+    {
+        if ($index < count($this->steps) - 1) {
+            $temp = $this->steps[$index];
+            $this->steps[$index] = $this->steps[$index + 1];
+            $this->steps[$index + 1] = $temp;
+
+            $this->resetSequence();
+        }
+    }
+    //重新排序編號
+    private function resetSequence()
+    {
+        foreach ($this->steps as $key => $step) {
+            $this->steps[$key]['sequence'] = $key + 1;
+        }
+    }
+
+    //刪除食譜步驟圖片??
     public function deleteStepImg($id)
     {
         $recipeStep = RecipeStep::find($id);
@@ -285,7 +306,7 @@ class BloggerRecipeEdit extends Component
                             }
                             //上傳新的圖片
                             $imageName = time() . '_' . $steps[$index]['picture']->getClientOriginalName();
-                            $steps[$index]['picture']->storeAs('step', $imageName, 'public_recipe');
+                            $steps[$index]['picture']->storeAs('img/step', $imageName, 'public_new');
                             $steps[$index]['picture']=null;
                             //dd( $steps);
                             $recipeStep->update(['picture' => $imageName]);
@@ -295,26 +316,6 @@ class BloggerRecipeEdit extends Component
             }
         }
 
-        // 刪除某個步驟
-        $deletedStepIds = collect($this->originalSteps)
-            ->pluck('id')
-            ->diff(collect($this->steps)->pluck('id'))
-            ->all();
-        foreach ($deletedStepIds as $stepId) {
-            $recipeStep = RecipeStep::find($stepId);
-            if ($recipeStep && $recipeStep->picture) {
-                $oldPicture = $recipeStep->picture;
-                $path = 'step/' . $oldPicture;
-                if (Storage::disk('public_recipe')->exists($path)) {
-                    Storage::disk('public_recipe')->delete($path);//刪除public/img/step下的檔案
-                }
-                RecipeStep::whereIn('id', $deletedStepIds)->delete();//刪除DB
-            }
-            else{
-                RecipeStep::whereIn('id', $deletedStepIds)->delete();//刪除DB
-            }
-        }
-       // $steps->refresh();
         session()->flash('message2', '食譜步驟更新成功！');
     }
 

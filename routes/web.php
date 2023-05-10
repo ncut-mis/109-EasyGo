@@ -64,14 +64,10 @@ Route::prefix('bloggers')->name('bloggers.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[BloggerRecipeController::class,'create'])->name('create');//新增食譜(基本資料)
         Route::post('/',[BloggerRecipeController::class,'store'])->name('store');//儲存食譜基本資料
-        Route::get('/add',BloggerRecipeAdd::class)->name('add');//新增食譜(其他資料)
-//        Route::get('/createNext',[BloggerRecipeController::class,'create_next'])->name('create_next');//新增食譜(步驟、食材...)
+        Route::get('/add',BloggerRecipeAdd::class)->name('add');//新增食譜(其他資料)--livewire
         Route::patch ('/{recipe}/launch',[BloggerRecipeController::class,'launch'])->name('launch');//上架
         Route::patch ('/{recipe}/stop',[BloggerRecipeController::class,'stop'])->name('stop');//下架
-        //Route::get('/{recipe}/edit',[BloggerRecipeController::class,'edit'])->name('edit');//食譜資料編輯
-        Route::get('/{recipe}/edit',BloggerRecipeEdit::class)->name('edit');//食譜資料編輯
-
-
+        Route::get('/{recipe}/edit',BloggerRecipeEdit::class)->name('edit');//食譜資料編輯--livewire
     });
 });
 

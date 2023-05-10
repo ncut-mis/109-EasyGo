@@ -31,19 +31,6 @@ return [
     'disks' => [
 
         //儲存至public下的某個資料夾
-        'public_recipe' => [
-            'driver' => 'local',
-            'root' => public_path('img'),
-            'url' => env('APP_URL').'/img',
-            'visibility' => 'public',
-        ],
-        'public_video' => [
-            'driver' => 'local',
-            'root' => public_path('video'),
-            'url' => env('APP_URL').'/video',
-            'visibility' => 'public',
-        ],
-
         'public_new' => [
             'driver' => 'local',
             'root' => public_path('/'),

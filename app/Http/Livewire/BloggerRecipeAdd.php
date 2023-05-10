@@ -10,6 +10,7 @@ use App\Models\RecipeFilm;
 use App\Models\RecipeImg;
 use App\Models\RecipeStep;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -25,6 +26,9 @@ class BloggerRecipeAdd extends Component
         $images = [],
         $videos = [];
     public $isSaved = false;
+
+    public $selectedCategory = null;
+    public $selectedCategoryInput = '';
 
     protected $rules = [
         'videos' => 'nullable|array',
@@ -129,6 +133,43 @@ class BloggerRecipeAdd extends Component
         unset($this->ingredients[$index]);
         $this->ingredients = array_values($this->ingredients);
     }
+    //選擇的食材填入input
+    public function select($name, $index)
+    {
+        //抓取選擇的食材名稱和id
+        $this->ingredients[$index]['name'] = $name;
+
+        $category = Category::where('name', $name)->first();
+        if ($category) {
+            $this->ingredients[$index]['category_id'] = $category->id;
+        }
+    }
+    public function handleEnter($value, $index)
+    {
+        $this->ingredients[$index]['name'] = $value;
+    }
+
+    public function IngredientSave()
+    {
+        $Ingredients = $this->ingredients;
+
+        foreach ($Ingredients as $index => $Ingredient) {
+            if (isset($Ingredient['name']) && !empty($Ingredient['name']) && !empty($Ingredient['quantity'])) {
+                Ingredient::create([
+                    'recipe_id' => $this->previousRecipeId,
+                    'name' => $Ingredient['name'],
+                    'category_id' => $Ingredient['category_id'],
+                    'quantity' =>$Ingredient['quantity']
+                ]);
+                session()->flash('message1', '新增食材成功!');
+            }else{
+                session()->flash('error', '請輸入完整資料!(名稱及用量)');
+            }
+        }
+        $this->ingredients = [];
+
+//        session()->flash('message1', '新增食材成功!');
+    }
 
 
 //<<<食譜步驟>>>
@@ -205,7 +246,9 @@ class BloggerRecipeAdd extends Component
             $this->steps[$key]['sequence'] = $key + 1;
         }
     }
-    public function StepUpdate()
+
+    //步驟更新
+    public function stepSave()
     {
         $steps=$this->steps;
         foreach ($steps as $index =>$step) {
@@ -242,15 +285,16 @@ class BloggerRecipeAdd extends Component
             }
         }
 
-        session()->flash('message2', '食譜步驟更新成功！');
+        session()->flash('message2', '步驟更新成功！');
     }
 
 
 
     public function render()
     {
+        $categories = Category::orderBy('id','ASC')->get();//食材類別
         return view('livewire.blogger-recipe-add', [
-
+            'categories' => $categories,
         ])->extends('members.layouts.master');
     }
 }
