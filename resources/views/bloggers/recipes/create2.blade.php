@@ -1,7 +1,5 @@
-
-
-@extends('layouts.master')
-@section('title','食譜名稱')
+@extends('members.layouts.master')
+@section('page-title', '其他資料')
 @section('content')
     <!-- Page Content-->
     <section class="py-5">

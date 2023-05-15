@@ -26,7 +26,7 @@
 
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">我的食譜</h1>
-                        <div class="d-grid gap-2 d-md-flex ">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <a class="btn btn-success btn-sm" href="{{route('bloggers.recipes.create')}}">新增</a>
                         </div>
 

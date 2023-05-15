@@ -16,9 +16,11 @@ class AdminProductController extends Controller
      */
     public function index()
     {
+//        $categories=Category::all();
         $products = Product::orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
         $data=[
-            'products'=>$products
+            'products'=>$products,
+//            'categories'=>$categories,
         ];
 
         return view('admins.products.index',$data);
@@ -43,7 +45,12 @@ class AdminProductController extends Controller
      */
     public function create()
     {
-        return view('admins.products.create');
+        //取得種類名稱
+        $categories=Category::all();
+        $data=[
+            'categories'=>$categories,
+        ];
+        return view('admins.products.create',$data);
     }
 
     /**
@@ -57,6 +64,7 @@ class AdminProductController extends Controller
 
         //資料驗證
         $this->validate($request,[
+            'category'=>'required',
             'name'=>'required',
             'brand'=>'required',
             'origin_place'=>'required',
@@ -67,25 +75,14 @@ class AdminProductController extends Controller
         //取得現在時間
         $created_at=date('y/n/j');
 
-//        //判斷種類為種類編號
-//        $categories=$request->categories;
-//        $categoryname=Category::all('name');
-//
-//        if ($categories == $categoryname) {
-//            $categoryid = Category::all('category_id');
-//        }
-//        else {
-//                print "產品種類輸入錯誤!";
-//        }
-
-        //儲存資料至products
         Product::create([
-            'category_id'=>'1',//修改
+            'category_id'=>$request->category,//種類
+            'status'=>'1',//皆為上架狀態
             'name'=>$request->name,
             'brand'=>$request->brand,
             'origin_place'=>$request->origin_place,
             'stock'=>$request->stock,
-            'norm'=>'/份',//修改
+            'norm'=>'/份',
             'price'=>$request->price,
             'text'=>$request->text,
             'created_at'=>$created_at,
@@ -94,13 +91,13 @@ class AdminProductController extends Controller
     }
 
 
-    public function show(Product $product)
+    public function show(Product $product )
     {
 
-
+        $categories=Category::all();
         $data=[
             'product'=>$product,
-
+            'categories'=>$categories,
         ];
         return view('admins.products.show',$data);
     }
@@ -113,8 +110,10 @@ class AdminProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $categories=Category::all();
         $data=[
             'product'=>$product,
+            'categories'=>$categories,
         ];
         return view('admins.products.edit',$data);
     }
@@ -126,18 +125,31 @@ class AdminProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, Product $product)
     {
-        $product = Product::find($id);
-
-        if ($product) {
-            $product->price= $request->input('price');
-             $product->name= $request->input('name');
-             $product->text= $request->input('text');
-            $product->save();
-            return redirect()->route('admins.products.index',$id);
-        }
-//        return redirect()->route('admins.products.index',$validatedData);
+//        $product = Product::find($id);
+//
+//        if ($product) {
+//            $product->category_id= $request->input('category');
+//            $product->price= $request->input('price');
+//            $product->name= $request->input('name');
+//            $product->brand= $request->input('brand');
+//            $product->origin_place= $request->input('origin_place');
+//            $product->stock= $request->input('stock');
+//            $product->text= $request->input('text');
+//            $product->save();
+//            return redirect()->route('admins.products.index',$id);
+//        }
+        $product->update([
+            'category_id'=>$request->category,//種類
+            'name'=>$request->name,
+            'brand'=>$request->brand,
+            'origin_place'=>$request->origin_place,
+            'stock'=>$request->stock,
+            'price'=>$request->price,
+            'text'=>$request->text,
+        ]);
+        return redirect()->route('admins.products.index');
     }
 
 
