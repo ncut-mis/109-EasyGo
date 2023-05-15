@@ -123,7 +123,6 @@
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button type="submit" class="btn btn-primary btn-lg">儲存</button>
-                        <button type="button" class="btn btn-danger btn-lg">取消</button>
                     </div>
                 </form>
                     <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
@@ -158,7 +157,6 @@
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button type="submit" class="btn btn-primary btn-lg">儲存</button>
-                        <button type="button" class="btn btn-danger btn-lg">取消</button>
                     </div>
                 </form>
 
@@ -185,7 +183,7 @@
                                                     <img src="{{ $steps[$index]['picture']->temporaryUrl() }}" alt="Step {{ $step['sequence'] }} picture" width="370px" height="350px">
                                                 @elseif(is_null($steps[$index]['picture']) || $step['picture'])
                                                     <img src="{{ asset('img/step/' . $step['picture']) }}" alt="Step {{ $step['sequence'] }} picture" width="370px" height="350px">
-                                                    <a href="#" wire:click.prevent="deleteStepImg({{ $step['id'] }})"><i class="fa fa-times text-danger mr-2"></i></a>
+{{--                                                    <a href="#" wire:click.prevent="deleteStepImg({{ $step['id'] }})"><i class="fa fa-times text-danger mr-2"></i></a>--}}
                                                 @endif
                                             </div>
                                             <div wire:loading wire:target="steps.{{ $index }}.picture">Uploading...</div>
@@ -232,7 +230,7 @@
                     </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="submit" class="btn btn-primary btn-lg">儲存</button>
-                            <button type="button" class="btn btn-danger btn-lg">取消</button>
+                            <a href="{{route('members.recipes.index')}}" type="submit" class="btn btn-secondary btn-lg">回列表</a>
                         </div>
                     </form>
 

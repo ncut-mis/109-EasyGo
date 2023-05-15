@@ -1,7 +1,7 @@
 <!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
     <div class="container px-lg-5">
-        <a class="navbar-brand" href="{{route('blog.new')}}">食材EasyGo</a>
+        <a class="navbar-brand" href="{{route('blog.new')}}">食譜EasyGo</a>
 
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 " action="{{route('members.recipes.search')}}" method="get">
@@ -17,8 +17,6 @@
                     <a class="nav-link" href="{{ route('product.product') }}">進入食材網&ensp;</a>
                 </li>
 
-
-
                       <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                           <ul class="navbar-nav">
                               <li class="nav-item dropdown">
@@ -26,13 +24,21 @@
                                       食譜類別
                                   </a>
                                   <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                      <li><a class="dropdown-item" href="{{route('blog.china')}}">中式</a></li>
-                                      <li><a class="dropdown-item" href="{{route('blog.western')}}">西式</a></li>
-                                      <li><a class="dropdown-item" href="{{route('blog.japan')}}">日式</a></li>
+                                      <li>
+                                      @foreach($categories as $category)
+                                          <a class="dropdown-item" href="{{route('members.recipes.categories',$category->id)}}"><!--抓取目前點選的category找出相關meals-->
+                                              <div class="sb-nav-link-icon">
+                                                  <i class="fas fa-tachometer-alt"></i>
+                                              </div>
+                                              {{$category->name}}
+                                          </a>
+                                      @endforeach
+                                      </li>
                                   </ul>
                               </li>
                           </ul>
                       </div>
+
                 @if(\Illuminate\Support\Facades\Auth::check())
                     @if(Auth::user()->type == '1')
                 <a class="nav-link link-light " aria-current="page"  href="{{route('bloggers.recipes.create')}}">寫食譜</a>

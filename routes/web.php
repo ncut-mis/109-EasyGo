@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
+use App\Http\Livewire\BloggerRecipeAdd;
 use App\Http\Livewire\BloggerRecipeEdit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -47,12 +48,6 @@ Route::get('/',[RecipeController::class,'index'])->name('blog.new');//首頁
 
 //平台人員登入
 Route::get('adminlogin',[AdminLoginController::class,'adminlogin'])->name('blog.adminlogin');
-//中式
-Route::get('china',[RecipeController::class,'china'])->name('blog.china');
-//西式
-Route::get('western',[RecipeController::class,'western'])->name('blog.western');
-//日式
-Route::get('japan',[RecipeController::class,'japan'])->name('blog.japan');
 
 
 //食譜頁面(選擇性路由
@@ -68,14 +63,11 @@ Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
 Route::prefix('bloggers')->name('bloggers.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[BloggerRecipeController::class,'create'])->name('create');//新增食譜(基本資料)
-        Route::get('/createNext/',[BloggerRecipeController::class,'create_next'])->name('create_next');//新增食譜(步驟、食材)
         Route::post('/',[BloggerRecipeController::class,'store'])->name('store');//儲存食譜基本資料
+        Route::get('/add',BloggerRecipeAdd::class)->name('add');//新增食譜(其他資料)--livewire
         Route::patch ('/{recipe}/launch',[BloggerRecipeController::class,'launch'])->name('launch');//上架
         Route::patch ('/{recipe}/stop',[BloggerRecipeController::class,'stop'])->name('stop');//下架
-        //Route::get('/{recipe}/edit',[BloggerRecipeController::class,'edit'])->name('edit');//食譜資料編輯
-        Route::get('/{recipe}/edit',BloggerRecipeEdit::class)->name('edit');//食譜資料編輯
-
-
+        Route::get('/{recipe}/edit',BloggerRecipeEdit::class)->name('edit');//食譜資料編輯--livewire
     });
 });
 
@@ -120,7 +112,8 @@ Route::prefix('members')->name('members.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[MemberController::class,'recipes'])->name('index');//我的食譜
         Route::get('show/{recipe}',[RecipeController::class,'show'])->name('show');//檢視某一食譜
-        Route::get('/search',[RecipeController::class,'search'])->name('search');//使用者搜尋食譜
+        Route::get('/search',[RecipeController::class,'search'])->name('search');//搜尋食譜
+        Route::get('/categories/{category}',[RecipeController::class,'category'])->name('categories');//食譜分類搜尋(下拉表單)
     });
 
     //會員-訂單

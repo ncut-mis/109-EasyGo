@@ -17,42 +17,44 @@ use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //食譜首頁
     public function index()
     {
         $recipes=Recipe::where('status','=',1)->get();//顯示上架食譜
+        $categories=RecipeCategory::orderBy('id','DESC')->get();
         $data=[
             'recipes' => $recipes,
+            'categories'=>$categories,
             ];
 
     return view('blog.new',$data);
-    }
-
-    public function china()
-    {
-        return view('blog.china');
-    }
-    public function western()
-    {
-        return view('blog.western');
-    }
-    public function japan()
-    {
-        return view('blog.japan');
     }
 
     //搜尋食譜
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $recipes = Recipe::query()->where('name', 'LIKE', "%{$search}%")->get();
-        //$categories=RecipeCategory::orderBy('id','DESC')->get();//sidenav顯示類別
-        $data=['recipes'=>$recipes];//index的sib需要類別的資料，記得給分類的資料
-        return view('members.recipes.search',$data);
+        $SearchRecipe = Recipe::query()->where('name', 'LIKE', "%{$search}%")->get();
+        $categories=RecipeCategory::orderBy('id','DESC')->get();//sidenav顯示類別
+        $data=[
+                'SearchRecipe'=>$SearchRecipe,
+                'categories'=>$categories,
+            ];
+        return view('blog.new',$data);
+    }
+
+    //食譜類別搜尋
+    public function category(RecipeCategory $category)
+    {
+
+        $categories=RecipeCategory::orderBy('id','DESC')->get();
+        $SearchRecipe=Recipe::where('recipe_category_id','=',$category->id)->get();//取得該類別的食譜
+        $data=[
+            'SearchRecipe'=>$SearchRecipe,
+            'categories'=>$categories
+        ];
+        //dd($recipes);
+        return view('blog.new',$data);
     }
 
 
@@ -135,21 +137,25 @@ class RecipeController extends Controller
     {
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    //食譜顯示資訊
     public function show(Recipe $recipe)
     {
+        //未登入
+        $isCollect = null;
+        $collect = null;
         //辨別該會員是否收藏此食譜
-        $member=Auth::user()->member;
-        $isCollect = Collect::where('member_id', $member->id)
-            ->where('recipe_id', $recipe->id)
-            ->exists();
-        $collect = Collect::where('member_id', $member->id)->where('recipe_id', $recipe->id)->first();
-       // $collectId = $collect->id;
+        if (Auth::check()) {
+            $member = Auth::user()->member;
+            $isCollect = Collect::where('member_id', $member->id)
+                ->where('recipe_id', $recipe->id)
+                ->exists();
+            if ($isCollect) {
+                $collect = Collect::where('member_id', $member->id)
+                    ->where('recipe_id', $recipe->id)
+                    ->first();
+            }
+        }
 
         //將會員跟留言連結
         $comments =
@@ -173,13 +179,14 @@ class RecipeController extends Controller
             $comment->sub_comments = getSubComment($recipe, $comment->id);
         }
         // print_r($comments);
-
+        $categories=RecipeCategory::orderBy('id','DESC')->get();
         $data = [
             'recipe' => $recipe,
             //'suggests'=>$suggests,
             'comments' => $comments,
             'isCollect'=>$isCollect,
-            'collect'=>$collect
+            'collect'=>$collect,
+            'categories'=>$categories
         ];
         return view('recipe.show', $data);
 

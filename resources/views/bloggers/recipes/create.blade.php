@@ -41,7 +41,7 @@
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">食譜類別</label>
                     <select class="form-select" aria-label="Default select example" name="recipe_category_id" id="recipe_category_id">
-                        <option selected>選擇食譜類別</option>
+                        <option value="" disabled selected style="display:none;">選擇食譜類別</option>
                         <!--迴圈抓取categories資料表資料-->
                         @foreach($recipe_categories as $recipe_category)
                             <option value="{{$recipe_category->id}}">{{$recipe_category->name}}</option>
@@ -69,12 +69,12 @@
                 </div>
 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="submit" class="btn btn-secondary btn-lg">下一頁</button>
+                    <button type="submit" class="btn btn-primary btn-lg">儲存</button>
                 </div>
 
                 </div>
-
                 </form>
+
             </div>
         </div>
     </section>
