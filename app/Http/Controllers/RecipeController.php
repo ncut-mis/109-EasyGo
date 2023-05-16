@@ -226,4 +226,14 @@ class RecipeController extends Controller
     {
         //
     }
+    public function List(Recipe $recipe)
+    {
+        $ingredients = Ingredient::where('recipe_id', '=', $recipe->id)
+            ->join('recipes', 'ingredients.recipe_id', '=', 'recipes.id')
+            ->join('categories', 'ingredients.category_id', '=', 'categories.id')
+            ->join('products', 'categories.id', '=', 'products.category_id')
+            ->select('categories.name as category_name' , 'products.name as product_name','products.id AS product_id','products.price AS product_price','products.norm AS product_norm')
+            ->get();
+        return $ingredients;
+    }
 }

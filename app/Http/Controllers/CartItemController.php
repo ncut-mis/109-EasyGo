@@ -140,6 +140,34 @@ class CartItemController extends Controller
         //
     }
 
+
+    public function easy(Request $request)
+    {
+        $user = Auth::user(); //目前使用者
+        $members = Member::where('user_id', $user->id)->get();
+        $product = $request->input('product');
+
+        foreach ($product as $key => $value) {
+            $item_count = Item::where('member_id', $members[0]->id)->where('product_id', $value['product_id'])->count();
+            if ($item_count == 0 and isset($value['suretobuy'])) {
+                if ($value['product_id'] != "0") {
+                    Item::create([
+                        'member_id' => $members[0]->id,
+                        'product_id' => $value['product_id'],
+                        'quantity' => $value['quantity']
+                    ]);
+                }
+            }
+
+        }
+
+        // Item::create([
+        //     'member_id' => $members[0]->id,
+        //     'product_id' => $request->input('pid'),
+        //     'quantity' => $request->input('quantity')
+        // ]);
+        return redirect()->back()->with('status', '系統提示：餐點已加入購物車');
+    }
     /**
      * Show the form for editing the specified resource.
      *
