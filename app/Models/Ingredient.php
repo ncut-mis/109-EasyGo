@@ -16,7 +16,7 @@ class Ingredient extends Model
         'remark',
         'quantity',
     ];
-    public function recipes(){
+    public function recipe(){
         //一項食材只屬於一個食譜
         return $this->belongsTo(Recipe::class);
     }
