@@ -13,10 +13,32 @@
         @csrf
         <div class="pt-4">
             <div class=" row mb-3">
-                <!--新增圖片-->
-{{--                <div class="mb-4">--}}
-{{--                    <input type="file" name="picture" id="picture" accept="image/*" class="form-control">--}}
+{{--                <!--食譜封面-->--}}
+{{--                <div class="mb-3">--}}
+{{--                    <label for="images">食譜封面</label>--}}
+
+{{--                    <input type="file" class="form-control" wire:model="images" id="images" name="images[]" accept="image/*" multiple>--}}
+{{--                    <div wire:loading wire:target="images">Uploading...</div>--}}
+{{--                    <div wire:loading.remove>--}}
+{{--                        @if ($images)--}}
+{{--                            <div>--}}
+{{--                                @foreach($images as $index => $image)--}}
+{{--                                    <img src="{{ $image->temporaryUrl() }}" width="350px" height="350px">--}}
+{{--                                    <a herf="#" wire:click.prevent="deleteUploadImg({{ $index }})"><i class="fa fa-times text-danger--}}
+{{--                                    mr-2"></i></a>--}}
+{{--                                @endforeach--}}
+{{--                            </div>--}}
+{{--                        @endif--}}
+{{--                    </div>--}}
+
 {{--                </div>--}}
+{{--                <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">--}}
+                <!--新增圖片-->
+                <div>
+                    <label for="images" class="form-label">食材圖片</label>
+                    <input type="file" name="images[]" multiple>
+                </div>
+
                 <div class="col-6">
                     <label for="exampleFormControlTextarea1" class="form-label">名稱</label>
                     <input name="name" id="name" type="text" class="form-control">
@@ -41,8 +63,17 @@
                     <!--改為下拉式選單-->
                     <label for="exampleFormControlInput1" class="form-label">種類</label>
                     <select name="category" id="category" class="form-select form-select" aria-label=".form-select example">
-                        @foreach($categories as $category)
-                            <option value="{{$category->id}}">{{$category->name}} </option>
+                        @foreach ($categories as $category)
+                            {{--類別第一階--}}
+                            @if ($category->category_id === null)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @foreach ($categories as $child)
+                                    {{--類別第二階--}}
+                                    @if ($child->category_id === $category->id)
+                                        <option value="{{ $child->id }}">- {{ $child->name }}</option>
+                                    @endif
+                                @endforeach
+                            @endif
                         @endforeach
                     </select>
                 </div>
