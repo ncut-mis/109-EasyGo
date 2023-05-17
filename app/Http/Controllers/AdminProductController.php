@@ -127,19 +127,6 @@ class AdminProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-//        $product = Product::find($id);
-//
-//        if ($product) {
-//            $product->category_id= $request->input('category');
-//            $product->price= $request->input('price');
-//            $product->name= $request->input('name');
-//            $product->brand= $request->input('brand');
-//            $product->origin_place= $request->input('origin_place');
-//            $product->stock= $request->input('stock');
-//            $product->text= $request->input('text');
-//            $product->save();
-//            return redirect()->route('admins.products.index',$id);
-//        }
         $product->update([
             'category_id'=>$request->category,//種類
             'name'=>$request->name,

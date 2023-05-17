@@ -183,7 +183,7 @@ class ProductController extends Controller
 
         $data=[
             'products'=>$products,
-              'products_img'=>$products_imgs,
+            'products_img'=>$products_imgs,
 
         ];
         return view('product.product', $data);

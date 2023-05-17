@@ -90,7 +90,7 @@ Route::prefix('product')->name('product.')->group(function(){
     Route::get('/keyword',[ProductController::class,'keyword'])->name('keyword');//使用者搜尋食譜
 
 });
-//賣場頁面(選擇性路由
+//賣場頁面
 Route::get('product',[ProductController::class,'product'])->name('product.product');
 
 //會員專區

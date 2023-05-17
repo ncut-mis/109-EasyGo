@@ -29,7 +29,7 @@
 {{--                                @method('POST')--}}
 {{--                            <div class="col-lg-6 col-xxl-4 mb-5 pt-5">--}}
 {{--                                <div class="card bg-light border-0 h-100 ">--}}
-{{--                                    <!--圖片-->--}}
+                                    <!--圖片-->
 {{--                                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">--}}
 {{--                                        <div class="carousel-inner">--}}
 {{--                                            <div class="carousel-item active">--}}

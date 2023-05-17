@@ -13,6 +13,10 @@
         @csrf
         <div class="pt-4">
             <div class=" row mb-3">
+                <!--新增圖片-->
+{{--                <div class="mb-4">--}}
+{{--                    <input type="file" name="picture" id="picture" accept="image/*" class="form-control">--}}
+{{--                </div>--}}
                 <div class="col-6">
                     <label for="exampleFormControlTextarea1" class="form-label">名稱</label>
                     <input name="name" id="name" type="text" class="form-control">
