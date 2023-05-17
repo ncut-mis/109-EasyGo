@@ -30,20 +30,13 @@ return [
 
     'disks' => [
 
-        //儲存至public/img下的某個資料夾
-        'public_recipe' => [
+        //儲存至public下的某個資料夾
+        'public_new' => [
             'driver' => 'local',
-            'root' => public_path('img'),
-            'url' => env('APP_URL').'/img',
+            'root' => public_path('/'),
+            'url' => env('APP_URL'),
             'visibility' => 'public',
         ],
-        'public_video' => [
-            'driver' => 'local',
-            'root' => public_path('video'),
-            'url' => env('APP_URL').'/video',
-            'visibility' => 'public',
-        ],
-
 
         'local' => [
             'driver' => 'local',

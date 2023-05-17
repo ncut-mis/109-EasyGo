@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
+use App\Http\Livewire\BloggerRecipeAdd;
 use App\Http\Livewire\BloggerRecipeEdit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -62,14 +63,11 @@ Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
 Route::prefix('bloggers')->name('bloggers.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[BloggerRecipeController::class,'create'])->name('create');//新增食譜(基本資料)
-        Route::get('/createNext/',[BloggerRecipeController::class,'create_next'])->name('create_next');//新增食譜(步驟、食材)
         Route::post('/',[BloggerRecipeController::class,'store'])->name('store');//儲存食譜基本資料
+        Route::get('/add',BloggerRecipeAdd::class)->name('add');//新增食譜(其他資料)--livewire
         Route::patch ('/{recipe}/launch',[BloggerRecipeController::class,'launch'])->name('launch');//上架
         Route::patch ('/{recipe}/stop',[BloggerRecipeController::class,'stop'])->name('stop');//下架
-        //Route::get('/{recipe}/edit',[BloggerRecipeController::class,'edit'])->name('edit');//食譜資料編輯
-        Route::get('/{recipe}/edit',BloggerRecipeEdit::class)->name('edit');//食譜資料編輯
-
-
+        Route::get('/{recipe}/edit',BloggerRecipeEdit::class)->name('edit');//食譜資料編輯--livewire
     });
 });
 
@@ -116,6 +114,7 @@ Route::prefix('members')->name('members.')->group(function(){
         Route::get('show/{recipe}',[RecipeController::class,'show'])->name('show');//檢視某一食譜
         Route::get('/search',[RecipeController::class,'search'])->name('search');//搜尋食譜
         Route::get('/categories/{category}',[RecipeController::class,'category'])->name('categories');//食譜分類搜尋(下拉表單)
+        Route::get('showList/{recipe}',[RecipeController::class,'List'])->name('List');//檢視某一食譜的訂單
     });
 
     //會員-訂單
@@ -135,6 +134,7 @@ Route::prefix('members')->name('members.')->group(function(){
 Route::get('index',[CartItemController::class,'index'])->name('members.cart_items.index');//購物車
 Route::post('remove',[CartItemController::class,'destroy'])->name('members.cart_items.remove');//刪除購物車商品
 Route::post('store',[CartItemController::class,'store'])->name('members.cart_items.store');//商品加入購物車
+Route::post('easy',[CartItemController::class,'easy'])->name('members.cart_items.easy'); //一鍵選購
 Route::post('update',[CartItemController::class,'update'])->name('members.cart_items.update');
 Route::get('finish',[CartItemController::class,'finish'])->name('members.cart_items.finish');//結帳
 Route::post('order', [OrderController::class, 'checkout'])->name('members.orders.checkout'); //下訂單
