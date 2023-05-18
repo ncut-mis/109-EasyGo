@@ -40,8 +40,15 @@
                       {{$category->id}} = {{$product->category_id}}
                         <option value="{{$category->id}}" selected>{{$category->name}}</option>
                     @endif
-
-                        <option value="{{$category->id}}">{{$category->name}} </option>
+                        @if ($category->category_id === null)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @foreach ($categories as $child)
+                                @if ($child->category_id === $category->id)
+                                    <option value="{{ $child->id }}">- {{ $child->name }}</option>
+                                @endif
+                            @endforeach
+                        @endif
+                    {{--<option value="{{$category->id}}">{{$category->name}} </option>--}}
                 @endforeach
             </select>
         </div>

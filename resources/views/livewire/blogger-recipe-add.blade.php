@@ -3,67 +3,13 @@
 
         <div class="container px-5 my-5 ">
             <div class="row gx-3">
-                @if(session('message'))
-                    <div class="alert alert-success">
-                        {{ session('message') }}
-                    </div>
-                @endif
 
-                    <p>前一頁面的食譜 ID：{{ $previousRecipeId }}</p>
-
-            @if(!$isSaved)
-                <form wire:submit.prevent="add" enctype="multipart/form-data">
-
-                        <!--食譜封面-->
-                        <div class="mb-3">
-                            <label for="images">食譜封面</label>
-
-                            <input type="file" class="form-control" wire:model="images" id="images" name="images[]" accept="image/*" multiple>
-                            <div wire:loading wire:target="images">Uploading...</div>
-                            <div wire:loading.remove>
-                            @if ($images)
-                                <div>
-                                    @foreach($images as $index => $image)
-                                        <img src="{{ $image->temporaryUrl() }}" width="350px" height="350px">
-                                        <a herf="#" wire:click.prevent="deleteUploadImg({{ $index }})"><i class="fa fa-times text-danger
-                                    mr-2"></i></a>
-                                    @endforeach
-                                </div>
-                            @endif
-                            </div>
-
-                        </div>
+                    <!--食譜資料-->
+                    <div class="mb-3">
+                        <h4>食譜名稱：{{ $recipe->name }}</h4>
+                        <h4>食譜簡介：{{ $recipe->text }}</h4>
                         <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
-
-                        <!--食譜影片-->
-                        <div class="mb-3">
-                            <label for="videos">食譜影片</label>
-                            <div>
-
-                            <input type="file" class="form-control"  wire:model="videos" id="videos" name="videos[]" accept="video/*" multiple>
-                            <div wire:loading wire:target="videos">Uploading...</div>
-                            <div wire:loading.remove>
-                                @if ($videos)
-                                    <div>
-                                        @foreach($videos as $index => $video)
-                                            <div class="mb-2">
-                                                <video src="{{ $video->temporaryUrl() }}" autoplay controls muted width="40%" height="350"></video>
-                                                <a href="#" wire:click.prevent="deleteUploadVideo({{ $index }})"><i class="fa fa-times text-danger mr-2"></i></a>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-
                     </div>
-
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="submit" class="btn btn-primary btn-lg">儲存</button>
-                    </div>
-                </form>
-                    <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
-            @endif
 
                 <!--食材-->
                     @if(session('message1'))
@@ -84,6 +30,7 @@
                         <thead>
                         <tr>
                             <th scope="col">名稱*</th>
+                            <th scope="col"> </th>
                             <th scope="col">建議</th>
                             <th scope="col">用量*</th>
                             <th scope="col"> </th>
@@ -92,41 +39,38 @@
 
                         <tbody>
                         @foreach($ingredients as $index => $ingredient)
-                            <tr>
 
+                            <tr>
                                 <td>
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" aria-label="Text input with dropdown button" wire:model="ingredients.{{ $index }}.name"  id="ingredient-{{ $index }}" wire:keydown.enter="handleEnter($event.target.value, {{ $index }})">
-                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">食材庫</button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                @foreach($categories as $category)
-                                                    {{--第一階--}}
-                                                    @if($category->category_id == null)
-                                                        <ul>
-                                                            <a class="dropdown-item" wire:model="ingredients.{{ $index }}.category_id" href="#" wire:click.prevent="select('{{ $category->name }}', {{ $index }})"><li>{{ $category->name }}</li></a>
-                                                            {{--第二階--}}
-                                                            @foreach($categories as $child)
-                                                                {{--屬於第一階的哪個id--}}
-                                                                @if($child->category_id == $category->id)
-                                                                    <ul>
-                                                                        <a class="dropdown-item" wire:model="ingredients.{{ $index }}.category_id" href="#" wire:click.prevent="select('{{$child->name }}', {{ $index }})">{{ $child->name }}</a>
-                                                                    </ul>
-                                                                @endif
-                                                            @endforeach
-                                                        </ul>
-                                                    @endif
-                                                @endforeach
-                                            </li>
-                                        </ul>
+                                    <div class="form-group">
+                                        <select class="form-select" aria-label="ingredient-{{ $index }}" wire:model="ingredients.{{ $index }}.category_id" wire:change="selectCategory({{ $index }}, $event.target.value)">
+                                            <option value="">食材庫</option>
+                                            @foreach ($categories as $category)
+                                                {{--類別第一階--}}
+                                                @if ($category->category_id === null)
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                        @foreach ($categories as $child)
+                                                        {{--類別第二階--}}
+                                                            @if ($child->category_id === $category->id)
+                                                                <option value="{{ $child->id }}">- {{ $child->name }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                @endif
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </td>
 
-{{--                                <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.name"></td>--}}
+                                <td>
+                                    @if ($showInput[$index])
+                                        <input type="text" class="form-control" wire:model="ingredients.{{ $index }}.name" placeholder="輸入食材名稱">
+                                    @endif
+                                </td>
                                 <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.remark"></td>
                                 <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.quantity" placeholder="ex：?/單位"></td>
                                 <td><button type="button" class="btn btn-lg" wire:click="removeList({{ $index }})"><img src="{{ asset('img/garbage.png') }}" width="30" height="30"></button></td>
                             </tr>
+
                         @endforeach
                         </tbody>
                     </table>
@@ -204,9 +148,71 @@
                     </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="submit" class="btn btn-primary btn-lg">儲存</button>
-                            <a href="{{route('members.recipes.index')}}" type="submit" class="btn btn-secondary btn-lg">回列表</a>
                         </div>
                     </form>
+                <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
+
+
+                @if(session('message'))
+                    <div class="alert alert-success">
+                        {{ session('message') }}
+                    </div>
+                @endif
+                    <!--食譜封面影片上傳-->
+                    @if(!$isSaved)
+                        <form wire:submit.prevent="add" enctype="multipart/form-data">
+
+                            <!--食譜封面-->
+                            <div class="mb-3">
+                                <label for="images">食譜封面</label>
+
+                                <input type="file" class="form-control" wire:model="images" id="images" name="images[]" accept="image/*" multiple>
+                                <div wire:loading wire:target="images">Uploading...</div>
+                                <div wire:loading.remove>
+                                    @if ($images)
+                                        <div>
+                                            @foreach($images as $index => $image)
+                                                <img src="{{ $image->temporaryUrl() }}" width="350px" height="350px">
+                                                <a herf="#" wire:click.prevent="deleteUploadImg({{ $index }})"><i class="fa fa-times text-danger
+                                    mr-2"></i></a>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
+
+                            </div>
+                            <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
+
+                            <!--食譜影片-->
+                            <div class="mb-3">
+                                <label for="videos">食譜影片</label>
+                                <div>
+
+                                    <input type="file" class="form-control"  wire:model="videos" id="videos" name="videos[]" accept="video/*" multiple>
+                                    <div wire:loading wire:target="videos">Uploading...</div>
+                                    <div wire:loading.remove>
+                                        @if ($videos)
+                                            <div>
+                                                @foreach($videos as $index => $video)
+                                                    <div class="mb-2">
+                                                        <video src="{{ $video->temporaryUrl() }}" autoplay controls muted width="40%" height="350"></video>
+                                                        <a href="#" wire:click.prevent="deleteUploadVideo({{ $index }})"><i class="fa fa-times text-danger mr-2"></i></a>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="submit" class="btn btn-primary btn-lg">儲存</button>
+                                <a href="{{route('members.recipes.index')}}" type="submit" class="btn btn-secondary btn-lg">回列表</a>
+                            </div>
+                        </form>
+                    @endif
+
             </div>
 
         </div>

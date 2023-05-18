@@ -43,7 +43,7 @@ class AdminProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //取得種類名稱
         $categories=Category::all();
@@ -61,7 +61,18 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
+        // 處理圖片上傳
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('img/product', $fileName);
 
+                // 關聯圖片與產品
+                $request->images()->create([
+                    'name' => $fileName,
+                ]);
+            }
+        }
         //資料驗證
         $this->validate($request,[
             'category'=>'required',
@@ -77,7 +88,7 @@ class AdminProductController extends Controller
 
         Product::create([
             'category_id'=>$request->category,//種類
-            'status'=>'1',//皆為上架狀態
+            'status'=>'2',//皆為下架狀態
             'name'=>$request->name,
             'brand'=>$request->brand,
             'origin_place'=>$request->origin_place,
@@ -88,6 +99,7 @@ class AdminProductController extends Controller
             'created_at'=>$created_at,
         ]);
         return redirect()->route('admins.products.index');
+
     }
 
 
@@ -127,19 +139,6 @@ class AdminProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-//        $product = Product::find($id);
-//
-//        if ($product) {
-//            $product->category_id= $request->input('category');
-//            $product->price= $request->input('price');
-//            $product->name= $request->input('name');
-//            $product->brand= $request->input('brand');
-//            $product->origin_place= $request->input('origin_place');
-//            $product->stock= $request->input('stock');
-//            $product->text= $request->input('text');
-//            $product->save();
-//            return redirect()->route('admins.products.index',$id);
-//        }
         $product->update([
             'category_id'=>$request->category,//種類
             'name'=>$request->name,

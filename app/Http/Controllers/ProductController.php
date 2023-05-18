@@ -178,12 +178,11 @@ class ProductController extends Controller
     {
         $id = $request->input('id');
         $products=Product::orderBy('id','DESC')->get();
-
-        $products_imgs=ProductImg::where('product_id','=',$id)->get();
+        $product_imgs=ProductImg::where('product_id','=',$id)->get();
 
         $data=[
             'products'=>$products,
-              'products_img'=>$products_imgs,
+            'product_img'=>$product_imgs,
 
         ];
         return view('product.product', $data);

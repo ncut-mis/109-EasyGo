@@ -16,7 +16,25 @@
                             <a class="btn btn-dark btn-sm" href="{{route('admins.products.index')}}">返回</a>
                         </div><br>
                         <!-- Preview image figure-->
-                       <figure class="mb-4"><img class="img-fluid rounded" src="https://www.pxmart.com.tw/Api/Images/133162494023417960.jfif" alt="..." /></figure>
+                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="https://www.pxmart.com.tw/Api/Images/133162494023417960.jfif" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="https://www.grxstatic.com/4f3rgqwzdznj/4A0uyWNYGgiXvKcFlEnPS6/a7df67c300dc9f0ffe66243c5802c87e/broccoli_green_background_829282730.jpg?format=pjpg&auto=webp&width=704" class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+{{--                       <figure class="mb-4"><img class="img-fluid rounded" src="https://www.pxmart.com.tw/Api/Images/133162494023417960.jfif" alt="..." /></figure>--}}
 
 
                                 <!-- Post title-->

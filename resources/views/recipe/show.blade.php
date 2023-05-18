@@ -44,67 +44,43 @@
                             <p>食譜名稱：{{$recipe->name}}</p>
                         </h2>
                     </div>
-                        <button type="button" id="btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#refund" data-bs-whatever="@123" >一鍵選購</button>
-                        <div class="modal fade" id="refund" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <form action="" method="post" >
+                    <button type="button" id="dss" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#refund" data-bs-whatever="@123">一鍵選購</button>
+                    <div class="modal fade" id="refund" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" keyboard="false" backdrop="false">
+                        <form action="{{route('members.cart_items.easy')}}" method="post">
+                            @csrf
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <!--標題-->
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col"></th>
+                                                <th scope="col">所需食材</th>
+                                                <th scope="col">選擇商品</th>
+                                                <th scope="col">數量</th>
+                                                <!-- <th scope="col">金額</th> -->
 
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <!--標題-->
-                                            <table class="table">
-                                                <thead>
-                                                <tr>
-                                                    <th scope="col"></th>
-                                                    <th scope="col">所需食材</th>
-                                                    <th scope="col">選擇商品</th>
-                                                    <th scope="col">數量</th>
-                                                    <th scope="col">金額</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="products">
 
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <th scope="row">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                            <label class="form-check-label" for="flexCheckDefault">
-                                                    </th>
-
-                                                    <th scope="row"></th>
-                                                    <td>
-                                                        <select >
-
-
-                                                        </select>
-                                                    </td>
-                                                    <td>   <select >
-                                                            <option value="1">1</option>
-                                                            <option value="2" selected>2</option>
-                                                            <option value="3">3</option>
-
-                                                        </select>
-                                                    </td>
-                                                    <td>$</td>
-
-                                                </tr>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                    </td>
-                                                    <td>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    </td>
-                                                    <td>
-                                                        <button type="submit" class="btn btn-primary refund">加入購物車</button>
-
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                            </tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-primary refund">加入購物車</button>
+                                                </td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
 
 
 
@@ -251,102 +227,188 @@
                 </div>
             </div>
 
-            <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
-            <!-- card 元件為外層-->
-            <div class="card">
-                <div class="card-header">
-                    <h2>留言區</h2>
-                </div>
+        <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
+        <!-- card 元件為外層-->
+        <div class="card">
+            <div class="card-header">
+                <h2>留言區</h2>
+            </div>
 
-                <div class="card-body">
-                    <!-- media object-->
-                    <div class="media">
+            <div class="card-body">
+                <!-- media object-->
+                <div class="media">
+
+                    <div class="media-body">
+                        <h5 class="mt-0">留言區</h5>
+                        <!--表單 textarea-->
+                        <form action="{{route('comment.create')}}" method="post">
+                            @csrf <!-- Laravel's built-in CSRF protection -->
+                            <div class="form-group">
+                                <input name="recipe_id" value="{{$recipe->id}}" style="display:none" />
+                                <textarea class="form-control" rows="3" name="content"></textarea>
+                                <!--讓 button 滿版寬使用 .btn-block-->
+                                <button class="btn btn-success btn-block mt-3">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- media object-->
+                @foreach($comments as $comment)
+                    <div class="media my-3">
 
                         <div class="media-body">
-                            <h5 class="mt-0">留言區</h5>
-                            <!--表單 textarea-->
-                            <form action="{{route('comment.create')}}" method="post">
-                                @csrf <!-- Laravel's built-in CSRF protection -->
-                                <div class="form-group">
-                                    <input name="recipe_id" value="{{$recipe->id}}" style="display:none" />
-                                    <textarea class="form-control" rows="3" name="content"></textarea>
-                                    <!--讓 button 滿版寬使用 .btn-block-->
-                                    <button class="btn btn-success btn-block mt-3">Submit</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- media object-->
-                    @foreach($comments as $comment)
-                        <div class="media my-3">
-
-                            <div class="media-body">
-                                <ul>
-                                    <li>
-                                        <div class="card mb-4 col-12 d-flex align-items-end">
-                                            <div class="card-body col-12">
+                            <ul>
+                                <li>
+                                    <div class="card mb-4 col-12 d-flex align-items-end">
+                                        <div class="card-body col-12">
+                                            <div class="d-flex flex-row align-items-center">
+                                                <img class="rounded-circle shadow-1-strong me-3" src="https://teameowdev.files.wordpress.com/2016/04/avatar-01.png?w=300&h=300" alt="avatar" width="40" height="40" />
+                                                <p class="small mb-0 ms-2">{{ $comment->nickname }}</p>
+                                            </div>
+                                            <p>{{ $comment->content }}</p>
+                                            <div class="d-flex justify-content-between">
                                                 <div class="d-flex flex-row align-items-center">
-                                                    <img class="rounded-circle shadow-1-strong me-3" src="https://teameowdev.files.wordpress.com/2016/04/avatar-01.png?w=300&h=300" alt="avatar" width="40" height="40" />
-                                                    <p class="small mb-0 ms-2">{{ $comment->nickname }}</p>
+                                                    <p class="small text-muted mb-0">發布時間: {{$comment->created_at}}</p>
+                                                    <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
+                                                    <button class="btn btn-primary ncB" id="nc{{$comment->id}}" type="none">留言</button>
+                                                    <!-- <p class="small text-muted mb-0">4</p> -->
                                                 </div>
-                                                <p>{{ $comment->content }}</p>
-                                                <div class="d-flex justify-content-between">
+                                            </div>
+                                        </div>
+                                        @foreach ($comment->sub_comments as $sub_comment)
+                                            <div class="card mb-4 col-10 ">
+
+                                                <div class="card-body">
                                                     <div class="d-flex flex-row align-items-center">
-                                                        <p class="small text-muted mb-0">發布時間: {{$comment->created_at}}</p>
-                                                        <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
-                                                        <!-- <p class="small text-muted mb-0">4</p> -->
+                                                        <img class="rounded-circle shadow-1-strong me-3" src="https://teameowdev.files.wordpress.com/2016/04/avatar-01.png?w=300&h=300" alt="avatar" width="40" height="40" />
+                                                        <p class="small mb-0 ms-2">{{ $sub_comment->nickname }}</p>
+                                                    </div>
+                                                    <p>{{ $sub_comment->content }}</p>
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="d-flex flex-row align-items-center">
+
+                                                            <!-- <div class="input-group mb-3">
+                                                                            <button class="btn btn-success input-group-text" id="inputGroup-sizing-default">送出</button>
+                                                                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                                                        </div> -->
+                                                            <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
+                                                            <!-- <p class="small text-muted mb-0">4</p> -->
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            @foreach ($comment->sub_comments as $sub_comment)
-                                                <div class="card mb-4 col-10 ">
-
-                                                    <div class="card-body">
-                                                        <div class="d-flex flex-row align-items-center">
-                                                            <img class="rounded-circle shadow-1-strong me-3" src="https://teameowdev.files.wordpress.com/2016/04/avatar-01.png?w=300&h=300" alt="avatar" width="40" height="40" />
-                                                            <p class="small mb-0 ms-2">{{ $sub_comment->nickname }}</p>
-                                                        </div>
-                                                        <p>{{ $sub_comment->content }}</p>
-                                                        <div class="d-flex justify-content-between">
-                                                            <div class="d-flex flex-row align-items-center">
-
-                                                                <!-- <div class="input-group mb-3">
-                                                                    <button class="btn btn-success input-group-text" id="inputGroup-sizing-default">送出</button>
-                                                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                                                </div> -->
-                                                                <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
-                                                                <!-- <p class="small text-muted mb-0">4</p> -->
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                        @endforeach
+                                        <form class="card-footer py-3 border-0 col-12 my-0" style="background-color: #f8f9fa;display:none;" action="{{route('comment.create')}}" method="post" id="nestComment{{ $comment->id }}">
+                                            @csrf
+                                            <div class="d-flex flex-start w-100">
+                                                <img class="rounded-circle shadow-1-strong me-3" src="https://teameowdev.files.wordpress.com/2016/04/avatar-01.png?w=300&h=300" alt="avatar" width="40" height="40" />
+                                                <div class="form-outline w-100">
+                                                    <input type="text" style="display:none" name="recipe_id" value="{{ $comment->recipe_id }}">
+                                                    <input type="text" style="display:none" name="comment_id" value="{{ $comment->id }}">
+                                                    <textarea name="content" class="form-control" id="textAreaExample" rows="4" style="background: #fff;"></textarea>
+                                                    <label class="form-label" for="textAreaExample">留ㄍ言吧......</label>
                                                 </div>
-                                            @endforeach
-                                            <form class="card-footer py-3 border-0 col-12 my-0" style="background-color: #f8f9fa;" action="{{route('comment.create')}}" method="post">
-                                                @csrf
-                                                <div class="d-flex flex-start w-100">
-                                                    <img class="rounded-circle shadow-1-strong me-3" src="https://teameowdev.files.wordpress.com/2016/04/avatar-01.png?w=300&h=300" alt="avatar" width="40" height="40" />
-                                                    <div class="form-outline w-100">
-                                                        <input type="text" style="display:none" name="recipe_id" value="{{ $comment->recipe_id }}">
-                                                        <input type="text" style="display:none" name="comment_id" value="{{ $comment->id }}">
-                                                        <textarea name="content" class="form-control" id="textAreaExample" rows="4" style="background: #fff;"></textarea>
-                                                        <label class="form-label" for="textAreaExample">留ㄍ言吧......</label>
-                                                    </div>
-                                                </div>
-                                                <div class="float-end mt-2 pt-1">
-                                                    <button type="submit" class="btn btn-primary btn-sm">回覆</button>
-                                                    <!-- <button type="button" class="btn btn-outline-primary btn-sm">清除</button> -->
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                                            </div>
+                                            <div class="float-end mt-2 pt-1">
+                                                <button type="submit" class="btn btn-primary btn-sm">回覆</button>
+                                                <!-- <button type="button" class="btn btn-outline-primary btn-sm">清除</button> -->
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
             </div>
+        </div>
 
 
         </div>
     </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('button.ncB').click(function() {
+                var id = $(this).attr('id');
+                var id = id.replace('nc', '');
+                $('#nestComment' + id).toggle();
+                console.log('#nestComment' + id)
+            });
+        });
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#refund").on("hidden.bs.modal", function() {
+                location.reload();
+            });
+            $("#dss").click(function() {
+
+                // 送出 Ajax
+                $.ajax({
+                    url: "{{route('members.recipes.List',$recipe->id)}}",
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+
+                        let appendHtml = ``;
+                        let orderListCategoryGroup = data.reduce((group, product) => {
+                            const {
+                                category_name
+                            } = product;
+                            group[category_name] = group[category_name] ?? [];
+                            group[category_name].push(product);
+                            return group;
+                        }, [])
+                        console.log(orderListCategoryGroup)
+
+                        let category_name = Object.keys(orderListCategoryGroup)
+                        category_name.forEach((category_name, index) => {
+
+                            let html = `<tr>
+                            <td>
+                                <input type="checkbox" name="product[${index}][suretobuy]" checked>
+                            </td>
+                            <td>
+                                <h4>${category_name}</h4>
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" id="quantity" value="1" placeholder="數量" name="product[${index}][quantity]">
+                            </td>
+                            <!--td>
+                                <h4 class="price"></h4>
+                            </td--!>
+                        </tr>`
+                    //商品
+
+                            $('#products').append(html)//append是在被選元素的结尾插入指定内容，html-返回被選元素的html
+
+                            orderListCategoryGroup[category_name].forEach((product) => {
+                                const {
+                                    product_name,
+                                    product_id,
+                                    product_price,
+                                    product_norm
+                                } = product;
+                                let option = `<option value="${product_id}">${product_name}</option>`
+                                let price = `${product_price} ${product_norm}`
+                                $('.selectProduct').eq(index).append(option)
+                                // $('.price').eq(index).append(price)
+                            })
+
+                        })
+
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
