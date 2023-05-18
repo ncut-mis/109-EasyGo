@@ -29,7 +29,7 @@
 {{--                                @method('POST')--}}
 {{--                            <div class="col-lg-6 col-xxl-4 mb-5 pt-5">--}}
 {{--                                <div class="card bg-light border-0 h-100 ">--}}
-{{--                                    <!--圖片-->--}}
+                                    <!--圖片-->
 {{--                                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">--}}
 {{--                                        <div class="carousel-inner">--}}
 {{--                                            <div class="carousel-item active">--}}
@@ -73,7 +73,18 @@
                         <!--典籍進入詳細葉面-->
                         <div class="pt-5">
                             <div class="card ht border-0 h-100 ">
-                                <td>   <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
+                                <td>   <img class="card-img-top" src="{{$product->productImgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
+                                <!--圖片-->
+{{--                                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">--}}
+{{--                                    <div class="carousel-inner">--}}
+{{--                                        @foreach ($product->productImgs as $productImg)--}}
+{{--                                            <div class="carousel-item active">--}}
+{{--                                                <img src="{{asset('img/product/'.$productImg->picture)}}" width="350" height="250">--}}
+{{--                                            </div>--}}
+{{--                                        @endforeach--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+
                                     <!-- Product details-->
                                     <div class="card-body p-4">
                                         <div class="text-center">

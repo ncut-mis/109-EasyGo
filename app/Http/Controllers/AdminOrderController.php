@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderDetali;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -167,23 +168,25 @@ class AdminOrderController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $order_details=OrderDetali::where('order_id',$request->id)->get();
+        foreach ($order_details as $order_detail){
+            OrderDetali::destroy($order_detail->id);
+        }
+        Order::destroy($request->id);
+        return redirect()->route('admins.orders.index');
     }
+
     public function update_check(Order $order){
         $order->update([
             'status'=>1,
         ]);
         return redirect()->route('admins.orders.index');
     }
-    public function update_cancel(Order $order){
+
+    public function update_cancel(Request $request){
+        $order=Order::find($request->id);
         $order->update([
             'status'=>6,
         ]);
