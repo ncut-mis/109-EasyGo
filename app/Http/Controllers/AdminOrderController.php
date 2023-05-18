@@ -183,7 +183,8 @@ class AdminOrderController extends Controller
         ]);
         return redirect()->route('admins.orders.index');
     }
-    public function update_cancel(Order $order){
+    public function update_cancel(Request $request){
+        $order=Order::find($request->id);
         $order->update([
             'status'=>6,
         ]);

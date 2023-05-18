@@ -60,21 +60,6 @@
                     @endif
                 </td>
                 <td style="width:300px">
-{{--                    <form>--}}
-{{--                        <div class="input-group pe-3">--}}
-{{--                            <select class="form-select" id="status" aria-label="Example select with button addon">--}}
-{{--                                <option value="0" {{($order->status==0)?'selected':''}}>審核中</option>--}}
-{{--                                <option value="1" {{($order->status==1)?'selected':''}}>已成立</option>--}}
-{{--                                <option value="2" {{($order->status==2)?'selected':''}}>出貨中</option>--}}
-{{--                                <option value="3" {{($order->status==3)?'selected':''}}>已出貨</option>--}}
-{{--                                <option value="4" {{($order->status==4)?'selected':''}}>已送達</option>--}}
-{{--                                <option value="5" {{($order->status==5)?'selected':''}}>已完成</option>--}}
-{{--                                <option value="6" {{($order->status==6)?'selected':''}}>已取消</option>--}}
-{{--                            </select>--}}
-{{--                            <button class="btn btn-outline-secondary" type="submit">Button</button>--}}
-{{--                        </div>--}}
-{{--                    </form>--}}
-
                     @switch ($order->status)    //辨識訂單狀態
                     @case(0)
                         訂單審核中
@@ -112,25 +97,17 @@
                             <button type="submit" class="btn btn-success btn-sm">確認</button>
                         </form>
                     @elseif($order->status==7)
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#cancelModal" data-bs-whatever="{{$order->id}}">
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#cancelModal" data-bs-whatever="{{$order->id}}" data-bs-any="{{$order->remark}}">
                             查看
                         </button>
-{{--                        <form action="{{route('admins.orders.update_cancel',$order->id)}}" method="post" class="col" style="display: inline-block">--}}
-{{--                            @method('patch')--}}
-{{--                            <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->--}}
-{{--                            @csrf--}}
-{{--                            <button type="submit" class="btn btn-danger btn-sm">取消</button>--}}
-{{--                        </form>--}}
                     @elseif($order->status==5 || $order->status==6)
 
                     @else
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{$order->id}}" data-bs-any="{{$order->remark}}">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{$order->id}}">
                             修改狀態
                         </button>
                     @endif
-
                 </td>
-
                 <td style="width: 250px">
 
                     <a href="{{route('admins.orders.show',$order->id)}}" class=" btn btn-primary btn-sm">詳細資料</a>
@@ -138,28 +115,6 @@
             @endforeach
             </tbody>
         </table>
-{{--            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
-{{--                <div class="modal-dialog">--}}
-{{--                    <div class="modal-content">--}}
-{{--                        <div class="modal-header">--}}
-{{--                            <h5 class="modal-title" id="exampleModalLabel">New message</h5>--}}
-{{--                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="modal-body">--}}
-{{--                                <div class="mb-3">--}}
-{{--                                    <label for="recipient-name" class="col-form-label">Recipient:</label>--}}
-{{--                                    <input type="text" class="form-control" id="recipient-name">--}}
-{{--                                </div>--}}
-{{--                            --}}
-{{--                        </div>--}}
-{{--                        <div class="modal-footer">--}}
-{{--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--}}
-{{--                            <button type="button" class="btn btn-primary">Send message</button>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
         <!--修改狀態-->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -181,7 +136,7 @@
                             </select>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-warning">儲存</button>
+                            <button type="submit" class="btn btn-success">儲存</button>
                         </div>
                     </form>
 
@@ -189,11 +144,11 @@
             </div>
         </div>
         <!--取消訂單-->
-        <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">取消訂單</h5>
+                        <h5 class="modal-title" id="cancelModalLabel">取消訂單</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form action="{{route('admins.orders.update_cancel',$order->id)}}" method="post" class="col">
@@ -202,22 +157,36 @@
                         @csrf
                         <div class="modal-body">
                             <input type="hidden" class="form-control" id="id" name="id">
-                            <label>取消理由</label>
-                            <textarea class="form-control" id="remark" name="remark" rows="3"></textarea>
-
+                            <label class="fw-bolder">取消理由</label>
+                            <div class="shadow-sm p-3 bg-body rounded" id="remark" name="remark" rows="3" disabled></div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-warning">確認</button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
     <script>
+        //修改狀態
         var exampleModal = document.getElementById('exampleModal')
         exampleModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget    //不懂甚麼意思
+            // Extract info from data-bs-* attributes
+            var recipient = button.getAttribute('data-bs-whatever') //取得按鈕中data-bs-whatever的屬性值
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            var modalBodyInput = exampleModal.querySelector('.modal-body input') //指定modalbody中的input標籤
+
+            modalBodyInput.value = recipient    //將input的值設定為recipient
+        })
+        //取消訂單審核
+        var cancelModal = document.getElementById('cancelModal')
+        cancelModal.addEventListener('show.bs.modal', function (event) {
             // Button that triggered the modal
             var button = event.relatedTarget    //不懂甚麼意思
             // Extract info from data-bs-* attributes
@@ -225,13 +194,12 @@
             var remark = button.getAttribute('data-bs-any')
             // If necessary, you could initiate an AJAX request here
             // and then do the updating in a callback.
-            //
             // Update the modal's content.
-            var modalBodyInput = exampleModal.querySelector('.modal-body input') //指定modalbody中的input標籤
-            var modalBodyTextarea = exampleModal.querySelector('.modal-body textarea') //指定modalbody中的input標籤
+            var modalBodyInput = cancelModal.querySelector('.modal-body input') //指定modalbody中的input標籤
+            var modalBodyTextarea = cancelModal.querySelector('#remark') //指定modalbody中的textarea標籤
 
             modalBodyInput.value = recipient    //將input的值設定為recipient
-            modalBodyTextarea.value = remark
+            modalBodyTextarea.textContent = remark  //將textarea的值設為remark
         })
     </script>
 @endsection
