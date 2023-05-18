@@ -201,6 +201,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             Route::patch('/{order}/update_check',[AdminOrderController::class,'update_check'])->name('update_check');//確認訂單
             Route::patch('/{order}/update_cancel',[AdminOrderController::class,'update_cancel'])->name('update_cancel');//訂單取消狀態
             Route::patch('/{order}',[AdminOrderController::class,'update'])->name('update');//修改訂單狀態
+            Route::delete('/{order}',[AdminOrderController::class,'destroy'])->name('delete');//刪除訂單
         });
     });
 

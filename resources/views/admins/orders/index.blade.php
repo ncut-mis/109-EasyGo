@@ -60,6 +60,7 @@
                     @endif
                 </td>
                 <td style="width:300px">
+                    <!--區分訂單狀態碼-->
                     @switch ($order->status)    //辨識訂單狀態
                     @case(0)
                         訂單審核中
@@ -111,7 +112,7 @@
                 <td style="width: 250px">
 
                     <a href="{{route('admins.orders.show',$order->id)}}" class=" btn btn-primary btn-sm">詳細資料</a>
-                    <button type="button" class="col btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#order{{$order->id}}" data-bs-whatever="@123">刪除</button>
+                    <button type="button" class="col btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-whatever="{{$order->id}}">刪除</button>
             @endforeach
             </tbody>
         </table>
@@ -167,6 +168,29 @@
                 </div>
             </div>
         </div>
+        <!--刪除訂單提醒-->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">警告</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{route('admins.orders.delete',$order->id)}}" method="post" class="col">
+                        @method('delete')
+                        <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
+                        @csrf
+                        <div class="modal-body">
+                            <input type="hidden" class="form-control" id="id" name="id">
+                            <label class="fw-bolder">將一同刪除相關訂單明細，是否確認刪除？</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">確認</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
         //修改狀態
@@ -200,6 +224,19 @@
 
             modalBodyInput.value = recipient    //將input的值設定為recipient
             modalBodyTextarea.textContent = remark  //將textarea的值設為remark
+        })
+        //修改狀態
+        var deleteModal = document.getElementById('deleteModal')
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget    //不懂甚麼意思
+            // Extract info from data-bs-* attributes
+            var recipient = button.getAttribute('data-bs-whatever') //取得按鈕中data-bs-whatever的屬性值
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            // Update the modal's content.
+            var modalBodyInput = deleteModal.querySelector('.modal-body input') //指定modalbody中的input標籤
+            modalBodyInput.value = recipient    //將input的值設定為recipient
         })
     </script>
 @endsection
