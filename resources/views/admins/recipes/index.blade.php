@@ -2,7 +2,8 @@
 
 @section('page-title', '食譜列表')
 
-@section('page-content')
+@section('content')
+
     <section class="pt-4">
         <div class="container-fluid px-4">
             <h1 class="mt-4">食譜管理</h1>
@@ -10,7 +11,7 @@
                 <li class="breadcrumb-item active">食譜一覽表</li>
             </ol>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a class="btn btn-success btn-sm" href="#">新增</a>
+                <a class="btn btn-success btn-sm" href="{{route('admins.recipes.create')}}">新增</a>
             </div>
             <table class="table">
                 <thead>
@@ -49,7 +50,7 @@
                         @endif
 
                         <td class="col-2">
-                            <a href="#" type="button" class="btn btn-primary btn-sm">詳細資料</a>
+                            <a href="#" type="button" class="btn btn-primary btn-sm">編輯</a>
 
                             <!--刪除-->
                             <form action="" method="POST" style="display: inline-block">

@@ -2,7 +2,7 @@
 
 @section('page-title', '新增商品')
 
-@section('page-content')
+@section('content')
 <div class="container-fluid px-4">
     <h1 class="mt-4">新增商品</h1>
 

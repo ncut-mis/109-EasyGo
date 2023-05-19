@@ -77,7 +77,6 @@ class BloggerRecipeController extends Controller
 
         //將新增的食譜id傳到下一頁
         return redirect()->route('bloggers.recipes.add',$data);
-//        return view('livewire.blogger-recipe-add',$data);
         // 如果資料驗證失敗，自動回傳錯誤訊息並返回上一頁
         return back()->withErrors($validator)->withInput();
 

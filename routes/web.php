@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
+use App\Http\Livewire\AdminRecipeAdd;
 use App\Http\Livewire\BloggerRecipeAdd;
 use App\Http\Livewire\BloggerRecipeEdit;
 use Illuminate\Support\Facades\Auth;
@@ -42,9 +43,6 @@ Route::get('/search',[RecipeController::class,'search'])->name('search');//搜�
 
 //食譜部落格
 Route::get('/',[RecipeController::class,'index'])->name('blog.new');//首頁
-//Route::get('/',function (){return '123456789';})->name('blog.new');//首頁
-
-
 
 //平台人員登入
 Route::get('adminlogin',[AdminLoginController::class,'adminlogin'])->name('blog.adminlogin');
@@ -52,11 +50,6 @@ Route::get('adminlogin',[AdminLoginController::class,'adminlogin'])->name('blog.
 
 //食譜頁面(選擇性路由
 Route::get('recipe',[RecipeController::class,'recipe'])->name('recipe.recipe');
-
-//部落客
-//Route::get('create',[BloggerRecipeController::class,'create'])->name('bloggers.recipes.create');
-//Route::get('create2',[BloggerRecipeController::class,'create2'])->name('bloggers.recipes.create2');
-
 
 
 //部落客
@@ -109,6 +102,7 @@ Route::prefix('members')->name('members.')->group(function(){
         Route::delete('/{collect}',[CollectController::class,'destroy'])->name('destroy');//取消食譜收藏
     });
 
+    //食譜
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[MemberController::class,'recipes'])->name('index');//我的食譜
         Route::get('show/{recipe}',[RecipeController::class,'show'])->name('show');//檢視某一食譜
@@ -167,14 +161,17 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 
     //平台人員
-
     Route::prefix('admins')->name('admins.')->group(function () {
+        //食譜
         Route::prefix('recipes')->name('recipes.')->group(function(){
-            Route::get('/',[AdminRecipeController::class,'index'])->name('index');//餐點列表
+            Route::get('/',[AdminRecipeController::class,'index'])->name('index');//食譜列表
             Route::patch ('/{recipe}/launch',[AdminRecipeController::class,'launch'])->name('launch');//上架
             Route::patch ('/{recipe}/stop',[AdminRecipeController::class,'stop'])->name('stop');//下架
-            Route::get('/create', [AdminRecipeController::class, 'create'])->name('create');//新增餐點頁面
+            Route::get('/create', [AdminRecipeController::class, 'create'])->name('create');//新增食譜(基本資料)
+            Route::post('/store',[AdminRecipeController::class,'store'])->name('store');//儲存食譜基本資料
+            Route::get('/add',AdminRecipeAdd::class)->name('add');//新增食譜(其他資料)--
         });
+
         //食材
         Route::get('/logins',[AdminLoginController::class,'index'])->name('login.index');//商品列表
         Route::get('/products',[AdminProductController::class,'index'])->name('products.index');//商品列表

@@ -2,7 +2,7 @@
 
 @section('page-title', '訂單列表')
 
-@section('page-content')
+@section('content')
     <div class="container-fluid px-4">
         <h1 class="mt-4">訂單管理</h1>
         <ol class="breadcrumb mb-4">

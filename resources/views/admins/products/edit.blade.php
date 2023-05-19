@@ -1,6 +1,6 @@
 @extends('admins.layouts.master')
 @section('page-title','食材')
-@section('page-content')
+@section('content')
 
 <form action="{{route('admins.products.update',$product)}}"  method="post"  enctype="multipart/form-data">
     @method('patch')
