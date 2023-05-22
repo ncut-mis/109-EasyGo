@@ -225,7 +225,7 @@
             modalBodyInput.value = recipient    //將input的值設定為recipient
             modalBodyTextarea.textContent = remark  //將textarea的值設為remark
         })
-        //修改狀態
+        //刪除訂單
         var deleteModal = document.getElementById('deleteModal')
         deleteModal.addEventListener('show.bs.modal', function (event) {
             // Button that triggered the modal
