@@ -14,7 +14,7 @@
                         <a class="nav-link active" aria-current="page" href="{{route('members.recipes.index')}}">我的食譜</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('members.collects')}}">食譜收藏</a>
+                        <a class="nav-link" href="{{route('members.collects.index')}}">食譜收藏</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('members.orders.index')}}">我的訂單</a>
