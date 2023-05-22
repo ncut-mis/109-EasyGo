@@ -26,7 +26,7 @@
                 <div class="container-fluid px-4">
                     <!-- Main Content -->
                     <div>
-                        <h4 for="exampleFormControlInput1" class="col-sm-2  mt-2">運送狀態</h4>
+                        <h4 for="exampleFormControlInput1" class="col-sm-2  mt-2">訂單狀態</h4>
                         <div class=" bg-light p-3 border">
                             @switch($order->status)
                                 @case(0)
