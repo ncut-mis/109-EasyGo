@@ -62,6 +62,7 @@ Route::prefix('bloggers')->name('bloggers.')->group(function(){
         Route::patch ('/{recipe}/launch',[BloggerRecipeController::class,'launch'])->name('launch');//上架
         Route::patch ('/{recipe}/stop',[BloggerRecipeController::class,'stop'])->name('stop');//下架
         Route::get('/{recipe}/edit',BloggerRecipeEdit::class)->name('edit');//食譜資料編輯--livewire
+        Route::delete('/{recipe}',[BloggerRecipeController::class,'destroy'])->name('destroy');//刪除食譜
     });
 });
 
@@ -172,7 +173,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             Route::post('/store',[AdminRecipeController::class,'store'])->name('store');//儲存食譜(基本資料)
             Route::get('/add',AdminRecipeAdd::class)->name('add');//新增食譜(其他資料)--livewire
             Route::get('/{recipe}/edit',AdminRecipeEdit::class)->name('edit');//食譜資料編輯--livewire
-            Route::delete('/{recipe}',[AdminRecipeController::class,'destroy'])->name('destroy');
+            Route::delete('/{recipe}',[AdminRecipeController::class,'destroy'])->name('destroy');//刪除食譜
         });
 
         //食材
