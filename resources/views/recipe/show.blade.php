@@ -170,7 +170,7 @@
                                             <tr>
                                                 <th scope="col"><h4>名稱</h4></th>
                                                 <th scope="col"><h4>推薦</h4></th>
-                                                <th scope="col"><h4>數量</h4></th>
+                                                <th scope="col"><h4>用量</h4></th>
                                             </tr>
                                         </thead>
                                         <tbody>

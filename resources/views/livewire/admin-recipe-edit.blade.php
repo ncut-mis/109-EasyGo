@@ -321,12 +321,12 @@
                                 </div>
 
                             </div>
-                    </div>
                         @endforeach
-
+                    </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button type="submit" class="btn btn-primary btn-lg">儲存</button>
-                            <a href="{{route('members.recipes.index')}}" class="btn btn-secondary btn-lg">回列表</a>
+                            <a href="{{route('admins.recipes.index')}}"  class="btn btn-secondary btn-lg">回列表</a>
+
                         </div>
                     </form>
 

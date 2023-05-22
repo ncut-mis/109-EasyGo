@@ -15,6 +15,7 @@ use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
 use App\Http\Livewire\AdminRecipeAdd;
+use App\Http\Livewire\AdminRecipeEdit;
 use App\Http\Livewire\BloggerRecipeAdd;
 use App\Http\Livewire\BloggerRecipeEdit;
 use Illuminate\Support\Facades\Auth;
@@ -168,8 +169,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             Route::patch ('/{recipe}/launch',[AdminRecipeController::class,'launch'])->name('launch');//上架
             Route::patch ('/{recipe}/stop',[AdminRecipeController::class,'stop'])->name('stop');//下架
             Route::get('/create', [AdminRecipeController::class, 'create'])->name('create');//新增食譜(基本資料)
-            Route::post('/store',[AdminRecipeController::class,'store'])->name('store');//儲存食譜基本資料
+            Route::post('/store',[AdminRecipeController::class,'store'])->name('store');//儲存食譜(基本資料)
             Route::get('/add',AdminRecipeAdd::class)->name('add');//新增食譜(其他資料)--livewire
+            Route::get('/{recipe}/edit',AdminRecipeEdit::class)->name('edit');//食譜資料編輯--livewire
         });
 
         //食材

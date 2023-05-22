@@ -50,7 +50,7 @@
                         @endif
 
                         <td class="col-2">
-                            <a href="#" type="button" class="btn btn-primary btn-sm">編輯</a>
+                            <a href="{{route('admins.recipes.edit',$recipe->id)}}" type="button" class="btn btn-primary btn-sm">編輯</a>
 
                             <!--刪除-->
                             <form action="" method="POST" style="display: inline-block">
