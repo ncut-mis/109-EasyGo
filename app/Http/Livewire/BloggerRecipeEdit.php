@@ -4,11 +4,13 @@ namespace App\Http\Livewire;
 
 use App\Models\Category;
 use App\Models\Ingredient;
+use App\Models\Product;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
 use App\Models\RecipeFilm;
 use App\Models\RecipeImg;
 use App\Models\RecipeStep;
+use App\Models\Suggest;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -23,11 +25,17 @@ class BloggerRecipeEdit extends Component
            $text,
            $recipe_category_id,
            $status,
-           $steps = [],
-           $ingredients = [],
-           $originalSteps = [],
            $images = [],
-           $videos = [];
+           $videos = [],
+
+           $ingredients = [],
+           $suggests=[],
+
+           $steps = [],
+           $originalSteps = [];
+
+    public $showInput = [];//推薦自行輸入框
+    public $products= [];
 
 
     protected $rules = [
@@ -48,7 +56,31 @@ class BloggerRecipeEdit extends Component
         $this->images = $recipe->images;
         $this->videos = $recipe->videos;
         $this->status = $recipe->status;
+
         $this->ingredients = $recipe->ingredients->toArray();
+        //將顯示輸入框與否陣列初始化為指定數量的元素
+        $this->showInput = array_fill(0, count($this->ingredients), false);
+
+        //從建議資料表中獲取所有建議資料
+        $suggests = Suggest::all();
+        //將建議按照食材id分為各組
+        $Suggests = $suggests->groupBy('ingredient_id');
+
+        //將食材對應的建議資料添加到各食材中
+        foreach ($this->ingredients as $index => $ingredient) {
+            $ingredientId = $ingredient['id'];
+
+            //建議分組中資料加入對應的食材陣列中
+            if ($Suggests->has($ingredientId)) {
+                $ingredient['suggests'] = $Suggests[$ingredientId]->toArray();
+            } else {
+                $ingredient['suggests'] = [];//新增建議新陣列
+            }
+            $this->ingredients[$index] = $ingredient;
+        }
+
+        $this->products = Product::all(); //取得所有商品資料
+
         $this->steps = $recipe->recipesteps->toArray();
         $this->originalSteps = $recipe->recipesteps->toArray();
     }
@@ -167,23 +199,197 @@ class BloggerRecipeEdit extends Component
     public function addList()
     {
         $this->ingredients[] = [
-            'name' => '',
-            'remark' => '',
-            'quantity'=>'',
+            'id' => '', //食材編號
+            'quantity' => '', //食材數量
+            'remark' => '', //食材備註
+            'name' => '', //食材名稱
+            'suggests' => [], //對應的建議陣列
         ];
+        //輸入框
+        $this->showInput[] = false;
     }
     //移除某食材
     public function removeList($index)
     {
-        //刪除指定索引位置的元素
+        //先刪除建議在刪除食材
+        if (isset($this->ingredients[$index]['id'])) {
+            //DB有建議
+            $ingredientId = $this->ingredients[$index]['id'];//食材id
+            Suggest::where('ingredient_id', $ingredientId)->delete();//刪除此食材的所有建議
+
+            //DB有此食材
+            $ingredient = Ingredient::find($ingredientId);
+            if ($ingredient) {
+                $ingredient->delete();
+            }
+            session()->flash('error', '食材刪除成功!');
+        }
+
         unset($this->ingredients[$index]);
         $this->ingredients = array_values($this->ingredients);
     }
 
+    //新增建議商品下拉單
+    public function addSuggest($index)
+    {
+        $suggest = [
+            'id' => '',
+            'ingredient_id' => '',
+            'product_id' => '',
+            'recommend' => 0,
+            'quantity' => '',
+            'stock'=>1,
+        ];
+        //將新增的建議加入對應食材的陣列中
+        $this->ingredients[$index]['suggests'][] = $suggest;
+    }
+    //刪除某食材中的某建議
+    public function delSuggest($index, $key)
+    {
+        //找到對應的建議id
+        $ingredientSuggest = $this->ingredients[$index]['suggests'][$key];
+        unset($this->ingredients[$index]['suggests'][$key]);
+
+        if (!empty($ingredientSuggest['id'])) {
+            Suggest::find($ingredientSuggest['id'])->delete();
+            session()->flash('error', '刪除建議成功!');
+        }
+    }
+
+    //選擇建議商品
+    public function selectSuggest($index, $key,$productId)
+    {
+        //是否有選擇商品
+        if (isset($this->ingredients[$index]['suggests'][$key]['product_id'])) {
+            //找到對應商品
+            $product = Product::find($productId);
+            $this->ingredients[$index]['suggests'][$key]['stock'] = $product->stock;//最大庫存量
+
+            //設定預設數量為 1
+            $this->ingredients[$index]['suggests'][$key]['quantity'] =1;
+        }
+    }
+
+    //抓取資料庫建議商品的庫存最大值
+    public function getMaxQuantity($key, $index)
+    {
+        $productId = $this->ingredients[$index]['suggests'][$key]['product_id'];
+        $product = Product::find($productId);
+
+        return $product ? $product->stock : 0;
+    }
+
+
+    //選擇食材類別-名稱輸入框
+    public function selectCategory($index, $categoryId)
+    {
+        //找出DB對應類別id
+        $category = Category::find($categoryId);
+
+        //辨別選擇類別的category_id是否為null(第一階)
+        if ($category->category_id === null) {
+            $this->showInput[$index] = true;//顯示輸入框
+            $this->ingredients[$index]['name'] = '';
+        } elseif($category->category_id !== null) {
+            $this->showInput[$index] = false;//隱藏輸入框
+
+            //填入輸入框類文字
+            $this->ingredients[$index]['name'] = $category->name;
+            //刪除食材資料表的name資料
+            if (isset($ingredient['id']))
+            {
+                $ingredientdata = Ingredient::find($ingredient['id']);
+                $ingredientdata->name = '';
+                $ingredientdata->save();
+            }
+        } else {
+            $this->showInput[$index] = false; // 隱藏輸入框
+        }
+    }
 
     //食譜食材
     public function IngredientUpdate()
     {
+
+        //食材
+        foreach ($this->ingredients as $index => $ingredient) {
+          //  dd($this->ingredients );
+            //食材類別及用量不得為空
+            if (!empty($ingredient['category_id']) && !empty($ingredient['quantity'])) {
+                //若食材id不為空(已存在)
+                if (!empty($ingredient['id'])) {
+                    $recipeIngredient = Ingredient::find($ingredient['id']);
+                    if ($recipeIngredient) {
+                        $recipeIngredient->update([
+                            'category_id' => $ingredient['category_id'],
+                            'quantity' => $ingredient['quantity'],
+                            'name' => $ingredient['name'],
+                            'remark' => $ingredient['remark'],
+                        ]);
+                        session()->flash('message1', '更新食材成功!');
+                    }
+                    // 建立或更新建議商品
+                    foreach ($ingredient['suggests'] as $key => $suggest) {
+                        if (!empty($suggest['id'])) {
+                            // 更新已存在的建議商品
+                            $ingredientSuggest = Suggest::find($suggest['id']);
+                            if ($ingredientSuggest) {
+                                $ingredientSuggest->update([
+                                    'product_id' => $suggest['product_id'],
+                                    'recommend' => $suggest['recommend'],
+                                    'quantity' => $suggest['quantity'],
+                                ]);
+                            } else {
+                                session()->flash('error', '無此商品!');
+                            }
+
+                        }
+                        //有選擇商品
+                        elseif(!empty($suggest['product_id'])) {
+                            // 建立新建議商品
+                            $newSuggest = Suggest::create([
+                                'ingredient_id' => $this->ingredients[$index]['id'],
+                                'product_id' => $suggest['product_id'],
+                                'recommend' => $suggest['recommend'],
+                                'quantity' => $suggest['quantity'],
+                            ]);
+                            $this->ingredients[$index]['suggests'][$key]['id'] = $newSuggest->id; // 建議 id
+                        }
+                    }
+
+                    //若食材不存在
+                } else {
+                    //建立新食材
+                    $newIngredient = Ingredient::create([
+                        'recipe_id' =>  $this->recipe->id,
+                        'name' => $ingredient['name'],
+                        'category_id' => $ingredient['category_id'],
+                        'quantity' => $ingredient['quantity'],
+                        'remark' => $ingredient['remark'],
+                    ]);
+                    $this->ingredients[$index]['id'] = $newIngredient->id;//食材id
+
+                    //建立建議商品
+                    foreach ( $this->ingredients[$index]['suggests'] as $key => $suggest) {
+                        if (empty($suggest['id']) && !empty($suggest['product_id']) && !empty($suggest['quantity'])) {
+                            $newSuggest = Suggest::create([
+                                'ingredient_id' => $newIngredient->id,
+                                'product_id' =>  $this->ingredients[$index]['suggests'][$key]['product_id'],
+                                'recommend' =>  $this->ingredients[$index]['suggests'][$key]['recommend'],
+                                'quantity' =>  $this->ingredients[$index]['suggests'][$key]['quantity'],
+                            ]);
+                            $this->ingredients[$index]['suggests'][$key]['id'] = $newSuggest->id; //建議id
+                        }else{
+                            session()->flash('error', '選擇數量');
+                        }
+                    }
+                    session()->flash('message1', '新增食材成功!');
+                }
+
+            } else {
+                session()->flash('error', '請輸入完整資料!(名稱、用量)');
+            }
+        }
 
     }
 
@@ -324,15 +530,17 @@ class BloggerRecipeEdit extends Component
         $recipe_categories = RecipeCategory::orderBy('id','DESC')->get();//食譜類別
         $recipeImages = RecipeImg::where('recipe_id', $this->recipe->id)->get();//封面
         $recipeVideos = RecipeFilm::where('recipe_id', $this->recipe->id)->get();//影片
-        $steps = RecipeStep::where('recipe_id', $this->recipe->id)->get();//步驟
-        $ingredients = Ingredient::where('recipe_id', $this->recipe->id)->get();//食材
+
+        $categories = Category::orderBy('id','ASC')->get();//食材類別
+        $products = Product::orderBy('id','ASC')->get();//商品
 
         return view('livewire.blogger-recipe-edit', [
             'recipe_categories' => $recipe_categories,
             'recipeImages' => $recipeImages,
             'recipeVideos' => $recipeVideos,
-            'steps' => $steps,
-            'ingredients' => $ingredients,
+
+            'categories' => $categories,
+            'products' => $products,
 
         ])->extends('members.layouts.master');
     }

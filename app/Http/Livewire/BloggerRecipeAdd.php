@@ -137,11 +137,11 @@ class BloggerRecipeAdd extends Component
     public function addList()
     {
         $this->ingredients[] = [
-            'id' => '', // 食材編號
-            'quantity' => '', // 食材數量
-            'remark' => '', // 食材備註
-            'name' => '', // 食材名稱
-            'suggests' => [], // 對應的建議陣列
+            'id' => '', //食材編號
+            'quantity' => '', //食材數量
+            'remark' => '', //食材備註
+            'name' => '', //食材名稱
+            'suggests' => [], //對應的建議陣列
         ];
 
         //輸入框

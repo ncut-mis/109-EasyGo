@@ -169,7 +169,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             Route::patch ('/{recipe}/stop',[AdminRecipeController::class,'stop'])->name('stop');//下架
             Route::get('/create', [AdminRecipeController::class, 'create'])->name('create');//新增食譜(基本資料)
             Route::post('/store',[AdminRecipeController::class,'store'])->name('store');//儲存食譜基本資料
-            Route::get('/add',AdminRecipeAdd::class)->name('add');//新增食譜(其他資料)--
+            Route::get('/add',AdminRecipeAdd::class)->name('add');//新增食譜(其他資料)--livewire
         });
 
         //食材

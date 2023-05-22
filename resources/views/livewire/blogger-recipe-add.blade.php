@@ -79,7 +79,7 @@
                                     </div>
                                     @foreach ($ingredient['suggests'] as $key=> $suggest)
                                         <div class="form-check">
-                                            {{--多選--}}
+                                            {{--是否推薦(多選)---}}
                                             <input class="form-check-input" type="checkbox" value="1" name="recommend[{{ $index }}][{{ $key }}]" id="recommend_{{ $index }}_{{ $key }}" wire:model="ingredients.{{ $index }}.suggests.{{ $key }}.recommend">
 
                                             <label class="form-check-label" for="productStatus">
@@ -96,8 +96,8 @@
                                                 </div>
                                             </label>
 
-                                            {{--是否推薦--}}
-                                                @if (isset($ingredient['suggests'][$key]['stock']))
+                                            {{--購買數量--}}
+                                                @if (isset($ingredient['suggests'][$key]['stock']))<!--確認有庫存-->
                                                     <input type="number" name="quantity" step="1" min="1" max="{{ $ingredient['suggests'][$key]['stock'] }}" wire:model="ingredients.{{ $index }}.suggests.{{ $key }}.quantity" value="1">
                                                 @endif
 

@@ -128,6 +128,16 @@
                     <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
 
                 <!--食材-->
+                    @if(session('message1'))
+                        <div class="alert alert-success">
+                            {{ session('message1') }}
+                        </div>
+                    @elseif(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                 <form wire:submit.prevent="IngredientUpdate" >
                 <div class="mb-3">
                     <h1 class="fw-bolder mb-1">食材<button type="button" class="btn btn-lg"  wire:click="addList">+</button></h1>
@@ -135,9 +145,10 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">名稱</th>
-                            <th scope="col">建議</th>
-                            <th scope="col">數量</th>
+                            <th scope="col">名稱*</th>
+                            <th scope="col"> </th>
+                            <th scope="col">建議商品(可勾選)</th>
+                            <th scope="col">用量*</th>
                             <th scope="col"> </th>
                         </tr>
                         </thead>
@@ -145,11 +156,95 @@
                         <tbody>
                         @foreach($ingredients as $index => $ingredient)
                             <tr>
-                                <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.name"></td>
-                                <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.remark"></td>
-                                <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.quantity"></td>
+
+                                <td>
+                                    <div class="form-group">
+                                        <select class="form-select" aria-label="ingredient-{{ $index }}" wire:model="ingredients.{{ $index }}.category_id" wire:change="selectCategory({{ $index }}, $event.target.value)">
+                                            <option selected value="">食材庫</option>
+                                            @foreach ($categories as $category)
+                                                {{--類別第一階--}}
+                                                @if ($category->category_id === null)
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @foreach ($categories as $child)
+                                                        {{--類別第二階--}}
+                                                        @if ($child->category_id === $category->id)
+                                                            <option value="{{ $child->id }}">- {{ $child->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </td>
+
+                                <td>
+                                    @if ($showInput[$index])
+                                        <input type="text" class="form-control" wire:model="ingredients.{{ $index }}.name" placeholder="輸入食材名稱">
+                                    @endif
+                                </td>
+
+                                {{--建議--}}
+                                <td>
+                                    {{--自行輸入--}}
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" wire:model="ingredients.{{ $index }}.remark" placeholder="輸入建議商品">
+                                    </div>
+
+                                    {{--新增按鈕--}}
+                                    <div class="mb-3">
+                                        <button type="button" class="btn btn-lg" wire:click="addSuggest({{ $index }})"><h5>+賣場商品</h5></button>
+                                    </div>
+                                    @foreach ($ingredient['suggests'] as $key=> $suggest)
+                                        <div class="form-check">
+                                            {{--多選--}}
+                                            <input class="form-check-input" type="checkbox" value="1" name="recommend[{{ $index }}][{{ $key }}]" id="recommend_{{ $index }}_{{ $key }}" wire:model="ingredients.{{ $index }}.suggests.{{ $key }}.recommend">
+
+                                            <label class="form-check-label" for="productStatus">
+                                                <div class="form-group">
+                                                    <select class="form-select"  aria-label="suggest-{{ $key }}" wire:model="ingredients.{{ $index }}.suggests.{{ $key }}.product_id" wire:change="selectSuggest({{ $index }}, {{ $key }}, $event.target.value)">
+                                                        <option selected value="">賣場品牌</option>
+                                                        @foreach ($products as $product)
+                                                            {{--如果有選擇食材類別(名稱)及商品的category_id和所選的一致，且為上架商品，商品庫存>0--}}
+                                                            @if (isset($ingredient['category_id']) && $product->category_id == $ingredient['category_id'] && $product->status ==1 && $product->stock >0)
+                                                                <option value="{{ $product->id }}">{{ $product->name }} | {{ $product->brand }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </label>
+
+                                            {{--購買數量--}}
+                                            @if (isset($ingredient['suggests'][$key]['product_id']))
+                                                @php
+                                                    $Max = $this->getMaxQuantity($key, $index);
+                                                @endphp
+                                                <input type="number" name="quantity" step="1" min="1" max="{{ $Max }}" wire:model="ingredients.{{ $index }}.suggests.{{ $key }}.quantity" value="1">
+                                            @endif
+
+                                            {{--刪除按鈕--}}
+                                            <button type="button" class="btn btn-lg" wire:click="delSuggest({{ $index }}, {{ $key }})"><img src="{{ asset('img/garbage.png') }}" width="25" height="25"></button>
+
+                                            {{--之前新增資料時該商品未下架，但日後下架問題--}}
+                                            @if (isset($ingredient['suggests'][$key]['product_id']))
+                                                @php
+                                                    $productId = $ingredient['suggests'][$key]['product_id'];
+                                                    //回DB找尋商品事否上架
+                                                    $status = \App\Models\Product::where('id', $productId)->value('status');
+                                                @endphp
+
+                                                @if ($status === 0)
+                                                    *此商品已下架!
+                                                @endif
+                                            @endif
+
+                                        </div>
+                                    @endforeach
+                                </td>
+
+                                <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.quantity" placeholder="ex：?/單位"></td>
                                 <td><button type="button" class="btn btn-lg" wire:click="removeList({{ $index }})"><img src="{{ asset('img/garbage.png') }}" width="30" height="30"></button></td>
                             </tr>
+
                         @endforeach
                         </tbody>
                     </table>
