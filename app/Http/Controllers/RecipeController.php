@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Collect;
 use App\Models\Comment;
+use App\Models\Product;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
 use App\Models\RecipeImg;
 use App\Models\Ingredient;
 use App\Models\Member;
 use App\Models\RecipeStep;
+use App\Models\Suggest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -157,6 +159,18 @@ class RecipeController extends Controller
             }
         }
 
+        //抓取各食材的建議食材
+        $ingredients = Ingredient::where('recipe_id', $recipe->id)->get();
+        foreach ($ingredients as $ingredient) {
+            //各食材對應建議商品
+            $suggests = Suggest::where('ingredient_id','=',$ingredient->id)->get();
+            foreach ($suggests as $suggest) {
+                $product = Product::find($suggest->product_id);
+                $suggest->product = $product;
+            }
+            $ingredient->suggests = $suggests;
+        }
+
         //將會員跟留言連結
         $comments =
             Comment::where('recipe_id', '=', $recipe->id)->where('comment_id', null)
@@ -182,11 +196,12 @@ class RecipeController extends Controller
         $categories=RecipeCategory::orderBy('id','DESC')->get();
         $data = [
             'recipe' => $recipe,
-            //'suggests'=>$suggests,
             'comments' => $comments,
             'isCollect'=>$isCollect,
             'collect'=>$collect,
-            'categories'=>$categories
+            'categories'=>$categories,
+            'ingredients'=>$ingredients,
+
         ];
         return view('recipe.show', $data);
 
