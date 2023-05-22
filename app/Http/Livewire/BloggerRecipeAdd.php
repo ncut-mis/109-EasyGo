@@ -124,11 +124,6 @@ class BloggerRecipeAdd extends Component
         }
         $this->isSaved = true;
 
-        // 刪除暫存檔案
-        $files = Storage::disk('local')->allFiles('livewire-tmp');
-        foreach ($files as $file) {
-            Storage::disk('local')->delete($file);
-        }
         session()->flash('message', '食譜圖片及影片新增成功!');
     }
 

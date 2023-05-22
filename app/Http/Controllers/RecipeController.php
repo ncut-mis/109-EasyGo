@@ -16,6 +16,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
@@ -143,6 +144,12 @@ class RecipeController extends Controller
     //食譜顯示資訊
     public function show(Recipe $recipe)
     {
+        // 刪除暫存檔案
+        $files = Storage::disk('local')->allFiles('livewire-tmp');
+        foreach ($files as $file) {
+            Storage::disk('local')->delete($file);
+        }
+
         //未登入
         $isCollect = null;
         $collect = null;
@@ -204,7 +211,6 @@ class RecipeController extends Controller
 
         ];
         return view('recipe.show', $data);
-
 
     }
 

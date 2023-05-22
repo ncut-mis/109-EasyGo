@@ -162,8 +162,7 @@ class AdminRecipeEdit extends Component
             }
             //清空陣列
             $this->images = [];
-            //刪除臨時文件
-            Storage::disk('local')->delete($image->getRealPath());
+
         }
 
         //食譜影片
@@ -185,11 +184,6 @@ class AdminRecipeEdit extends Component
             $this->videos = [];
         }
 
-        // 刪除暫存檔案
-        $files = Storage::disk('local')->allFiles('livewire-tmp');
-        foreach ($files as $file) {
-            Storage::disk('local')->delete($file);
-        }
         session()->flash('message', '食譜更新成功!');
     }
 
