@@ -16,7 +16,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 
 
-class BloggerRecipeEdit extends Component
+class AdminRecipeEdit extends Component
 {
     use WithFileUploads;
 
@@ -162,8 +162,7 @@ class BloggerRecipeEdit extends Component
             }
             //清空陣列
             $this->images = [];
-            //刪除臨時文件
-            Storage::disk('local')->delete($image->getRealPath());
+
         }
 
         //食譜影片
@@ -529,7 +528,7 @@ class BloggerRecipeEdit extends Component
         $categories = Category::orderBy('id','ASC')->get();//食材類別
         $products = Product::orderBy('id','ASC')->get();//商品
 
-        return view('livewire.blogger-recipe-edit', [
+        return view('livewire.admin-recipe-edit', [
             'recipe_categories' => $recipe_categories,
             'recipeImages' => $recipeImages,
             'recipeVideos' => $recipeVideos,
@@ -537,6 +536,6 @@ class BloggerRecipeEdit extends Component
             'categories' => $categories,
             'products' => $products,
 
-        ])->extends('members.layouts.master');
+        ])->extends('admins.layouts.master');
     }
 }

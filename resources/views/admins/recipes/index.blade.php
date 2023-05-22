@@ -2,7 +2,8 @@
 
 @section('page-title', '食譜列表')
 
-@section('page-content')
+@section('content')
+
     <section class="pt-4">
         <div class="container-fluid px-4">
             <h1 class="mt-4">食譜管理</h1>
@@ -10,7 +11,7 @@
                 <li class="breadcrumb-item active">食譜一覽表</li>
             </ol>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a class="btn btn-success btn-sm" href="#">新增</a>
+                <a class="btn btn-success btn-sm" href="{{route('admins.recipes.create')}}">新增</a>
             </div>
             <table class="table">
                 <thead>
@@ -49,10 +50,10 @@
                         @endif
 
                         <td class="col-2">
-                            <a href="#" type="button" class="btn btn-primary btn-sm">詳細資料</a>
+                            <a href="{{route('admins.recipes.edit',$recipe->id)}}" type="button" class="btn btn-primary btn-sm">編輯</a>
 
                             <!--刪除-->
-                            <form action="" method="POST" style="display: inline-block">
+                            <form action="{{route('admins.recipes.destroy',$recipe->id)}}" method="POST" style="display: inline-block">
                                 @method('DELETE')
                                 @csrf
                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#recipe{{$recipe->id}}" data-bs-whatever="@123">刪除</button>
@@ -66,8 +67,10 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>確定要刪除 {{$recipe->name}} 嗎?</p>
-                                                <p>訂單明細相關之食譜也會被刪除!!</p>
+                                                <h5>
+                                                    <p>確定要刪除<span class="text-danger">"{{$recipe->name}}"</span>嗎?</p>
+                                                    <p>該食譜資料也會被一併刪除!!</p>
+                                                </h5>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">取消</button>

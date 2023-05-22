@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Collect;
 use App\Models\Comment;
+use App\Models\Product;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
 use App\Models\RecipeImg;
 use App\Models\Ingredient;
 use App\Models\Member;
 use App\Models\RecipeStep;
+use App\Models\Suggest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
@@ -141,6 +144,12 @@ class RecipeController extends Controller
     //食譜顯示資訊
     public function show(Recipe $recipe)
     {
+        // 刪除暫存檔案
+        $files = Storage::disk('local')->allFiles('livewire-tmp');
+        foreach ($files as $file) {
+            Storage::disk('local')->delete($file);
+        }
+
         //未登入
         $isCollect = null;
         $collect = null;
@@ -155,6 +164,18 @@ class RecipeController extends Controller
                     ->where('recipe_id', $recipe->id)
                     ->first();
             }
+        }
+
+        //抓取各食材的建議食材
+        $ingredients = Ingredient::where('recipe_id', $recipe->id)->get();
+        foreach ($ingredients as $ingredient) {
+            //各食材對應建議商品
+            $suggests = Suggest::where('ingredient_id','=',$ingredient->id)->get();
+            foreach ($suggests as $suggest) {
+                $product = Product::find($suggest->product_id);
+                $suggest->product = $product;
+            }
+            $ingredient->suggests = $suggests;
         }
 
         //將會員跟留言連結
@@ -182,14 +203,14 @@ class RecipeController extends Controller
         $categories=RecipeCategory::orderBy('id','DESC')->get();
         $data = [
             'recipe' => $recipe,
-            //'suggests'=>$suggests,
             'comments' => $comments,
             'isCollect'=>$isCollect,
             'collect'=>$collect,
-            'categories'=>$categories
+            'categories'=>$categories,
+            'ingredients'=>$ingredients,
+
         ];
         return view('recipe.show', $data);
-
 
     }
 

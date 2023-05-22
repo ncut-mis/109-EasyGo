@@ -2,7 +2,7 @@
 
 @section('page-title', '商品列表')
 
-@section('page-content')
+@section('content')
     <div class="container-fluid px-4">
         <h1 class="mt-4">商品管理</h1>
         <ol class="breadcrumb mb-4">

@@ -126,11 +126,11 @@
                             <div class="carousel-inner">
                                 @foreach ($recipe->recipeFilms as $key=> $recipeFilm)
                                     <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                        <video src="{{asset('video/'.$recipeFilm->film)}}" width="1250" height="850" controls></video>
+                                        <video src="{{ asset('video/' . $recipeFilm->film) }}" autoplay controls muted  width="1250" height="850"></video>
                                     </div>
                                 @endforeach
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#videoControls" data-bs-slide="prev">
+                            <button class="carousel-control-prev btn-sm" type="button" data-bs-target="#videoControls" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
@@ -169,18 +169,43 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col"><h4>名稱</h4></th>
-                                                <th scope="col"><h4>推薦</h4></th>
-                                                <th scope="col"><h4>數量</h4></th>
+                                                <th scope="col"><h4>推薦(★為較推薦商品)</h4></th>
+                                                <th scope="col"><h4>用量</h4></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($recipe->ingredients as $ingredient)
-                                                <tr>
-                                                    <td><h4>{{$ingredient->name}}</h4></td>
-                                                    <td><button type="button" class="btn btn-info btn-lg">詳細</button></td>
-                                                    <td><h4>{{$ingredient->quantity}}</h4></td>
-                                                </tr>
-                                            @endforeach
+                                        @foreach ($ingredients as $ingredient)
+                                            <tr>
+                                                <td><h4>{{ $ingredient->name }}</h4></td>
+
+                                                <td>
+                                                    <h4>
+                                                    <ul>
+                                                        @if($ingredient->remark != null)
+                                                            <li>{{ $ingredient->remark }} </li>
+                                                        @endif
+
+                                                            @foreach ($ingredient->suggests as $suggest)
+                                                                <li>
+                                                                    {{ $suggest->product->name }} (建議數量：{{ $suggest->quantity }})
+
+                                                                    @if ($suggest->recommend == 1)
+                                                                        ★
+                                                                    @endif
+
+                                                                    @if ($suggest->product->status == 0)
+                                                                        <span class="text-danger">-此商品已下架-</span>
+                                                                    @endif
+                                                                </li>
+                                                            @endforeach
+
+                                                    </ul>
+                                                    </h4>
+                                                </td>
+                                                <td><h4>{{ $ingredient->quantity }}</h4></td>
+                                            </tr>
+                                        @endforeach
+
                                         </tbody>
                                     </table>
                                 </div>

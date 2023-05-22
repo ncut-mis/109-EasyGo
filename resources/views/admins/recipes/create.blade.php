@@ -1,19 +1,20 @@
-@extends('members.layouts.master')
+@extends('admins.layouts.master')
 @section('page-title', '新增食譜')
+
 @section('content')
 
     <section class="py-5">
         <div class="container px-5 my-5 ">
             <div class="row gx-5">
 
-                {{--如果有成功訊息，顯示該訊息--}}
+                {{--成功訊息--}}
                 @if(session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
                     </div>
                 @endif
 
-                {{--如果有錯誤訊息，顯示該訊息--}}
+                {{--錯誤訊息--}}
                 @if($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -24,7 +25,7 @@
                     </div>
                 @endif
 
-        <form action="{{route('bloggers.recipes.store')}}" method="POST" style="display: inline-block">
+        <form action="{{route('admins.recipes.store')}}" method="POST" style="display: inline-block">
              @method('post')
              @csrf
 
@@ -77,5 +78,6 @@
 
             </div>
         </div>
+
     </section>
 @endsection

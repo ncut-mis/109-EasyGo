@@ -8,11 +8,9 @@
                     <div class="mb-3">
                         <h4>食譜名稱：{{ $recipe->name }}</h4>
                         <h4>食譜簡介：{{ $recipe->text }}</h4>
-
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a href="{{route('members.recipes.index')}}" class="btn btn-secondary btn-lg">回列表</a>
+                            <a href="{{route('admins.recipes.index')}}" class="btn btn-secondary btn-lg">回列表</a>
                         </div>
-
                         <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
                     </div>
 
@@ -84,7 +82,7 @@
                                     </div>
                                     @foreach ($ingredient['suggests'] as $key=> $suggest)
                                         <div class="form-check">
-                                            {{--是否推薦(多選)---}}
+                                            {{--多選--}}
                                             <input class="form-check-input" type="checkbox" value="1" name="recommend[{{ $index }}][{{ $key }}]" id="recommend_{{ $index }}_{{ $key }}" wire:model="ingredients.{{ $index }}.suggests.{{ $key }}.recommend">
 
                                             <label class="form-check-label" for="productStatus">
@@ -101,8 +99,8 @@
                                                 </div>
                                             </label>
 
-                                            {{--購買數量--}}
-                                                @if (isset($ingredient['suggests'][$key]['stock']))<!--確認有庫存-->
+                                            {{--是否推薦--}}
+                                                @if (isset($ingredient['suggests'][$key]['stock']))
                                                     <input type="number" name="quantity" step="1" min="1" max="{{ $ingredient['suggests'][$key]['stock'] }}" wire:model="ingredients.{{ $index }}.suggests.{{ $key }}.quantity" value="1">
                                                 @endif
 
