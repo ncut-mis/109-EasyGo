@@ -20,23 +20,24 @@
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                @foreach($products as $product)
-                    @if ($product->category_id >=19 && $product->category_id <=21)
-                        <form action="{{route('members.cart_items.store')}}?pid={{$product->id}}" method="POST">
+                @foreach($array as $array_item)
+                    @if ($array_item['category_id'] >=19 && $array_item['category_id'] <=21)
+                        <form action="{{route('members.cart_items.store')}}?pid={{$array_item['id']}}" method="POST">
                             @csrf
                             @method('POST')
                             <!--典籍進入詳細葉面-->
                             <div class="pt-5">
                                 <div class="card ht border-0 h-100 ">
-                                    <td>   <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
+
+                                    <td>   <img class="card-img-top" src="{{asset('img/product/'.$array_item['img'])}}" alt="..." width="232px" height="232px" value="{{$array_item['id']}}">
                                         <!-- Product details-->
                                         <div class="card-body p-4">
                                             <div class="text-center">
                                                 <!-- Product name-->
-                                                <h5 class="fw-bolder" value="{{$product->name}}">{{$product->name}}</h5>
+                                                <h5 class="fw-bolder" value="{{$array_item['name']}}">{{$array_item['name']}}</h5>
                                                 <!-- Product price-->
-                                                ${{$product->price}}
-                                                <a href="{{route('product.show',$product->id)}}" class="stretched-link"></a>
+                                                <h5>價格:{{$array_item['price']}}</h5>
+                                                <a href="{{route('product.show',$array_item['id'])}}" class="stretched-link"></a>
                                             </div>
                                         </div>
                                 </div>

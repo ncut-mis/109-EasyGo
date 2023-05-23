@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImg;
+use App\Models\RecipeCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -29,8 +31,26 @@ class ProductController extends Controller
 //    }
     public function index()
     {
+        $count=0;
+        $array=array();
+        $products=Product::all();
 
-        return view('product.product');
+        foreach ($products as $product){
+            $product_imgs=ProductImg::where('product_id',$product->id)->get();
+            foreach ($product_imgs as $product_img){
+                $array=Arr::add($array,$count,[
+                    'id'=>$product->id,
+                    'name'=>$product->name,
+                    'price'=>$product->price,
+                    'img'=>$product_img->picture,
+                ]);
+                $count++;
+            }
+        }
+        $data=[
+            'array'=>$array,
+        ];
+        return view('product.product',$data);
 
     }
     public function add_product()
@@ -39,30 +59,65 @@ class ProductController extends Controller
     }
     public function cereals(Request $request)
     {
+        $count=0;
+        $array=array();
+        $products=Product::all();
+
+        foreach ($products as $product){
+            $product_imgs=ProductImg::where('product_id',$product->id)->get();
+            foreach ($product_imgs as $product_img){
+                $array=Arr::add($array,$count,[
+                    'id'=>$product->id,
+                    'name'=>$product->name,
+                    'price'=>$product->price,
+                    'category_id'=>$product->category_id,
+                    'img'=>$product_img->picture,
+                ]);
+                $count++;
+            }
+        }
+
         $id = $request->input('id');
-        $products=Product::orderBy('id','DESC')->get();
+//        $products=Product::orderBy('id','DESC')->get();
 
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
 
         $data=[
             'products'=>$products,
             'products_img'=>$products_imgs,
-
+            'array'=>$array,
         ];
         return view('product.cereals', $data);
     }
 
     public function mushrooms(Request $request)
     {
+        $count=0;
+        $array=array();
+        $products=Product::all();
+
+        foreach ($products as $product){
+            $product_imgs=ProductImg::where('product_id',$product->id)->get();
+            foreach ($product_imgs as $product_img){
+                $array=Arr::add($array,$count,[
+                    'id'=>$product->id,
+                    'name'=>$product->name,
+                    'price'=>$product->price,
+                    'category_id'=>$product->category_id,
+                    'img'=>$product_img->picture,
+                ]);
+                $count++;
+            }
+        }
         $id = $request->input('id');
-        $products=Product::orderBy('id','DESC')->get();
+//        $products=Product::orderBy('id','DESC')->get();
 
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
 
         $data=[
             'products'=>$products,
             'products_img'=>$products_imgs,
-
+            'array'=>$array,
         ];
         return view('product.mushrooms', $data);
 //        return view('product.mushrooms');
@@ -70,15 +125,32 @@ class ProductController extends Controller
 
     public function fruit(Request $request)
     {
+        $count=0;
+        $array=array();
+        $products=Product::all();
+
+        foreach ($products as $product){
+            $product_imgs=ProductImg::where('product_id',$product->id)->get();
+            foreach ($product_imgs as $product_img){
+                $array=Arr::add($array,$count,[
+                    'id'=>$product->id,
+                    'name'=>$product->name,
+                    'price'=>$product->price,
+                    'category_id'=>$product->category_id,
+                    'img'=>$product_img->picture,
+                ]);
+                $count++;
+            }
+        }
         $id = $request->input('id');
-        $products=Product::orderBy('id','DESC')->get();
+//        $products=Product::orderBy('id','DESC')->get();
 
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
 
         $data=[
             'products'=>$products,
             'products_img'=>$products_imgs,
-
+            'array'=>$array,
         ];
         return view('product.fruit', $data);
 //        return view('product.fruit');
@@ -86,15 +158,32 @@ class ProductController extends Controller
 
     public function vegetable(Request $request)
     {
+        $count=0;
+        $array=array();
+        $products=Product::all();
+
+        foreach ($products as $product){
+            $product_imgs=ProductImg::where('product_id',$product->id)->get();
+            foreach ($product_imgs as $product_img){
+                $array=Arr::add($array,$count,[
+                    'id'=>$product->id,
+                    'name'=>$product->name,
+                    'price'=>$product->price,
+                    'category_id'=>$product->category_id,
+                    'img'=>$product_img->picture,
+                ]);
+                $count++;
+            }
+        }
         $id = $request->input('id');
-        $products=Product::orderBy('id','DESC')->get();
+//        $products=Product::orderBy('id','DESC')->get();
 
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
 
         $data=[
             'products'=>$products,
             'products_img'=>$products_imgs,
-
+            'array'=>$array,
         ];
         return view('product.vegetable', $data);
 //        return view('product.vegetable');
@@ -102,13 +191,31 @@ class ProductController extends Controller
 
     public function meat(Request $request)
     {
+        $count=0;
+        $array=array();
+        $products=Product::all();
+
+        foreach ($products as $product){
+            $product_imgs=ProductImg::where('product_id',$product->id)->get();
+            foreach ($product_imgs as $product_img){
+                $array=Arr::add($array,$count,[
+                    'id'=>$product->id,
+                    'name'=>$product->name,
+                    'price'=>$product->price,
+                    'category_id'=>$product->category_id,
+                    'img'=>$product_img->picture,
+                ]);
+                $count++;
+            }
+        }
         $id = $request->input('id');
-        $products=Product::orderBy('id','DESC')->get();
+//        $products=Product::orderBy('id','DESC')->get();
 
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
         $data=[
             'products'=>$products,
             'products_img'=>$products_imgs,
+            'array'=>$array,
         ];
         return view('product.meat', $data);
 //        return view('product.meat');
@@ -116,15 +223,32 @@ class ProductController extends Controller
 
     public function fresh(Request $request)
     {
+        $count=0;
+        $array=array();
+        $products=Product::all();
+
+        foreach ($products as $product){
+            $product_imgs=ProductImg::where('product_id',$product->id)->get();
+            foreach ($product_imgs as $product_img){
+                $array=Arr::add($array,$count,[
+                    'id'=>$product->id,
+                    'name'=>$product->name,
+                    'price'=>$product->price,
+                    'category_id'=>$product->category_id,
+                    'img'=>$product_img->picture,
+                ]);
+                $count++;
+            }
+        }
         $id = $request->input('id');
-        $products=Product::orderBy('id','DESC')->get();
+//        $products=Product::orderBy('id','DESC')->get();
 
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
 
         $data=[
             'products'=>$products,
             'products_img'=>$products_imgs,
-
+            'array'=>$array,
         ];
         return view('product.fresh', $data);
 //        return view('product.fresh');
@@ -132,15 +256,32 @@ class ProductController extends Controller
 
     public function milk(Request $request)
     {
+        $count=0;
+        $array=array();
+        $products=Product::all();
+
+        foreach ($products as $product){
+            $product_imgs=ProductImg::where('product_id',$product->id)->get();
+            foreach ($product_imgs as $product_img){
+                $array=Arr::add($array,$count,[
+                    'id'=>$product->id,
+                    'name'=>$product->name,
+                    'price'=>$product->price,
+                    'category_id'=>$product->category_id,
+                    'img'=>$product_img->picture,
+                ]);
+                $count++;
+            }
+        }
         $id = $request->input('id');
-        $products=Product::orderBy('id','DESC')->get();
+//        $products=Product::orderBy('id','DESC')->get();
 
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
 
         $data=[
             'products'=>$products,
             'products_img'=>$products_imgs,
-
+            'array'=>$array,
         ];
         return view('product.milk', $data);
 //        return view('product.milk');
@@ -148,15 +289,32 @@ class ProductController extends Controller
 
     public function seasoning(Request $request)
     {
+        $count=0;
+        $array=array();
+        $products=Product::all();
+
+        foreach ($products as $product){
+            $product_imgs=ProductImg::where('product_id',$product->id)->get();
+            foreach ($product_imgs as $product_img){
+                $array=Arr::add($array,$count,[
+                    'id'=>$product->id,
+                    'name'=>$product->name,
+                    'price'=>$product->price,
+                    'category_id'=>$product->category_id,
+                    'img'=>$product_img->picture,
+                ]);
+                $count++;
+            }
+        }
         $id = $request->input('id');
-        $products=Product::orderBy('id','DESC')->get();
+//        $products=Product::orderBy('id','DESC')->get();
 
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
 
         $data=[
             'products'=>$products,
             'products_img'=>$products_imgs,
-
+            'array'=>$array,
         ];
         return view('product.seasoning', $data);
     }
@@ -224,9 +382,10 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $productImgs=ProductImg::where('product_id','=',$product->id)->get();
         $data=[
             'product'=>$product,
-
+            'productImgs'=>$productImgs,
         ];
         return view('product.show', $data);
     }

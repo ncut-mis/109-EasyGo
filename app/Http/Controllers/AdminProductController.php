@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImg;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -61,18 +62,6 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
-        // 處理圖片上傳
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('img/product', $fileName);
-
-                // 關聯圖片與產品
-                $request->images()->create([
-                    'name' => $fileName,
-                ]);
-            }
-        }
         //資料驗證
         $this->validate($request,[
             'category'=>'required',
@@ -86,7 +75,7 @@ class AdminProductController extends Controller
         //取得現在時間
         $created_at=date('y/n/j');
 
-        Product::create([
+        $newProduct=Product::create([
             'category_id'=>$request->category,//種類
             'status'=>'2',//皆為下架狀態
             'name'=>$request->name,
@@ -98,6 +87,22 @@ class AdminProductController extends Controller
             'text'=>$request->text,
             'created_at'=>$created_at,
         ]);
+
+        $productId=$newProduct->id;
+        //dd($productId);
+        // 處理圖片上傳
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->move('img/product', $fileName);
+
+                // 關聯圖片與產品
+                ProductImg::create([
+                    'product_id' => $productId,
+                    'picture' => $fileName,
+                ]);
+            }
+        }
         return redirect()->route('admins.products.index');
 
     }
@@ -105,11 +110,12 @@ class AdminProductController extends Controller
 
     public function show(Product $product )
     {
-
+        $productImgs=ProductImg::where('product_id','=',$product->id)->get();
         $categories=Category::all();
         $data=[
             'product'=>$product,
             'categories'=>$categories,
+            'productImgs'=>$productImgs,
         ];
         return view('admins.products.show',$data);
     }
@@ -155,6 +161,19 @@ class AdminProductController extends Controller
     public function destroy(Product $product)//待修改
     {
         //要把產品相關的訂單一起刪除才可以把產品刪除
+         $productImgs=ProductImg::where('product_id','=',$product->id)->get();
+        foreach ($productImgs as $productImg){
+            if ($productImg) {
+                //刪除public下的圖片
+                $path = public_path('img/product/' . $productImg->picture);
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+            //刪除DB資料
+            $productImg->delete();
+        }
+
         Product::destroy($product->id);
         return redirect()->route('admins.products.index');
     }
