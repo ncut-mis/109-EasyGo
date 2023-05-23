@@ -64,6 +64,8 @@
 {{--                            @csrf--}}
 
                         <!--互動視窗-->
+                        <!--商品上架狀態無法刪除-->
+                        @if ($product->status ==0)
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <!--標題-->
@@ -82,11 +84,29 @@
                                             @csrf
                                             <button type="submit" class="btn btn-danger btn-sm">確定</button>
                                         </form>
-
                                     </div>
                             </div>
                         </div>
+                        @else
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!--標題-->
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">刪除商品</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>此商品為上架中無法刪除</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">確定</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                            </div>
                     </div>
+                    @endif
                 </td>
             </tr>
             @endforeach

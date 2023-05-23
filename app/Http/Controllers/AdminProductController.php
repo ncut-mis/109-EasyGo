@@ -77,7 +77,7 @@ class AdminProductController extends Controller
 
         $newProduct=Product::create([
             'category_id'=>$request->category,//種類
-            'status'=>'2',//皆為下架狀態
+            'status'=>'0',//皆為下架狀態
             'name'=>$request->name,
             'brand'=>$request->brand,
             'origin_place'=>$request->origin_place,
@@ -160,6 +160,7 @@ class AdminProductController extends Controller
 
     public function destroy(Product $product)//待修改
     {
+
         //要把產品相關的訂單一起刪除才可以把產品刪除
          $productImgs=ProductImg::where('product_id','=',$product->id)->get();
         foreach ($productImgs as $productImg){
