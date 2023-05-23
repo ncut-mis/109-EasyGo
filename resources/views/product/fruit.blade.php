@@ -20,6 +20,7 @@
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 @foreach($array as $array_item)
+                    @if($array_item['status'] ==1)
                     @if ($array_item['category_id'] >=7 && $array_item['category_id'] <=9)
                         <form action="{{route('members.cart_items.store')}}?pid={{$array_item['id']}}" method="POST">
                             @csrf
@@ -52,6 +53,7 @@
 
                         </form>
     @endif
+                    @endif
    @endforeach
                 </div>
             </div>

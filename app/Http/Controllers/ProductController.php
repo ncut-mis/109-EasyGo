@@ -42,6 +42,7 @@ class ProductController extends Controller
                     'id'=>$product->id,
                     'name'=>$product->name,
                     'price'=>$product->price,
+                    'status'=>$product->status,
                     'img'=>$product_img->picture,
                 ]);
                 $count++;
@@ -70,6 +71,7 @@ class ProductController extends Controller
                     'id'=>$product->id,
                     'name'=>$product->name,
                     'price'=>$product->price,
+                    'status'=>$product->status,
                     'category_id'=>$product->category_id,
                     'img'=>$product_img->picture,
                 ]);
@@ -103,6 +105,7 @@ class ProductController extends Controller
                     'id'=>$product->id,
                     'name'=>$product->name,
                     'price'=>$product->price,
+                    'status'=>$product->status,
                     'category_id'=>$product->category_id,
                     'img'=>$product_img->picture,
                 ]);
@@ -136,6 +139,7 @@ class ProductController extends Controller
                     'id'=>$product->id,
                     'name'=>$product->name,
                     'price'=>$product->price,
+                    'status'=>$product->status,
                     'category_id'=>$product->category_id,
                     'img'=>$product_img->picture,
                 ]);
@@ -169,6 +173,7 @@ class ProductController extends Controller
                     'id'=>$product->id,
                     'name'=>$product->name,
                     'price'=>$product->price,
+                    'status'=>$product->status,
                     'category_id'=>$product->category_id,
                     'img'=>$product_img->picture,
                 ]);
@@ -202,6 +207,7 @@ class ProductController extends Controller
                     'id'=>$product->id,
                     'name'=>$product->name,
                     'price'=>$product->price,
+                    'status'=>$product->status,
                     'category_id'=>$product->category_id,
                     'img'=>$product_img->picture,
                 ]);
@@ -234,6 +240,7 @@ class ProductController extends Controller
                     'id'=>$product->id,
                     'name'=>$product->name,
                     'price'=>$product->price,
+                    'status'=>$product->status,
                     'category_id'=>$product->category_id,
                     'img'=>$product_img->picture,
                 ]);
@@ -267,6 +274,7 @@ class ProductController extends Controller
                     'id'=>$product->id,
                     'name'=>$product->name,
                     'price'=>$product->price,
+                    'status'=>$product->status,
                     'category_id'=>$product->category_id,
                     'img'=>$product_img->picture,
                 ]);
@@ -300,6 +308,7 @@ class ProductController extends Controller
                     'id'=>$product->id,
                     'name'=>$product->name,
                     'price'=>$product->price,
+                    'status'=>$product->status,
                     'category_id'=>$product->category_id,
                     'img'=>$product_img->picture,
                 ]);

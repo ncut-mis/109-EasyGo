@@ -21,9 +21,9 @@
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-{{--                @foreach($products as $product)--}}
                     @foreach($array as $array_item)
-                 @if ($array_item['category_id'] >=10 && $array_item['category_id'] <=12)
+                    @if($array_item['status'] ==1)
+                    @if ($array_item['category_id'] >=10 && $array_item['category_id'] <=12)
                     <form action="{{route('members.cart_items.store')}}?pid={{$array_item['id']}}" method="POST">
                         @csrf
                         @method('POST')
@@ -55,7 +55,7 @@
 
                     </form>
                     @endif
-{{--                    @endforeach--}}
+                    @endif
                 @endforeach
             </div>
         </div>
