@@ -84,7 +84,7 @@ Route::prefix('product')->name('product.')->group(function(){
 
 });
 //賣場頁面
-Route::get('product',[ProductController::class,'product'])->name('product.product');
+//Route::get('product',[ProductController::class,'product'])->name('product.product');
 
 //會員專區
 Route::get('cart_items',[MemberController::class,'cart_items'])->name('members.cart_items.index');//購物車

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('product.layouts.master')
 @section('title','詳細資訊')
 @section('content')
     <!-- Page Content-->
@@ -14,10 +14,24 @@
                                 @csrf
                                 @method('POST')
 
-                                <figure class="mb-4">
-                                    <img class="card-img-top" src="{{$product->product_imgs}}" alt="..." width="232px" height="232px" value="{{$product->product_imgs}}">
-                                </figure>
-
+                                <!--輪播圖片-->
+                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        @foreach ($productImgs as $key=> $productImg)
+                                            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                                <img src="{{asset('img/product/'.$productImg->picture)}}" width="1250" height="850">
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
                                 <div class="row align-items-center">
                                     <div class="col-xs-12 col-md-9">
                                         <!-- Post title-->
