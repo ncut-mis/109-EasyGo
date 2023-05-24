@@ -270,7 +270,6 @@
                                                 <div class="d-flex flex-row align-items-center">
                                                     <p class="small text-muted mb-0">發布時間: {{$comment->created_at}}</p>
                                                     <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
-                                                    <button class="btn btn-primary ncB" id="nc{{$comment->id}}" type="none">留言</button>
                                                     <!-- <p class="small text-muted mb-0">4</p> -->
                                                 </div>
                                             </div>
@@ -288,9 +287,9 @@
                                                         <div class="d-flex flex-row align-items-center">
 
                                                             <!-- <div class="input-group mb-3">
-                                                                            <button class="btn btn-success input-group-text" id="inputGroup-sizing-default">送出</button>
-                                                                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                                                        </div> -->
+                                                                <button class="btn btn-success input-group-text" id="inputGroup-sizing-default">送出</button>
+                                                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                                            </div> -->
                                                             <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
                                                             <!-- <p class="small text-muted mb-0">4</p> -->
                                                         </div>
@@ -298,7 +297,7 @@
                                                 </div>
                                             </div>
                                         @endforeach
-                                        <form class="card-footer py-3 border-0 col-12 my-0" style="background-color: #f8f9fa;display:none;" action="{{route('comment.create')}}" method="post" id="nestComment{{ $comment->id }}">
+                                        <form class="card-footer py-3 border-0 col-12 my-0" style="background-color: #f8f9fa;" action="{{route('comment.create')}}" method="post">
                                             @csrf
                                             <div class="d-flex flex-start w-100">
                                                 <img class="rounded-circle shadow-1-strong me-3" src="https://teameowdev.files.wordpress.com/2016/04/avatar-01.png?w=300&h=300" alt="avatar" width="40" height="40" />
@@ -315,7 +314,6 @@
                                             </div>
                                         </form>
                                     </div>
-                                </li>
                             </ul>
                         </div>
                     </div>
