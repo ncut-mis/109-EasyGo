@@ -33,8 +33,8 @@ class ProductController extends Controller
     {
         $count=0;
         $array=array();
-        $products=Product::all();
-
+//        $products=Product::all();
+        $products = Product::orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
         foreach ($products as $product){
             $product_imgs=ProductImg::where('product_id',$product->id)->get();
             foreach ($product_imgs as $product_img){

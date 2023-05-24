@@ -92,7 +92,7 @@
                                                         @foreach ($products as $product)
                                                             {{--如果有選擇食材類別(名稱)及商品的category_id和所選的一致，且為上架商品，商品庫存>0--}}
                                                             @if (isset($ingredient['category_id']) && $product->category_id == $ingredient['category_id'] && $product->status ==1 && $product->stock >0)
-                                                                <option value="{{ $product->id }}">{{ $product->name }} | {{ $product->brand }}</option>
+                                                                <option value="{{ $product->id }}">{{ $product->name }}</option>
                                                             @endif
                                                         @endforeach
                                                     </select>
