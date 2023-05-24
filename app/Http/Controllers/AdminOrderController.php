@@ -158,11 +158,15 @@ class AdminOrderController extends Controller
     }
 
 
-    public function update(Request $request)
+    public function update(Request $request,Order $order)
     {
-        $order=Order::find($request->id);
+//        $order=Order::find($request->id);
+//        $order->update([
+//            'status'=>$request->status,
+//        ]);
+        $order_status=$order->status;
         $order->update([
-            'status'=>$request->status,
+            'status'=>$order_status+1,
         ]);
         return redirect()->route('admins.orders.index');
 

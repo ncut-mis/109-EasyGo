@@ -103,9 +103,15 @@
                     @elseif($order->status==5 || $order->status==6)
 
                     @else
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{$order->id}}">
-                            修改狀態
-                        </button>
+{{--                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{$order->id}}">--}}
+{{--                            修改狀態--}}
+{{--                        </button>--}}
+                            <form action="{{route('admins.orders.update',$order->id)}}" method="post" class="col" style="display: inline-block">
+                                @method('patch')
+                                <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
+                                @csrf
+                                <button type="submit" class="btn btn-warning btn-sm">修改狀態</button>
+                            </form>
                     @endif
 
                 </td>
