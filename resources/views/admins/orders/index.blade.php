@@ -12,9 +12,6 @@
         <div class="mb-2">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{route('admins.orders.index')}}">所有訂單</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{{route('admins.orders.audited')}}">已成立</a>
                 </li>
                 <li class="nav-item">
@@ -31,6 +28,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('admins.orders.cancel')}}">已取消</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{route('admins.orders.index')}}">所有訂單</a>
                 </li>
             </ul>
         </div>
