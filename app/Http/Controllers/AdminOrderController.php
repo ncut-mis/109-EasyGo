@@ -12,7 +12,7 @@ class AdminOrderController extends Controller
 
     public function index()
     {
-        $orders = Order::orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $orders = Order::orderBy('updated_at','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
         $data=[
             'orders'=>$orders
         ];
@@ -23,7 +23,7 @@ class AdminOrderController extends Controller
     public function cancel_apply()
     {
         //取消申請訂單列表
-        $orders = Order::where('status','=','7')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $orders = Order::where('status','=','7')->orderBy('updated_at','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
         $data=[
             'orders'=>$orders
         ];
@@ -34,7 +34,7 @@ class AdminOrderController extends Controller
     public function done()
     {
         //已完成訂單列表
-        $orders = Order::where('status','=','5')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $orders = Order::where('status','=','5')->orderBy('updated_at','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
         $data=[
             'orders'=>$orders
         ];
@@ -45,7 +45,7 @@ class AdminOrderController extends Controller
     public function check_apply()
     {
         //待審核訂單列表
-        $orders = Order::where('status','=','0')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $orders = Order::where('status','=','0')->orderBy('updated_at','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
         $data=[
             'orders'=>$orders
         ];
@@ -55,7 +55,7 @@ class AdminOrderController extends Controller
     public function audited()
     {
         //已審核訂單列表
-        $orders = Order::where('status','=','1')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $orders = Order::where('status','=','1')->orderBy('updated_at','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
         $data=[
             'orders'=>$orders
         ];
@@ -65,7 +65,7 @@ class AdminOrderController extends Controller
     public function ship()
     {
         //出貨中訂單列表
-        $orders = Order::where('status','=','2')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $orders = Order::where('status','=','2')->orderBy('updated_at','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
         $data=[
             'orders'=>$orders
         ];
@@ -75,7 +75,7 @@ class AdminOrderController extends Controller
     public function shipped()
     {
         //已出貨訂單列表
-        $orders = Order::where('status','=','3')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $orders = Order::where('status','=','3')->orderBy('updated_at','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
         $data=[
             'orders'=>$orders
         ];
@@ -86,7 +86,7 @@ class AdminOrderController extends Controller
     public function arrival()
     {
         //已送達訂單列表
-        $orders = Order::where('status','=','4')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $orders = Order::where('status','=','4')->orderBy('updated_at','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
         $data=[
             'orders'=>$orders
         ];
@@ -96,7 +96,7 @@ class AdminOrderController extends Controller
     public function cancel()
     {
         //已取消訂單列表
-        $orders = Order::where('status','=','6')->orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $orders = Order::where('status','=','6')->orderBy('updated_at','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
         $data=[
             'orders'=>$orders
         ];
