@@ -22,7 +22,7 @@ class MemberOrderController extends Controller
         $user_id=Auth::id();
         $members=Member::where('user_id',$user_id)->get();//取得會員編號
         foreach ($members as $member){
-            $orders=Order::where('member_id',$member->id)->get();//取得訂單編號
+            $orders=Order::where('member_id',$member->id)->orderBy('updated_at','DESC')->orderBy('id','DESC')->get();//取得訂單編號
             if (Order::where('member_id',$member->id)->first()==null){  //檢測是否有資料
                 $has_data=0;
             }else{
@@ -91,7 +91,7 @@ class MemberOrderController extends Controller
         $user_id=Auth::id();
         $members=Member::where('user_id',$user_id)->get();//取得會員編號
         foreach ($members as $member){
-            $orders=Order::where('member_id',$member->id)->where('status',5)->get();//取得訂單
+            $orders=Order::where('member_id',$member->id)->where('status',5)->orderBy('updated_at','DESC')->orderBy('id','DESC')->get();//取得訂單
             if (Order::where('member_id',$member->id)->where('status',5)->first()==null){  //檢測是否有資料
                 $has_data=0;
             }else{
@@ -131,7 +131,7 @@ class MemberOrderController extends Controller
         $user_id=Auth::id();
         $members=Member::where('user_id',$user_id)->get();//取得會員編號
         foreach ($members as $member){
-            $orders=Order::where('member_id',$member->id)->where('status',6)->get();//取得訂單
+            $orders=Order::where('member_id',$member->id)->where('status',6)->orderBy('updated_at','DESC')->orderBy('id','DESC')->get();//取得訂單
             if (Order::where('member_id',$member->id)->where('status',6)->first()==null){  //檢測是否有資料
                 $has_data=0;
             }else{
