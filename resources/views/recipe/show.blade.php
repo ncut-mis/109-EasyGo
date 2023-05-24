@@ -180,10 +180,10 @@
 
                                                 <td>
                                                     <h4>
-                                                    <ul>
-                                                        @if($ingredient->remark != null)
-                                                            <li>{{ $ingredient->remark }} </li>
-                                                        @endif
+                                                        <ul>
+                                                            @if($ingredient->remark != null)
+                                                                <li>{{ $ingredient->remark }} </li>
+                                                            @endif
 
                                                             @foreach ($ingredient->suggests as $suggest)
                                                                 <li>
@@ -199,7 +199,7 @@
                                                                 </li>
                                                             @endforeach
 
-                                                    </ul>
+                                                        </ul>
                                                     </h4>
                                                 </td>
                                                 <td><h4>{{ $ingredient->quantity }}</h4></td>
@@ -353,20 +353,6 @@
     </section>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('button.ncB').click(function() {
-                var id = $(this).attr('id');
-                var id = id.replace('nc', '');
-                $('#nestComment' + id).toggle();
-                console.log('#nestComment' + id)
-            });
-        });
-    </script>
-
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#refund").on("hidden.bs.modal", function() {
@@ -374,13 +360,12 @@
             });
             $("#dss").click(function() {
 
-                // 送出 Ajax
+
                 $.ajax({
                     url: "{{route('members.recipes.List',$recipe->id)}}",
                     type: "GET",
                     dataType: "json",
                     success: function(data) {
-
                         let appendHtml = ``;
                         let orderListCategoryGroup = data.reduce((group, product) => {
                             const {
@@ -391,7 +376,7 @@
                             return group;
                         }, [])
                         console.log(orderListCategoryGroup)
-
+                        //orderListCategoryName
                         let category_name = Object.keys(orderListCategoryGroup)
                         category_name.forEach((category_name, index) => {
 
@@ -403,7 +388,9 @@
                                 <h4>${category_name}</h4>
                             </td>
                             <td>
-
+                                <select class="form-select selectProduct" aria-label="Default select example" name="product[${index}][product_id]">
+                                    <option selected value="0">選擇商品</option>
+                                </select>
                             </td>
                             <td>
                                 <input type="number" class="form-control" id="quantity" value="1" placeholder="數量" name="product[${index}][quantity]">
@@ -412,10 +399,10 @@
                                 <h4 class="price"></h4>
                             </td--!>
                         </tr>`
-                    //商品
 
-                            $('#products').append(html)//append是在被選元素的结尾插入指定内容，html-返回被選元素的html
-
+                            $('#products').append(html)
+                            // appendHtml += html;
+                            // $('#products').html(appendHtml)
                             orderListCategoryGroup[category_name].forEach((product) => {
                                 const {
                                     product_name,
@@ -436,4 +423,5 @@
             });
         });
     </script>
+
 @endsection

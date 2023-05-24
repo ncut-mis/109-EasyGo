@@ -7,9 +7,27 @@
     @csrf
 <div class="container-fluid px-4">
     <!-- Main Content -->
-    <figure class="mb-4"><img class="img-fluid rounded" src="https://www.pxmart.com.tw/Api/Images/133162494023417960.jfif" alt="..." /></figure>
-
     <div class="row g-3">
+        <div class="mb-3">
+            <!--輪播圖片-->
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach ($productImgs as $key=> $productImg)
+                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                            <img src="{{asset('img/product/'.$productImg->picture)}}" width="1250" height="850">
+                        </div>
+                    @endforeach
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
 
         <!-- Post title-->
         <div class="col-6">
@@ -58,7 +76,7 @@
             <textarea name="text" id="text" class="form-control" rows="10" placeholder="">{{$product->text}}</textarea><!--多行輸入框-->
         </div>
     <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-        <button class="btn btn-primary btn-sm" type="submit">儲存</button>
+        <button class="btn btn-primary btn-sm" type="submit" >儲存</button>
         <a class="btn btn-danger btn-sm" href="{{route('admins.products.show',$product)}}">取消</a>
     </div>
     </fieldset>
