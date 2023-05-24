@@ -330,10 +330,37 @@ class ProductController extends Controller
     //搜尋食材
     public function keyword(Request $request)
     {
+        $count=0;
+        $array=array();
+//        $products=Product::all();
+//0是下架
         $keyword = $request->input('keyword');
-        $products = Product::query()->where('name', 'LIKE', "%{$keyword}%")->get();
+        $products = Product::query()->where('name', 'LIKE', "%{$keyword}%")->where('status','=','1')->get();
         //$categories=RecipeCategory::orderBy('id','DESC')->get();//sidenav顯示類別
-        $data=['products'=>$products];//index的sib需要類別的資料，記得給分類的資料
+        foreach ($products as $product)
+        {
+            $product_imgs=ProductImg::where('product_id',$product->id)->get();
+            foreach ($product_imgs as $product_img)
+            {
+                $array=Arr::add($array,$count,[
+                    'id'=>$product->id,
+                    'name'=>$product->name,
+                    'price'=>$product->price,
+                    'status'=>$product->status,
+                    'category_id'=>$product->category_id,
+                    'img'=>$product_img->picture,
+                ]);
+//                dd($array);
+                $count++;
+            }
+        }
+//        $products=Product::all();
+        $id = $request->input('id');
+        $data=[
+            'products'=>$products,
+            'array'=>$array,
+        ];
+
         return view('product.keyword',$data);
     }
     /**

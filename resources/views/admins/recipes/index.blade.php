@@ -57,28 +57,54 @@
                                 @method('DELETE')
                                 @csrf
                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#recipe{{$recipe->id}}" data-bs-whatever="@123">刪除</button>
-                                <div class="modal fade" id="recipe{{$recipe->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <!--互動視窗-->
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <!--標題-->
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">刪除食譜</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <h5>
-                                                    <p>確定要刪除<span class="text-danger">"{{$recipe->name}}"</span>嗎?</p>
-                                                    <p>該食譜資料也會被一併刪除!!</p>
-                                                </h5>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">取消</button>
-                                                <button type="submit" class="btn btn-sm btn-danger">確定</button>
+
+                                @if($recipe->status==1)
+                                    <div class="modal fade" id="recipe{{$recipe->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <!--互動視窗-->
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <!--標題-->
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">刪除食譜</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5>
+                                                        <p><span class="text-danger">"{{$recipe->name}}"</span>還未下架!</p>
+                                                        <p>請先下架食譜再進行刪除!</p>
+                                                    </h5>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">關閉</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="modal fade" id="recipe{{$recipe->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <!--互動視窗-->
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <!--標題-->
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">刪除食譜</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h5>
+                                                        <p>確定要刪除<span class="text-danger">"{{$recipe->name}}"</span>嗎?</p>
+                                                        <p>該食譜資料也會被一併刪除!!</p>
+                                                    </h5>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">取消</button>
+                                                    <button type="submit" class="btn btn-sm btn-danger">確定</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
                             </form>
                         </td>
                     </tr>

@@ -169,7 +169,6 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col"><h4>名稱</h4></th>
-                                                <th scope="col"><h4>推薦(★為較推薦商品)</h4></th>
                                                 <th scope="col"><h4>用量</h4></th>
                                             </tr>
                                         </thead>
@@ -177,31 +176,6 @@
                                         @foreach ($ingredients as $ingredient)
                                             <tr>
                                                 <td><h4>{{ $ingredient->name }}</h4></td>
-
-                                                <td>
-                                                    <h4>
-                                                        <ul>
-                                                            @if($ingredient->remark != null)
-                                                                <li>{{ $ingredient->remark }} </li>
-                                                            @endif
-
-                                                            @foreach ($ingredient->suggests as $suggest)
-                                                                <li>
-                                                                    {{ $suggest->product->name }} (建議數量：{{ $suggest->quantity }})
-
-                                                                    @if ($suggest->recommend == 1)
-                                                                        ★
-                                                                    @endif
-
-                                                                    @if ($suggest->product->status == 0)
-                                                                        <span class="text-danger">-此商品已下架-</span>
-                                                                    @endif
-                                                                </li>
-                                                            @endforeach
-
-                                                        </ul>
-                                                    </h4>
-                                                </td>
                                                 <td><h4>{{ $ingredient->quantity }}</h4></td>
                                             </tr>
                                         @endforeach
@@ -250,10 +224,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
 
         <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
         <!-- card 元件為外層-->
+
         <div class="card">
             <div class="card-header">
                 <h2>留言區</h2>
@@ -349,6 +324,7 @@
         </div>
 
 
+        </div>
         </div>
     </section>
 
