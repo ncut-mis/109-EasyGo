@@ -24,8 +24,10 @@ class CartItemController extends Controller
      */
     public function index()
     {
-        $user=Auth::user();//目前使用者
-        $members=Member::where('user_id','=',$user->id)->get();
+        $user=Auth::user()->id;//目前使用者
+
+        $members=Member::where('user_id','=',5)->get();
+        dd($members);
 
         foreach ($members as $member){
             $items = Item::where('member_id','=',$member->id)->get();//目前使用者的選購項目
