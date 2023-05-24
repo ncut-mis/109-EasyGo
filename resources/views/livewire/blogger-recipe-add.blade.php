@@ -204,6 +204,7 @@
                     </div>
                 @endif
                     <!--食譜封面影片上傳-->
+                <h1 class="fw-bolder mb-1">封面、影片</h1>
                     @if(!$isSaved)
                         <form wire:submit.prevent="add" enctype="multipart/form-data">
 

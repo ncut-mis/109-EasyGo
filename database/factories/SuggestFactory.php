@@ -18,7 +18,7 @@ class SuggestFactory extends Factory
     {
         return [
             'recommend'=>$this->faker->boolean,
-            'quantity'=>rand(1,10),
+            'quantity'=>rand(1,5),
         ];
     }
 }

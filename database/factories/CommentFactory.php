@@ -18,7 +18,7 @@ class CommentFactory extends Factory
     {
         return [
             'member_id'=>rand(1,21),
-            'content' => $this->faker->realText(199),
+            'content' => $this->faker->realText(20),
         ];
     }
 }
