@@ -44,57 +44,7 @@
                             <p>食譜名稱：{{$recipe->name}}</p>
                         </h2>
                     </div>
-                    <button type="button" id="dss" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#refund" data-bs-whatever="@123">一鍵選購</button>
-                    <div class="modal fade" id="refund" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" keyboard="false" backdrop="false">
-                        <form action="{{route('members.cart_items.easy')}}" method="post">
-                            @csrf
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <!--標題-->
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th scope="col"></th>
-                                                <th scope="col">所需食材</th>
-                                                <th scope="col">選擇商品</th>
-                                                <th scope="col">數量</th>
-                                                <!-- <th scope="col">金額</th> -->
 
-                                            </tr>
-                                            </thead>
-                                            <tbody id="products">
-
-                                            </tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <td>
-                                                </td>
-                                                <td>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                </td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-primary refund">加入購物車</button>
-                                                </td>
-                                            </tr>
-                                            </tfoot>
-                                        </table>
-
-
-
-                                        </div>
-                                    </div>
-                            </form>
-                        </div>
-                        </td>
-                        </tr>
-                        </tbody>
-
-                        </table>
-                </div>
-            </div>
 
             </header>
                     <!--食譜封面-->
@@ -161,6 +111,7 @@
                             <button class="accordion-button collapsed fs-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                                 食材
                             </button>
+
                         </h2>
                         <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
@@ -182,6 +133,68 @@
 
                                         </tbody>
                                     </table>
+{{--                                    <head>--}}
+{{--                                        <!-- 引入 Bootstrap CSS 檔案 -->--}}
+{{--                                        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">--}}
+{{--                                    </head>--}}
+                                    <head>
+                                        <style>
+                                            .right-align {
+                                                float: right;
+                                            }
+                                        </style>
+                                    </head>
+                                    <button type="button" id="dss" class="btn btn-danger  btn-lg right-align" data-bs-toggle="modal" data-bs-target="#refund" data-bs-whatever="@123">點我一鍵選購!</button>
+                                    <div class="modal fade" id="refund" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" keyboard="false" backdrop="false">
+                                        <form action="{{route('members.cart_items.easy')}}" method="post">
+                                            @csrf
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <!--標題-->
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th scope="col"></th>
+                                                                <th scope="col">所需食材</th>
+                                                                <th scope="col">選擇商品</th>
+                                                                <th scope="col">數量</th>
+                                                                <!-- <th scope="col">金額</th> -->
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody id="products">
+
+                                                            </tbody>
+                                                            <tfoot>
+                                                            <tr>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="submit" class="btn btn-primary refund">加入購物車</button>
+                                                                </td>
+                                                            </tr>
+                                                            </tfoot>
+                                                        </table>
+
+
+
+                                                    </div>
+                                                </div>
+                                        </form>
+                                    </div>
+                                    </td>
+                                    </tr>
+                                    </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
                                 </div>
                             </div>
                         </div>
@@ -247,7 +260,7 @@
                                 <input name="recipe_id" value="{{$recipe->id}}" style="display:none" />
                                 <textarea class="form-control" rows="3" name="content"></textarea>
                                 <!--讓 button 滿版寬使用 .btn-block-->
-                                <button class="btn btn-success btn-block mt-3">Submit</button>
+                                <button class="btn btn-success">留言</button>
                             </div>
                         </form>
                     </div>
@@ -270,7 +283,6 @@
                                                 <div class="d-flex flex-row align-items-center">
                                                     <p class="small text-muted mb-0">發布時間: {{$comment->created_at}}</p>
                                                     <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
-                                                    <button class="btn btn-primary ncB" id="nc{{$comment->id}}" type="none">留言</button>
                                                     <!-- <p class="small text-muted mb-0">4</p> -->
                                                 </div>
                                             </div>
@@ -288,9 +300,9 @@
                                                         <div class="d-flex flex-row align-items-center">
 
                                                             <!-- <div class="input-group mb-3">
-                                                                            <button class="btn btn-success input-group-text" id="inputGroup-sizing-default">送出</button>
-                                                                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                                                        </div> -->
+                                                                <button class="btn btn-success input-group-text" id="inputGroup-sizing-default">送出</button>
+                                                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                                            </div> -->
                                                             <i class="far fa-thumbs-up mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
                                                             <!-- <p class="small text-muted mb-0">4</p> -->
                                                         </div>
@@ -298,7 +310,7 @@
                                                 </div>
                                             </div>
                                         @endforeach
-                                        <form class="card-footer py-3 border-0 col-12 my-0" style="background-color: #f8f9fa;display:none;" action="{{route('comment.create')}}" method="post" id="nestComment{{ $comment->id }}">
+                                        <form class="card-footer py-3 border-0 col-12 my-0" style="background-color: #f8f9fa;" action="{{route('comment.create')}}" method="post">
                                             @csrf
                                             <div class="d-flex flex-start w-100">
                                                 <img class="rounded-circle shadow-1-strong me-3" src="https://teameowdev.files.wordpress.com/2016/04/avatar-01.png?w=300&h=300" alt="avatar" width="40" height="40" />
@@ -315,7 +327,6 @@
                                             </div>
                                         </form>
                                     </div>
-                                </li>
                             </ul>
                         </div>
                     </div>

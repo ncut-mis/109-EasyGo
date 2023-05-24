@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,7 +29,7 @@ class CommentController extends Controller
 
         $comment_id = $request->input('comment_id');
         $user = Auth::user(); //目前使用者
-
+//        $members=Member::where('user_id','=',$user->id)->get();
         $recipe_id = $request->input('recipe_id');
 
         $content = $request->input('content');

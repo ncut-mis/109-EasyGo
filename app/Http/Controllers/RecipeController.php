@@ -23,7 +23,7 @@ class RecipeController extends Controller
     //食譜首頁
     public function index()
     {
-        $recipes=Recipe::where('status','=',1)->get();//顯示上架食譜
+        $recipes=Recipe::where('status','=',1)->orderBy('id','DESC')->get();//顯示上架食譜
         $categories=RecipeCategory::orderBy('id','DESC')->get();
         $data=[
             'recipes' => $recipes,
@@ -37,7 +37,10 @@ class RecipeController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $SearchRecipe = Recipe::query()->where('name', 'LIKE', "%{$search}%")->get();
+        $SearchRecipe = Recipe::query()
+            ->where('name', 'LIKE', "%{$search}%")
+            ->where('status', 1)//上架
+            ->get();
         $categories=RecipeCategory::orderBy('id','DESC')->get();//sidenav顯示類別
         $data=[
                 'SearchRecipe'=>$SearchRecipe,
@@ -51,7 +54,7 @@ class RecipeController extends Controller
     {
 
         $categories=RecipeCategory::orderBy('id','DESC')->get();
-        $SearchRecipe=Recipe::where('recipe_category_id','=',$category->id)->get();//取得該類別的食譜
+        $SearchRecipe=Recipe::where('recipe_category_id','=',$category->id)->where('status', 1)->get();//取得該類別以上架食譜
         $data=[
             'SearchRecipe'=>$SearchRecipe,
             'categories'=>$categories
