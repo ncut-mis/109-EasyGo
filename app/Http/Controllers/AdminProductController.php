@@ -89,7 +89,6 @@ class AdminProductController extends Controller
         ]);
 
         $productId=$newProduct->id;
-        //dd($productId);
         // 處理圖片上傳
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -128,10 +127,12 @@ class AdminProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $productImgs=ProductImg::where('product_id','=',$product->id)->get();
         $categories=Category::all();
         $data=[
             'product'=>$product,
             'categories'=>$categories,
+            'productImgs'=>$productImgs,
         ];
         return view('admins.products.edit',$data);
     }
@@ -145,16 +146,19 @@ class AdminProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+       
         $product->update([
-            'category_id'=>$request->category,//種類
-            'name'=>$request->name,
-            'brand'=>$request->brand,
-            'origin_place'=>$request->origin_place,
-            'stock'=>$request->stock,
-            'price'=>$request->price,
-            'text'=>$request->text,
+            'category_id' => $request->category,//種類
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'origin_place' => $request->origin_place,
+            'stock' => $request->stock,
+            'price' => $request->price,
+            'text' => $request->text,
         ]);
-        return redirect()->route('admins.products.index');
+
+
+        return redirect()->route('admins.products.show',$product);
     }
 
 

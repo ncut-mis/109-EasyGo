@@ -13,26 +13,6 @@
         @csrf
         <div class="pt-4">
             <div class=" row mb-3">
-{{--                <!--食譜封面-->--}}
-{{--                <div class="mb-3">--}}
-{{--                    <label for="images">食譜封面</label>--}}
-
-{{--                    <input type="file" class="form-control" wire:model="images" id="images" name="images[]" accept="image/*" multiple>--}}
-{{--                    <div wire:loading wire:target="images">Uploading...</div>--}}
-{{--                    <div wire:loading.remove>--}}
-{{--                        @if ($images)--}}
-{{--                            <div>--}}
-{{--                                @foreach($images as $index => $image)--}}
-{{--                                    <img src="{{ $image->temporaryUrl() }}" width="350px" height="350px">--}}
-{{--                                    <a herf="#" wire:click.prevent="deleteUploadImg({{ $index }})"><i class="fa fa-times text-danger--}}
-{{--                                    mr-2"></i></a>--}}
-{{--                                @endforeach--}}
-{{--                            </div>--}}
-{{--                        @endif--}}
-{{--                    </div>--}}
-
-{{--                </div>--}}
-{{--                <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">--}}
                 <!--新增圖片-->
                 <div>
                     <label for="images" class="form-label">食材圖片</label>
