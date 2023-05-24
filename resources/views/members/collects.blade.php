@@ -50,12 +50,36 @@
                                     <td class="col-9">{{$collect->recipe->name}}</td>
                                     <td class="col-2">
                                         <a href="{{route('members.recipes.show',$collect->recipe->id)}}" type="button" class="btn btn-primary btn-sm">詳細資料</a>
+
                                         <!--刪除-->
                                         <form action="{{route('members.collects.destroy',$collect->id)}}" method="POST" style="display: inline-block">
                                             @method('DELETE')
                                             @csrf
-                                            <button class="btn btn-sm btn-danger" type="submit">刪除</button>
+
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#recipe{{$collect->id}}" data-bs-whatever="@123">刪除</button>
+                                            <div class="modal fade" id="recipe{{$collect->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <!--互動視窗-->
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <!--標題-->
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">刪除收藏</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h5>
+                                                                <p>確定要刪除<span class="text-danger">"{{$collect->recipe->name}}"</span>收藏嗎?</p>
+                                                            </h5>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">取消</button>
+                                                            <button type="submit" class="btn btn-sm btn-danger">確定</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </form>
+
                                     </td>
                                 </tr>
                             @endforeach
