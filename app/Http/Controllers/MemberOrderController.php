@@ -62,12 +62,24 @@ class MemberOrderController extends Controller
                         default:
                             $status='error';
                     };
+                    switch ($order->remit){    //辨識付款狀態
+                        case 0:
+                            $remit='未付款';
+                            break;
+                        case 1:
+                            $remit='已付款';
+                            break;
+                        case 2:
+                            $remit='已退款';
+                            break;
+                    };
                     //建立新的資料表
                     $array=Arr::add($array,$array_key,[
                         'id'=>$order->id,//訂單編號
                         'creat_time'=>$order->created_at,//成立時間
                         'price'=>$sum_price,//總金額
                         'status'=>$status,//訂單狀態
+                        'remit'=>$remit//付款狀態
                     ]);
 
                     $array_key++;
@@ -103,12 +115,24 @@ class MemberOrderController extends Controller
                         $price=Product::find($order_detail->product_id)->price;//取得產品價格
                         $sum_price+=$price * $order_detail->quantity;//加總該訂單所有價格
                     }
+                    switch ($order->remit){    //辨識付款狀態
+                        case 0:
+                            $remit='未付款';
+                            break;
+                        case 1:
+                            $remit='已付款';
+                            break;
+                        case 2:
+                            $remit='已退款';
+                            break;
+                    };
                     //建立新的資料表
                     $array=Arr::add($array,$array_key,[
                         'id'=>$order->id,//訂單編號
                         'creat_time'=>$order->created_at,//成立時間
                         'price'=>$sum_price,//總金額
                         'status'=>'已完成',//訂單狀態
+                        'remit'=>$remit//付款狀態
                     ]);
 
                     $array_key++;
@@ -143,12 +167,24 @@ class MemberOrderController extends Controller
                         $price=Product::find($order_detail->product_id)->price;//取得產品價格
                         $sum_price+=$price * $order_detail->quantity;//加總該訂單所有價格
                     }
+                    switch ($order->remit){    //辨識付款狀態
+                        case 0:
+                            $remit='未付款';
+                            break;
+                        case 1:
+                            $remit='已付款';
+                            break;
+                        case 2:
+                            $remit='已退款';
+                            break;
+                    };
                     //建立新的資料表
                     $array=Arr::add($array,$array_key,[
                         'id'=>$order->id,//訂單編號
                         'creat_time'=>$order->created_at,//成立時間
                         'price'=>$sum_price,//總金額
                         'status'=>'已取消',//訂單狀態
+                        'remit'=>$remit//付款狀態
                     ]);
 
                     $array_key++;
