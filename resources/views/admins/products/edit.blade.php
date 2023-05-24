@@ -28,11 +28,7 @@
                 </button>
             </div>
         </div>
-        <!--新增圖片-->
-        <div>
-            <label for="images" class="form-label">食材圖片</label>
-            <input type="file" name="images[]" multiple>
-        </div>
+
         <!-- Post title-->
         <div class="col-6">
             <label for="exampleFormControlTextarea1" class="form-label">食材名稱:</label>
