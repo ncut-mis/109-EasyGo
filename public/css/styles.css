@@ -449,6 +449,8 @@ legend + * {
   -webkit-appearance: none;
 }
 
+
+
 ::-webkit-color-swatch-wrapper {
   padding: 0;
 }
