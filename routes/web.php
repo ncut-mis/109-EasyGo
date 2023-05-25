@@ -164,6 +164,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     //平台人員
     Route::prefix('admins')->name('admins.')->group(function () {
+        Route::get('/index',[AdminLoginController::class,'index'])->name('index');//平台人員首頁
         //食譜
         Route::prefix('recipes')->name('recipes.')->group(function(){
             Route::get('/',[AdminRecipeController::class,'index'])->name('index');//食譜列表

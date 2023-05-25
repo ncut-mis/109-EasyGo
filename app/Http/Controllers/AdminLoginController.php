@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminLoginController extends Controller
 {
@@ -15,5 +16,14 @@ class AdminLoginController extends Controller
     {
         return view('blog.adminlogin');
     }
+    public function index()
+    {
+        $user=Auth::user();
+        $data=[
+            'user'=>$user,
+        ];
+        return view('admins.index',$data);
+    }
+
 }
 
