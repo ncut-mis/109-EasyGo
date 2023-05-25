@@ -105,7 +105,7 @@
                         <h5 class="modal-title" id="exampleModalLabel">取消訂單申請</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="{{route('members.orders.cancel_update',2)}}" method="post" class="col">
+                    <form action="{{route('members.orders.cancel_update',$array_item['id'])}}" method="post" class="col">
                         @method('patch')
                         <!--csrf驗證機制，產生隱藏的input，包含一組驗證密碼-->
                         @csrf
