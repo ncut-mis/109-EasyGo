@@ -375,8 +375,8 @@
                                 <h4>${category_name}</h4>
                             </td>
                             <td>
-                                <select class="form-select selectProduct" aria-label="Default select example" name="product[${index}][product_id]">
-                                    <option selected value="0">選擇商品</option>
+                                 <select class="form-select selectProduct" aria-label="Default select example" name="product[${index}][product_id]">
+                                    <!--option value="0">選擇商品</option-->
                                 </select>
                             </td>
                             <td>

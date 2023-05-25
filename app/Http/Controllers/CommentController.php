@@ -28,8 +28,8 @@ class CommentController extends Controller
     {
 
         $comment_id = $request->input('comment_id');
+//        $user = Auth::user(); //目前使用者
         $member = Auth::user()->member()->orderby('id', 'DESC')->first();//取得使用者在會員資料表的資訊
-
 
         $recipe_id = $request->input('recipe_id');
 
