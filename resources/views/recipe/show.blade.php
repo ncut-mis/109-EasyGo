@@ -108,12 +108,13 @@
                 <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingOne">
-                            <button class="accordion-button collapsed fs-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                食材
+                            <button class="accordion-button collapsed fs-2 custom-color" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                <b>食材</b>
                             </button>
 
                         </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+
+                        <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <div class="mb-3">
                                     <table class="table">
@@ -201,13 +202,14 @@
                     </div>
 
                     <!--步驟-->
-                    <div class="accordion-item">
+                    <div class="accordion-flush">
                         <h2 class="accordion-header" id="flush-headingTwo">
-                            <button class="accordion-button collapsed fs-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                製作步驟
+                            <button class="accordion-button collapsed fs-2  custom-color" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                <b>製作步驟</b>
                             </button>
                         </h2>
-                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <div class="mb-3">
                                     @foreach ($recipe->recipeSteps as $recipeStep)
@@ -225,7 +227,7 @@
 
                                                 <div class="col-md-8">
                                                     <div class="card-body mb-3">
-                                                        <h2 class="card-title mb-6">步驟{{$recipeStep->sequence}}</h2><br>
+                                                        <h2 class="card-title mb-6"><b>步驟{{$recipeStep->sequence}}</b></h2><br>
                                                         <h3>{{$recipeStep->text}}</h3>
                                                     </div>
                                                 </div>
@@ -375,8 +377,8 @@
                                 <h4>${category_name}</h4>
                             </td>
                             <td>
-                                <select class="form-select selectProduct" aria-label="Default select example" name="product[${index}][product_id]">
-                                    <option selected value="0">選擇商品</option>
+                                 <select class="form-select selectProduct" aria-label="Default select example" name="product[${index}][product_id]">
+                                    <!--option value="0">選擇商品</option-->
                                 </select>
                             </td>
                             <td>

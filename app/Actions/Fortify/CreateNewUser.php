@@ -4,6 +4,7 @@ namespace App\Actions\Fortify;
 
 use App\Models\Member;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -28,17 +29,23 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         User::create([
+
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+
         $users=User::where("name",$input['name'])->get();
 
         foreach ($users as $user){
             $userid=$user->id;
+            $name=$user->name;
         }
+
         Member::create([
-            'user_id'=>$userid
+            'user_id'=>$userid,
+        'nickname'=>$name
         ]);
 
         return User::find(1);

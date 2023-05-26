@@ -28,8 +28,9 @@ class CommentController extends Controller
     {
 
         $comment_id = $request->input('comment_id');
-        $user = Auth::user(); //目前使用者
-//        $members=Member::where('user_id','=',$user->id)->get();
+//        $user = Auth::user(); //目前使用者
+        $member = Auth::user()->member()->orderby('id', 'DESC')->first();//取得使用者在會員資料表的資訊
+
         $recipe_id = $request->input('recipe_id');
 
         $content = $request->input('content');
@@ -39,7 +40,7 @@ class CommentController extends Controller
             $new_comment->comment_id = $comment_id;
         }
 
-        $new_comment->member_id = $user->id;
+        $new_comment->member_id = $member->id;
         $new_comment->recipe_id = $recipe_id;
         $new_comment->comment_id = $comment_id == NULL ? NULL : $comment_id; //
         $new_comment->content = $content;
