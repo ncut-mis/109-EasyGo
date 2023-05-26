@@ -18,7 +18,7 @@ class HomeController extends Controller
 
         if($type =='2')
         {
-            return view('admins.recipes.index');
+            return view('admins.index');
         }
         if($type =='1'){
             return view('blog.new');

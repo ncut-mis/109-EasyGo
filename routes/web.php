@@ -153,7 +153,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         }
         elseif($type=='2')
         {
-            return redirect('admins/recipes');
+            return redirect('admins/index');
         }
         return view('dashboard');
 
