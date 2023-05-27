@@ -156,8 +156,8 @@ class RecipeController extends Controller
         //未登入
         $isCollect = null;
         $collect = null;
-        //辨別該會員是否收藏此食譜
-        if (Auth::check()) {
+        //辨別該會員是否收藏此食譜，且非此食譜發表人
+        if (Auth::check() && $recipe->user_id !== Auth::user()->id) {
             $member = Auth::user()->member;
             $isCollect = Collect::where('member_id', $member->id)
                 ->where('recipe_id', $recipe->id)
