@@ -147,7 +147,7 @@ class BloggerRecipeAdd extends Component
     public function removeList($index)
     {
         //先刪除建議在刪除食材
-        if (isset($this->ingredients[$index]['id'])) {
+        if (!empty($this->ingredients[$index]['id'])) {
             //DB有建議
             $ingredientId = $this->ingredients[$index]['id'];//食材id
             Suggest::where('ingredient_id', $ingredientId)->delete();//刪除此食材的所有建議
