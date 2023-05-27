@@ -185,11 +185,6 @@
 
                                 {{--建議--}}
                                 <td>
-                                    {{--自行輸入--}}
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" wire:model="ingredients.{{ $index }}.remark" placeholder="輸入建議商品">
-                                    </div>
-
                                     {{--新增按鈕--}}
                                     <div class="mb-3">
                                         <button type="button" class="btn btn-lg" wire:click="addSuggest({{ $index }})"><h5>+賣場商品</h5></button>
@@ -239,6 +234,11 @@
 
                                         </div>
                                     @endforeach
+
+                                    {{--自行輸入--}}
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" wire:model="ingredients.{{ $index }}.remark" placeholder="自行輸入建議商品">
+                                    </div>
                                 </td>
 
                                 <td><input type="text" class="form-control" wire:model="ingredients.{{ $index }}.quantity" placeholder="ex：?/單位"></td>
