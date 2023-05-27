@@ -18,6 +18,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">食譜名稱</th>
+                    <th scope="col">發表人</th>
                     <th scope="col">狀態</th>
                     <th scope="col">功能</th>
                 </tr>
@@ -27,31 +28,45 @@
                 @foreach($recipes as $recipe)
                     <tr>
                         <td>{{ $loop->iteration}}</td><!--自動編號-->
-                        <td class="col-7">{{$recipe->name}}</td>
+                        <td>{{$recipe->name}}</td>
+                        <td>{{$recipe->user->name}}</td>
 
-                        @if($recipe->status== 1)
-                            <td>
-                                已上架
-                                <form action="{{route('admins.recipes.stop',$recipe->id)}}" method="POST" style="display: inline-block">
-                                    @method('patch')
-                                    @csrf
-                                    <button class="btn btn-sm btn-warning" type="submit">下架</button>
-                                </form>
-                            </td>
+                        @if(Auth::user()->type==2 && $recipe->user_id==Auth::user()->id)
+                            @if($recipe->status== 1)
+                                <td>
+                                    已上架
+                                    <form action="{{route('admins.recipes.stop',$recipe->id)}}" method="POST" style="display: inline-block">
+                                        @method('patch')
+                                        @csrf
+                                        <button class="btn btn-sm btn-warning" type="submit">下架</button>
+                                    </form>
+                                </td>
+                            @else
+                                <td>
+                                    下架中
+                                    <form action="{{route('admins.recipes.launch',$recipe->id)}}" method="POST" style="display: inline-block">
+                                        @method('patch')
+                                        @csrf
+                                        <button class="btn btn-sm btn-warning" type="submit">上架</button>
+                                    </form>
+                                </td>
+                            @endif
                         @else
-                            <td>
-                                下架中
-                                <form action="{{route('admins.recipes.launch',$recipe->id)}}" method="POST" style="display: inline-block">
-                                    @method('patch')
-                                    @csrf
-                                    <button class="btn btn-sm btn-warning" type="submit">上架</button>
-                                </form>
-                            </td>
+                            @if($recipe->status== 1)
+                                <td>
+                                    上架中
+                                </td>
+                            @else
+                                <td>
+                                    <span class="text-danger">下架中</span>
+                                </td>
+                            @endif
                         @endif
 
                         <td class="col-2">
-                            <a href="{{route('admins.recipes.edit',$recipe->id)}}" type="button" class="btn btn-primary btn-sm">編輯</a>
+                            <a href="{{route('admins.recipes.edit',$recipe->id)}}" type="button" class="btn btn-primary btn-sm">詳細資料</a>
 
+                            @if(Auth::user()->type==2 && $recipe->user_id==Auth::user()->id)
                             <!--刪除-->
                             <form action="{{route('admins.recipes.destroy',$recipe->id)}}" method="POST" style="display: inline-block">
                                 @method('DELETE')
@@ -106,6 +121,8 @@
                                 @endif
 
                             </form>
+                            @endif
+
                         </td>
                     </tr>
                 @endforeach
