@@ -24,9 +24,11 @@ class RecipeController extends Controller
     public function index()
     {
         $recipes=Recipe::where('status','=',1)->orderBy('id','DESC')->get();//顯示上架食譜
+        $topRecipes = Recipe::has('collects', '>', 5)->get();//收藏人數大於5的食譜
         $categories=RecipeCategory::orderBy('id','DESC')->get();
         $data=[
             'recipes' => $recipes,
+            'topRecipes'=>$topRecipes,
             'categories'=>$categories,
             ];
 
