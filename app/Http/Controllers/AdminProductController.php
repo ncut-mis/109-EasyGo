@@ -155,7 +155,31 @@ class AdminProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        // 先處理圖片上傳
+        if ($request->hasFile('images')) {
+            $productImgs=ProductImg::where('product_id','=',$product->id)->get();
+            foreach ($productImgs as $productImg){
+                if ($productImg) {
+                    //刪除public下的圖片
+                    $path = public_path('img/product/' . $productImg->picture);
+                    if (file_exists($path)) {
+                        unlink($path);
+                    }
+                }
+                //刪除DB資料
+                $productImg->delete();
+            }
+            foreach ($request->file('images') as $image) {
+                $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+                $image->move('img/product', $fileName);
 
+                // 關聯圖片與產品
+                ProductImg::create([
+                    'product_id' => $product->id,
+                    'picture' => $fileName,
+                ]);
+            }
+        }
         $product->update([
             'category_id' => $request->category,//種類
             'name' => $request->name,

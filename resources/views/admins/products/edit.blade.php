@@ -30,6 +30,11 @@
         </div>
 
         <!-- Post title-->
+        <!--新增圖片-->
+        <div>
+            <label for="images" class="form-label">食材圖片</label>
+            <input type="file" name="images[]" multiple>
+        </div>
         <div class="col-6">
             <label for="exampleFormControlTextarea1" class="form-label">食材名稱:</label>
             <input name="name" id="name" type="text" class="form-control" value="{{$product->name}}">
