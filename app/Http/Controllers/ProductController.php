@@ -16,28 +16,32 @@ class ProductController extends Controller
 
     public function index()
     {
-        $count=0;
-        $array=array();
-        $products=Product:: where ( 'status' , '=' , 1 )->orderBy ( 'id' , 'DESC' )-> get ();;
-//        $products = Product::orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        $count = 0;
+        $array = array();
+        $products = Product::where('status', '=', 1)->orderBy('id', 'DESC')->get();
+
         foreach ($products as $product) {
             $product_imgs = ProductImg::where('product_id', $product->id)->get();
+            $addedProductIds = []; // 用於追蹤已經添加到 $array 的商品 ID
+
             foreach ($product_imgs as $product_img) {
-                $array = Arr::add($array, $count, [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'price' => $product->price,
-                    'status' => $product->status,
-                    'img' => $product_img->picture,
-                ]);
-                $count = $count + 2;
+                if (!in_array($product->id, $addedProductIds)) {
+                    $array = Arr::add($array, $count, [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'status' => $product->status,
+                        'img' => $product_img->picture,
+                    ]);
+                    $addedProductIds[] = $product->id; // 將商品 ID 加入已添加的列表中
+                    $count = $count + 2;
+                }
             }
         }
-        $data=[
-            'array'=>$array,
+        $data = [
+            'array' => $array,
         ];
-        return view('product.product',$data);
-
+        return view('product.product', $data);
     }
     public function add_product()
     {
