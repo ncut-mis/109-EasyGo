@@ -57,8 +57,10 @@
                 <td>
                     @if($order->remit==0)
                         未付款
-                    @else
+                    @elseif($order->remit==1)
                         已付款
+                    @elseif($order->remit==2)
+                        已退款
                     @endif
                 </td>
                 <td style="width:300px">

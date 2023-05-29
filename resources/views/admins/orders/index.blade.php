@@ -167,8 +167,11 @@
                         @csrf
                         <div class="modal-body">
                             <input type="hidden" class="form-control" id="id" name="id">
-                            <label class="fw-bolder">取消理由</label>
-                            <div class="shadow-sm p-3 bg-body rounded" id="remark" name="remark" rows="3" disabled></div>
+                            <div class="mb-4">
+                                <label class="fw-bolder">取消理由</label>
+                                <div class="shadow-sm p-3 bg-body rounded " id="remark" name="remark" rows="3" disabled></div>
+                            </div>
+                            <label class="fw-bolder text-danger">注意！同意取消將會退款給買家！</label>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-warning">確認</button>
