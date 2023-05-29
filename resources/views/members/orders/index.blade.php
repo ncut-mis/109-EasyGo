@@ -112,7 +112,30 @@
                         <div class="modal-body">
                             <input type="hidden" class="form-control" id="id" name="id">
                             <label>取消理由</label>
-                            <textarea class="form-control" id="remark" name="remark" rows="3"></textarea>
+                            <textarea class="form-control mb-3" id="remark" name="remark" rows="3"></textarea>
+                            <label >退款帳號</label>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">銀行代碼</span>
+                                <select class="form-select" id="inputGroupSelect01">
+                                    <option selected>請選擇</option>
+                                    <option value="1">001	中央信託</option>
+                                    <option value="2">003	交通銀行</option>
+                                    <option value="3">004	台灣銀行</option>
+                                    <option value="3">005	土地銀行</option>
+                                    <option value="3">006	合庫商銀</option>
+                                    <option value="3">007	第一銀行</option>
+                                    <option value="3">008	華南銀行</option>
+                                    <option value="3">009	彰化銀行</option>
+                                    <option value="3">010	華僑銀行</option>
+                                    <option value="3">011	上海銀行</option>
+                                    <option value="3">012	台北富邦</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">銀行帳號</span>
+                                <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-warning">確認</button>
