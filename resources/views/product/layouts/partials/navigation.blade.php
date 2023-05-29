@@ -37,11 +37,11 @@
                           </ul>
                       </div>
 
-                @if(\Illuminate\Support\Facades\Auth::check())
-                    @if(Auth::user()->type == '2')
-                <a class="nav-link link-light " aria-current="page"  href="{{route('product.add_product')}}">上架商品</a>
-                    @endif
-                @endif
+{{--                @if(\Illuminate\Support\Facades\Auth::check())--}}
+{{--                    @if(Auth::user()->type == '2')--}}
+{{--                <a class="nav-link link-light " aria-current="page"  href="{{route('product.add_product')}}">上架商品</a>--}}
+{{--                    @endif--}}
+{{--                @endif--}}
 
                     @if(\Illuminate\Support\Facades\Auth::check())
                     @if(Auth::user()->type == '1')
