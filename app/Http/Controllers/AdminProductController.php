@@ -102,6 +102,15 @@ class AdminProductController extends Controller
                 ]);
             }
         }
+        else {
+            // 沒有上傳圖片，使用預設圖片
+            $fileName = 'default.jpg';
+            // 關聯圖片與產品
+            ProductImg::create([
+                'product_id' => $productId,
+                'picture' => $fileName,
+            ]);
+        }
         return redirect()->route('admins.products.index');
 
     }
@@ -146,7 +155,7 @@ class AdminProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-       
+
         $product->update([
             'category_id' => $request->category,//種類
             'name' => $request->name,

@@ -71,7 +71,14 @@
                 </div>
             </section>
         </div>
+{{--    @elseif($products = null)<!--無搜尋到相關資料-->--}}
+{{--    <div class="p-lg-5  pt-lg-0 pt-5">--}}
+{{--        <div class="fs-4 fw-bold pt-5">--}}
+{{--            --}}{{--            <div class="position-absolute top-50 start-50 translate-middle">--}}
+{{--            <h2>查無資料，請重新查詢.</h2>--}}
 
+{{--        </div>--}}
+{{--    </div>--}}
         @else<!--無搜尋到相關資料-->
         <div class="p-lg-5  pt-lg-0 pt-5">
             <div class="fs-4 fw-bold pt-5">

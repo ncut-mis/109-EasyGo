@@ -13,39 +13,24 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-//    public function detail(Product $products)
-//    {
-//
-//        $products=Product::where('id','=',$products->id)->get();
-//
-//        $data=[
-//            'products'=>$products,
-//        ];
-//        return view('product.detail',$data);
-//
-//    }
+
     public function index()
     {
         $count=0;
         $array=array();
-//        $products=Product::all();
-        $products = Product::orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
-        foreach ($products as $product){
-            $product_imgs=ProductImg::where('product_id',$product->id)->get();
-            foreach ($product_imgs as $product_img){
-                $array=Arr::add($array,$count,[
-                    'id'=>$product->id,
-                    'name'=>$product->name,
-                    'price'=>$product->price,
-                    'status'=>$product->status,
-                    'img'=>$product_img->picture,
+        $products=Product:: where ( 'status' , '=' , 1 )->orderBy ( 'id' , 'DESC' )-> get ();;
+//        $products = Product::orderBy('id','DESC')->get();//取得資料庫中的欄位值，以陣列的方式
+        foreach ($products as $product) {
+            $product_imgs = ProductImg::where('product_id', $product->id)->get();
+            foreach ($product_imgs as $product_img) {
+                $array = Arr::add($array, $count, [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'price' => $product->price,
+                    'status' => $product->status,
+                    'img' => $product_img->picture,
                 ]);
-                $count++;
+                $count = $count + 2;
             }
         }
         $data=[
