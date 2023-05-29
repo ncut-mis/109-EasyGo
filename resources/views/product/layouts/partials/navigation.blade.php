@@ -1,6 +1,6 @@
 <!-- Responsive navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-    <div class="container px-lg-5">
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color:#FAE6B1">
+    <div class="container px-gl-5">
         <a class="navbar-brand" href="{{route('product.product')}}">食材EasyGo</a>
 {{--        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 " action="{{route('search')}}" method="get">--}}
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 " action="{{route('product.keyword')}}" method="get">

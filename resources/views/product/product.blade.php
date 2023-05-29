@@ -1,6 +1,7 @@
 @extends('product.layouts.master')
 @section('title','EasyGo')
 @section('content')
+    <div style="background-color: #B3DEE5">
     @include('product.share.header')
     <!--標籤列-->
     <div class="row justify-content-center">
@@ -8,7 +9,7 @@
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-new-tab" data-bs-toggle="tab" data-bs-target="#nav-new"
-                            type="button" role="tab" aria-controls="nav-new" aria-selected="true">賣場
+                            type="button" role="tab" aria-controls="nav-new" aria-selected="true" style="background-color: #B3DEE5">賣場
                     </button>
                 </div>
             </nav>
@@ -52,4 +53,5 @@
             </div>
         </div>
     </section>
+    </div>
 @endsection
