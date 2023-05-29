@@ -49,22 +49,26 @@ class ProductController extends Controller
     }
     public function cereals(Request $request)
     {
-        $count=0;
-        $array=array();
+        $count = 0;
+        $array = array();
         $products=Product::all();
+        foreach ($products as $product) {
+            $product_imgs = ProductImg::where('product_id', $product->id)->get();
+            $addedProductIds = []; // 用於追蹤已經添加到 $array 的商品 ID
 
-        foreach ($products as $product){
-            $product_imgs=ProductImg::where('product_id',$product->id)->get();
-            foreach ($product_imgs as $product_img){
-                $array=Arr::add($array,$count,[
-                    'id'=>$product->id,
-                    'name'=>$product->name,
-                    'price'=>$product->price,
-                    'status'=>$product->status,
-                    'category_id'=>$product->category_id,
-                    'img'=>$product_img->picture,
-                ]);
-                $count++;
+            foreach ($product_imgs as $product_img) {
+                if (!in_array($product->id, $addedProductIds)) {
+                    $array = Arr::add($array, $count, [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'status' => $product->status,
+                        'img' => $product_img->picture,
+                        'category_id'=>$product->category_id,
+                    ]);
+                    $addedProductIds[] = $product->id; // 將商品 ID 加入已添加的列表中
+                    $count = $count + 2;
+                }
             }
         }
 
@@ -87,18 +91,26 @@ class ProductController extends Controller
         $array=array();
         $products=Product::all();
 
-        foreach ($products as $product){
-            $product_imgs=ProductImg::where('product_id',$product->id)->get();
-            foreach ($product_imgs as $product_img){
-                $array=Arr::add($array,$count,[
-                    'id'=>$product->id,
-                    'name'=>$product->name,
-                    'price'=>$product->price,
-                    'status'=>$product->status,
-                    'category_id'=>$product->category_id,
-                    'img'=>$product_img->picture,
-                ]);
-                $count++;
+        $count = 0;
+        $array = array();
+        $products=Product::all();
+        foreach ($products as $product) {
+            $product_imgs = ProductImg::where('product_id', $product->id)->get();
+            $addedProductIds = []; // 用於追蹤已經添加到 $array 的商品 ID
+
+            foreach ($product_imgs as $product_img) {
+                if (!in_array($product->id, $addedProductIds)) {
+                    $array = Arr::add($array, $count, [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'status' => $product->status,
+                        'img' => $product_img->picture,
+                        'category_id'=>$product->category_id,
+                    ]);
+                    $addedProductIds[] = $product->id; // 將商品 ID 加入已添加的列表中
+                    $count = $count + 2;
+                }
             }
         }
         $id = $request->input('id');
@@ -117,95 +129,96 @@ class ProductController extends Controller
 
     public function fruit(Request $request)
     {
-        $count=0;
-        $array=array();
+        $count = 0;
+        $array = array();
         $products=Product::all();
-
-        foreach ($products as $product){
-            $product_imgs=ProductImg::where('product_id',$product->id)->get();
-            foreach ($product_imgs as $product_img){
-                $array=Arr::add($array,$count,[
-                    'id'=>$product->id,
-                    'name'=>$product->name,
-                    'price'=>$product->price,
-                    'status'=>$product->status,
-                    'category_id'=>$product->category_id,
-                    'img'=>$product_img->picture,
-                ]);
-                $count++;
+        foreach ($products as $product) {
+            $product_imgs = ProductImg::where('product_id', $product->id)->get();
+            $addedProductIds = []; // 用於追蹤已經添加到 $array 的商品 ID
+            foreach ($product_imgs as $product_img) {
+                if (!in_array($product->id, $addedProductIds)) {
+                    $array = Arr::add($array, $count, [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'status' => $product->status,
+                        'img' => $product_img->picture,
+                        'category_id'=>$product->category_id,
+                    ]);
+                    $addedProductIds[] = $product->id; // 將商品 ID 加入已添加的列表中
+                    $count = $count + 2;
+                }
             }
         }
         $id = $request->input('id');
-//        $products=Product::orderBy('id','DESC')->get();
-
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
-
         $data=[
             'products'=>$products,
             'products_img'=>$products_imgs,
             'array'=>$array,
         ];
         return view('product.fruit', $data);
-//        return view('product.fruit');
     }
 
     public function vegetable(Request $request)
     {
-        $count=0;
-        $array=array();
+        $count = 0;
+        $array = array();
         $products=Product::all();
+        foreach ($products as $product) {
+            $product_imgs = ProductImg::where('product_id', $product->id)->get();
+            $addedProductIds = []; // 用於追蹤已經添加到 $array 的商品 ID
 
-        foreach ($products as $product){
-            $product_imgs=ProductImg::where('product_id',$product->id)->get();
-            foreach ($product_imgs as $product_img){
-                $array=Arr::add($array,$count,[
-                    'id'=>$product->id,
-                    'name'=>$product->name,
-                    'price'=>$product->price,
-                    'status'=>$product->status,
-                    'category_id'=>$product->category_id,
-                    'img'=>$product_img->picture,
-                ]);
-                $count++;
+            foreach ($product_imgs as $product_img) {
+                if (!in_array($product->id, $addedProductIds)) {
+                    $array = Arr::add($array, $count, [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'status' => $product->status,
+                        'img' => $product_img->picture,
+                        'category_id'=>$product->category_id,
+                    ]);
+                    $addedProductIds[] = $product->id; // 將商品 ID 加入已添加的列表中
+                    $count = $count + 2;
+                }
             }
         }
         $id = $request->input('id');
-//        $products=Product::orderBy('id','DESC')->get();
-
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
-
         $data=[
             'products'=>$products,
             'products_img'=>$products_imgs,
             'array'=>$array,
         ];
         return view('product.vegetable', $data);
-//        return view('product.vegetable');
     }
 
     public function meat(Request $request)
     {
-        $count=0;
-        $array=array();
+        $count = 0;
+        $array = array();
         $products=Product::all();
+        foreach ($products as $product) {
+            $product_imgs = ProductImg::where('product_id', $product->id)->get();
+            $addedProductIds = []; // 用於追蹤已經添加到 $array 的商品 ID
 
-        foreach ($products as $product){
-            $product_imgs=ProductImg::where('product_id',$product->id)->get();
-            foreach ($product_imgs as $product_img){
-                $array=Arr::add($array,$count,[
-                    'id'=>$product->id,
-                    'name'=>$product->name,
-                    'price'=>$product->price,
-                    'status'=>$product->status,
-                    'category_id'=>$product->category_id,
-                    'img'=>$product_img->picture,
-                ]);
-                $count++;
+            foreach ($product_imgs as $product_img) {
+                if (!in_array($product->id, $addedProductIds)) {
+                    $array = Arr::add($array, $count, [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'status' => $product->status,
+                        'img' => $product_img->picture,
+                        'category_id'=>$product->category_id,
+                    ]);
+                    $addedProductIds[] = $product->id; // 將商品 ID 加入已添加的列表中
+                    $count = $count + 2;
+                }
             }
         }
         $id = $request->input('id');
-//        $products=Product::orderBy('id','DESC')->get();
-
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
         $data=[
             'products'=>$products,
@@ -213,102 +226,103 @@ class ProductController extends Controller
             'array'=>$array,
         ];
         return view('product.meat', $data);
-//        return view('product.meat');
     }
 
     public function fresh(Request $request)
     {
-        $count=0;
-        $array=array();
+        $count = 0;
+        $array = array();
         $products=Product::all();
+        foreach ($products as $product) {
+            $product_imgs = ProductImg::where('product_id', $product->id)->get();
+            $addedProductIds = []; // 用於追蹤已經添加到 $array 的商品 ID
 
-        foreach ($products as $product){
-            $product_imgs=ProductImg::where('product_id',$product->id)->get();
-            foreach ($product_imgs as $product_img){
-                $array=Arr::add($array,$count,[
-                    'id'=>$product->id,
-                    'name'=>$product->name,
-                    'price'=>$product->price,
-                    'status'=>$product->status,
-                    'category_id'=>$product->category_id,
-                    'img'=>$product_img->picture,
-                ]);
-                $count++;
+            foreach ($product_imgs as $product_img) {
+                if (!in_array($product->id, $addedProductIds)) {
+                    $array = Arr::add($array, $count, [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'status' => $product->status,
+                        'img' => $product_img->picture,
+                        'category_id'=>$product->category_id,
+                    ]);
+                    $addedProductIds[] = $product->id; // 將商品 ID 加入已添加的列表中
+                    $count = $count + 2;
+                }
             }
         }
         $id = $request->input('id');
-//        $products=Product::orderBy('id','DESC')->get();
-
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
-
         $data=[
             'products'=>$products,
             'products_img'=>$products_imgs,
             'array'=>$array,
         ];
         return view('product.fresh', $data);
-//        return view('product.fresh');
+
     }
 
     public function milk(Request $request)
     {
-        $count=0;
-        $array=array();
+        $count = 0;
+        $array = array();
         $products=Product::all();
+        foreach ($products as $product) {
+            $product_imgs = ProductImg::where('product_id', $product->id)->get();
+            $addedProductIds = []; // 用於追蹤已經添加到 $array 的商品 ID
 
-        foreach ($products as $product){
-            $product_imgs=ProductImg::where('product_id',$product->id)->get();
-            foreach ($product_imgs as $product_img){
-                $array=Arr::add($array,$count,[
-                    'id'=>$product->id,
-                    'name'=>$product->name,
-                    'price'=>$product->price,
-                    'status'=>$product->status,
-                    'category_id'=>$product->category_id,
-                    'img'=>$product_img->picture,
-                ]);
-                $count++;
+            foreach ($product_imgs as $product_img) {
+                if (!in_array($product->id, $addedProductIds)) {
+                    $array = Arr::add($array, $count, [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'status' => $product->status,
+                        'img' => $product_img->picture,
+                        'category_id'=>$product->category_id,
+                    ]);
+                    $addedProductIds[] = $product->id; // 將商品 ID 加入已添加的列表中
+                    $count = $count + 2;
+                }
             }
         }
         $id = $request->input('id');
-//        $products=Product::orderBy('id','DESC')->get();
-
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
-
         $data=[
             'products'=>$products,
             'products_img'=>$products_imgs,
             'array'=>$array,
         ];
         return view('product.milk', $data);
-//        return view('product.milk');
     }
 
     public function seasoning(Request $request)
     {
-        $count=0;
-        $array=array();
+        $count = 0;
+        $array = array();
         $products=Product::all();
+        foreach ($products as $product) {
+            $product_imgs = ProductImg::where('product_id', $product->id)->get();
+            $addedProductIds = []; // 用於追蹤已經添加到 $array 的商品 ID
 
-        foreach ($products as $product){
-            $product_imgs=ProductImg::where('product_id',$product->id)->get();
-            foreach ($product_imgs as $product_img){
-                $array=Arr::add($array,$count,[
-                    'id'=>$product->id,
-                    'name'=>$product->name,
-                    'price'=>$product->price,
-                    'status'=>$product->status,
-                    'category_id'=>$product->category_id,
-                    'img'=>$product_img->picture,
-                ]);
-                $count++;
+            foreach ($product_imgs as $product_img) {
+                if (!in_array($product->id, $addedProductIds)) {
+                    $array = Arr::add($array, $count, [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'status' => $product->status,
+                        'img' => $product_img->picture,
+                        'category_id'=>$product->category_id,
+                    ]);
+                    $addedProductIds[] = $product->id; // 將商品 ID 加入已添加的列表中
+                    $count = $count + 2;
+                }
             }
         }
         $id = $request->input('id');
-//        $products=Product::orderBy('id','DESC')->get();
-
         $products_imgs=ProductImg::where('product_id','=',$id)->get();
-
         $data=[
             'products'=>$products,
             'products_img'=>$products_imgs,
@@ -328,19 +342,23 @@ class ProductController extends Controller
         //$categories=RecipeCategory::orderBy('id','DESC')->get();//sidenav顯示類別
         foreach ($products as $product)
         {
+            $product_imgs = ProductImg::where('product_id', $product->id)->get();
+            $addedProductIds = []; // 用於追蹤已經添加到 $array 的商品 ID
             $product_imgs=ProductImg::where('product_id',$product->id)->get();
             foreach ($product_imgs as $product_img)
             {
-                $array=Arr::add($array,$count,[
-                    'id'=>$product->id,
-                    'name'=>$product->name,
-                    'price'=>$product->price,
-                    'status'=>$product->status,
-                    'category_id'=>$product->category_id,
-                    'img'=>$product_img->picture,
-                ]);
-//                dd($array);
-                $count++;
+                if (!in_array($product->id, $addedProductIds)) {
+                    $array = Arr::add($array, $count, [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'price' => $product->price,
+                        'status' => $product->status,
+                        'category_id' => $product->category_id,
+                        'img' => $product_img->picture,
+                    ]);
+                    $addedProductIds[] = $product->id; // 將商品 ID 加入已添加的列表中
+                    $count++;
+                }
             }
         }
 //        $products=Product::all();
