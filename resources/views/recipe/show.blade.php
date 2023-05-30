@@ -158,7 +158,7 @@
                                                             <tr>
                                                                 <th scope="col"></th>
                                                                 <th scope="col">所需食材</th>
-                                                                <th scope="col">選擇商品</th>
+                                                                <th scope="col">商品</th>
                                                                 <th scope="col">數量</th>
                                                                 <th scope="col">備註</th>
                                                                 <!-- <th scope="col">金額</th> -->
