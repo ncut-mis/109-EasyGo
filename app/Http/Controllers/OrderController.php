@@ -26,7 +26,7 @@ class OrderController extends Controller
 
         Order::create([
             'member_id' => $member_id,
-            'remit' => $remit,
+            'remit' => 1,
             'status' => 0,
             'receiver' => $receiver,
             'tel' => $tel,

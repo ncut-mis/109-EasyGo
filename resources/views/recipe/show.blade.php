@@ -160,6 +160,7 @@
                                                                 <th scope="col">所需食材</th>
                                                                 <th scope="col">選擇商品</th>
                                                                 <th scope="col">數量</th>
+                                                                <th scope="col">備註</th>
                                                                 <!-- <th scope="col">金額</th> -->
 
                                                             </tr>
@@ -349,7 +350,7 @@
             });
             $("#dss").click(function() {
 
-
+                //送 AJAX 請
                 $.ajax({
                     url: "{{route('members.recipes.List',$recipe->id)}}",
                     type: "GET",
@@ -371,13 +372,13 @@
 
                             let html = `<tr>
                             <td>
-                                <input type="checkbox" name="product[${index}][suretobuy]" checked>
+                                <input type="checkbox" name="product[${index}][suretobuy]"  checked>
                             </td>
                             <td>
                                 <h4>${category_name}</h4>
                             </td>
                             <td>
-                                 <select class="form-select selectProduct" aria-label="Default select example" name="product[${index}][product_id]">
+                                 <select class="form-select selectProduct" aria-label="Default select example" name="product[${index}][product_id]>
                                     <!--option value="0">選擇商品</option-->
                                 </select>
                             </td>
@@ -389,9 +390,8 @@
                             </td--!>
                         </tr>`
 
-                            $('#products').append(html)
-                            // appendHtml += html;
-                            // $('#products').html(appendHtml)
+                            $('#products').append(html)//顯示商品列表
+
                             orderListCategoryGroup[category_name].forEach((product) => {
                                 const {
                                     product_name,
@@ -399,10 +399,11 @@
                                     product_price,
                                     product_norm
                                 } = product;
+
                                 let option = `<option value="${product_id}">${product_name}</option>`
                                 let price = `${product_price} ${product_norm}`
-                                $('.selectProduct').eq(index).append(option)
-                                // $('.price').eq(index).append(price)
+                                $('.selectProduct').eq(index).append(option)//對應類別到下拉選單
+
                             })
 
                         })
