@@ -69,6 +69,7 @@
                         </li>
                     @endif
                 @else
+                    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">註冊</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">登入</a></li>
             @endif
               </div>
