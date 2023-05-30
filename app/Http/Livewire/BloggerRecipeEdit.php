@@ -153,8 +153,7 @@ class BloggerRecipeEdit extends Component
                 //自訂名稱
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 //儲存至公開資料夾下
-                $test=$image->storeAs('img/recipe', $imageName, 'public_new');
-                dd($test);
+                $image->storeAs('img/recipe', $imageName, 'public_new');
                 //存入DB
                 RecipeImg::create([
                     'recipe_id' => $recipe->id,
