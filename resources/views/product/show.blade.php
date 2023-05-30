@@ -40,11 +40,18 @@
 
                                     </div>
                                     <!-- Product actions-->
-                                    <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
-                                        <div class="text-center">
+                                    <!--原加入購物車位置-->
+{{--                                    <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">--}}
+{{--                                        <div class="text-center">--}}
+{{--                                            <input style="width:100px;" type="number" name="quantity" min="1" max="99" value="1">--}}
+{{--                                            <button class="btn btn-outline-dark mt-auto">加入購物車</button>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+                                    <!--靠左加入購物車位置-->
+                                    <div class="card-footer pl-2 pt-0 border-top-0 bg-transparent">
+                                        <div>
                                             <input style="width:100px;" type="number" name="quantity" min="1" max="99" value="1">
                                             <button class="btn btn-outline-dark mt-auto">加入購物車</button>
-
                                         </div>
                                     </div>
 

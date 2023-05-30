@@ -5,12 +5,13 @@
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="../img/1.png" class="d-block w-100">
+                        <img src="../img/home1.jpg" class="d-block w-100">
 
-                            <a href="" class="stretched-link"></a>
+                            <a href="{{route('product.fruit')}}" class="stretched-link"></a>
                     </div>
                     <div class="carousel-item">
-                        <img src="../img/2.png" class="d-block w-100">
+                        <img src="../img/home2.jpg" class="d-block w-100">
+                        <a href="{{route('product.product')}}" class="stretched-link"></a>
                     </div>
                 </div>
             </div>

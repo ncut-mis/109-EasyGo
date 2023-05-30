@@ -26,7 +26,9 @@ class CommentController extends Controller
      */
     public function create(Request$request)
     {
-
+        if (is_null(Auth::user())) {
+            return redirect(route('login'));
+        }
         $comment_id = $request->input('comment_id');
 //        $user = Auth::user(); //目前使用者
         $member = Auth::user()->member()->orderby('id', 'DESC')->first();//取得使用者在會員資料表的資訊

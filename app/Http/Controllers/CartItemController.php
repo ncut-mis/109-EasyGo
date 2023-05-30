@@ -111,6 +111,9 @@ class CartItemController extends Controller
      */
     public function store(Request $request)
     {
+        if (is_null(Auth::user())) {
+            return redirect(route('login'));
+        }
         $user = Auth::user(); //目前使用者
         $members = Member::where('user_id', $user->id)->get();
         $item_count = Item::where('member_id', $members[0]->id)->where('product_id', $request->input('pid'))->count();
@@ -139,6 +142,9 @@ class CartItemController extends Controller
 
     public function easy(Request $request)
     {
+        if (is_null(Auth::user())) {
+            return redirect(route('login'));
+        }
         $user = Auth::user(); //目前使用者
         $members = Member::where('user_id', $user->id)->get();
         $product = $request->input('product');

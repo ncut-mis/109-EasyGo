@@ -91,11 +91,11 @@
 
                             </tr>
                             <tr>
-                                <th scope="row">信用卡號<input type="password" class="form-control" placeholder="xxxx-xxxx-xxxx-xxxx"></th>
+                                <th scope="row">信用卡號<input class="form-control" placeholder="xxxx-xxxx-xxxx-xxxx"></th>
 
                             </tr>
                             <tr>
-                                <th scope="row">有效期限<input type="password" class="form-control"  placeholder="有效期限"></th>
+                                <th scope="row">有效期限<input  class="form-control"  placeholder="有效期限"></th>
 
                             </tr>
 
