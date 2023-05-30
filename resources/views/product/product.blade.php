@@ -1,15 +1,15 @@
 @extends('product.layouts.master')
 @section('title','EasyGo')
 @section('content')
-    <div style="background-color: #B3DEE5">
+    <div STYLE="background-color: #EDEFEE">
     @include('product.share.header')
     <!--標籤列-->
     <div class="row justify-content-center">
         <div style="width: 83%">
             <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist" style="border-bottom:1px solid #b9bebe">
                     <button class="nav-link active" id="nav-new-tab" data-bs-toggle="tab" data-bs-target="#nav-new"
-                            type="button" role="tab" aria-controls="nav-new" aria-selected="true" style="background-color: #B3DEE5">賣場
+                            type="button" role="tab" aria-controls="nav-new" aria-selected="true" style="background-color: #EDEFEE;border:1px solid #b9bebe;border-bottom:1px solid #EDEFEE " >賣場
                     </button>
                 </div>
             </nav>

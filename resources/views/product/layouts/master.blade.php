@@ -25,7 +25,9 @@
 
 <!-- Header-->
 <!-- Page Content-->
-@yield('content')
+<div STYLE="background-color: #EDEFEE">
+    @yield('content')
+</div>
 
 <!-- Footer-->
 @include('product.layouts.partials.footer')
