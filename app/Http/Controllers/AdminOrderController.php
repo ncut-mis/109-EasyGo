@@ -191,8 +191,13 @@ class AdminOrderController extends Controller
 
     public function update_cancel(Request $request){
         $order=Order::find($request->id);
+        if ($order->remit==1)
+            $remit=2;
+        else
+            $remit=0;
         $order->update([
             'status'=>6,
+            'remit'=>$remit,
         ]);
         return redirect()->route('admins.orders.index');
     }
