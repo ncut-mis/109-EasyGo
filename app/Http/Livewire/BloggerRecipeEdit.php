@@ -153,7 +153,8 @@ class BloggerRecipeEdit extends Component
                 //自訂名稱
                 $imageName = time() . '_' . $image->getClientOriginalName();
                 //儲存至公開資料夾下
-                $image->storeAs('img/recipe', $imageName, 'public_new');
+                $test=$image->storeAs('img/recipe', $imageName, 'public_new');
+                dd($test);
                 //存入DB
                 RecipeImg::create([
                     'recipe_id' => $recipe->id,
@@ -162,8 +163,6 @@ class BloggerRecipeEdit extends Component
             }
             //清空陣列
             $this->images = [];
-            //刪除臨時文件
-            Storage::disk('local')->delete($image->getRealPath());
         }
 
         //食譜影片
@@ -184,7 +183,6 @@ class BloggerRecipeEdit extends Component
             //清空陣列
             $this->videos = [];
         }
-
         session()->flash('message', '食譜更新成功!');
     }
 
