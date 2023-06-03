@@ -7,7 +7,8 @@
                     <!--食譜資料-->
                     <div class="mb-3">
                         <h4>食譜名稱：{{ $recipe->name }}</h4>
-                        <h4>食譜簡介：{{ $recipe->text }}</h4>
+                        <h4>簡介：{{ $recipe->text }}</h4>
+                        <h4>類別：{{ $recipe->recipecategory->name }}</h4>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <a href="{{route('members.recipes.index')}}" class="btn btn-secondary btn-lg">回列表</a>
@@ -202,15 +203,25 @@
                     <div class="alert alert-success">
                         {{ session('message') }}
                     </div>
+                @elseif(session('error2'))
+                    <div class="alert alert-danger">
+                        {{ session('error2') }}
+                    </div>
                 @endif
                     <!--食譜封面影片上傳-->
                 <h1 class="fw-bolder mb-1">封面、影片</h1>
-                    @if(!$isSaved)
                         <form wire:submit.prevent="add" enctype="multipart/form-data">
 
                             <!--食譜封面-->
                             <div class="mb-3">
                                 <label for="images">食譜封面</label>
+                                <div>
+                                    @foreach ($recipeImages as $recipeImg)
+                                        <img src="{{ asset('img/recipe/' . $recipeImg->picture) }}" width="350px" height="350px">
+                                        <a herf="#" wire:click.prevent="deleteRecipeImg({{ $recipeImg->id }})"><i class="fa fa-times text-danger
+                                    mr-2"></i></a>
+                                    @endforeach
+                                </div>
 
                                 <input type="file" class="form-control" wire:model="images" id="images" name="images[]" accept="image/*" multiple>
                                 <div wire:loading wire:target="images">Uploading...</div>
@@ -233,6 +244,11 @@
                             <div class="mb-3">
                                 <label for="videos">食譜影片</label>
                                 <div>
+                                    @foreach ($recipeVideos as $recipeVideo)
+                                        <video src="{{ asset('video/' . $recipeVideo->film) }}" autoplay controls muted  width="40%" height="350"></video>
+                                        <a href="#" wire:click.prevent="deleteRecipeVideo({{ $recipeVideo->id }})"><i class="fa fa-times text-danger mr-2"></i></a>
+                                    @endforeach
+                                </div>
 
                                     <input type="file" class="form-control"  wire:model="videos" id="videos" name="videos[]" accept="video/*" multiple>
                                     <div wire:loading wire:target="videos">Uploading...</div>
@@ -248,7 +264,6 @@
                                             </div>
                                         @endif
                                     </div>
-                                </div>
 
                             </div>
 
@@ -256,7 +271,6 @@
                                 <button type="submit" class="btn btn-primary btn-lg">儲存</button>
                             </div>
                         </form>
-                    @endif
 
             </div>
 

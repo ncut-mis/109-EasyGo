@@ -32,8 +32,8 @@ class BloggerRecipeAdd extends Component
         $originalSteps = [],
 
         $images = [],
-        $videos = [],
-        $isSaved = false;//封面、影片影藏
+        $videos = [];
+
 
     public $showInput = [];//推薦自行輸入框
     public $products=[];
@@ -68,6 +68,7 @@ class BloggerRecipeAdd extends Component
     }
 
 //<<<食譜封面影片>>>
+    //圖片
     //刪除預覽中的圖片
     public function deleteUploadImg($index)
     {
@@ -76,6 +77,23 @@ class BloggerRecipeAdd extends Component
         //重新排列
         $this->images = array_values($this->images);
     }
+    //刪除食譜封面圖片
+    public function deleteRecipeImg($id)
+    {
+        $image = RecipeImg::find($id);
+        if ($image) {
+            //刪除public下的圖片
+            $path = public_path('img/recipe/' . $image->picture);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+            //刪除DB資料
+            $image->delete();
+        }
+        session()->flash('error2', '圖片已成功刪除！');
+    }
+
+    //影片
     //刪除預覽中的影片
     public function deleteUploadVideo($index)
     {
@@ -84,6 +102,22 @@ class BloggerRecipeAdd extends Component
         //重新排列
         $this->videos = array_values($this->videos);
     }
+    //刪除食譜片
+    public function deleteRecipeVideo($id)
+    {
+        $video = RecipeFilm::find($id);
+        if ($video) {
+            //刪除public下的影片
+            $path = public_path('video/' . $video->film);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+            //刪除DB資料
+            $video->delete();
+        }
+        session()->flash('error2', '影片已成功刪除！');
+    }
+
     //新增食譜封面、影片
     public function add()
     {
@@ -122,7 +156,6 @@ class BloggerRecipeAdd extends Component
             //清空陣列
             $this->videos = [];
         }
-        $this->isSaved = true;
 
         session()->flash('message', '食譜圖片及影片新增成功!');
     }
@@ -435,10 +468,14 @@ class BloggerRecipeAdd extends Component
     {
         $categories = Category::orderBy('id','ASC')->get();//食材類別
         $products = Product::orderBy('id','ASC')->get();//商品
+        $recipeImages = RecipeImg::where('recipe_id', $this->recipe->id)->get();//封面
+        $recipeVideos = RecipeFilm::where('recipe_id', $this->recipe->id)->get();//影片
 
         return view('livewire.blogger-recipe-add', [
             'categories' => $categories,
             'products' => $products,
+            'recipeImages' => $recipeImages,
+            'recipeVideos' => $recipeVideos,
         ])->extends('members.layouts.master');
     }
 }

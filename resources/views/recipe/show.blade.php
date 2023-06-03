@@ -365,6 +365,7 @@
                             return group;
                         }, [])
                         console.log(orderListCategoryGroup)
+
                         //orderListCategoryName
                         let category_name = Object.keys(orderListCategoryGroup)
                         category_name.forEach((category_name, index) => {
