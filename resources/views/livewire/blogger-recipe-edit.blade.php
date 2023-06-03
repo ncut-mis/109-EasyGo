@@ -321,12 +321,17 @@
                                 </div>
 
                             </div>
-                    </div>
+
                         @endforeach
 
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button type="submit" class="btn btn-primary btn-lg">儲存</button>
-                            <a href="{{route('members.recipes.index')}}" class="btn btn-secondary btn-lg">回列表</a>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="submit" class="btn btn-primary btn-lg">儲存</button>
+                                @if( Auth::user()->type==1)
+                                    <a href="{{route('members.recipes.index')}}" class="btn btn-secondary btn-lg">回列表</a>
+                                @else
+                                    <a href="{{route('admins.recipes.index')}}" class="btn btn-secondary btn-lg">回列表</a>
+                                @endif
+                            </div>
                         </div>
                     </form>
 

@@ -11,7 +11,11 @@
                         <h4>類別：{{ $recipe->recipecategory->name }}</h4>
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a href="{{route('members.recipes.index')}}" class="btn btn-secondary btn-lg">回列表</a>
+                            @if( Auth::user()->type==1)
+                                <a href="{{route('members.recipes.index')}}" class="btn btn-secondary btn-lg">回列表</a>
+                            @else
+                                <a href="{{route('admins.recipes.index')}}" class="btn btn-secondary btn-lg">回列表</a>
+                            @endif
                         </div>
 
                         <hr style="border-top: 3px solid #ccc; margin-top: 20px; margin-bottom: 20px;">
