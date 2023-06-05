@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -25,7 +26,9 @@
 
 <!-- Header-->
 <!-- Page Content-->
-@yield('content')
+<div STYLE="background-color: #EDEFEE">
+    @yield('content')
+</div>
 
 <!-- Footer-->
 @include('product.layouts.partials.footer')

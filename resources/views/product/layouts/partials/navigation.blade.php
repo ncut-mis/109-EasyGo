@@ -1,12 +1,12 @@
 <!-- Responsive navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-    <div class="container px-lg-5">
+<nav class="navbar navbar-expand-lg navbar-dark " style="background-color:#AA210f">
+    <div class="container px-gl-5">
         <a class="navbar-brand" href="{{route('product.product')}}">食材EasyGo</a>
 {{--        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 " action="{{route('search')}}" method="get">--}}
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 " action="{{route('product.keyword')}}" method="get">
             <div class="input-group">
                 <input type="text" class="input-text" style="width:550px" placeholder="輸入食材名稱"  name="keyword" id="keyword">
-                <button type="submit" class="btn btn-success">搜尋</button>
+                <button type="submit" class="btn text-light" style="background-color: #41403C">搜尋</button>
             </div>
         </form>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -69,6 +69,7 @@
                         </li>
                     @endif
                 @else
+                    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">註冊</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">登入</a></li>
             @endif
               </div>

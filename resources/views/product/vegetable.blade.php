@@ -7,17 +7,13 @@
     <div class="row justify-content-center">
         <div style="width: 83%">
             <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="nav-new-tab" data-bs-toggle="tab" data-bs-target="#nav-new"
-                            type="button" role="tab" aria-controls="nav-new" aria-selected="true">蔬菜
-                    </button>
-                </div>
+                <h1 class="mt-5">蔬菜</h1>
             </nav>
         </div>
     </div>
 
     <!--內容--->
-    <section class="py-5">
+    <section class="py-1">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 @foreach($array as $array_item)
