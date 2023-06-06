@@ -21,7 +21,7 @@ class CollectController extends Controller
         $member=Auth::user()->member;
 
         //目前使用者收藏的食譜(且確認為上架食譜)
-        $collects = $member->collects()->with('recipe')->whereHas('recipe', function ($query) {
+        $collects = $member->collects()->orderBy('id','DESC')->with('recipe')->whereHas('recipe', function ($query) {
             $query->where('status', '1');
         })->get();
         //dd($collects);

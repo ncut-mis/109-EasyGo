@@ -16,8 +16,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MemberController;
 use App\Http\Livewire\AdminRecipeAdd;
 use App\Http\Livewire\AdminRecipeEdit;
-use App\Http\Livewire\BloggerRecipeAdd;
-use App\Http\Livewire\BloggerRecipeEdit;
+use App\Http\Livewire\RecipeAdd;
+use App\Http\Livewire\RecipeEdit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -58,10 +58,10 @@ Route::prefix('bloggers')->name('bloggers.')->group(function(){
     Route::prefix('recipes')->name('recipes.')->group(function(){
         Route::get('/',[BloggerRecipeController::class,'create'])->name('create');//新增食譜(基本資料)
         Route::post('/',[BloggerRecipeController::class,'store'])->name('store');//儲存食譜基本資料
-        Route::get('/add',BloggerRecipeAdd::class)->name('add');//新增食譜(其他資料)--livewire
+        Route::get('/add',RecipeAdd::class)->name('add');//新增食譜(其他資料)--livewire
         Route::patch ('/{recipe}/launch',[BloggerRecipeController::class,'launch'])->name('launch');//上架
         Route::patch ('/{recipe}/stop',[BloggerRecipeController::class,'stop'])->name('stop');//下架
-        Route::get('/{recipe}/edit',BloggerRecipeEdit::class)->name('edit');//食譜資料編輯--livewire
+        Route::get('/{recipe}/edit',RecipeEdit::class)->name('edit');//食譜資料編輯--livewire
         Route::delete('/{recipe}',[BloggerRecipeController::class,'destroy'])->name('destroy');//刪除食譜
     });
 });
@@ -172,8 +172,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             Route::patch ('/{recipe}/stop',[AdminRecipeController::class,'stop'])->name('stop');//下架
             Route::get('/create', [AdminRecipeController::class, 'create'])->name('create');//新增食譜(基本資料)
             Route::post('/store',[AdminRecipeController::class,'store'])->name('store');//儲存食譜(基本資料)
-            Route::get('/add',AdminRecipeAdd::class)->name('add');//新增食譜(其他資料)--livewire
-            Route::get('/{recipe}/edit',AdminRecipeEdit::class)->name('edit');//食譜資料編輯--livewire
+            Route::get('/add',RecipeAdd::class)->name('add');//新增食譜(其他資料)--livewire
+            Route::get('/{recipe}/edit',RecipeEdit::class)->name('edit');//食譜資料編輯--livewire
             Route::delete('/{recipe}',[AdminRecipeController::class,'destroy'])->name('destroy');//刪除食譜
         });
 

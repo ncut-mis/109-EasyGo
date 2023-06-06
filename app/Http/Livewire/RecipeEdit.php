@@ -11,12 +11,13 @@ use App\Models\RecipeFilm;
 use App\Models\RecipeImg;
 use App\Models\RecipeStep;
 use App\Models\Suggest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 
-class AdminRecipeEdit extends Component
+class RecipeEdit extends Component
 {
     use WithFileUploads;
 
@@ -162,7 +163,6 @@ class AdminRecipeEdit extends Component
             }
             //清空陣列
             $this->images = [];
-
         }
 
         //食譜影片
@@ -183,7 +183,6 @@ class AdminRecipeEdit extends Component
             //清空陣列
             $this->videos = [];
         }
-
         session()->flash('message', '食譜更新成功!');
     }
 
@@ -528,14 +527,29 @@ class AdminRecipeEdit extends Component
         $categories = Category::orderBy('id','ASC')->get();//食材類別
         $products = Product::orderBy('id','ASC')->get();//商品
 
-        return view('livewire.admin-recipe-edit', [
-            'recipe_categories' => $recipe_categories,
-            'recipeImages' => $recipeImages,
-            'recipeVideos' => $recipeVideos,
+        if( Auth::user()->type==1)
+        {
+            return view('livewire.blogger-recipe-edit', [
+                'recipe_categories' => $recipe_categories,
+                'recipeImages' => $recipeImages,
+                'recipeVideos' => $recipeVideos,
 
-            'categories' => $categories,
-            'products' => $products,
+                'categories' => $categories,
+                'products' => $products,
 
-        ])->extends('admins.layouts.master');
+            ])->extends('members.layouts.master');
+        }
+        else {
+                return view('livewire.blogger-recipe-edit', [
+                    'recipe_categories' => $recipe_categories,
+                    'recipeImages' => $recipeImages,
+                    'recipeVideos' => $recipeVideos,
+
+                    'categories' => $categories,
+                    'products' => $products,
+
+                ])->extends('admins.layouts.master');
+            }
+
     }
 }

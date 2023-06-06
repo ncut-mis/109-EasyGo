@@ -28,7 +28,8 @@ class CategorySeeder extends Seeder
             '海鮮'=>['蝦子','龍蝦'],
             '奶類'=>['牛奶','優酪乳'],
             '調味'=>['醬油','鹽'],
-            '菇類'=>['香菇','金針菇']
+            '菇類'=>['香菇','金針菇'],
+            '其他'=>[],
         ];
         foreach ($types as $type=>$info ){
             Category::factory([

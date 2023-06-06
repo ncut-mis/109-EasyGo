@@ -325,7 +325,7 @@
                                                 </div>
                                             </div>
                                             <div class="float-end mt-2 pt-1">
-                                                <button type="submit" class="btn btn-primary btn-sm">回覆</button>
+                                                <button wire:submit.prevent class="btn btn-primary btn-sm">回覆</button>
                                                 <!-- <button type="button" class="btn btn-outline-primary btn-sm">清除</button> -->
                                             </div>
                                         </form>
@@ -366,7 +366,6 @@
                             return group;
                         }, [])
                         console.log(orderListCategoryGroup)
-
                         //orderListCategoryName
                         let category_name = Object.keys(orderListCategoryGroup)
                         category_name.forEach((category_name, index) => {
